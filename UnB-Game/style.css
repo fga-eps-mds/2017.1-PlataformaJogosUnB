@@ -2252,7 +2252,11 @@ form textarea {
   margin-top: -40px;
   margin-bottom: 30px;
   background: #2b2b2b;
+  width: 70%;
+  float: left;
 }
+
+
 .home-slider .slides {
   *zoom: 1;
 }
@@ -2330,7 +2334,7 @@ form textarea {
   margin-bottom: 30px;
 }
 .home-slider .slide-image {
-  float: right;
+  /*float: right;*/
   border: 5px solid white;
   border-radius: 5px;
   max-width: 100%;
@@ -2715,4 +2719,12 @@ table.cart .fa-times {
 .site-footer .social-links a:hover {
   background-color: white;
   color: #898e90;
+}
+
+.boxRight{
+  float: right;
+}
+
+.clearBoth {
+  clear: both;
 }
