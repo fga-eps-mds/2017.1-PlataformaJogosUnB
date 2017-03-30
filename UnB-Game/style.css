@@ -2339,10 +2339,10 @@ form textarea {
   border-radius: 5px;
   max-width: 100%;
   height: auto;
+  position: relative;
 }
 @media screen and (max-width: 768px) {
   .home-slider .slide-image {
-    width: 50%;
   }
 }
 @media screen and (max-width: 480px) {
