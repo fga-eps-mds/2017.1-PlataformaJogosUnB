@@ -2376,7 +2376,7 @@ form textarea {
 }
 .product-list .product .inner-product {
   background: white;
-  padding: 30px;
+  padding: 5px;
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
@@ -2398,10 +2398,10 @@ form textarea {
   }
 }
 .product-list .product .figure-image {
-  border: 4px solid #dedede;
+  border: 2px solid black;
   border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
 .product-list .product .figure-image img {
   max-width: 100%;
@@ -2414,6 +2414,7 @@ form textarea {
   font-size: 1.2857142857em;
   color: #666a6c;
   margin: 0;
+  margin-bottom: 5px;
   text-align: left;
   font-weight: 400;
 }
@@ -2433,6 +2434,22 @@ form textarea {
   margin-bottom: 20px;
   display: block;
 }
+
+.product-os-info {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.product-os-info li {
+    padding-left: 5px;
+    display: inline-block;
+    line-height: 1;
+}
+
+.product-os-info li+li {
+    margin-left: 4px;
+}
+
 .product-list .product .button, .product-list .product form input[type="submit"], form .product-list .product input[type="submit"], .product-list .product form button, form .product-list .product button, .product-list .product form input[type="reset"], form .product-list .product input[type="reset"] {
   padding: 5px 10px;
 }
@@ -2546,10 +2563,7 @@ section header .all {
   float: right;
 }
 .page ul, .page ol {
-  border-left: 3px solid #45b77d;
-  padding-left: 30px;
-  margin-left: 30px;
-  margin: 30px 0 30px 30px;
+
 }
 .page h1, .page h2, .page h3, .page h4, .page h5, .page h6 {
   font-weight: 100;
