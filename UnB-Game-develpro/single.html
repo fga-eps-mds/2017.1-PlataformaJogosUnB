@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 		
-		<title>Ecommerce Video Game | Single</title>
+		<title>UnB Game | Jogo</title>
 
 		<!-- Loading third party fonts -->
 		<link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,700|" rel="stylesheet" type="text/css">
@@ -13,7 +13,8 @@
 		<link href="fonts/lineo-icon/style.css" rel="stylesheet" type="text/css">
 
 		<!-- Loading main css file -->
-		<link rel="stylesheet" href="style.css">
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<link rel="stylesheet" href="css/style.css">
 		
 		<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
@@ -27,31 +28,13 @@
 		
 		<div id="site-content">
 			<div class="site-header">
-				<div class="container">
-					<a href="index.html" id="branding">
-						<img src="images/logo.png" alt="" class="logo">
-						<div class="logo-text">
-							<h1 class="site-title">Company name</h1>
-							<small class="site-description">Tagline goes here</small>
-						</div>
-					</a> <!-- #branding -->
-
-					<div class="right-section pull-right">
-						<a href="cart.html" class="cart"><i class="icon-cart"></i> 0 items in cart</a>
-						<a href="#">My Account</a>
-						<a href="#">Logout <small>(John Smith)</small></a>
-					</div> <!-- .right-section -->
-
-					<div class="main-navigation">
+				<div class="main-navigation">
 						<button class="toggle-menu"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
 							<li class="menu-item home current-menu-item"><a href="index.html"><i class="icon-home"></i></a></li>
-							<li class="menu-item"><a href="products.html">Accessories</a></li>
-							<li class="menu-item"><a href="products.html">Promotions</a></li>
-							<li class="menu-item"><a href="products.html">PC</a></li>
-							<li class="menu-item"><a href="products.html">Playstation</a></li>
-							<li class="menu-item"><a href="products.html">Xbox</a></li>
-							<li class="menu-item"><a href="products.html">Wii</a></li>
+							<li class="menu-item"><a href="products.html">Jogos</a></li>
+							<li class="menu-item"><a href="products.html">Sobre</a></li>
+							<li class="menu-item"><a href="products.html">Contato</a></li>
 						</ul> <!-- .menu -->
 						<div class="search-form">
 							<label><img src="images/icon-search.png"></label>
@@ -60,14 +43,17 @@
 
 						<div class="mobile-navigation"></div> <!-- .mobile-navigation -->
 					</div> <!-- .main-navigation -->
+				</div> <!-- .container -->
+			</div> <!-- .site-header -->
 
-					<div class="breadcrumbs">
-						<div class="container">
-							<a href="index.html">Home</a>
-							<a href="products.html">Play Station Games</a>
-							<span>Need for Speed Rivals</span>
-						</div>
-					</div>
+					<main class="main-content">
+				<div class="container">
+					<div class="page">
+						
+						<div class="entry-content">
+							<div class="row">
+								<div class="col-sm-6 col-md-8">
+									<h2 class="entry-title">Need for Speed Rivals</h2>
 				</div> <!-- .container -->
 			</div> <!-- .site-header -->
 			
@@ -90,32 +76,35 @@
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-8">
-									<h2 class="entry-title">Need for Speed Rivals</h2>
-									<small class="price">$190.00</small>
 
-									<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-									<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.</p>
-									<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod.</p>
+										<div class="row">
+									        <div class="col s12 m6">
+									          <div class="card blue-grey darken-1">
+									            <div class="card-content white-text">
+									              <span class="card-title">Need For Speed</span>
+									              <p><strong>Ano: </strong>2017</p></br>
+									              <p><strong>Categoria: </strong> Ação</p></br>
+									              <p><strong>Equipe de desenvolvimento: </strong> Maria Liz, João Kleber e Glauco Rocha</p></br>
+									              <p><strong>Equipe de Arte: </strong>Jorge Figueiredo, Julio Prestes, Deodoro da Fonseca</p></br>
+									            </div>
+									            <div class="card-action">
+									              <a href="#">GitHub</a>
+									            </div>
+									          </div>
+									        </div>
+	      								</div>
 
-									<div class="addtocart-bar">
-										<form action="#">
-											<label for="#">Quantity</label>
-											<select name="#">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-											</select>
-											<input type="submit" value="Add to cart">
+									
+										<form class="formulario" action="#">
+											<div class="button-download">
+											
+												<a class="waves-effect waves-light btn" class="button-icon"><i class="material-icons left"><img src="images/linux-icon.png"></i>Download</a>
+												<a class="waves-effect waves-light btn" class="button-icon" ><i class="material-icons left"><img src="images/windows-icon.png"></i>Download</a>
+												<a class="waves-effect waves-light btn" class="button-icon"><i class="material-icons left"><img src="images/mac-icon.png"></i>Download</a>
+												
+											</div>
 										</form>
-
-										<div class="social-links square">
-											<strong>Share</strong>
-											<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-											<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-											<a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-											<a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
-										</div>
-									</div>
+								
 								</div>
 							</div>
 						</div>
@@ -274,6 +263,7 @@
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
 		
 	</body>
 
