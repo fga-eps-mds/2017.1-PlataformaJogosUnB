@@ -457,7 +457,7 @@ form textarea {
   *zoom: 1;
   background-color: #1b1919;
   border-radius: 3px;
-  padding: 20px 30px;
+  padding: 0px 30px;
   margin: 30px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
@@ -470,6 +470,7 @@ form textarea {
 }
 .filter-bar .filter, .pagination-bar .filter {
   float: left;
+  padding-top: 20px;
 }
 .filter-bar .filter select, .pagination-bar .filter select {
   margin: 0 5px;
@@ -2251,11 +2252,16 @@ form textarea {
 
 .home-slider {
   position: relative;
-  margin-top: -40px;
-  margin-bottom: 30px;
+  margin-top: -100px;
+  margin-bottom: 0px;
   width: 70%;
   float: left;
-  margin-left: 105px;
+  padding-top: 150px;
+  padding-left: 300px;
+  padding-right: 300px;
+  margin-left: 157px;
+
+
 }
 
 
@@ -2270,11 +2276,15 @@ form textarea {
   height: 0;
 }
 .home-slider .slides li {
-  min-height: 575px;
+
+  min-height: 600px;
   padding-top: 100px;
   padding-bottom: 50px;
   background-size: cover;
-  background-position: center center;
+  background-position:  center center;
+  border-width: thick;
+  border-radius: 4px;
+  border-color: black;
 
 }
 .home-slider .flex-control-nav {
@@ -2285,6 +2295,7 @@ form textarea {
   margin: auto;
   text-align: center;
   z-index: 9;
+  padding-left: 0px;
 }
 .home-slider .flex-control-nav li {
   display: inline-block;
@@ -2748,8 +2759,8 @@ table.cart .fa-times {
   text-align: center;
 }
 .images-top{
-  width: 35%; 
-  
+  width: 35%;
+
 
 }
 .clear-both {
