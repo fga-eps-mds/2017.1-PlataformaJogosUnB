@@ -2339,7 +2339,7 @@ form textarea {
   border-radius: 5px;
   max-width: 100%;
   height: auto;
-  
+
 }
 @media screen and (max-width: 768px) {
   .home-slider .slide-image {
@@ -2722,10 +2722,12 @@ table.cart .fa-times {
   color: #898e90;
 }
 
-.boxRight{
-  float: right;
+.box-right{
+  float: inherit;
 }
-
-.clearBoth {
+.jogos-destaque{
+  text-align: center;
+}
+.clear-both {
   clear: both;
 }
