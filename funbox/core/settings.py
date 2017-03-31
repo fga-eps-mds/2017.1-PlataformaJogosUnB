@@ -25,7 +25,7 @@ SECRET_KEY = '_0eb8h+)&-lcnm*ec@!-#ic**1e@xnhqr2=f!di77ijp=2f(@3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["10.10.10.10"]
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'funbox',
+        'USER': 'admin',
+        'PASSWORD': 'plataforma2017',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
