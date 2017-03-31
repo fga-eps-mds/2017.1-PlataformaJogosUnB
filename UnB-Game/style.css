@@ -2085,6 +2085,7 @@ form textarea {
 .main-navigation > .menu {
   list-style: none;
   float: left;
+  margin-left: 18%;
   *zoom: 1;
 }
 .main-navigation > .menu:after {
@@ -2169,6 +2170,7 @@ form textarea {
 .search-form {
   float: right;
   position: absolute;
+  margin-right: 18%;
   right: 0;
   top: 0;
   bottom: 0;
@@ -2251,9 +2253,9 @@ form textarea {
   position: relative;
   margin-top: -40px;
   margin-bottom: 30px;
-  background: #2b2b2b;
   width: 70%;
   float: left;
+  margin-left: 105px;
 }
 
 
@@ -2273,6 +2275,7 @@ form textarea {
   padding-bottom: 50px;
   background-size: cover;
   background-position: center center;
+
 }
 .home-slider .flex-control-nav {
   position: absolute;
@@ -2336,9 +2339,10 @@ form textarea {
 .home-slider .slide-image {
   /*float: right;*/
   border: 5px solid white;
-  border-radius: 5px;
+  border-radius: 2px;
   max-width: 100%;
   height: auto;
+  margin-left: 15%;
 
 }
 @media screen and (max-width: 768px) {
