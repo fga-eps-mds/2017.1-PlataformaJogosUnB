@@ -4623,7 +4623,7 @@ small {
   background-color: #fff;
   transition: box-shadow .25s;
   border-radius: 2px;
-  width: 571px;
+  width: 40%;
 }
 
 .card .card-title {
@@ -4666,6 +4666,7 @@ small {
 
 .card.medium {
   height: 400px;
+
 }
 
 .card.large {
@@ -8870,4 +8871,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker--time .picker__box {
     margin-bottom: 5em;
   }
+}
+.medium{
+  width: 400px;
 }
