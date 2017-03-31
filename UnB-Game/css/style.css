@@ -2721,12 +2721,16 @@ table.cart .fa-times {
   background-color: white;
   color: #898e90;
 }
-
 .box-right{
-  float: inherit;
+  float: right;
 }
-.jogos-destaque{
+#title-top{
   text-align: center;
+}
+.images-top{
+  width: 35%; 
+  
+
 }
 .clear-both {
   clear: both;

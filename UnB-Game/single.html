@@ -13,7 +13,7 @@
 		<link href="fonts/lineo-icon/style.css" rel="stylesheet" type="text/css">
 
 		<!-- Loading main css file -->
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="css/style.css">
 		
 		<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
