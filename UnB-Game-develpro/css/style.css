@@ -23,7 +23,7 @@ summary {
 
 /*.centralizar{
    width: -30px;
-  margin:0 auto;  
+  margin:0 auto;
 }*/
 audio,
 canvas,
@@ -343,6 +343,11 @@ form textarea {
   margin-bottom: 5px;
 }
 
+.socialnetworks{
+    position: relative;
+    text-align: center;
+}
+
 .social-links a {
   display: inline-block;
 }
@@ -461,7 +466,7 @@ form textarea {
   *zoom: 1;
   background-color: white;
   border-radius: 3px;
-  padding: 20px 30px;
+  padding: 0px 10px;
   margin: 30px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
@@ -474,6 +479,8 @@ form textarea {
 }
 .filter-bar .filter, .pagination-bar .filter {
   float: left;
+  position: relative;
+  padding-top: 20px;
 }
 .filter-bar .filter select, .pagination-bar .filter select {
   margin: 0 5px;
@@ -859,6 +866,7 @@ form textarea {
   overflow: hidden;
   height: 0;
 }
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
@@ -2671,7 +2679,7 @@ table.cart .fa-times {
  */
 .site-footer {
   background-color: #2b2b2b;
-  padding: 50px 0;
+  padding: 15px 0;
   font-size: 12px;
   font-size: 0.8571428571em;
 }
@@ -2693,7 +2701,8 @@ table.cart .fa-times {
   font-weight: 400;
 }
 .site-footer .colophon {
-  margin-top: 80px;
+  margin-top: 0px;
+  text-align: center;
   *zoom: 1;
 }
 .site-footer .colophon:after {
@@ -2704,7 +2713,7 @@ table.cart .fa-times {
   height: 0;
 }
 .site-footer .colophon .copy {
-  float: left;
+  float: ;
   margin-top: 10px;
 }
 .site-footer .colophon .social-links {
