@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'funbox',
-        'USER': 'admin',
-        'PASSWORD': 'plataforma2017',
+	'NAME':'funbox',
+	'USER': 'pjunb',
+        'PASSWORD': os.environ["pjunbdb"],
         'HOST': 'localhost',
         'PORT': '',
     }
