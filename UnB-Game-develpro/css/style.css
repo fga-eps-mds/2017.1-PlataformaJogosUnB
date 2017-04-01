@@ -21,6 +21,10 @@ summary {
   display: block;
 }
 
+/*.centralizar{
+   width: -30px;
+  margin:0 auto;  
+}*/
 audio,
 canvas,
 video {
