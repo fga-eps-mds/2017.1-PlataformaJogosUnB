@@ -12,7 +12,8 @@
 
 		$(".home-slider").flexslider({
 			controlNav: true,
-			directionNav: false
+			directionNav: false,
+			width: 100
 		});
 
 		$(".login-button").on("click",function(){
@@ -40,6 +41,13 @@
 					$(".popup").toggleClass("active");
 		  		}   
 			}
+		});
+
+		// $('#myCarousel').carousel();
+
+		$('.sideImg').height(($('#myCarousel').height()/2));
+		$(window).resize(function() {
+			$('.sideImg').height(($('#myCarousel').height()/2));
 		});
 	});
 

@@ -11,6 +11,7 @@
 		<link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,700|" rel="stylesheet" type="text/css">
 		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="fonts/lineo-icon/style.css" rel="stylesheet" type="text/css">
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 		<!-- Loading main css file -->
 
@@ -47,18 +48,65 @@
 				</div> <!-- .container -->
 			</div> <!-- .site-header -->
 
-			<div class="home-slider">
-				<ul class="slides">
-
-					<li data-bg-image="images/sniper.jpg" onclick="location.href='single.html';"  style="cursor:pointer;"></li>
-					<li data-bg-image="images/batman.jpg" onclick="location.href='single.html';"  style="cursor:pointer;"></li>
-					<li data-bg-image="images/farcry.jpg" onclick="location.href='single.html';"  style="cursor:pointer;"></li>
-
-				</ul> <!-- .slides -->
-			</div> <!-- .home-slider -->
 			<main class="main-content">
 				<div class="container">
-										<div class="page">
+					<div class="row spacing">
+					</div>
+					<div class="row">
+						<div class="col-sm-8">
+							<div id="myCarousel" class="carousel slide" data-ride="carousel">
+								<!-- Indicators -->
+								<ol class="carousel-indicators">
+									<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+									<li data-target="#myCarousel" data-slide-to="1"></li>
+									<li data-target="#myCarousel" data-slide-to="2"></li>
+								</ol>
+
+								<!-- Wrapper for slides -->
+								<div class="carousel-inner" role="listbox">
+									<div class="item active">
+										<img src="images/batman.jpg">
+										<div class="carousel-caption">
+										Legenda 1
+										</div>
+									</div>
+									<div class="item">
+										<img src="images/sniper.jpg">
+										<div class="carousel-caption">
+										Legenda 2
+										</div>
+									</div>
+
+									<div class="item">
+										<img src="images/farcry.jpg">
+										<div class="carousel-caption">
+										Legenda 3
+										</div>
+									</div>
+							
+								</div>
+
+							<!-- Controls -->
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+							</a>
+							</div>
+
+							
+						</div>
+						<div class="col-sm-4">
+							<img src="images/batman.jpg" class="sideImg">
+							<img src="images/farcry.jpg" class="sideImg">
+						</div>
+					</div>
+
+					<div class="row">
+					<!-- <div class="page"> -->
 						<div class="filter-bar">
 							<div class="filter">
 								<span>
@@ -358,9 +406,10 @@
 		</div> <!-- .auth-popup -->
 
 		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
-		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
 	</body>
 
 </html>
