@@ -2067,7 +2067,7 @@ form textarea {
   z-index: 999;
   clear: both;
   width: 100%;
-  background-color: black;
+  background-color: inherit;
   border-radius: 3px;
 }
 .main-navigation:after {
@@ -2125,7 +2125,8 @@ form textarea {
   padding: 30px 15px;
   font-size: 16px;
   font-size: 1.1428571429em;
-  color: #666a6c;
+  font-weight: bold;
+  color: #83ad8b;
   position: relative;
   -webkit-transition: .3s ease;
           transition: .3s ease;
@@ -2211,7 +2212,7 @@ form textarea {
   bottom: 0;
   outline: none;
   padding-left: 50px;
-  background: black;
+  background-color: inherit;
   border: none;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -2220,7 +2221,7 @@ form textarea {
           transition: .3s ease;
 }
 .search-form input:hover, .search-form input:focus {
-  background-color: black;
+  background-color: #1b1a1a;
 }
 
 .right-section {
