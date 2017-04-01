@@ -2751,7 +2751,8 @@ table.cart .fa-times {
   height: 50px;
 }
 
-.empurra{
-  position: center;
-  padding-left: -500px;
+.containerCard{
+  width: 102%;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }
