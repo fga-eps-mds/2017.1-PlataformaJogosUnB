@@ -2752,5 +2752,6 @@ table.cart .fa-times {
 }
 
 .empurra{
-  float: right;
+  position: center;
+  padding-left: -500px;
 }
