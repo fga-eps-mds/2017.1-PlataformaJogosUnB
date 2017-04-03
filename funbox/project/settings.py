@@ -13,7 +13,7 @@ SECRET_KEY = '_0eb8h+)&-lcnm*ec@!-#ic**1e@xnhqr2=f!di77ijp=2f(@3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.10.10.10"]
+ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
