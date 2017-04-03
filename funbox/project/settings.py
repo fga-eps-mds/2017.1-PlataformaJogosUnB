@@ -28,6 +28,18 @@ DEBUG = True
 ALLOWED_HOSTS = ["10.10.10.10"]
 
 
+# E-mail protocol, host and backend configuration for reseting
+# superuser passwords.
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'funbox.pjunb@gmail.com'
+EMAIL_HOST_PASSWORD = 'funbox@pjunb'
+DEFAULT_FROM_EMAIL = 'funbox.pjunb@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -76,8 +88,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	'NAME':'funbox',
-	'USER': 'pjunb',
+    'NAME':'funbox',
+    'USER': 'pjunb',
         'PASSWORD': os.environ["pjunbdb"],
         'HOST': 'localhost',
         'PORT': '',
@@ -122,9 +134,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# E-mail configuration for reseting superuser passwords
-
-EMAIL_HOST = '10.10.10.10'
-EMAIL_PORT = 1025
