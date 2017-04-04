@@ -15,5 +15,4 @@ urlpatterns = [
     url(r'^admin/reset-password/complete/$', password_reset_complete, name='password_reset_complete'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
-    url(r'^core/', include('core.urls', namespace='core')),
 ]
