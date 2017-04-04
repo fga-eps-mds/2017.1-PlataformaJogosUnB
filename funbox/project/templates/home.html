@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  {% block 'base' %}
+
+  <head>
+    {% block meta %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock %}
+    <title>
+      {% block title %}
+      {{ title|default:'fUnBox' }}
+      {% endblock %}
+    </title>
+
+    <!-- CSS and styles -->
+    {% block style %}
+    {% endblock %}
+    <!-- Javascript -->
+    {% block javascript_header %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <h1> PLATAFORMA UNB <h1>
+  </body>
+
+  {% endblock %}
+</html>
