@@ -4,7 +4,7 @@ from django.contrib.auth.views import (
     password_reset, password_reset_done, password_reset_confirm,
     password_reset_complete,
 )
-from project import views
+from core import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
