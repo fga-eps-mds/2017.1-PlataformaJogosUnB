@@ -90,3 +90,6 @@ ENV/
 
 #ignore sqlite file
 *.sqlite3
+
+#IDEA
+.idea/
