@@ -93,3 +93,6 @@ ENV/
 
 #IDEA
 .idea/
+
+# Exclude swap files
+*.swp
