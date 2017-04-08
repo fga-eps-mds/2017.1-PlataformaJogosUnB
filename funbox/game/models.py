@@ -11,7 +11,7 @@ class Game(models.Model):
         max_length=100,
         null=False,
         blank=False,
-        help_text=_("What's the name of the game?")
+        help_text=_("What's the name of the game?"),
     )
 
     game_version = models.CharField(
@@ -20,18 +20,20 @@ class Game(models.Model):
         validators=[validate_version],
         null=True,
         blank=True,
-        help_text=_("What's the game version?")
+        help_text=_("What's the game version?"),
     )
 
     official_repository = models.URLField(
         _('Official Repository'),
         null=False,
         blank=False,
-        help_text=_("What's the game's official repository?")
+        help_text=_("What is the official repository for this game?"),
     )
 
     information = models.OneToOneField(
-        Information
+        Information,
+        on_delete=models.CASCADE,
+        primary_key=True,
     )
 
     def save(self, *args, **kwargs):
