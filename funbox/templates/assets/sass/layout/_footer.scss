@@ -1,0 +1,70 @@
+/*
+ * Footer Styles
+ */
+
+.site-footer{
+	background-color: $secondary-color;
+	padding: 50px 0;
+	@include em(12);
+
+	a{
+		color: $body-color;
+		transition: .3s ease;
+
+		&:hover{
+			color: $accent-color;
+		}
+	}
+	.widget{margin-bottom: 30px}
+	.widget-title{
+		color: white;
+		@include rem(15);
+		font-weight: 400;
+	}
+
+	.colophon{
+		margin-top: 80px;
+		@include clearfix;
+
+		.copy{
+			float: left;
+			margin-top: 10px;
+		}
+
+		.social-links{
+			float: right;
+		}
+	}
+
+	.newsletter-form{
+		input[type="text"]{
+			padding: 10px 20px;
+			color: white;
+			width: 70%;
+			border-width: 2px;
+			margin-right: 10px;
+			transition: .3s ease;
+
+			&:hover, &:focus{border-color: $accent-color}
+		}
+		input[type="submit"]{
+			width: 20%;
+			border: 2px solid $accent-color;
+			transition: .3s ease;
+
+			&:hover, &:focus{
+				background-color: lighten($accent-color, 10%);
+			}
+
+		}
+	}
+
+	.social-links a{
+		line-height: 2;
+
+		&:hover{
+			background-color: white;
+			color: $body-color;
+		}
+	}
+}
