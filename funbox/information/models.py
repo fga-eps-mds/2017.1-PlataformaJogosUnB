@@ -13,12 +13,11 @@ class Information(models.Model):
         help_text=_("Describe your game.")
     )
 
-    launch_year = models.PositiveInteger(
+    launch_year = models.PositiveIntegerField(
         _('Launch year'),
-        max_length=4,
         null=False,
         blank=False,
-        help_text=_("Which was the year the game was launched?")
+        help_text=_("Which was the year the game was launched?"),
     )
 
     def save(self, *args, **kwargs):
@@ -57,9 +56,8 @@ class Award(models.Model):
         help_text=_("Name of the award")
     )
 
-    year = models.PositiveInteger(
+    year = models.PositiveIntegerField(
         _('Year'),
-        max_length=4,
         null=False,
         blank=False,
         help_text=_("Year of the ward")
