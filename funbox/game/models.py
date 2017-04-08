@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from game.validators import *
+from game.validators import validate_version
 from information.models import Information
 
 
