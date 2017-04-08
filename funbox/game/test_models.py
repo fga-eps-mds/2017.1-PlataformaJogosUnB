@@ -25,12 +25,12 @@ class TestBasicdb:
         assert game_created == game
 
 @pytest.mark.django_db
-def test_game():
+def test_format_gameversion():
     Information(description='feef', launch_year=2017).save()
     game = Game(name="HELLO",
                 game_version="1.0",
-                information_id=1)
+                information_id=2)
     game.save()
-    game_from_db=Game.objects.get(pk=1)
-    assert game == game_from_db
+    game_from_db=Game.objects.get(pk=2)
+    assert "." in  game.game_version
 
