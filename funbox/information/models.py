@@ -13,7 +13,7 @@ class Information(models.Model):
 	launch_year = models.IntegerField(
 		_('Launch year'),
 		null=False,
-			blank=False,
+		blank=False,
 		help_text=_("Which was the year the game was launched?")
 )
 
