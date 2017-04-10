@@ -25,6 +25,9 @@ class Information(models.Model):
         self.clean_fields()
         super(Information, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 
 class Statistic(models.Model):
 
@@ -36,19 +39,22 @@ class Statistic(models.Model):
         _('Dowloads Amount'),
         null=False,
         blank=False,
-        help_text=_("Game amount of downloads.")
+        help_text=_("Amount of downloads of the game.")
     )
 
     accesses_amount = models.BigIntegerField(
         _('Accesses Amount'),
         null=False,
         blank=False,
-        help_text=_("Game amount of access.")
+        help_text=_("Amount of accesses to the game.")
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Statistic, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class Award(models.Model):
@@ -79,6 +85,9 @@ class Award(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Award, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class Developer(models.Model):
@@ -120,3 +129,10 @@ class Developer(models.Model):
         blank=False,
         help_text=_("Developer Github page.")
     )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Developer, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
