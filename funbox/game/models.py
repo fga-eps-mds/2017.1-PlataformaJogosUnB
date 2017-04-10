@@ -5,6 +5,7 @@ from information.models import Information
 
 
 class Game(models.Model):
+
     name = models.CharField(
         _('Name'),
         max_length=100,
@@ -14,7 +15,7 @@ class Game(models.Model):
     )
 
     game_version = models.CharField(
-        _('Game version'),
+        _('Game Version'),
         max_length=20,
         validators=[validate_version],
         null=True,
@@ -22,7 +23,16 @@ class Game(models.Model):
         help_text=_("What's the game version?")
     )
 
-    information = models.OneToOneField(Information)
+    official_repository = models.URLField(
+        _('Official Repository'),
+        null=False,
+        blank=False,
+        help_text=_("What's the game's official repository?")
+    )
+
+    information = models.OneToOneField(
+        Information
+    )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
