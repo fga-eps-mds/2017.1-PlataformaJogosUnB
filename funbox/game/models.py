@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from game.validators import validate_version
 from information.models import Information
+from game.validators import validate_version
+from django.core.validators import URLValidator
 
 
 class Game(models.Model):
@@ -11,7 +12,7 @@ class Game(models.Model):
         max_length=100,
         null=False,
         blank=False,
-        help_text=_("What's the name of the game?"),
+        help_text=_('What\'s the name of the game?'),
     )
 
     game_version = models.CharField(
@@ -20,14 +21,15 @@ class Game(models.Model):
         validators=[validate_version],
         null=True,
         blank=True,
-        help_text=_("What's the game version?"),
+        help_text=_('What\'s the game version?'),
     )
 
     official_repository = models.URLField(
         _('Official Repository'),
+        validators=[URLValidator()],
         null=False,
         blank=False,
-        help_text=_("What is the official repository for this game?"),
+        help_text=_('What is the official repository for this game?'),
     )
 
     information = models.OneToOneField(
