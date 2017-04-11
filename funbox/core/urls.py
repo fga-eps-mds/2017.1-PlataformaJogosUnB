@@ -5,6 +5,7 @@ from django.contrib.auth.views import (
     password_reset_complete,
 )
 from core import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -20,3 +21,5 @@ urlpatterns = [
                                namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
