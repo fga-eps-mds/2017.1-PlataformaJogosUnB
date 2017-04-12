@@ -29,15 +29,14 @@ class TestBasicdb:
 
 class TestValidation:
     error_message_blank = "Este campo não pode estar vazio."
-    error_not_a_integer = "valor deve ser um inteiro."
-    error_message_min_value = "A game description must have \
-      at least 50 characters!"
+    error_not_a_integer = "'' valor deve ser um inteiro."
+    error_message_min_value = "A game description must have at least 50 characters!"
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("information, errors_dict", [
             (information_creation(description="", launch_year=2017),
-             mount_error_dict(["description"], [[error_message_min_value]])),
-            (information_creation(description="a simple description", launch_year=""),
+             mount_error_dict(["description"], [[error_message_blank]])),
+           (information_creation(description="a simple description"*3, launch_year=""),
              mount_error_dict(["launch_year"], [[error_not_a_integer]])),
         ])
     def test_description_shoudnt_be_null(self, information, errors_dict):

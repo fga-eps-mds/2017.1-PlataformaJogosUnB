@@ -21,6 +21,7 @@ class Information(models.Model):
                                _('A game description must have ' +
                                  'at least 50 characters!'))],
         null=False,
+        blank=False,
         help_text=_('Describe the game.'),
     )
 
