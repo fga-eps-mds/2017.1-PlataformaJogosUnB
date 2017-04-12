@@ -48,5 +48,4 @@ def game_detail(request, pk, format=None):
 
     elif request.method == 'DELETE':
         game.delete()
-        return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
-
+        return Response(status=status.HTTP_204_NO_CONTENT)
