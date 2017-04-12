@@ -76,7 +76,7 @@ class Statistic(models.Model):
 class Award(models.Model):
 
     name = models.CharField(
-        _('Name'),
+        _('Award name'),
         max_length=100,
         null=False,
         blank=False,

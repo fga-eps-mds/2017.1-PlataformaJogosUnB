@@ -8,7 +8,7 @@ from django.core.validators import URLValidator
 class Game(models.Model):
 
     name = models.CharField(
-        _('Name'),
+        _('Game Name'),
         max_length=100,
         null=False,
         blank=False,
