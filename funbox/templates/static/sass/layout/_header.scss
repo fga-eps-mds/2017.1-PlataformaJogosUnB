@@ -1,0 +1,237 @@
+/*
+ * Header Styles
+ */
+
+.site-header{
+	background-color: $secondary-color;
+	position: relative;
+
+	> .container{
+		@include clearfix;
+		position: relative;
+		padding: 60px 15px 0;
+	}
+
+	.cart{
+	
+		border-right: 1px solid rgba(255,255,255,.1);
+		padding-right: 20px;
+		transition: .3s ease;
+		.icon-cart{
+			color: $accent-color;
+			@include em(18);
+			margin-right: 5px;
+			vertical-align: baseline;
+		}
+
+		&:hover{
+			color: $accent-color;
+		}
+
+		@media screen and (max-width: 480px){
+			border-right: none;
+			padding-right: 0;
+		}
+	}
+}
+
+#branding{
+	float: left;
+	margin-bottom: 60px;
+
+	.logo,.logo-text{
+		display: inline-block;
+		vertical-align: middle; 
+	}
+
+	.logo{
+		margin-right: 10px;
+	}
+	.site-title{
+		@include em(16);
+		color: white;
+		margin-bottom: 0;
+		a{color: white;}
+	}
+	.site-description{
+		@include em(10);
+	}
+}
+
+.main-navigation{
+	@include clearfix;
+	margin-top: 30px;
+	position: relative;
+	z-index: 999;
+	clear: both;
+	width: 100%;
+	background-color: white;
+	border-radius: 3px;
+	.toggle-menu{
+		float: left;
+		border: none;
+		padding: 30px 20px;
+		background: transparent;
+		outline: none;
+
+		@media screen and (max-width:990px){display: block}
+		@media screen and (min-width:991px){display: none}
+	}
+	>.menu{
+		list-style: none;
+		float: left;
+		@include clearfix;
+
+		@media screen and (min-width:991px){display: block}
+		@media screen and (max-width:991px){display: none}
+
+		li{
+			float: left;
+
+			a{
+				display: block;
+				padding: 30px 15px;
+				@include em(16);
+				color: $strong-color;
+				position: relative;
+				transition: .3s ease;
+
+				&:after{
+					content: "|";
+					position: absolute;
+					right:0;
+					color: #ddd;
+					font-weight: 300;
+				}
+			}
+			
+			&.home{
+				padding-left: 30px;
+				padding-right: 30px;
+				position: relative;
+				a { 
+					padding: 30px 0;
+					position: static;
+
+					&:after{
+						position: absolute;
+						right: 0;
+					}
+				}
+			}
+			&.current-menu-item, &:hover{
+
+				a { 
+					color: $accent-color;
+					border-bottom: 2px solid $accent-color;
+				}
+			}
+		}
+	}
+}
+
+.mobile-navigation{
+	position: absolute;
+	top: 100%;
+	background: white;
+	width: 100%;
+	left: 0;
+	padding: 10px 0;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	display: none;
+
+	@media screen and (min-width:991px){display:none!important}
+
+	.menu{
+		list-style: none;
+		a{
+			padding: 10px 20px;;
+			display: block;
+		}
+	}
+
+}
+
+.search-form{
+	float: right;
+	position: absolute;
+	right:0;
+	top:0;
+	bottom: 0;
+	width: 300px;
+	@media screen and (max-width: 480px){
+		width: 200px;
+	}
+
+	label{
+		position: absolute;
+		left:0;
+		color: $body-color;
+		z-index: 1;
+		top:35px;
+		left: 20px;
+	}
+
+	input{
+		position: absolute;
+		right:0;
+		top:0;
+		width: 100%;
+		bottom:0;
+		outline: none;
+		padding-left:50px;
+		background: #eeeeee;
+		border: none;
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+		box-shadow: inset 1px 0 2px rgba(0,0,0,.2);
+		transition: .3s ease;
+
+		&:hover, &:focus{
+			background-color:lighten(#eeeeee, 10%);
+		}
+	}
+}
+
+.right-section{
+	color: white;
+	a{
+		color: white;
+		margin-left: 20px;
+		transition: .3s ease;
+
+		@media screen and (max-width:640px){
+			display: block;
+			text-align: right;
+			margin-bottom: 5px;
+
+		}
+		small{
+			color: $bg-color;
+			font-style: italic;
+		}
+		&:hover{
+			color: $accent-color;
+		}
+	}
+
+}
+
+
+.breadcrumbs{
+	padding: 30px 0;
+
+	a{
+		&:after{
+			content:" ";
+			width: 7px;
+			height: 5px;
+			background: url(images/arrow.png) no-repeat;
+			display: inline-block;
+			margin-left: 10px;
+			margin-right: 10px;
+			vertical-align: middle;
+		}
+	}
+}
