@@ -32,11 +32,11 @@ class Game(models.Model):
         help_text=_('What is the official repository for this game?'),
     )
 
-    # information = models.OneToOneField(
-    #     Information,
-    #     on_delete=models.CASCADE,
-    #     primary_key=True
-    # )
+    information = models.OneToOneField(
+        Information,
+        on_delete=models.CASCADE,
+        primary_key=True
+    )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
