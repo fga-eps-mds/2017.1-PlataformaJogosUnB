@@ -8,6 +8,7 @@ from django.db import models
 import datetime
 
 UNB_CREATION = 1962
+MIN_DESCRIPTION = 50
 
 
 class Information(models.Model):
@@ -16,11 +17,10 @@ class Information(models.Model):
         _('Description'),
         max_length=1000,
         validators=[
-            MinLengthValidator(50,
+            MinLengthValidator(MIN_DESCRIPTION,
                                _('A game description must have ' +
                                  'at least 50 characters!'))],
         null=False,
-        blank=False,
         help_text=_('Describe the game.'),
     )
 
@@ -50,7 +50,8 @@ class Information(models.Model):
         super(Information, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        min_value = 50 if MIN_DESCRIPTION > 50 else MIN_DESCRIPTION
+        return "Information description: %s..." % self.description[0:MIN_DESCRIPTION]
 
 
 class Statistic(models.Model):
@@ -74,7 +75,7 @@ class Statistic(models.Model):
         super(Statistic, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return "statistic: %s" % self.accesses_amount
 
 
 class Award(models.Model):
@@ -113,7 +114,7 @@ class Award(models.Model):
         super(Award, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return "award(%d): %s" % (self.year, self.name)
 
 
 class Developer(models.Model):
@@ -163,4 +164,4 @@ class Developer(models.Model):
         super(Developer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return "%s <%s>" % (self.name, self.github_page)
