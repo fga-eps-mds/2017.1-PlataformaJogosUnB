@@ -35,7 +35,7 @@ class Game(models.Model):
     information = models.OneToOneField(
         Information,
         on_delete=models.CASCADE,
-        primary_key=True,
+        primary_key=True
     )
 
     def save(self, *args, **kwargs):

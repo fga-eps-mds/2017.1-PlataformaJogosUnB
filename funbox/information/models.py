@@ -37,6 +37,14 @@ class Information(models.Model):
         help_text=_('Which was the year the game was launched?'),
     )
 
+    developer = models.ManyToManyField(
+        'Developer'
+    )
+
+    awards = models.ManyToManyField(
+        'Award'
+    )
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Information, self).save(*args, **kwargs)
@@ -46,10 +54,6 @@ class Information(models.Model):
 
 
 class Statistic(models.Model):
-
-    information = models.ForeignKey(
-        Information
-    )
 
     downloads_amount = models.BigIntegerField(
         _('Dowloads Amount'),
@@ -88,7 +92,7 @@ class Award(models.Model):
         validators=[MinValueValidator(UNB_CREATION,
                                       _('Our University had ' +
                                         'not been built at this time!')),
-                    MaxValueValidator(datetime.datetime.now(),
+                    MaxValueValidator(int(datetime.datetime.now().year),
                                       _('We believe the award ' +
                                         'was not won in the future!'))],
         null=False,
@@ -123,7 +127,7 @@ class Developer(models.Model):
     )
 
     avatar = models.FileField(
-        _('Image'),
+        _('Avatar'),
         null=False,
         blank=True,
         help_text=_('Developer image.')
