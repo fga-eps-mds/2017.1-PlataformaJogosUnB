@@ -15,7 +15,6 @@ class Information(models.Model):
 
     description = models.TextField(
         _('Description'),
-        max_length=1000,
         validators=[
             MinLengthValidator(MIN_DESCRIPTION,
                                _('A game description must have ' +
