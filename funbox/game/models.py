@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from information.models import Information
+# from information.models import Information
 from game.validators import validate_version
 from django.core.validators import URLValidator
 
@@ -32,11 +32,11 @@ class Game(models.Model):
         help_text=_('What is the official repository for this game?'),
     )
 
-    information = models.OneToOneField(
-        Information,
-        on_delete=models.CASCADE,
-        primary_key=True
-    )
+    # information = models.OneToOneField(
+    #     Information,
+    #     on_delete=models.CASCADE,
+    #     primary_key=True
+    # )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
