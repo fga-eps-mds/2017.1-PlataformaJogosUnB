@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-# from information.models import Information
+from information.models import Information
 from game.validators import validate_version
 from django.core.validators import URLValidator
 
@@ -43,4 +43,4 @@ class Game(models.Model):
         super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return "%s %dv" % (self.name, self.game_version)

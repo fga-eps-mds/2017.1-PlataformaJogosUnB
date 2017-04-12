@@ -1,36 +1,43 @@
+import unittest
 import pytest
 from game.models import Game
 from information.models import Information
 
+
+def game_creation(name="", url="", launch_year=0):
+    return Game(name=name, official_repository=url, game_version=game_version)
+
+
 @pytest.fixture
 def game_created():
     information = Information()
-    information.description = 'bla'
+    information.description = 'simple description' * 3
     information.launch_year = 2017
     information.save()
 
-    g = Game()
-    g.name = 'mario'
-    g.description = 'aiushda'
-    g.information = information
-    g.save()
-    return g
+    game = Game()
+    game.name = 'mario'
+    game.official_repository = 'https://github.com/PlataformaJogosUnb/'
+    game.information = information
+    game.save()
+    return game
 
 
-class TestBasicdb:
+class TestGame:
 
     @pytest.mark.django_db
-    def test_my_first(self,game_created):
-        game = Game.objects.get(pk=1)
+    def test_create_game_with_valid_atributtes(self, game_created):
+        game = Game.objects.get(pk=game_created.pk)
         assert game_created == game
 
-@pytest.mark.django_db
-def test_format_gameversion():
-    Information(description='feef', launch_year=2017).save()
-    game = Game(name="HELLO",
-                game_version="1.0",
-                information_id=2)
-    game.save()
-    game_from_db=Game.objects.get(pk=2)
-    assert "." in  game.game_version
 
+class TestGameValidation:
+    error_not_allowed_version = ""
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("game, errors_dict", [
+        ("", ""),
+    ])
+    def test_validations(self, game, errors_dict):
+        # TODO: This test should be implemented
+        assert True
