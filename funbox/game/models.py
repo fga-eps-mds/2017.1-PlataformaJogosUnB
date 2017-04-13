@@ -4,7 +4,6 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from game.validators import validate_version
-from information.models import Information
 
 
 class Game(models.Model):
@@ -34,12 +33,6 @@ class Game(models.Model):
         help_text=_('What is the official repository for this game?'),
     )
 
-    information = models.OneToOneField(
-        Information,
-        on_delete=models.CASCADE,
-        primary_key=True
-    )
-
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)
@@ -50,4 +43,5 @@ class Game(models.Model):
             instance.information.delete()
 
     def __str__(self):
+        pass
         return "%s v%s" % (self.name, self.game_version)

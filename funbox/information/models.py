@@ -5,77 +5,11 @@ from django.core.validators import MinLengthValidator
 from django.core.validators import EmailValidator
 from django.core.validators import URLValidator
 from django.db import models
+from game.models import Game
 import datetime
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
-
-
-class Information(models.Model):
-
-    description = models.TextField(
-        _('Description'),
-        validators=[
-            MinLengthValidator(MIN_DESCRIPTION,
-                               _('A game description must have ' +
-                                 'at least 50 characters!'))],
-        null=False,
-        blank=False,
-        help_text=_('Describe the game.'),
-    )
-
-    launch_year = models.PositiveIntegerField(
-        _('Launch Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had not ' +
-                                        'been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the game ' +
-                                        'did not come from future!'))],
-        null=False,
-        blank=False,
-        help_text=_('Which was the year the game was launched?'),
-    )
-
-    developers = models.ManyToManyField(
-        'Developer'
-    )
-
-    awards = models.ManyToManyField(
-        'Award'
-    )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Information, self).save(*args, **kwargs)
-
-    def __str__(self):
-        min_value = 50 if MIN_DESCRIPTION > 50 else MIN_DESCRIPTION
-        return "Information description: %s..." % self.description[0:min_value]
-
-
-class Statistic(models.Model):
-
-    downloads_amount = models.BigIntegerField(
-        _('Dowloads Amount'),
-        null=False,
-        blank=False,
-        help_text=_('Amount of downloads of the game.')
-    )
-
-    accesses_amount = models.BigIntegerField(
-        _('Accesses Amount'),
-        null=False,
-        blank=False,
-        help_text=_('Amount of accesses to the game.')
-    )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Statistic, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return "statistic: %d" % self.accesses_amount
 
 
 class Award(models.Model):
@@ -96,6 +30,8 @@ class Award(models.Model):
                     MaxValueValidator(int(datetime.datetime.now().year),
                                       _('We believe the award ' +
                                         'was not won in the future!'))],
+
+
         null=False,
         blank=False,
         help_text=_('Year the award was won.')
@@ -165,3 +101,78 @@ class Developer(models.Model):
 
     def __str__(self):
         return "%s <%s>" % (self.name, self.github_page)
+
+
+class Information(models.Model):
+
+    description = models.TextField(
+        _('Description'),
+        validators=[
+            MinLengthValidator(MIN_DESCRIPTION,
+                               _('A game description must have ' +
+                                 'at least 50 characters!'))],
+        null=False,
+        blank=False,
+        help_text=_('Describe the game.'),
+    )
+
+    launch_year = models.PositiveIntegerField(
+        _('Launch Year'),
+        validators=[MinValueValidator(UNB_CREATION,
+                                      _('Our University had not ' +
+                                        'been built at this time!')),
+                    MaxValueValidator(int(datetime.datetime.now().year),
+                                      _('We believe the game ' +
+                                        'did not come from future!'))],
+        null=False,
+        blank=False,
+        help_text=_('Which was the year the game was launched?'),
+    )
+
+    game = models.OneToOneField(
+            Game,
+            on_delete=models.CASCADE,
+            primary_key=True,
+    )
+
+    developers = models.ManyToManyField(
+        Developer,
+        related_name='developers'
+    )
+
+    awards = models.ManyToManyField(
+        Award,
+        related_name='awards'
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Information, self).save(*args, **kwargs)
+
+    def __str__(self):
+        min_value = 50 if MIN_DESCRIPTION > 50 else MIN_DESCRIPTION
+        return "Information description: %s..." % self.description[0:min_value]
+
+
+class Statistic(models.Model):
+
+    downloads_amount = models.BigIntegerField(
+        _('Dowloads Amount'),
+        null=False,
+        blank=False,
+        help_text=_('Amount of downloads of the game.')
+    )
+
+    accesses_amount = models.BigIntegerField(
+        _('Accesses Amount'),
+        null=False,
+        blank=False,
+        help_text=_('Amount of accesses to the game.')
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Statistic, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "statistic: %d" % self.accesses_amount
