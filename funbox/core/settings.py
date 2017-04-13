@@ -41,11 +41,10 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'game.apps.CoreConfig',
 ]
 
 LOCAL_APPS = [
-    #'core',
+    'core',
     'game',
     'information',
 ]

@@ -37,7 +37,7 @@ class Information(models.Model):
         help_text=_('Which was the year the game was launched?'),
     )
 
-    developer = models.ManyToManyField(
+    developers = models.ManyToManyField(
         'Developer'
     )
 
