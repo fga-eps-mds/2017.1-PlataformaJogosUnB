@@ -130,9 +130,9 @@ class Information(models.Model):
     )
 
     game = models.OneToOneField(
-            Game,
-            on_delete=models.CASCADE,
-            primary_key=True,
+        Game,
+        on_delete=models.CASCADE,
+        primary_key=True,
     )
 
     developers = models.ManyToManyField(
