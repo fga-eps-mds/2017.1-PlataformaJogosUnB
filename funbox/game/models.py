@@ -51,7 +51,12 @@ class Package(models.Model):
         null=False,
         blank=False,
         help_text=('Choose the game\'s package'),
-        allow_empty_file=False,
+    )
+
+    games = models.ForeignKey(
+        Game,
+        on_delete=models.CASCADE,
+        related_name='packages'
     )
 
     def save(self, *args, **kwargs):
