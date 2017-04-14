@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
+    url(r'^jogos/', include('game.urls',namespace='jogo')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
