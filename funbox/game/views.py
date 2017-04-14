@@ -54,3 +54,8 @@ def game_detail(request, pk, format=None):
     elif request.method == 'DELETE':
         game.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def game_show(request):
+	if request.accepted_renderer.format == 'html':
+		return Response({}, template_name='game/show.html')
