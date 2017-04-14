@@ -12,10 +12,11 @@ def game_list(request, format=None):
     """
     print(request.META['HTTP_USER_AGENT'])
     queryset = Game.objects.all()
+
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
             data = {'games': queryset}
-            return Response(data, template_name='listGames.html')
+            return Response(data, template_name='game/list.html')
         elif request.accepted_renderer.format == "json":
             serializer = GameSerializer(queryset, many=True)
             return Response(serializer.data)
