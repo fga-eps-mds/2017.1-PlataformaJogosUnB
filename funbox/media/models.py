@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from information.models import Information
+from game.models import Game
 
 
 class Media(models.Model):
@@ -29,8 +29,10 @@ class Media(models.Model):
         help_text=_('mp3, tar.gz, zip, etc')
     )
 
-    information = models.OneToOneField(
-        Information,
+    game = models.OneToOneField(
+        Game,
+        on_delete=models.CASCADE,
+        related_name='game',
         primary_key=True,
     )
 
