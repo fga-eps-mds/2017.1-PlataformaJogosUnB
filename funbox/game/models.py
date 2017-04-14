@@ -31,10 +31,16 @@ class Game(models.Model):
         help_text=_('What is the official repository for this game?'),
     )
 
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)
-
     def __str__(self):
         pass
         return "%s v%s" % (self.name, self.game_version)
+
+
+class Package(models.Model):
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Package, self).save(*args, **kwargs)
