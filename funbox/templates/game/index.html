@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% block main %}
 <main class="main-content">
-    <div class="container">
+    <div class="container" style="width: 980px;">
         <div class="row spacing">
         </div>
         <div class="row">
@@ -19,13 +19,13 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <a href="single.html"><img src="{% static "images/batman.jpg" %}"></a>
+                            <a href="static/single.html"><img src="{% static "images/batman.jpg" %}"></a>
                             <div class="carousel-caption">
 
                             </div>
                         </div>
                         <div class="item">
-                            <a href="single.html"><img src="{% static "images/sniper.jpg" %}"></a>
+                            <a href="static/single.html"><img src="{% static "images/sniper.jpg" %}"></a>
                             <div class="carousel-caption">
 
                             </div>
@@ -54,14 +54,15 @@
 
             </div>
             <div class="col-sm-4">
-                <img src="{% static "images/batman.jpg" %}" class="sideImg">
-                <img src="{% static "images/farcry.jpg" %}" class="sideImg">
+                <img src="{% static "images/batman.jpg" %}" class="sideImg" style="height: 183px;">
+                <img src="{% static "images/farcry.jpg" %}" class="sideImg" style="height: 183px;">
             </div>
         </div>
-
+        <div class="row spacing">
+        </div>
         <div class="row">
         <!-- <div class="page"> -->
-            <div class="filter-bar">
+            <!--<div class="filter-bar">
                 <div class="filter">
                     <span>
                         <label>Sort by:</label>
@@ -88,7 +89,7 @@
                             <option value="#">24</option>
                         </select>
                     </span>
-                </div> <!-- .filter -->
+                </div> 
 
                 <div class="pagination">
                     <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
@@ -98,8 +99,8 @@
                     <a href="#" class="page-number">...</a>
                     <a href="#" class="page-number">12</a>
                     <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-                </div> <!-- .pagination -->
-            </div> <!-- .filter-bar -->
+                </div>  .pagination 
+            </div>  .filter-bar -->
 
             <div class="product-list">
                     <div class="product">
@@ -267,7 +268,7 @@
 
             </div> <!-- .product-list -->
 
-            <div class="pagination-bar">
+            <!--<div class="pagination-bar">
                 <div class="pagination">
                     <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
                     <span class="page-number current">1</span>
@@ -276,9 +277,9 @@
                     <a href="#" class="page-number">...</a>
                     <a href="#" class="page-number">12</a>
                     <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-                </div> <!-- .pagination -->
-            </div>
+                </div>  .pagination 
+            </div> --> 
         </div>
-    </div> <!-- .container -->
+     </div><!-- .container -->
 </main> <!-- .main-content -->
 {% endblock %}
