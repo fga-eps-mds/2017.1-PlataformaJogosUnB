@@ -41,16 +41,19 @@ def game_detail(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = GameSerializer(game)
-        return Response(serializer.data)
-
+        if request.accepted_renderer.format == 'html':
+            data = {'game': game}
+            return Response(data, template_name='game/show.html')
+        elif request.accepted_renderer.format == "json":
+            serializer = GameSerializer(game)
+            return Response(serializer.data)
+            return Response({}, template_name='404.thml')
     elif request.method == 'PUT':
         serializer = GameSerializer(game, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-
     elif request.method == 'DELETE':
         game.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
