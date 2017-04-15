@@ -8,87 +8,38 @@
 <li class="menu-item"><a href="#">Contato</a></li>
 {% endblock %}
 {% block main %}
-<main class="main-content" style="background-color: #222326;">
-    <div class="container" style="background-color: #222326;">
-    	<div class="row">
-    		<!-- <div class="page"> -->
-                <div class="filter-bar">
-                    <!-- <div class="filter">
-                        <span>
-                            <label>Sort by:</label>
-                            <select name="#">
-                                <option value="#">Popularity</option>
-                                <option value="#">Highest Rating</option>
-                                <option value="#">Lowest price</option>
-                            </select>
-                        </span>
-                        <span>
-                            <label>Genre</label>
-                            <select name="#">
-                                <option value="#">Show All</option>
-                                <option value="#">Action</option>
-                                <option value="#">Racing</option>
-                                <option value="#">Strategy</option>
-                            </select>
-                        </span>
-                        <span>
-                            <label>Show:</label>
-                            <select name="#">
-                                <option value="#">8</option>
-                                <option value="#">16</option>
-                                <option value="#">24</option>
-                            </select>
-                        </span>
-                    </div>  .filter -->
-                    {% if games %}
-                    <div class="pagination">
-                        <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
-                        <span class="page-number current">1</span>
-                        <a href="#" class="page-number">2</a>
-                        <a href="#" class="page-number">3</a>
-                        <a href="#" class="page-number">...</a>
-                        <a href="#" class="page-number">12</a>
-                        <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-                    </div> <!-- .pagination -->
-                    {% endif %}
-                </div> <!-- .filter-bar -->
-    		<div class="product-list">
-			{% for game in games %}
-        		    <div class="product">
-        		        <div class="inner-product">
-        		            <div class="figure-image">
-        		                <a href="single.html"><img src="{{ game.image }}" alt="Game 1"></a>
-        		            </div>
-        		            <h3 class="product-title"><a href="#">{{ game.name }}</a></h3>
-        		            <ul class="product-os-info">
-            		            <li>
-            		                <label><img src="{% static '{{ game.windows.to }}' %}"></label>
-            		            </li>
-            		            <li>
-            		                <label><img src="{% static '{{ game.linux.url }}' %}"></label>
-            		            </li>
-            		            <li>
-            		                <label><img src="{% static '{{ game.macos.url }}' %}"></label>
-            		            </li>
-        		            </ul>
-        		        </div>
-        		    </div> <!-- .product -->
-            {% empty %}
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-                <div class="container">
-                    <h3 align="center" >Não há jogos disponíveis</h3>
-                </div>
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-                <div class="row spacing"></div>
-		    {% endfor %}
-            </div>
-            {% if games %}
-    		<div class="pagination-bar">
+<div class="container" style="background-color: #222326;">
+	<div class="row">
+		<!-- <div class="page"> -->
+            <div class="filter-bar">
+                <!-- <div class="filter">
+                    <span>
+                        <label>Sort by:</label>
+                        <select name="#">
+                            <option value="#">Popularity</option>
+                            <option value="#">Highest Rating</option>
+                            <option value="#">Lowest price</option>
+                        </select>
+                    </span>
+                    <span>
+                        <label>Genre</label>
+                        <select name="#">
+                            <option value="#">Show All</option>
+                            <option value="#">Action</option>
+                            <option value="#">Racing</option>
+                            <option value="#">Strategy</option>
+                        </select>
+                    </span>
+                    <span>
+                        <label>Show:</label>
+                        <select name="#">
+                            <option value="#">8</option>
+                            <option value="#">16</option>
+                            <option value="#">24</option>
+                        </select>
+                    </span>
+                </div>  .filter -->
+                {% if games %}
                 <div class="pagination">
                     <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
                     <span class="page-number current">1</span>
@@ -98,9 +49,56 @@
                     <a href="#" class="page-number">12</a>
                     <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
                 </div> <!-- .pagination -->
+                {% endif %}
+            </div> <!-- .filter-bar -->
+		<div class="product-list">
+		{% for game in games %}
+    		    <div class="product">
+    		        <div class="inner-product">
+    		            <div class="figure-image">
+    		                <a href="single.html"><img src="{{ game.image }}" alt="Game 1"></a>
+    		            </div>
+    		            <h3 class="product-title"><a href="#">{{ game.name }}</a></h3>
+    		            <ul class="product-os-info">
+        		            <li>
+        		                <label><img src="{% static "dummy/windows.png" %}"></label>
+        		            </li>
+        		            <li>
+        		                <label><img src="{% static "dummy/linux.png" %}"></label>
+        		            </li>
+        		            <li>
+        		                <label><img src="{% static "dummy/apple.png" %}"></label>
+        		            </li>
+    		            </ul>
+    		        </div>
+    		    </div> <!-- .product -->
+        {% empty %}
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+            <div class="container">
+                <h2 align="center" >Não há jogos disponíveis</h2>
             </div>
-            {% endif %}
-    	</div>
-    </div>
-</main>
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+            <div class="row spacing"></div>
+	    {% endfor %}
+        </div>
+        {% if games %}
+		<div class="pagination-bar">
+            <div class="pagination">
+                <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
+                <span class="page-number current">1</span>
+                <a href="#" class="page-number">2</a>
+                <a href="#" class="page-number">3</a>
+                <a href="#" class="page-number">...</a>
+                <a href="#" class="page-number">12</a>
+                <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
+            </div> <!-- .pagination -->
+        </div>
+        {% endif %}
+	</div>
+</div>
 {% endblock %}
