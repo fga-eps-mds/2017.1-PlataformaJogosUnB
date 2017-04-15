@@ -3,9 +3,9 @@
 {% load staticfiles %}
 
 {% block main %}
-<main class="main-content">
+<main class="main-content" >
 
-  <div class="container">
+  <div class="container" style="width: 980px;">
     <div class="page">
 
       <div class="entry-content">
@@ -24,37 +24,57 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6">
-
-
-                    <div class="containerCard">
-                      <div class="card blue-grey darken-1 medium" >
-                        <div class="card-content white-text">
-                          <span class="card-title">Need For Speed Rivels</span>
-                          <p><strong>Ano: </strong>2017</p></br>
-                          <p><strong>Categoria: </strong> Ação</p></br>
-                          <p><strong>Equipe de desenvolvimento: </strong> Maria Liz, João Kleber e Glauco Rocha</p></br>
-                          <p><strong>Equipe de Arte: </strong>Jorge Figueiredo, Julio Prestes, Deodoro da Fonseca</p></br>
+               <div class="col-sm-6" > <!--inicio card de descrição -->
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-6">
+                      <div class="panel panel-default bootcards-file">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Sobre o game</h3>
                         </div>
-                        <div class="card-action">
-                          <a href="#">GitHub</a>
-                          <a href="#">Reportar Bug</a>
+                        <div class="list-group">
+                          <div class="list-group-item">
+                            <p class="list-group-item-text"><strong>Gênero:</strong> Corrida</p>
+                            <p class="list-group-item-text"><strong>Linguagens:</strong> Português</p>
+                            <p class="list-group-item-text"><strong>Tamanho do Arquivo:</strong> 10mb</p>
+                            <p class="list-group-item-text"><strong>Modo de Jogo:</strong> Um jogador</p>
+                            <p class="list-group-item-text"><strong>Desenvolvedores:</strong> Quentin Tarantino, Martin Scorsese e Alfred Hitchcock</p>
+                            <p class="list-group-item-text"><strong>Designers:</strong> Jorge Clooney, Samuel L. Jackson e Denzel Washington</p>
+                            <p class="list-group-item-text"><strong>Trilha Sonora:</strong> Miles Davis, Ella Filtzerd e Chuck Berry</p>
+                          </div>
                         </div>
-
+                        <div class="list-group-item">
+                          <h4 class="list-group-item-heading">Baixe o jogo:</h4>
+                        </div>
+                        <div class="panel-footer">
+                          <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                              <button class="btn btn-default">
+                                          <i class="fa fa-arrow-down"></i>
+                                          Linux
+                                        </button>
+                            </div>
+                            <div class="btn-group">
+                              <button class="btn btn-default">
+                                          <i class="fa fa-arrow-down"></i>
+                                          macOS
+                                        </button>
+                            </div>
+                            <div class="btn-group">
+                              <button class="btn btn-default">
+                                          <i class="fa fa-arrow-down"></i>
+                                          Windows
+                                        </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="button-download">
-                  <ul>
-                  <a class="waves-effect blue-grey waves-light btn" class="button-icon" class="btn btn-primary"><i class="material-icons left"><img src="{% static "images/linux-icon.png" %}"></i>Download</a>
-                  <a class="waves-effect blue-grey waves-light btn" class="button-icon" class="btn btn-primary" ><i class="material-icons left"><img src="{% static "images/windows-icon.png" %}"></i>Download</a>
-                  <a class="waves-effect blue-grey waves-light btn" class="button-icon"><i class="material-icons left" class="btn btn-primary"><img src="{% static "images/mac-icon.png" %}"></i>Download</a>
-
-                </div>
-                </div>
+                    </div>
+                  </div>
                 </div>
 
-              <form class="formulario" action="#">
+              </div> <!--fim  card de descrição -->
 
-              </form>
             </div>
           </div>
         </div>
