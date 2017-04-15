@@ -28,7 +28,7 @@ class Image(Media):
         upload_to='public/images/',
         null=False,
         blank=True,
-        help_text=_('png, jpg, jpeg, etc.')
+        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
 
@@ -39,7 +39,7 @@ class Video(Media):
         upload_to='public/videos/',
         null=False,
         blank=True,
-        help_text=_('Accepted: mp4, avi, rmvb, etc.')
+        help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
     )
 
 
@@ -50,5 +50,5 @@ class Soundtrack(Media):
         upload_to='public/soundtrack/',
         null=False,
         blank=True,
-        help_text=_('mp3, tar.gz, zip, etc')
+        help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
     )
