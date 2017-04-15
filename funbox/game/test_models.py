@@ -10,15 +10,10 @@ def game_creation(name="", url="", launch_year=0):
 
 @pytest.fixture
 def game_created():
-    information = Information()
-    information.description = 'simple description' * 3
-    information.launch_year = 2017
-    information.save()
 
     game = Game()
     game.name = 'mario'
     game.official_repository = 'https://github.com/PlataformaJogosUnb/'
-    game.information = information
     game.save()
     return game
 
