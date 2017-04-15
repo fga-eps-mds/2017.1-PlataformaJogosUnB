@@ -3,6 +3,7 @@ from game.serializers import GameSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.shortcuts import redirect
 
 
 @api_view(['GET', 'POST'])
@@ -32,13 +33,9 @@ def game_list(request, format=None):
         if serializer.is_valid():
             serializer.save()
 
-            if request.accepted_renderer.format == 'html':
-                data = serializer.instance
-                return Response(data, template_name='listGames.html')
-
-            elif request.accepted_renderer.format == 'json' or 'api':
+            if request.accepted_renderer.format == 'json' or 'api':
                 data = serializer.data
-                return Response(data, status=status.HTTP_201_CREATED)
+                return redirect(data, status=status.HTTP_201_CREATED)
 
             else:
                 return Response({}, status=status.HTTP_404_NOT_FOUND)
@@ -75,11 +72,7 @@ def game_detail(request, pk, format=None):
         if serializer.is_valid():
             serializer.save()
 
-            if request.accepted_renderer.format == 'html':
-                data = {'game': game}
-                return Response(data, template_name='listGames.html')
-
-            elif request.accepted_renderer.format == 'json' or 'api':
+            if request.accepted_renderer.format == 'json' or 'api':
                 data = serializer.data
                 return Response(data, status=status.HTTP_200_OK)
 
@@ -93,11 +86,7 @@ def game_detail(request, pk, format=None):
 
         queryset = Game.objects.all()
 
-        if request.accepted_renderer.format == 'html':
-            data = {'games': queryset}
-            return Response(data, template_name='listGames.html')
-
-        elif request.accepted_renderer.format == 'json' or 'api':
+        if request.accepted_renderer.format == 'json' or 'api':
             serializer = GameSerializer(queryset, many=True)
             data = serializer.data
             return Response(data)
