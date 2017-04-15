@@ -143,7 +143,8 @@ class Information(models.Model):
 
     awards = models.ManyToManyField(
         Award,
-        related_name='awards'
+        related_name='awards',
+        blank=True
     )
 
     def save(self, *args, **kwargs):

@@ -88,8 +88,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#ignore sqlite file
+# ignore sqlite file
 *.sqlite3
 
-#IDEA
+# IDEA
 .idea/
+
+# Pytest cache
+.cache/
