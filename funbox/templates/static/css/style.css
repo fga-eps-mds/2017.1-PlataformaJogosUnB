@@ -2770,3 +2770,46 @@ table.cart .fa-times {
   padding-left: 10px;
   padding-bottom: 5px;
 }
+.fit{
+  width: 100px;
+  height: 50px;
+}
+#carousel-TEST {
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+#carousel-TEST .carousel-indicators {
+    margin: 10px 0 0;
+    overflow: auto;
+    position: static;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+}
+#carousel-TEST .carousel-indicators li {
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: inline-block;
+    height: auto;
+    margin: 0 !important;
+    width: auto;
+}
+#carousel-TEST .carousel-indicators li img {
+    display: block;
+    opacity: 0.5;
+}
+#carousel-TEST .carousel-indicators li.active img {
+    opacity: 1;
+}
+#carousel-TEST .carousel-indicators li:hover img {
+    opacity: 0.75;
+}
+#carousel-TEST .carousel-outer {
+    position: relative;
+}
+.fit{
+  width: 120px;
+  height: 70px;
+}

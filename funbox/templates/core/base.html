@@ -28,9 +28,9 @@
     <!-- Javascript -->
     {% block javascript_header %}
     <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script src="{% static "js/plugins.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
     {% endblock %}
   </head>
@@ -46,8 +46,7 @@
                           {% block headerItens %}
                           <li class="menu-item home current-menu-item"><a href="{% url 'index' %}"><i class="icon-home"></i></a></li>
                           <li class="menu-item"><a href="{% url 'game:list' %}">Jogos</a></li>
-                          <li class="menu-item"><a href="#">Sobre</a></li>
-                          <li class="menu-item"><a href="#">Contato</a></li>
+                          <li class="menu-item"><a href="{% url 'about' %}">Sobre</a></li>
                           {% endblock %} <!-- endblock HEADERITENS -->
                       </ul> <!-- .menu -->
 

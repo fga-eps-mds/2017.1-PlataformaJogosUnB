@@ -315,6 +315,13 @@ form textarea {
 /*
  * Reusable Components Style
  */
+
+.about{
+     font-size: 30px;
+     font-weight:bold;
+     color:#45b77d
+ }
+
 .button, form input[type="submit"], form button, form input[type="reset"] {
   border: none;
   background: #45b77d;
