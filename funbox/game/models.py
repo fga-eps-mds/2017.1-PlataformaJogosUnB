@@ -65,6 +65,11 @@ class Platform(models.Model):
         help_text=('Select the package extension that will be accepted'),
     )
 
+    platform = models.FileField(
+    _('Platform'),
+    upload_to='public/Platform',
+    )
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Platform, self).save(*args, **kwargs)
