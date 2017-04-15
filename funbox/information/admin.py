@@ -15,13 +15,5 @@ class InformationAdmin(admin.ModelAdmin):
     exclude = ('developers', 'awards', )
 
 
-class AwardAdmin(admin.ModelAdmin):
-    inlines = [AwardsInline, DevelopmentInline, ]
-
-
-class DeveloperAdmin(admin.ModelAdmin):
-    inlines = [AwardsInline, DevelopmentInline, ]
-
-
 admin.site.register(Developer)
 admin.site.register(Award)
