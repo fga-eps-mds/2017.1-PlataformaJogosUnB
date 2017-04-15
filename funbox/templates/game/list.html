@@ -40,7 +40,7 @@
                             </select>
                         </span>
                     </div>  .filter -->
-
+                    {% if games %}
                     <div class="pagination">
                         <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
                         <span class="page-number current">1</span>
@@ -50,30 +50,44 @@
                         <a href="#" class="page-number">12</a>
                         <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
                     </div> <!-- .pagination -->
+                    {% endif %}
                 </div> <!-- .filter-bar -->
     		<div class="product-list">
-    			{% for game in games %}
-    		    <div class="product">
-    		        <div class="inner-product">
-    		            <div class="figure-image">
-    		                <a href="single.html"><img src="{% static '{{ game.image }}' %}" alt="Game 1"></a>
-    		            </div>
-    		            <h3 class="product-title"><a href="#">{{ game.name }}</a></h3>
-    		            <ul class="product-os-info">
-    		            <li>
-    		                <label><img src="{% static '{{ game.windows }}' %}"></label>
-    		            </li>
-    		            <li>
-    		                <label><img src="{% static '{{ game.linux }}' %}"></label>
-    		            </li>
-    		            <li>
-    		                <label><img src="{% static '{{ game.macos }}' %}"></label>
-    		            </li>
-    		        </ul>
-    		        </div>
-    		    </div> <!-- .product -->
-    		    {% endfor %}
-    		</div>
+			{% for game in games %}
+        		    <div class="product">
+        		        <div class="inner-product">
+        		            <div class="figure-image">
+        		                <a href="single.html"><img src="{{ game.image }}" alt="Game 1"></a>
+        		            </div>
+        		            <h3 class="product-title"><a href="#">{{ game.name }}</a></h3>
+        		            <ul class="product-os-info">
+            		            <li>
+            		                <label><img src="{% static '{{ game.windows.to }}' %}"></label>
+            		            </li>
+            		            <li>
+            		                <label><img src="{% static '{{ game.linux.url }}' %}"></label>
+            		            </li>
+            		            <li>
+            		                <label><img src="{% static '{{ game.macos.url }}' %}"></label>
+            		            </li>
+        		            </ul>
+        		        </div>
+        		    </div> <!-- .product -->
+            {% empty %}
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="container">
+                    <h3 align="center" >Não há jogos disponíveis</h3>
+                </div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+		    {% endfor %}
+            </div>
+            {% if games %}
     		<div class="pagination-bar">
                 <div class="pagination">
                     <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
@@ -85,6 +99,7 @@
                     <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
                 </div> <!-- .pagination -->
             </div>
+            {% endif %}
     	</div>
     </div>
 </main>
