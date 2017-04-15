@@ -7,3 +7,6 @@ def index(request):
 
 def show(request):
     return render(request, 'game/show.html',{} )
+
+def about(request):
+    return render(request, 'game/about.html',{} )

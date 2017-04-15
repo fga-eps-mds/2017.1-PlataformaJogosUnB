@@ -10,6 +10,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^about/$', views.about, name='about'),
     url(r'^admin/', admin.site.urls),
     url(r'^admin/reset-password/$', password_reset, name='reset_password'),
     url(r'^admin/reset-password/done/$',
