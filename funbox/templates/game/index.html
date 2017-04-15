@@ -13,31 +13,25 @@
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                     <a href="static/single.html"><img src="{% static "images/batman.jpg" %}"></a>
                     <div class="carousel-caption">
-
                     </div>
                 </div>
                 <div class="item">
                     <a href="static/single.html"><img src="{% static "images/sniper.jpg" %}"></a>
                     <div class="carousel-caption">
-
                     </div>
                 </div>
 
                 <div class="item">
                     <a href="single.html"><img src="{% static "images/farcry.jpg" %}"></a>
                     <div class="carousel-caption">
-
                     </div>
                 </div>
-
             </div>
-
             <!-- Controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -56,20 +50,20 @@
 </div>
 <div class="row spacing">
     <div class="row spacing" style="height: 60px">
-            <div style="font-size: 18px; font-weight:bold; color:#45b77d; margin-top: 15px; margin-left:15px">
-                JOGOS DA PLATAFORMA
-            </div>
+        <div style="font-size: 18px; font-weight:bold; color:#45b77d; margin-top: 15px; margin-left:15px">
+            JOGOS DA PLATAFORMA
         </div>
+    </div>
 </div>
 <div class="row">
     <div class="product-list">
-        {% for game in games%}
+        {% for game in games %}
             <div class="product">
                 <div class="inner-product">
                     <div class="figure-image">
-                        <a href="{% url 'game:show' %}"><img src="{% static "dummy/game-1.jpg" %}" alt="Game 1"></a>
+                        <a href="{% url 'game:show' %}"><img src="{{ game.image }}" alt="Game 1"></a>
                     </div>
-                    <h3 class="product-title"><a href="#">Alpha Protocol</a></h3>
+                    <h3 class="product-title"><a href="#">{{game.name}}</a></h3>
                     <ul class="product-os-info">
                     <li>
                         <label><img src="{% static "dummy/windows.png" %}"></label>
@@ -91,17 +85,5 @@
         <div class="row spacing" style="height: 200px"></div>
         {% endfor %}
     </div> <!-- .product-list -->
-
-    <!--<div class="pagination-bar">
-        <div class="pagination">
-            <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
-            <span class="page-number current">1</span>
-            <a href="#" class="page-number">2</a>
-            <a href="#" class="page-number">3</a>
-            <a href="#" class="page-number">...</a>
-            <a href="#" class="page-number">12</a>
-            <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-        </div>  .pagination
-    </div> -->
 </div>
 {% endblock %}
