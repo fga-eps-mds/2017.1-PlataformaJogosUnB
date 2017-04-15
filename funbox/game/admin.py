@@ -8,10 +8,11 @@ class InformationInline(admin.StackedInline):
 
 
 class PackageInline(admin.StackedInline):
-    model = Package 
+    model = Package
 
 
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline]
 
 admin.site.register(Game, GameAdmin)
+admin.site.register(Package)

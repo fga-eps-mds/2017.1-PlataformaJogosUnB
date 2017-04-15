@@ -4,8 +4,9 @@ from django.core.validators import URLValidator
 from game.validators import validate_version
 
 KILOBYTE = 1024
-MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
+MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 2
 
+#TODO: fix MAX_UPLOAD_SIZE validation - save as a string or define a constant.
 
 class Game(models.Model):
 
@@ -47,6 +48,7 @@ class Package(models.Model):
 
     package = models.FileField(
         _('Package'),
+        upload_to='public/packages',
         max_length=MAX_UPLOAD_SIZE,
         null=False,
         blank=False,
