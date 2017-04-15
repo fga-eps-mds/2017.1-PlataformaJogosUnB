@@ -44,8 +44,15 @@ def game_detail(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = GameSerializer(game)
-        return Response(serializer.data)
+        if request.accepted_renderer.format == 'html':
+            data = {'game': game}
+            return Response(data, template_name='listGames.html')
+
+        elif request.accepted_renderer.format == 'json' or 'api':
+            serializer = GameSerializer(game)
+            return Response(serializer.data)
+
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'PUT':
         serializer = GameSerializer(game, data=request.data)
