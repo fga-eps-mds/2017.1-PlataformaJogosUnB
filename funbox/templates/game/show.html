@@ -1,87 +1,157 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% load staticfiles %}
-
 {% block main %}
-<main class="main-content">
 
-  <div class="container">
-    <div class="page">
-
-      <div class="entry-content">
-      <br><h2 class="entry-title">Need for Speed Rivals</h2>
-
-        <div class="row">
-          <div class="col-sm-6 col-md-4">
-            <div class="product-images">
-              <figure class="large-image">
-                <a href="dummy/image-1.jpg"><img src="{% static "dummy/single-game-cover.jpg" %}" alt=""></a>
-              </figure>
-              <div class="thumbnails">
-                <a href="dummy/image-2.jpg"><img src="{% static "dummy/small-thumb-1.jpg" %}" alt=""></a>
-                <a href="dummy/image-3.jpg"><img src="{% static "dummy/small-thumb-2.jpg" %}" alt=""></a>
-                <a href="dummy/image-4.jpg"><img src="{% static "dummy/small-thumb-3.jpg" %}" alt=""></a>
-              </div>
+<style type="text/css">
+#carousel-custom {
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+#carousel-custom .carousel-indicators {
+    margin: 10px 0 0;
+    overflow: auto;
+    position: static;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+}
+#carousel-custom .carousel-indicators li {
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: inline-block;
+    height: auto;
+    margin: 0 !important;
+    width: auto;
+}
+#carousel-custom .carousel-indicators li img {
+    display: block;
+    opacity: 0.5;
+}
+#carousel-custom .carousel-indicators li.active img {
+    opacity: 1;
+}
+#carousel-custom .carousel-indicators li:hover img {
+    opacity: 0.75;
+}
+#carousel-custom .carousel-outer {
+    position: relative;
+}
+</style>
+<script>
+$(document).ready(function() {
+    $(".mCustomScrollbar").mCustomScrollbar({axis:"x"});
+});
+</script>
+<div class="row spacing">
+</div>
+<div class="col-md-7">
+  <div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+    <div class='carousel-outer'>
+        <!-- Wrapper for slides -->
+        <div class='carousel-inner'>
+            <div class='item active'>
+                <img src="{% static "images/batman.jpg" %}" alt='' />
             </div>
-          </div>
-               <div class="col-sm-6" > <!--inicio card de descrição -->
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-offset-1 col-md-6">
-                      <div class="panel panel-default bootcards-file">
-                        <div class="panel-heading">
-                          <h3 class="panel-title">Sobre o game</h3>
-                        </div>
-                        <div class="list-group">
-                          <div class="list-group-item">
-                            <p class="list-group-item-text"><strong>Gênero:</strong> Corrida</p>
-                            <p class="list-group-item-text"><strong>Linguagens:</strong> Português</p>
-                            <p class="list-group-item-text"><strong>Tamanho do Arquivo:</strong> 10mb</p>
-                            <p class="list-group-item-text"><strong>Modo de Jogo:</strong> Um jogador</p>
-                            <p class="list-group-item-text"><strong>Desenvolvedores:</strong> Quentin Tarantino, Martin Scorsese e Alfred Hitchcock</p>
-                            <p class="list-group-item-text"><strong>Designers:</strong> Jorge Clooney, Samuel L. Jackson e Denzel Washington</p>
-                            <p class="list-group-item-text"><strong>Trilha Sonora:</strong> Miles Davis, Ella Filtzerd e Chuck Berry</p>
-                          </div>
-                        </div>
-                        <div class="list-group-item">
-                          <h4 class="list-group-item-heading">Baixe o jogo:</h4>
-                        </div>
-                        <div class="panel-footer">
-                          <div class="btn-group btn-group-justified">
-                            <div class="btn-group">
-                              <button class="btn btn-default">
-                                          <i class="fa fa-arrow-down"></i>
-                                          Linux
-                                        </button>
-                            </div>
-                            <div class="btn-group">
-                              <button class="btn btn-default">
-                                          <i class="fa fa-arrow-down"></i>
-                                          macOS
-                                        </button>
-                            </div>
-                            <div class="btn-group">
-                              <button class="btn btn-default">
-                                          <i class="fa fa-arrow-down"></i>
-                                          Windows
-                                        </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div> <!--fim  card de descrição -->
-
+            <div class='item'>
+                <img src="{% static "images/show.png" %}" alt='' />
             </div>
-          </div>
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide3' alt='' />
+            </div>
+
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide4' alt='' />
+            </div>
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide5' alt='' />
+            </div>
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide6' alt='' />
+            </div>
+
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide7' alt='' />
+            </div>
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide8' alt='' />
+            </div>
+            <div class='item'>
+                <img src='http://placehold.it/400x200&text=slide9' alt='' />
+            </div>
         </div>
-      </div>
+
+        <!-- Controls -->
+        <a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+            <span class='glyphicon glyphicon-chevron-left'></span>
+        </a>
+        <a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+            <span class='glyphicon glyphicon-chevron-right'></span>
+        </a>
     </div>
-  </div> <!-- .container -->
 
-</main> <!-- .main-content -->
+    <!-- Indicators -->
+    <ol class='carousel-indicators mCustomScrollbar'>
+        <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='http://placehold.it/100x50&text=slide1' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='1'><img src='http://placehold.it/100x50&text=slide2' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='2'><img src='http://placehold.it/100x50&text=slide3' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='3'><img src='http://placehold.it/100x50&text=slide4' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='4'><img src='http://placehold.it/100x50&text=slide5' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='5'><img src='http://placehold.it/100x50&text=slide6' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='6'><img src='http://placehold.it/100x50&text=slide7' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='7'><img src='http://placehold.it/100x50&text=slide8' alt='' /></li>
+        <li data-target='#carousel-custom' data-slide-to='8'><img src='http://placehold.it/100x50&text=slide9' alt='' /></li>
+    </ol>
+  </div>
+</div>
 
+<div class="col-md-1">
+</div>
+<div class="col-md-4">
+         <div class="panel panel-default bootcards-file">
+           <div class="panel-heading">
+             <h3 class="panel-title">Sobre o game</h3>
+           </div>
+           <div class="list-group">
+             <div class="list-group-item">
+               <p class="list-group-item-text"><strong>Gênero:</strong> Corrida</p>
+               <p class="list-group-item-text"><strong>Linguagens:</strong> Português</p>
+               <p class="list-group-item-text"><strong>Tamanho do Arquivo:</strong> 10mb</p>
+               <p class="list-group-item-text"><strong>Modo de Jogo:</strong> Um jogador</p>
+               <p class="list-group-item-text"><strong>Desenvolvedores:</strong> Quentin Tarantino, Martin Scorsese e Alfred Hitchcock</p>
+               <p class="list-group-item-text"><strong>Designers:</strong> Jorge Clooney, Samuel L. Jackson e Denzel Washington</p>
+               <p class="list-group-item-text"><strong>Trilha Sonora:</strong> Miles Davis, Ella Filtzerd e Chuck Berry</p>
+             </div>
+           </div>
+           <div class="list-group-item">
+             <h4 class="list-group-item-heading">Baixe o jogo:</h4>
+           </div>
+           <div class="panel-footer">
+             <div class="btn-group btn-group-justified">
+               <div class="btn-group">
+                 <button class="btn btn-default">
+                             <i class="fa fa-arrow-down"></i>
+                             Linux
+                           </button>
+               </div>
+               <div class="btn-group">
+                 <button class="btn btn-default">
+                             <i class="fa fa-arrow-down"></i>
+                             macOS
+                           </button>
+               </div>
+               <div class="btn-group">
+                 <button class="btn btn-default">
+                             <i class="fa fa-arrow-down"></i>
+                             Windows
+                           </button>
+               </div>
+             </div>
+           </div>
+         </div>
+
+
+</div>
 {% endblock %}
