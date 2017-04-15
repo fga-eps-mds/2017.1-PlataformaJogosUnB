@@ -3,6 +3,7 @@ from game.serializers import GameSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.shortcuts import redirect
 
 
 @api_view(['GET', 'POST'])
@@ -20,16 +21,26 @@ def game_list(request, format=None):
             return Response(data, template_name='game/list.html')
         elif request.accepted_renderer.format == "json" or "api":
             serializer = GameSerializer(queryset, many=True)
-            return Response(serializer.data)
+            data = serializer.data
+            return Response(data)
 
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'POST':
         serializer = GameSerializer(data=request.data)
+
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            if request.accepted_renderer.format == 'json' or 'api':
+                data = serializer.data
+                return redirect(data, status=status.HTTP_201_CREATED)
+
+            else:
+                return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+        errors = serializer.errors
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -53,16 +64,26 @@ def game_detail(request, pk, format=None):
     
     elif request.method == 'PUT':
         serializer = GameSerializer(game, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+
+            if request.accepted_renderer.format == 'json' or 'api':
+                data = serializer.data
+                return Response(data, status=status.HTTP_200_OK)
+
+            else:
+                return Response({}, status=status.HTTP_404_NOT_FOUND)
+
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         game.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        queryset = Game.objects.all()
 
-@api_view(['GET'])
-def game_show(request):
-	if request.accepted_renderer.format == 'html':
-		return Response({}, template_name='game/show.html')
+        if request.accepted_renderer.format == 'json' or 'api':
+            serializer = GameSerializer(queryset, many=True)
+            data = serializer.data
+            return Response(data)
+
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
