@@ -2,7 +2,7 @@
 {% load static %}
 {% load staticfiles %}
 {% block main %}
-
+<h1>{{ game.name }}</h1>
 <div class="row spacing">
 </div>
 <div class="col-md-7">
@@ -78,7 +78,7 @@
            </div>
            <div class="list-group">
              <div class="list-group-item">
-               <p class="list-group-item-text"><strong>Gênero:</strong> Corrida</p>
+               <p class="list-group-item-text"><strong>Ano:</strong> Corrida</p>
                <p class="list-group-item-text"><strong>Linguagens:</strong> Português</p>
                <p class="list-group-item-text"><strong>Tamanho do Arquivo:</strong> 10mb</p>
                <p class="list-group-item-text"><strong>Modo de Jogo:</strong> Um jogador</p>
@@ -124,7 +124,7 @@
            </div>
            <div class="list-group">
              <div class="list-group-item">
-               <p class="list-group-item-text"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p
+               <p>{{ game.information.description }}</p>
              </div>
            </div>
          </div>

@@ -52,7 +52,7 @@ def game_detail(request, pk, format=None):
         game = Game.objects.get(pk=pk)
     except Game.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
+    print(pk)
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
             data = {'game': game}
