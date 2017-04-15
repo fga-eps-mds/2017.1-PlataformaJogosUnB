@@ -50,7 +50,7 @@ class Award(models.Model):
         super(Award, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "Award (%d): %s" % (self.year, self.name)
+        return "%s (%d): %s" % (self.place, self.year, self.name)
 
 
 class Developer(models.Model):
@@ -152,7 +152,8 @@ class Information(models.Model):
 
     def __str__(self):
         min_value = 50 if MIN_DESCRIPTION > 50 else MIN_DESCRIPTION
-        return "Information description: %s..." % self.description[0:min_value]
+        return "%s's description: %s..." % (self.game.name,
+                                            self.description[0:min_value])
 
 
 class Statistic(models.Model):
