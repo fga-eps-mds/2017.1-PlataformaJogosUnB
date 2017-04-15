@@ -51,9 +51,11 @@
     </div>
 
     <!-- Indicators -->
+
     <ol class='carousel-indicators mCustomScrollbar'>
-        <li data-target='#carousel-TEST' data-slide-to='0' class='active'><img src='http://placehold.it/100x50&text=slide1' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='1'><img src='http://placehold.it/100x50&text=slide2' alt='' /></li>
+      <div class="fit">
+        <li data-target='#carousel-TEST' data-slide-to='0' ><img style='height: 100%; width: 100%; object-fit: contain' src="{% static "images/batman.jpg" %}" alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='1'><img style='height: 100%; width: 100%; object-fit: contain' src="{% static "images/batman.jpg" %}" alt='' /></li>
         <li data-target='#carousel-TEST' data-slide-to='2'><img src='http://placehold.it/100x50&text=slide3' alt='' /></li>
         <li data-target='#carousel-TEST' data-slide-to='3'><img src='http://placehold.it/100x50&text=slide4' alt='' /></li>
         <li data-target='#carousel-TEST' data-slide-to='4'><img src='http://placehold.it/100x50&text=slide5' alt='' /></li>
@@ -61,7 +63,9 @@
         <li data-target='#carousel-TEST' data-slide-to='6'><img src='http://placehold.it/100x50&text=slide7' alt='' /></li>
         <li data-target='#carousel-TEST' data-slide-to='7'><img src='http://placehold.it/100x50&text=slide8' alt='' /></li>
         <li data-target='#carousel-TEST' data-slide-to='8'><img src='http://placehold.it/100x50&text=slide9' alt='' /></li>
+      </div>
     </ol>
+
   </div>
 </div>
 

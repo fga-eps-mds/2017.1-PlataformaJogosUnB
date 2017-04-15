@@ -2770,7 +2770,10 @@ table.cart .fa-times {
   padding-left: 10px;
   padding-bottom: 5px;
 }
-
+.fit{
+  width: 100px;
+  height: 50px;
+}
 #carousel-TEST {
     margin: auto;
     width: auto;
@@ -2805,4 +2808,8 @@ table.cart .fa-times {
 }
 #carousel-TEST .carousel-outer {
     position: relative;
+}
+.fit{
+  width: 120px;
+  height: 70px;
 }
