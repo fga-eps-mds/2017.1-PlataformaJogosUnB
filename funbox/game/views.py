@@ -3,7 +3,7 @@ from game.serializers import GameSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+
 
 @api_view(['GET', 'POST'])
 def game_list(request, format=None):
@@ -11,15 +11,19 @@ def game_list(request, format=None):
     List all games, or register a new one.
     """
     print(request.META['HTTP_USER_AGENT'])
+
     queryset = Game.objects.all()
+
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
             data = {'games': queryset}
             return Response(data, template_name='listGames.html')
-        elif request.accepted_renderer.format == "json":
+
+        elif request.accepted_renderer.format == "json" or "api":
             serializer = GameSerializer(queryset, many=True)
             return Response(serializer.data)
-        return Response({}, template_name='404.thml')
+
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'POST':
         serializer = GameSerializer(data=request.data)
