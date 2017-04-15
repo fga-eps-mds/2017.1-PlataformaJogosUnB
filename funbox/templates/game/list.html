@@ -53,25 +53,27 @@
             </div> <!-- .filter-bar -->
 		<div class="product-list">
 		{% for game in games %}
-    		    <div class="product">
-    		        <div class="inner-product">
-    		            <div class="figure-image">
-    		                <a href="single.html"><img src="{{ game.image }}" alt="Game 1"></a>
-    		            </div>
-    		            <h3 class="product-title"><a href="#">{{ game.name }}</a></h3>
-    		            <ul class="product-os-info">
-        		            <li>
-        		                <label><img src="{% static "dummy/windows.png" %}"></label>
-        		            </li>
-        		            <li>
-        		                <label><img src="{% static "dummy/linux.png" %}"></label>
-        		            </li>
-        		            <li>
-        		                <label><img src="{% static "dummy/apple.png" %}"></label>
-        		            </li>
-    		            </ul>
-    		        </div>
-    		    </div> <!-- .product -->
+                <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
+        		    <div class="product">
+                        <div class="inner-product">
+        		            <div class="figure-image">
+        		                <img src="{{ game.image }}" alt="Game 1">
+        		            </div>
+        		            <h3 class="product-title">{{ game.name}}</h3>
+        		            <ul class="product-os-info">
+            		            <li>
+            		                <label><img src="{% static "dummy/windows.png" %}"></label>
+            		            </li>
+            		            <li>
+            		                <label><img src="{% static "dummy/linux.png" %}"></label>
+            		            </li>
+            		            <li>
+            		                <label><img src="{% static "dummy/apple.png" %}"></label>
+            		            </li>
+        		            </ul>
+                        </div>
+                    </div> <!-- .product -->
+                </a>
         {% empty %}
             <div class="row spacing"></div>
             <div class="row spacing"></div>
