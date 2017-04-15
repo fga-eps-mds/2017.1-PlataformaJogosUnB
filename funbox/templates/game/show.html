@@ -3,52 +3,10 @@
 {% load staticfiles %}
 {% block main %}
 
-<style type="text/css">
-#carousel-custom {
-    margin: auto;
-    width: auto;
-    height: auto;
-}
-#carousel-custom .carousel-indicators {
-    margin: 10px 0 0;
-    overflow: auto;
-    position: static;
-    text-align: left;
-    white-space: nowrap;
-    width: 100%;
-}
-#carousel-custom .carousel-indicators li {
-    background-color: transparent;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    display: inline-block;
-    height: auto;
-    margin: 0 !important;
-    width: auto;
-}
-#carousel-custom .carousel-indicators li img {
-    display: block;
-    opacity: 0.5;
-}
-#carousel-custom .carousel-indicators li.active img {
-    opacity: 1;
-}
-#carousel-custom .carousel-indicators li:hover img {
-    opacity: 0.75;
-}
-#carousel-custom .carousel-outer {
-    position: relative;
-}
-</style>
-<script>
-$(document).ready(function() {
-    $(".mCustomScrollbar").mCustomScrollbar({axis:"x"});
-});
-</script>
 <div class="row spacing">
 </div>
 <div class="col-md-7">
-  <div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+  <div id='carousel-TEST' class='carousel slide' data-ride='carousel'>
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
         <div class='carousel-inner'>
@@ -84,25 +42,25 @@ $(document).ready(function() {
         </div>
 
         <!-- Controls -->
-        <a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+        <a class='left carousel-control' href='#carousel-TEST' data-slide='prev'>
             <span class='glyphicon glyphicon-chevron-left'></span>
         </a>
-        <a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+        <a class='right carousel-control' href='#carousel-TEST' data-slide='next'>
             <span class='glyphicon glyphicon-chevron-right'></span>
         </a>
     </div>
 
     <!-- Indicators -->
     <ol class='carousel-indicators mCustomScrollbar'>
-        <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='http://placehold.it/100x50&text=slide1' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='1'><img src='http://placehold.it/100x50&text=slide2' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='2'><img src='http://placehold.it/100x50&text=slide3' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='3'><img src='http://placehold.it/100x50&text=slide4' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='4'><img src='http://placehold.it/100x50&text=slide5' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='5'><img src='http://placehold.it/100x50&text=slide6' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='6'><img src='http://placehold.it/100x50&text=slide7' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='7'><img src='http://placehold.it/100x50&text=slide8' alt='' /></li>
-        <li data-target='#carousel-custom' data-slide-to='8'><img src='http://placehold.it/100x50&text=slide9' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='0' class='active'><img src='http://placehold.it/100x50&text=slide1' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='1'><img src='http://placehold.it/100x50&text=slide2' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='2'><img src='http://placehold.it/100x50&text=slide3' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='3'><img src='http://placehold.it/100x50&text=slide4' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='4'><img src='http://placehold.it/100x50&text=slide5' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='5'><img src='http://placehold.it/100x50&text=slide6' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='6'><img src='http://placehold.it/100x50&text=slide7' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='7'><img src='http://placehold.it/100x50&text=slide8' alt='' /></li>
+        <li data-target='#carousel-TEST' data-slide-to='8'><img src='http://placehold.it/100x50&text=slide9' alt='' /></li>
     </ol>
   </div>
 </div>
@@ -162,7 +120,7 @@ $(document).ready(function() {
            </div>
            <div class="list-group">
              <div class="list-group-item">
-               <p class="list-group-item-text"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+               <p class="list-group-item-text"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p
              </div>
            </div>
          </div>

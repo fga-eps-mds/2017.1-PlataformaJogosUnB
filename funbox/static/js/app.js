@@ -1,11 +1,12 @@
 (function($, document, window){
-	
+
 	$(document).ready(function(){
 
+		$(".mCustomScrollbar").mCustomScrollbar({axis:"x"});
 		// Cloning main navigation for mobile menu
 		$(".mobile-navigation").append($(".main-navigation .menu").clone());
 
-		// Mobile menu toggle 
+		// Mobile menu toggle
 		$(".toggle-menu").click(function(){
 			$(".mobile-navigation").slideToggle();
 		});
@@ -39,7 +40,7 @@
 		  		if (e.keyCode === 27) {
 		  			$(".overlay").fadeOut();
 					$(".popup").toggleClass("active");
-		  		}   
+		  		}
 			}
 		});
 
@@ -55,4 +56,4 @@
 
 	});
 
-})(jQuery, document, window);
+})(jQuery, document, window
