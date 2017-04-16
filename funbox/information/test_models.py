@@ -89,6 +89,49 @@ class TestAward:
  caracteres (ele possui 101).'
 
     @pytest.mark.django_db
+    @pytest.mark.parametrize("name, year, place, errors_dict", [
+        ('', 2016, 'Unb-Gama',
+        mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, 2016, 'Unb-Gama',
+        mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a'*101,2016, 'Unb-Gama',
+        mount_error_dict(["name"], [[error_message_max_length]])),
+    ])
+    def test_name_validation(self, name, year, place, errors_dict):
+        award = Award(name=name, place=place, year=year)
+        validation_test(award, errors_dict)
+
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, year, place, errors_dict", [
+        ('description', 1900, 'Unb-Gama',
+        mount_error_dict(["year"], [[ErrorMessage.YEAR_PAST]])),
+        ('description', 2018, 'Unb-Gama',
+        mount_error_dict(["year"], [[error_message_year_future]])),
+        ('description', None, 'Unb-Gama',
+        mount_error_dict(["year"], [[ErrorMessage.NULL]])),
+        ('description', '', 'Unb-Gama',
+        mount_error_dict(["year"], [[ErrorMessage.NOT_INTEGER]])),
+    ])
+    def test_year_validation(self, name, year, place, errors_dict):
+        award = Award(name=name, place=place, year=year)
+        validation_test(award, errors_dict)
+
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("place, year, name, errors_dict", [
+        ('', 2016, 'Unb-Gama',
+        mount_error_dict(["place"], [[ErrorMessage.BLANK]])),
+        (None, 2016, 'Unb-Gama',
+        mount_error_dict(["place"], [[ErrorMessage.NULL]])),
+        ('a'*101,2016, 'Unb-Gama',
+        mount_error_dict(["place"], [[error_message_max_length]])),
+    ])
+    def test_place_validation(self, place, year, name, errors_dict):
+        award = Award(name=name, place=place, year=year)
+        validation_test(award, errors_dict)
+
+    @pytest.mark.django_db
     def test_award_save(self, award_creation):
         award = Award.objects.get(pk=award_creation.pk)
         assert award == award_creation
