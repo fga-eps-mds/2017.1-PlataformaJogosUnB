@@ -14,6 +14,7 @@ def validation_test(model, errors_dict):
     from django.core.exceptions import ValidationError
     with pytest.raises(ValidationError)as validation_error:
         model.save()
+    print(validation_error.value.message_dict)
     assert validation_error.value.message_dict == errors_dict
 
 
@@ -27,6 +28,7 @@ def mount_error_dict(keys, values):
 
 
 class ErrorMessage(Enum):
+    YEAR_PAST = 'Our University had not been built at this time!'
     NULL = 'Este campo não pode ser nulo.'
     BLANK = "Este campo não pode estar vazio."
     NOT_INTEGER = "'' valor deve ser um inteiro."
