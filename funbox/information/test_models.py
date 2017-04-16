@@ -73,3 +73,26 @@ characters!"
         game.save()
         information = information_creation(description, launch_year, game)
         validation_test(information, errors_dict)
+
+
+@pytest.fixture
+def award_creation():
+    award = Award.objects.create(name="award", place="UnB", year=now())
+    award.save()
+    return award
+
+
+class TestAward:
+    error_message_year_future = 'We believe the award was not won in the\
+ future!'
+    error_message_max_length= 'Certifique-se de que o valor tenha no máximo 100\
+ caracteres (ele possui 101).'
+
+    @pytest.mark.django_db
+    def test_award_save(self, award_creation):
+        award = Award.objects.get(pk=award_creation.pk)
+        assert award == award_creation
+
+    @pytest.mark.django_db
+    def test_str_award(self, award_creation):
+        assert str(award_creation) == "Award (%d): %s" % (now(), "award")
