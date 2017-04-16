@@ -78,13 +78,7 @@
            </div>
            <div class="list-group">
              <div class="list-group-item">
-               <p class="list-group-item-text"><strong>Ano:</strong> Corrida</p>
-               <p class="list-group-item-text"><strong>Linguagens:</strong> Português</p>
-               <p class="list-group-item-text"><strong>Tamanho do Arquivo:</strong> 10mb</p>
-               <p class="list-group-item-text"><strong>Modo de Jogo:</strong> Um jogador</p>
-               <p class="list-group-item-text"><strong>Desenvolvedores:</strong> Quentin Tarantino, Martin Scorsese e Alfred Hitchcock</p>
-               <p class="list-group-item-text"><strong>Designers:</strong> Jorge Clooney, Samuel L. Jackson e Denzel Washington</p>
-               <p class="list-group-item-text"><strong>Trilha Sonora:</strong> Miles Davis, Ella Filtzerd e Chuck Berry</p>
+               <p class="list-group-item-text"><strong>Ano: </strong>{{ game.information.launch_year }}</p>
              </div>
            </div>
            <div class="list-group-item">
@@ -125,6 +119,20 @@
            <div class="list-group">
              <div class="list-group-item">
                <p>{{ game.information.description }}</p>
+             </div>
+             <div class="list-group-item">
+               <h3 class="panel-title">Desenvolvedores</h3>
+               <br>
+               {% for developer in game.information.developers.all %}
+               <p>{{ developer.name }} - <a href="{{ developer.github_page }}">{{ developer.github_page }}</a></p>
+               {% endfor %}
+             </div>
+             <div class="list-group-item">
+               <h3 class="panel-title">Prêmios</h3>
+               <br>
+               {% for award in game.information.awards.all %}
+               <p>{{ award.name }} - {{ award.year }}</p>
+               {% endfor %}
              </div>
            </div>
          </div>
