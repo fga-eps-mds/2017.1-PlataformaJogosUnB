@@ -1,8 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
-import os
-
+from game.choices import ROLE_CHOICES 
+import os 
 
 class Media(models.Model):
 
@@ -13,6 +13,16 @@ class Media(models.Model):
         Game,
         related_name='media_%(class)s',
     )
+
+    role = models.CharField(
+        _('Role'),
+        max_length = 10,
+        choices=ROLE_CHOICES,
+        null=False,
+        blank=False,
+        help_text=_('Select the role of this media'),
+    )
+
 
     def save(self, *args, **kwargs):
         self.clean_fields()

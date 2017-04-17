@@ -41,3 +41,6 @@ class Game(models.Model):
                 self.name,
                 self.game_version
         )
+
+    def fetch_media(self, media, role):
+        return getattr(self, 'media_' + media).filter(role=role)
