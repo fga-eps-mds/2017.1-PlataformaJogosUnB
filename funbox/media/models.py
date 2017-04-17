@@ -20,6 +20,7 @@ class Media(models.Model):
         choices=ROLE_CHOICES,
         null=False,
         blank=False,
+        default=ROLE_CHOICES[0][0],
         help_text=_('Select the role of this media'),
     )
 
