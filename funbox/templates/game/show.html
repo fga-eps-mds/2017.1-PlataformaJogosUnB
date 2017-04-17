@@ -1,6 +1,11 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% load staticfiles %}
+{% block headerItens %}
+<li class="menu-item home"><a href="{% url 'index' %}"><i class="icon-home"></i></a></li>
+<li class="menu-item"><a href="{% url 'game:list' %}">Jogos</a></li>
+<li class="menu-item"><a href="{% url 'about' %}">Sobre</a></li>
+{% endblock %}
 {% block main %}
 <div class="row spacing">
 </div>
@@ -11,7 +16,7 @@
   <div id='carousel-TEST' class='carousel slide' data-ride='carousel'>
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
-        <div class='carousel-inner'>
+        <div class='carousel-inner'>  
             {% for media in game.media_image.all %}
               {% if forloop.counter0 == 0%}
                 <div class='item active'>
@@ -57,6 +62,10 @@
            <div class="list-group">
              <div class="list-group-item">
                <p class="list-group-item-text"><strong>Ano: </strong>{{ game.information.launch_year }}</p>
+               <br/>
+               <p class="list-group-item-text"><strong>Versão: </strong>{{ game.game_version }}</p>
+               <br/>
+               <p class="list-group-item-text"><strong>Repositório oficial: </strong><a href="{{ game.official_repository }}">{{ game.official_repository }}</a></p>
              </div>
            </div>
            <div class="list-group-item">
@@ -99,14 +108,13 @@
                <p>{{ game.information.description }}</p>
              </div>
              <div class="list-group-item">
-               <h3 class="panel-title">Desenvolvedores</h3>
-               <br>
+               <h3 class="colorH3">Desenvolvedores</h3>
                {% for developer in game.information.developers.all %}
                 <p>{{ developer.name }} - <a href="{{ developer.github_page }}">{{ developer.github_page }}</a></p>
                {% endfor %}
              </div>
              <div class="list-group-item">
-               <h3 class="panel-title">Prêmios</h3>
+               <h3 class="colorH3">Prêmios</h3>
                <br>
                {% for award in game.information.awards.all %}
                <p>{{ award.name }} - {{ award.year }}</p>
