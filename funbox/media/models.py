@@ -25,7 +25,7 @@ class Image(Media):
 
     image = models.ImageField(
         _('Image'),
-        upload_to='public/images/',
+        upload_to='images/',
         null=False,
         blank=True,
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
@@ -36,7 +36,7 @@ class Video(Media):
 
     video = models.FileField(
         _('Video'),
-        upload_to='public/videos/',
+        upload_to='videos/',
         null=False,
         blank=True,
         help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
@@ -47,7 +47,7 @@ class Soundtrack(Media):
 
     soundtrack = models.FileField(
         _('Soundtrack'),
-        upload_to='public/soundtrack/',
+        upload_to='soundtrack/',
         null=False,
         blank=True,
         help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
