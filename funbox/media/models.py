@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
+import os
 
 
 class Media(models.Model):
@@ -18,7 +19,7 @@ class Media(models.Model):
         super(Media, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "%s's media" % (self.game.name)
+        return 'file = "%s", media = %s' % (os.path.basename(self.file.path), self.game.name)
 
 
 class Image(Media):
@@ -31,6 +32,8 @@ class Image(Media):
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
+    def __str__(self):
+        return 'file = "%s", media = %s' % (os.path.basename(self.image.path), self.game.name)
 
 class Video(Media):
 
