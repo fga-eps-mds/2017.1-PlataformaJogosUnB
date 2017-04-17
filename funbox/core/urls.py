@@ -7,6 +7,8 @@ from django.contrib.auth.views import (
 from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -26,3 +28,6 @@ urlpatterns = [
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
