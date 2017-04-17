@@ -2,7 +2,9 @@
 {% load static %}
 {% load staticfiles %}
 {% block main %}
-<h1>{{ game.name }}</h1>
+<div class="row spacing">
+</div>
+<h1 align="center">{{ game.name }}</h1>
 <div class="row spacing">
 </div>
 <div class="col-md-7">
@@ -10,35 +12,17 @@
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
         <div class='carousel-inner'>
-            <div class='item active'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
-            <div class='item'>
-                <img src="{% static "images/batman.jpg" %}" alt='' />
-            </div>
+            {% for media in game.media_image.all %}
+              {% if forloop.counter0 == 0%}
+                <div class='item active'>
+                    <img src="{{ media.image.url }}" alt='' />
+                </div>
+              {% else %}
+                <div class='item'>
+                    <img src="{{ media.image.url }}" alt='' />
+                </div>
+              {% endif %}
+            {% endfor %}
         </div>
 
         <!-- Controls -->
@@ -54,15 +38,9 @@
 
     <ol class='carousel-indicators mCustomScrollbar'>
       <div class="fit">
-        <li data-target='#carousel-TEST' data-slide-to='0' ><img style='height: 100%; width: 100%; object-fit: contain' src="{% static "images/batman.jpg" %}" alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='1'><img style='height: 100%; width: 100%; object-fit: contain' src="{% static "images/batman.jpg" %}" alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='2'><img src='http://placehold.it/100x50&text=slide3' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='3'><img src='http://placehold.it/100x50&text=slide4' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='4'><img src='http://placehold.it/100x50&text=slide5' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='5'><img src='http://placehold.it/100x50&text=slide6' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='6'><img src='http://placehold.it/100x50&text=slide7' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='7'><img src='http://placehold.it/100x50&text=slide8' alt='' /></li>
-        <li data-target='#carousel-TEST' data-slide-to='8'><img src='http://placehold.it/100x50&text=slide9' alt='' /></li>
+        {% for media in game.media_image.all %}
+          <li data-target='#carousel-TEST' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ media.image.url }}" alt='' /></li>
+        {% endfor %}
       </div>
     </ol>
 
@@ -124,7 +102,7 @@
                <h3 class="panel-title">Desenvolvedores</h3>
                <br>
                {% for developer in game.information.developers.all %}
-               <p>{{ developer.name }} - <a href="{{ developer.github_page }}">{{ developer.github_page }}</a></p>
+                <p>{{ developer.name }} - <a href="{{ developer.github_page }}">{{ developer.github_page }}</a></p>
                {% endfor %}
              </div>
              <div class="list-group-item">

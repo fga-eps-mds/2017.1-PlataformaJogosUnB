@@ -62,7 +62,7 @@
                 <div class="product">
                     <div class="inner-product">
                         <div class="figure-image">
-                            <img src="{{ game.image }}" alt="Game 1" />
+                            <img src="{{ game.media_image.first.image.url }}" alt="{{ game.name }}" />
                         </div>
                         <h3 class="product-title">{{game.name}}</h3>
                         <ul class="product-os-info">
@@ -80,11 +80,11 @@
                 </div> <!-- .product -->
             </a>
         {% empty %}
-        <div class="row spacing" style="height: 200px;"></div>
-        <div class="container">
-            <h3 align="center" >Não há jogos disponíveis</h3>
-        </div>
-        <div class="row spacing" style="height: 200px;"></div>
+            <div class="row spacing" style="height: 200px;"></div>
+            <div class="container">
+                <h3 align="center" >Não há jogos disponíveis</h3>
+            </div>
+            <div class="row spacing" style="height: 200px;"></div>
         {% endfor %}
     </div> <!-- .product-list -->
 </div>

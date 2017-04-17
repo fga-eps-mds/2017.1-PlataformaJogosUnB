@@ -38,68 +38,44 @@
                         </select>
                     </span>
                 </div>  .filter -->
-                {% if games %}
-                <div class="pagination">
-                    <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
-                    <span class="page-number current">1</span>
-                    <a href="#" class="page-number">2</a>
-                    <a href="#" class="page-number">3</a>
-                    <a href="#" class="page-number">...</a>
-                    <a href="#" class="page-number">12</a>
-                    <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-                </div> <!-- .pagination -->
-                {% endif %}
             </div> <!-- .filter-bar -->
 		<div class="product-list">
-		{% for game in games %}
-                <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
-        		    <div class="product">
-                        <div class="inner-product">
-        		            <div class="figure-image">
-        		                <img src="{{ game.image }}" alt="Game 1">
-        		            </div>
-        		            <h3 class="product-title">{{ game.name}}</h3>
-        		            <ul class="product-os-info">
-            		            <li>
-            		                <label><img src="{% static "dummy/windows.png" %}"></label>
-            		            </li>
-            		            <li>
-            		                <label><img src="{% static "dummy/linux.png" %}"></label>
-            		            </li>
-            		            <li>
-            		                <label><img src="{% static "dummy/apple.png" %}"></label>
-            		            </li>
-        		            </ul>
-                        </div>
-                    </div> <!-- .product -->
-                </a>
-        {% empty %}
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-            <div class="container">
-                <h2 align="center" >Não há jogos disponíveis</h2>
-            </div>
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-            <div class="row spacing"></div>
-	    {% endfor %}
+    		{% for game in games %}
+                    <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
+            		    <div class="product">
+                            <div class="inner-product">
+            		            <div class="figure-image">
+            		                <img src="{{ game.media_image.first.image.url }}" alt="{{ game.name }}" /> 
+            		            </div>
+            		            <h3 class="product-title">{{ game.name}}</h3>
+            		            <ul class="product-os-info">
+                		            <li>
+                		                <label><img src="{% static "dummy/windows.png" %}"></label>
+                		            </li>
+                		            <li>
+                		                <label><img src="{% static "dummy/linux.png" %}"></label>
+                		            </li>
+                		            <li>
+                		                <label><img src="{% static "dummy/apple.png" %}"></label>
+                		            </li>
+            		            </ul>
+                            </div>
+                        </div> <!-- .product -->
+                    </a>
+            {% empty %}
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="container">
+                    <h2 align="center" >Não há jogos disponíveis</h2>
+                </div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+                <div class="row spacing"></div>
+    	    {% endfor %}
         </div>
-        {% if games %}
-		<div class="pagination-bar">
-            <div class="pagination">
-                <a href="#" class="page-number"><i class="fa fa-angle-left"></i></a>
-                <span class="page-number current">1</span>
-                <a href="#" class="page-number">2</a>
-                <a href="#" class="page-number">3</a>
-                <a href="#" class="page-number">...</a>
-                <a href="#" class="page-number">12</a>
-                <a href="#" class="page-number"><i class="fa fa-angle-right"></i></a>
-            </div> <!-- .pagination -->
-        </div>
-        {% endif %}
 	</div>
 </div>
 {% endblock %}
