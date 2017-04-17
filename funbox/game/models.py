@@ -37,4 +37,7 @@ class Game(models.Model):
 
     def __str__(self):
         pass
-        return "%s v%s" % (self.name, self.game_version)
+        return "{0} V{1}".format(
+                self.name,
+                self.game_version
+        )
