@@ -65,6 +65,7 @@ class Developer(models.Model):
 
     avatar = models.FileField(
         _('Avatar'),
+        upload_to='public/avatar',
         null=False,
         blank=True,
         help_text=_('Developer image.')

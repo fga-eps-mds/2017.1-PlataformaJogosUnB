@@ -23,7 +23,6 @@ def game_list(request, format=None):
             serializer = GameSerializer(queryset, many=True)
             data = serializer.data
             return Response(data)
-
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'POST':
@@ -60,7 +59,7 @@ def game_detail(request, pk, format=None):
             serializer = GameSerializer(game)
             return Response(serializer.data)
         return Response({}, status=status.HTTP_404_NOT_FOUND)
-    
+
     elif request.method == 'PUT':
         serializer = GameSerializer(game, data=request.data)
 
@@ -75,7 +74,7 @@ def game_detail(request, pk, format=None):
                 return Response({}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-    
+
     elif request.method == 'DELETE':
         game.delete()
         queryset = Game.objects.all()
