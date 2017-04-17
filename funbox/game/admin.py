@@ -18,7 +18,13 @@ class ImageInline(admin.StackedInline):
 class VideoInline(admin.StackedInline):
     model = Video
     extra = 0
-    min_num = 1
+    min_num = 0
+
+
+class SoundtrackInline(admin.StackedInline):
+    model = Soundtrack
+    extra = 0
+    min_num = 0
 
 
 class PackageInline(admin.StackedInline):
@@ -39,12 +45,6 @@ class PlatformsInline(admin.StackedInline):
 class PackageAdmin(admin.ModelAdmin):
     inlines = [PlatformsInline, ]
     exclude = ('platforms', )
-
-
-class SoundtrackInline(admin.StackedInline):
-    model = Soundtrack
-    extra = 0
-    min_num = 1
 
 
 class GameAdmin(admin.ModelAdmin):

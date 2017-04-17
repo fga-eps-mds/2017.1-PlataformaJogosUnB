@@ -1,8 +1,9 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
-from media.choices import ROLE_CHOICES 
-import os 
+from media.choices import ROLE_CHOICES
+import os
+
 
 class Media(models.Model):
 
@@ -16,14 +17,13 @@ class Media(models.Model):
 
     role = models.CharField(
         _('Role'),
-        max_length = 10,
+        max_length=10,
         choices=ROLE_CHOICES,
         null=False,
         blank=False,
         default=ROLE_CHOICES[0][0],
         help_text=_('Select the role of this media'),
     )
-
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -42,7 +42,7 @@ class Image(Media):
         _('Image'),
         upload_to='images/',
         null=False,
-        blank=True,
+        blank=False,
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
