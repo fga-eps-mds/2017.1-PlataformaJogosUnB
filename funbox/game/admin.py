@@ -36,24 +36,18 @@ class PackageInline(admin.StackedInline):
 
 class PlatformsInline(admin.StackedInline):
     model = Package.platform.through
-    exclude = ('platforms', )
     extra = 0
     min_num = 1
     max_num = len(EXTENSION_CHOICES)
 
 
-class PackageAdmin(admin.ModelAdmin):
-    inlines = [PlatformsInline, ]
-    exclude = ('platforms', )
-
-
 class GameAdmin(admin.ModelAdmin):
-    inlines = [InformationInline, ImageInline, VideoInline, SoundtrackInline]
+    inlines = [InformationInline, PackageInline, ImageInline, VideoInline, SoundtrackInline]
 
 
 admin.site.register(Game, GameAdmin)
 admin.site.register(Image)
 admin.site.register(Video)
 admin.site.register(Soundtrack)
-admin.site.register(Package, PackageAdmin)
 admin.site.register(Platform)
+admin.site.register(Package)

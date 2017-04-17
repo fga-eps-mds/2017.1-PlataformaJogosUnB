@@ -54,7 +54,7 @@ class Game(models.Model):
 class Platform(models.Model):
 
     name = models.CharField(
-        _('Package name'),
+        _('Platform name'),
         max_length=50,
         null=False,
         blank=False,
@@ -70,8 +70,8 @@ class Platform(models.Model):
         help_text=('Select the package extension that will be accepted'),
     )
 
-    platform = models.FileField(
-        _('Platform'),
+    icon = models.FileField(
+        _('Platform Icon'),
         upload_to='Platform',
     )
 
