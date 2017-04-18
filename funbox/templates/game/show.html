@@ -13,38 +13,38 @@
 <div class="row spacing">
 </div>
 <div class="col-md-7">
-  <div id='carousel-TEST' class='carousel slide' data-ride='carousel'>
+  <div id='carousel-show' class='carousel slide' data-ride='carousel'>
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
         <div class='carousel-inner'>  
             {% for image in game.slider_image %}
               {% if forloop.counter0 == 0%}
                 <div class='item active'>
-                    <img src="{{ image }}" alt='' />
+                    <img src="{{ image }}" />
                 </div>
               {% else %}
                 <div class='item'>
-                    <img src="{{ image }}" alt='' />
+                    <img src="{{ image }}" />
                 </div>
               {% endif %}
             {% endfor %}
         </div>
 
         <!-- Controls -->
-        <a class='left carousel-control' href='#carousel-TEST' data-slide='prev'>
+        <a class='left carousel-control' href='#carousel-show' data-slide='prev'>
             <span class='glyphicon glyphicon-chevron-left'></span>
         </a>
-        <a class='right carousel-control' href='#carousel-TEST' data-slide='next'>
+        <a class='right carousel-control' href='#carousel-show' data-slide='next'>
             <span class='glyphicon glyphicon-chevron-right'></span>
         </a>
     </div>
 
     <!-- Indicators -->
 
-    <ol class='carousel-indicators mCustomScrollbar'>
+    <ol class='carousel-indicators-show mCustomScrollbar'>
       <div class="fit">
         {% for image in game.slider_image %}
-          <li data-target='#carousel-TEST' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ image }}" alt='' /></li>
+          <li data-target='#carousel-show' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ image }}" /></li>
         {% endfor %}
       </div>
     </ol>

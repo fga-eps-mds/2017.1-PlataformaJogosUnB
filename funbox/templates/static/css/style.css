@@ -2770,16 +2770,12 @@ table.cart .fa-times {
   padding-left: 10px;
   padding-bottom: 5px;
 }
-.fit{
-  width: 100px;
-  height: 50px;
-}
 #carousel-TEST {
     margin: auto;
     width: auto;
     height: auto;
 }
-#carousel-TEST .carousel-indicators {
+#carousel-show .carousel-indicators-show {
     margin: 10px 0 0;
     overflow: auto;
     position: static;
@@ -2787,7 +2783,7 @@ table.cart .fa-times {
     white-space: nowrap;
     width: 100%;
 }
-#carousel-TEST .carousel-indicators li {
+#carousel-show .carousel-indicators-show li {
     background-color: transparent;
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -2796,14 +2792,14 @@ table.cart .fa-times {
     margin: 0 !important;
     width: auto;
 }
-#carousel-TEST .carousel-indicators li img {
+#carousel-show .carousel-indicators-show li img {
     display: block;
     opacity: 0.5;
 }
-#carousel-TEST .carousel-indicators li.active img {
+#carousel-show .carousel-indicators-show li.active img {
     opacity: 1;
 }
-#carousel-TEST .carousel-indicators li:hover img {
+#carousel-show .carousel-indicators-show li:hover img {
     opacity: 0.75;
 }
 #carousel-TEST .carousel-outer {
@@ -2811,9 +2807,13 @@ table.cart .fa-times {
 }
 .fit{
   width: 120px;
-  height: 70px;
+  height: 80px;
 }
 
 .colorH3{
   color: #333;
+}
+
+.containerImgSlider{
+  height: 200px;
 }

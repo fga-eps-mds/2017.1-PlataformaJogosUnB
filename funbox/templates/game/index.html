@@ -9,9 +9,9 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+                {% for game in games %}
+                    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                {% endfor %}
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -43,9 +43,11 @@
         </div>
     </div>
     <div class="col-sm-4">
-        
-            <img data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" src="{% static "images/batman.jpg" %}"  role="button" class="sideImg">
-            <img data-target="#myCarousel" data-slide-to="2" src="{% static "images/farcry.jpg" %}"  role="button" class="sideImg">
+        {% for game in games %}
+            <div class="row">
+                <img data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" src="{{ game.slider_image }}"  role="button" class="containerImgSlider">
+            </div>
+        {% endfor %}
     </div>
 </div>
 <div class="row">
