@@ -17,14 +17,14 @@
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
         <div class='carousel-inner'>  
-            {% for media in game.media_image.all %}
+            {% for image in game.slider_image %}
               {% if forloop.counter0 == 0%}
                 <div class='item active'>
-                    <img src="{{ media.image.url }}" alt='' />
+                    <img src="{{ image }}" alt='' />
                 </div>
               {% else %}
                 <div class='item'>
-                    <img src="{{ media.image.url }}" alt='' />
+                    <img src="{{ image }}" alt='' />
                 </div>
               {% endif %}
             {% endfor %}
@@ -43,8 +43,8 @@
 
     <ol class='carousel-indicators mCustomScrollbar'>
       <div class="fit">
-        {% for media in game.media_image.all %}
-          <li data-target='#carousel-TEST' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ media.image.url }}" alt='' /></li>
+        {% for image in game.slider_image %}
+          <li data-target='#carousel-TEST' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ image }}" alt='' /></li>
         {% endfor %}
       </div>
     </ol>
@@ -73,24 +73,18 @@
            </div>
            <div class="panel-footer">
              <div class="btn-group btn-group-justified">
-               <div class="btn-group">
-                 <button class="btn btn-default">
-                             <i class="fa fa-arrow-down"></i>
-                             Linux
-                           </button>
-               </div>
-               <div class="btn-group">
-                 <button class="btn btn-default">
-                             <i class="fa fa-arrow-down"></i>
-                             macOS
-                           </button>
-               </div>
-               <div class="btn-group">
-                 <button class="btn btn-default">
-                             <i class="fa fa-arrow-down"></i>
-                             Windows
-                           </button>
-               </div>
+               {% for package in game.package %}
+                 {% for platform in package.platform.all %} 
+                 <div class="btn-group">
+                   <a href="{{ package.package.url }}">
+                   <button class="btn btn-default">
+                      <i class="fa fa-arrow-down"></i>
+                        {{ platform.name }}
+                    </button>
+                    </a>
+                 </div>
+                 {% endfor %}
+               {% endfor %}
              </div>
            </div>
          </div>

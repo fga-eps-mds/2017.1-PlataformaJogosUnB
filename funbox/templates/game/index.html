@@ -43,10 +43,9 @@
         </div>
     </div>
     <div class="col-sm-4">
-        {% for game in games %}
-            <img data-target="#myCarousel" data-slide-to="0" src="{% static "images/batman.jpg" %}"  role="button" class="sideImg">
+        
+            <img data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" src="{% static "images/batman.jpg" %}"  role="button" class="sideImg">
             <img data-target="#myCarousel" data-slide-to="2" src="{% static "images/farcry.jpg" %}"  role="button" class="sideImg">
-        {% endfor %}
     </div>
 </div>
 <div class="row">
@@ -67,16 +66,14 @@
                         </div>
                         <h3 class="product-title">{{game.name}}</h3>
                         <ul class="product-os-info">
-                        <li>
-                            <label><img src="{% static "dummy/windows.png" %}"></label>
-                        </li>
-                        <li>
-                            <label><img src="{% static "dummy/linux.png" %}"></label>
-                        </li>
-                        <li>
-                            <label><img src="{% static "dummy/apple.png" %}"></label>
-                        </li>
-                    </ul>
+                            {% for package in game.package %}
+                                {% for platform in package.platform.all %}
+                                    <li>
+                                        <label><img src="{{ platform.icon.url }}"></label>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div> <!-- .product -->
             </a>

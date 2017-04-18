@@ -8,60 +8,29 @@
 {% endblock %}
 {% block main %}
 <div class="container" style="background-color: #222326;">
+    <div class="row spacing"></div>
 	<div class="row">
-		<!-- <div class="page"> -->
-            <div class="filter-bar">
-                <!-- <div class="filter">
-                    <span>
-                        <label>Sort by:</label>
-                        <select name="#">
-                            <option value="#">Popularity</option>
-                            <option value="#">Highest Rating</option>
-                            <option value="#">Lowest price</option>
-                        </select>
-                    </span>
-                    <span>
-                        <label>Genre</label>
-                        <select name="#">
-                            <option value="#">Show All</option>
-                            <option value="#">Action</option>
-                            <option value="#">Racing</option>
-                            <option value="#">Strategy</option>
-                        </select>
-                    </span>
-                    <span>
-                        <label>Show:</label>
-                        <select name="#">
-                            <option value="#">8</option>
-                            <option value="#">16</option>
-                            <option value="#">24</option>
-                        </select>
-                    </span>
-                </div>  .filter -->
-            </div> <!-- .filter-bar -->
 		<div class="product-list">
     		{% for game in games %}
-                    <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
-            		    <div class="product">
-                            <div class="inner-product">
-            		            <div class="figure-image">
-            		                <img src="{{ game.main_image }}" alt="{{ game.name }}" /> 
-            		            </div>
-            		            <h3 class="product-title">{{ game.name}}</h3>
-            		            <ul class="product-os-info">
-                		            <li>
-                		                <label><img src="{% static "dummy/windows.png" %}"></label>
-                		            </li>
-                		            <li>
-                		                <label><img src="{% static "dummy/linux.png" %}"></label>
-                		            </li>
-                		            <li>
-                		                <label><img src="{% static "dummy/apple.png" %}"></label>
-                		            </li>
-            		            </ul>
-                            </div>
-                        </div> <!-- .product -->
-                    </a>
+                <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
+        		    <div class="product">
+                        <div class="inner-product">
+        		            <div class="figure-image">
+        		                <img src="{{ game.main_image }}" alt="{{ game.name }}" /> 
+        		            </div>
+        		            <h3 class="product-title">{{ game.name}}</h3>
+        		            <ul class="product-os-info">
+            		            {% for package in game.package %}
+                                    {% for platform in package.platform.all %}
+                                        <li>
+                                            <label><img src="{{ platform.icon.url }}"></label>
+                                        </li>
+                                    {% endfor %}
+                                {% endfor %}
+        		            </ul>
+                        </div>
+                    </div> <!-- .product -->
+                </a>
             {% empty %}
                 <div class="row spacing"></div>
                 <div class="row spacing"></div>
