@@ -2868,3 +2868,7 @@ table.cart .fa-times {
   margin-left: 180px; 
   margin-right:180px;
 }
+
+#list_button_platforms{
+  list-style-type: none;
+}

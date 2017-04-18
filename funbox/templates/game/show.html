@@ -73,18 +73,22 @@
            </div>
            <div class="panel-footer">
              <div class="btn-group btn-group-justified">
+                <ul id="list_button_platforms">
                {% for package in game.package %}
-                 {% for platform in package.platforms.all %} 
-                 <div class="btn-group">
-                   <a href="{{ package.package.url }}">
-                   <button class="btn btn-default">
-                      <i class="fa fa-arrow-down"></i>
-                        {{ platform.name }}
-                    </button>
-                    </a>
-                 </div>
+                 {% for platform in package.platforms.all %}
+                    <li>
+                      <div class="btn btn-group-justified">
+                        <a href="{{ package.package.url }}">
+                          <button type="button" class="btn btn-primary btn-lg btn-block">
+                            <img src="{{ platform.icon.url }}">
+                              {{ platform.name }}
+                          </button>
+                        </a>
+                      </div>
+                    </li>
                  {% endfor %}
                {% endfor %}
+                </ul>
              </div>
            </div>
          </div>
