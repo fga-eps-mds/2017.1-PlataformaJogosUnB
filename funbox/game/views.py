@@ -58,7 +58,7 @@ def game_detail(request, pk, format=None):
         game.fetch_package
         game.videos = game.fetch_media('video', 'slider')
     except Game.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({}, template_name="core/404.html", status=status.HTTP_404_NOT_FOUND)
 
     print(game.videos.first().video.url)
     if request.method == 'GET':
