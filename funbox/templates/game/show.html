@@ -9,7 +9,7 @@
 {% block main %}
 <div class="row spacing">
 </div>
-<h1 align="center">{{ game.name }}</h1>
+<h1>{{ game.name }}</h1>
 <div class="row spacing">
 </div>
 <div class="col-md-7">
@@ -74,7 +74,7 @@
            <div class="panel-footer">
              <div class="btn-group btn-group-justified">
                {% for package in game.package %}
-                 {% for platform in package.platform.all %} 
+                 {% for platform in package.platforms.all %} 
                  <div class="btn-group">
                    <a href="{{ package.package.url }}">
                    <button class="btn btn-default">

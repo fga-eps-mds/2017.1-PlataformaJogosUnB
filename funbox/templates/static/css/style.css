@@ -2802,7 +2802,7 @@ table.cart .fa-times {
 #carousel-show .carousel-indicators-show li:hover img {
     opacity: 0.75;
 }
-#carousel-TEST .carousel-outer {
+#carousel-show .carousel-outer {
     position: relative;
 }
 .fit{
@@ -2816,4 +2816,55 @@ table.cart .fa-times {
 
 .containerImgSlider{
   height: 200px;
+}
+
+#platform_game{
+  font-size: 30px; 
+  font-weight:bold; 
+  color:#45b77d; 
+  margin-left:15px;
+}
+
+#link_game{
+  display:block;
+}
+
+#row_space_not_game{
+  height: 200px;
+}
+
+#button_list_game{
+  float:right; 
+  margin-right:40px;
+}
+
+#color_background{
+  background-color: #222326;
+}
+
+
+/*About template*/
+
+#content_about{
+  height:700px;
+}
+
+#container_about{
+  margin-top: 100px; 
+  text-align:center;
+}
+
+#h2_about {
+  font-size: 30px; 
+  font-weight:bold; 
+  color:#45b77d;
+}
+
+#space_hr_about{
+  width: 730px;
+}
+
+#information_about{
+  margin-left: 180px; 
+  margin-right:180px;
 }

@@ -7,12 +7,12 @@
 <li class="menu-item"><a href="{% url 'about' %}">Sobre</a></li>
 {% endblock %}
 {% block main %}
-<div class="container" style="background-color: #222326;">
+<div id="color_background" class="container">
     <div class="row spacing"></div>
 	<div class="row">
 		<div class="product-list">
     		{% for game in games %}
-                <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
+                <a id="link_game" href="{% url 'game:detail' pk=game.pk %}">
         		    <div class="product">
                         <div class="inner-product">
         		            <div class="figure-image">
@@ -21,7 +21,7 @@
         		            <h3 class="product-title">{{ game.name}}</h3>
         		            <ul class="product-os-info">
             		            {% for package in game.package %}
-                                    {% for platform in package.platform.all %}
+                                    {% for platform in package.platforms.all %}
                                         <li>
                                             <label><img src="{{ platform.icon.url }}"></label>
                                         </li>

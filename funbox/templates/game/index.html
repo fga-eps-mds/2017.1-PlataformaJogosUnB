@@ -52,15 +52,19 @@
 </div>
 <div class="row">
     <hr />
-    <div class="row spacing" style="height: 40px">
-        <div style="font-size: 30px; font-weight:bold; color:#45b77d; margin-left:15px">JOGOS DA PLATAFORMA</div>
+    <div class="row spacing">
+        <div id="platform_game">JOGOS DA PLATAFORMA
+        <a href="{% url 'game:list' %}">
+        <button id="button_list_game" type="button" class="btn btn-success">Ver todos</button>
+        </a>
+        </div>
     </div>
     <hr />
 </div>
 <div class="row">
     <div class="product-list">
         {% for game in games %}
-            <a href="{% url 'game:detail' pk=game.pk %}" style="display:block;">
+            <a id="link_game" href="{% url 'game:detail' pk=game.pk %}">
                 <div class="product">
                     <div class="inner-product">
                         <div class="figure-image">
@@ -69,7 +73,7 @@
                         <h3 class="product-title">{{game.name}}</h3>
                         <ul class="product-os-info">
                             {% for package in game.package %}
-                                {% for platform in package.platform.all %}
+                                {% for platform in package.platforms.all %}
                                     <li>
                                         <label><img src="{{ platform.icon.url }}"></label>
                                     </li>
@@ -80,11 +84,11 @@
                 </div> <!-- .product -->
             </a>
         {% empty %}
-            <div class="row spacing" style="height: 200px;"></div>
+            <div id="row_space_not_game" class="row spacing"></div>
             <div class="container">
                 <h3 align="center" >Não há jogos disponíveis</h3>
             </div>
-            <div class="row spacing" style="height: 200px;"></div>
+            <div id="row_space_not_game" class="row spacing"></div>
         {% endfor %}
     </div> <!-- .product-list -->
 </div>
