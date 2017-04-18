@@ -42,7 +42,8 @@ class PlatformsInline(admin.StackedInline):
 
 
 class GameAdmin(admin.ModelAdmin):
-    inlines = [InformationInline, PackageInline, ImageInline, VideoInline, SoundtrackInline]
+    inlines = [InformationInline, PackageInline,
+               ImageInline, VideoInline, SoundtrackInline]
 
 
 admin.site.register(Game, GameAdmin)

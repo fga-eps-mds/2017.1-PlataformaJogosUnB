@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import redirect
 
+
 @api_view(['GET', 'POST'])
 def game_list(request, format=None):
     """
@@ -19,14 +20,14 @@ def game_list(request, format=None):
 
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
-            data = {
-                'games': games,
-            }
+            data = {'games': games, }
             return Response(data, template_name='game/list.html')
+
         elif request.accepted_renderer.format == "json" or "api":
-            serializer = GameSerializer(queryset, many=True)
+            serializer = GameSerializer(games, many=True)
             data = serializer.data
             return Response(data)
+
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'POST':
@@ -62,32 +63,35 @@ def game_detail(request, pk, format=None):
         if request.accepted_renderer.format == 'html':
             data = {'game': game}
             return Response(data, template_name='game/show.html')
+
         elif request.accepted_renderer.format == "json" or "api":
             serializer = GameSerializer(game)
-            return Response(serializer.data)
+            data = serializer.data
+            return Response(data)
+
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
     elif request.method == 'PUT':
         serializer = GameSerializer(game, data=request.data)
+        data = serializer.data
 
         if serializer.is_valid():
             serializer.save()
 
             if request.accepted_renderer.format == 'json' or 'api':
-                data = serializer.data
                 return Response(data, status=status.HTTP_200_OK)
 
             else:
                 return Response({}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         game.delete()
-        queryset = Game.objects.all()
+        games = Game.objects.all()
 
         if request.accepted_renderer.format == 'json' or 'api':
-            serializer = GameSerializer(queryset, many=True)
+            serializer = GameSerializer(games, many=True)
             data = serializer.data
             return Response(data)
 

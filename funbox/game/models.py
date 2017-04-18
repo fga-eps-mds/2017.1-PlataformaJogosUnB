@@ -42,9 +42,8 @@ class Game(models.Model):
         super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0} v{1}".format(
-                self.name,
-                self.game_version)
+        return "{0} v{1}".format(self.name,
+                                 self.game_version)
 
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
@@ -121,7 +120,7 @@ class Package(models.Model):
 
     platforms = models.ManyToManyField(
         Platform,
-        related_name='platforms'
+        # related_name='platform'
     )
 
     def save(self, *args, **kwargs):
@@ -130,6 +129,6 @@ class Package(models.Model):
 
     def __str__(self):
         return '{0} (.{1})'.format(
-                self.game.name,
-                self.platforms.first().extensions.title().lower()
+            self.game.name,
+            self.platforms.first().extensions.title().lower()
         )

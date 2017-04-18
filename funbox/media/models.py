@@ -31,11 +31,12 @@ class Media(models.Model):
 
     def config__str__(self, attr_name):
         return 'file = "{0}", game = {1}'.format(
-                os.path.basename(
-                    getattr(self, attr_name).path
-                ),
-                self.game.name
+            os.path.basename(
+                getattr(self, attr_name).path
+            ),
+            self.game.name
         )
+
 
 class Image(Media):
 
@@ -49,8 +50,8 @@ class Image(Media):
 
     def __str__(self):
         return 'file = "{0}", game = {1}'.format(
-                os.path.basename(self.image.path),
-                self.game.name
+            os.path.basename(self.image.path),
+            self.game.name
         )
 
 
@@ -65,7 +66,7 @@ class Video(Media):
     )
 
     def __str__(self):
-       return self.config__str__('video')
+        return self.config__str__('video')
 
 
 class Soundtrack(Media):
@@ -77,6 +78,6 @@ class Soundtrack(Media):
         blank=False,
         help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
     )
-    
+
     def __str__(self):
-       return self.config__str__('soundtrack')
+        return self.config__str__('soundtrack')
