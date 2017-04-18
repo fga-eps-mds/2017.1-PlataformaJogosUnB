@@ -49,7 +49,23 @@ class Game(models.Model):
 
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
+    
+    def cover_image_url(self, role, atribute, many):
+        if many:
+            images_game = self.fetch_media('image', role)
+            images_urls = []
+            for image in images_game.all():
+                url = image.image.url
+                images_urls.append(url)
+            setattr(self, atribute, images_urls)
+        else:
+            images_game = self.fetch_media('image', role)
+            image = images_game.first().image
+            setattr(self, atribute, image.url)
 
+    def fetch_package(self):
+        packages_game = self.packages.all()
+        setattr(self, 'package', packages_game) 
 
 class Platform(models.Model):
 
@@ -105,8 +121,3 @@ class Package(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Package, self).save(*args, **kwargs)
-    
-    def cover_image_url(self, role, atribute):
-        images_game = self.fetch_media('image', role)
-        image = images_game.first().image
-        setattr(self, atribute, image.url) 
