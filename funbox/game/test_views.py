@@ -17,4 +17,13 @@ class TestRoute:
         assert response.template_name == 'game/list.html'
         assert response.get('Content-Type') == 'text/html; charset=utf-8'
         assert response.charset == 'utf-8'
-        
+   
+    @pytest.mark.django_db
+    def test_data_game_list(self, client, create_game):
+        response = client.get('/games/game-list/')
+        assert "games" in response.data
+        assert len(response.data["games"]) == 1
+        assert response.data["games"].first() == create_game
+    
+
+               
