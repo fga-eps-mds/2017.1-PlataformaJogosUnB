@@ -105,3 +105,8 @@ class Package(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Package, self).save(*args, **kwargs)
+    
+    def cover_image_url(self, role, atribute):
+        images_game = self.fetch_media('image', role)
+        image = images_game.first().image
+        setattr(self, atribute, image.url) 

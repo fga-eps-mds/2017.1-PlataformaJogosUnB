@@ -3,8 +3,13 @@ from django.http import HttpResponse
 from game.models import Game
 
 def index(request):
-	queryset = Game.objects.all()[:4]
-	return render(request, 'game/index.html', {'games':queryset})
+	games = Game.objects.all()[:4]
+	
+	for game in games:
+		game.cover_image_url(role='main', atribute='main_image')
+		game.cover_image_url(role='slider', atribute='slider_image')
+
+	return render(request, 'game/index.html', {'games':games})
 
 def show(request):
     return render(request, 'game/show.html',{} )

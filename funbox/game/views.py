@@ -5,19 +5,22 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import redirect
 
-
 @api_view(['GET', 'POST'])
 def game_list(request, format=None):
     """
     List all games, or register a new one.
     """
-    print(request.META['HTTP_USER_AGENT'])
 
-    queryset = Game.objects.all()
+    games = Game.objects.all()
+
+    for game in games:
+        game.cover_image_url('main')
 
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
-            data = {'games': queryset}
+            data = {
+                'games': games,
+            }
             return Response(data, template_name='game/list.html')
         elif request.accepted_renderer.format == "json" or "api":
             serializer = GameSerializer(queryset, many=True)

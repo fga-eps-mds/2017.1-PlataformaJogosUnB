@@ -15,22 +15,21 @@
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <a href="static/single.html"><img src="{% static "images/batman.jpg" %}"></a>
-                    <div class="carousel-caption">
-                    </div>
-                </div>
-                <div class="item">
-                    <a href="static/single.html"><img src="{% static "images/sniper.jpg" %}"></a>
-                    <div class="carousel-caption">
-                    </div>
-                </div>
-
-                <div class="item">
-                    <a href="single.html"><img src="{% static "images/farcry.jpg" %}"></a>
-                    <div class="carousel-caption">
-                    </div>
-                </div>
+                {% for game in games %}
+                    {% if forloop.counter0 == 0 %}
+                        <div class="item active">
+                            <a href="{% url 'game:detail' pk=game.pk %}"><img src="{{ game.slider_image }}"></a>
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="item">
+                            <a href="{% url 'game:detail' pk=game.pk %}"><img src="{{ game.slider_image }}"></a>
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
             <!-- Controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -44,8 +43,10 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <img data-target="#myCarousel" data-slide-to="0" src="{% static "images/batman.jpg" %}"  role="button" class="sideImg">
-        <img data-target="#myCarousel" data-slide-to="2" src="{% static "images/farcry.jpg" %}"  role="button" class="sideImg">
+        {% for game in games %}
+            <img data-target="#myCarousel" data-slide-to="0" src="{% static "images/batman.jpg" %}"  role="button" class="sideImg">
+            <img data-target="#myCarousel" data-slide-to="2" src="{% static "images/farcry.jpg" %}"  role="button" class="sideImg">
+        {% endfor %}
     </div>
 </div>
 <div class="row">
@@ -62,7 +63,7 @@
                 <div class="product">
                     <div class="inner-product">
                         <div class="figure-image">
-                            <img src="{{ game.media_image.first.image.url }}" alt="{{ game.name }}" />
+                            <img src="{{ game.main_image }}" alt="{{ game.name }}" />
                         </div>
                         <h3 class="product-title">{{game.name}}</h3>
                         <ul class="product-os-info">
