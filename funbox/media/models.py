@@ -29,12 +29,13 @@ class Media(models.Model):
         self.clean_fields()
         super(Media, self).save(*args, **kwargs)
 
-    def __str__(self):
+    def config__str__(self, attr_name):
         return 'file = "{0}", game = {1}'.format(
-                os.path.basename(self.file.path),
+                os.path.basename(
+                    getattr(self, attr_name).path
+                ),
                 self.game.name
         )
-
 
 class Image(Media):
 
@@ -59,9 +60,12 @@ class Video(Media):
         _('Video'),
         upload_to='videos/',
         null=False,
-        blank=True,
+        blank=False,
         help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
     )
+
+    def __str__(self):
+       return self.config__str__('video')
 
 
 class Soundtrack(Media):
@@ -70,6 +74,9 @@ class Soundtrack(Media):
         _('Soundtrack'),
         upload_to='soundtrack/',
         null=False,
-        blank=True,
+        blank=False,
         help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
     )
+    
+    def __str__(self):
+       return self.config__str__('soundtrack')

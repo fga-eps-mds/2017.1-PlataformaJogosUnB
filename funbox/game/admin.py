@@ -35,7 +35,7 @@ class PackageInline(admin.StackedInline):
 
 
 class PlatformsInline(admin.StackedInline):
-    model = Package.platform.through
+    model = Package.platforms.through
     extra = 0
     min_num = 1
     max_num = len(EXTENSION_CHOICES)

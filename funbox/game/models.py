@@ -42,14 +42,13 @@ class Game(models.Model):
         super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0} V{1}".format(
+        return "{0} v{1}".format(
                 self.name,
-                self.game_version
-        )
+                self.game_version)
 
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
-    
+
     def cover_image_url(self, role, atribute, many):
         if many:
             images_game = self.fetch_media('image', role)
@@ -65,7 +64,8 @@ class Game(models.Model):
 
     def fetch_package(self):
         packages_game = self.packages.all()
-        setattr(self, 'package', packages_game) 
+        setattr(self, 'package', packages_game)
+
 
 class Platform(models.Model):
 
@@ -81,6 +81,7 @@ class Platform(models.Model):
         _('Valid extension'),
         max_length=3,
         choices=EXTENSION_CHOICES,
+        default=EXTENSION_CHOICES[0][0],
         null=False,
         blank=False,
         help_text=('Select the package extension that will be accepted'),
@@ -88,12 +89,17 @@ class Platform(models.Model):
 
     icon = models.FileField(
         _('Platform Icon'),
+        null=False,
+        blank=False,
         upload_to='Platform',
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Platform, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
 
 
 class Package(models.Model):
@@ -107,13 +113,13 @@ class Package(models.Model):
         help_text=('Choose the game\'s package')
     )
 
-    games = models.ForeignKey(
+    game = models.ForeignKey(
         Game,
         on_delete=models.CASCADE,
         related_name='packages'
     )
 
-    platform = models.ManyToManyField(
+    platforms = models.ManyToManyField(
         Platform,
         related_name='platforms'
     )
@@ -121,3 +127,9 @@ class Package(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Package, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return '{0} (.{1})'.format(
+                self.game.name,
+                self.platforms.first().extensions.title().lower()
+        )
