@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         path = os.path.realpath('.')
         os.system("pytest -q --cov %s --cov-report=html " % path)
-        os.system("flake8 --count --statistics --show-source %s" % path)
+        os.system("flake8 --count --statistics %s" % path)
         os.system("radon cc -s %s" % path)
         print(self.message())
 
