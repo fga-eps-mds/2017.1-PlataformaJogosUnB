@@ -55,10 +55,12 @@ def game_detail(request, pk, format=None):
     try:
         game = Game.objects.get(pk=pk)
         game.cover_image_url(role='slider', atribute='slider_image', many=True)
-        game.fetch_package()
+        game.fetch_package
+        game.videos = game.fetch_media('video', 'slider')
     except Game.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    print(game.videos.first().video.url)
     if request.method == 'GET':
         if request.accepted_renderer.format == 'html':
             data = {'game': game}

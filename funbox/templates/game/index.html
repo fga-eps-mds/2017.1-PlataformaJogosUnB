@@ -4,8 +4,8 @@
 {% block main %}
 <div class="row spacing">
 </div>
-<div class="row">
-    <div class="col-sm-8">
+<div class="container">
+    <div class="col-md-8">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -31,6 +31,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            
             <!-- Controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -42,10 +43,12 @@
             </a>
         </div>
     </div>
-    <div class="col-sm-4">
-        {% for game in games %}
+    <div class="col-md-4">
+        {% for game in games|slice:":2" %}
             <div class="row">
-                <img data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" src="{{ game.slider_image }}"  role="button" class="containerImgSlider">
+                <div class="container-fluid">
+                <img data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" src="{{ game.slider_image }}" role="button" class="img-responsive">
+                </div>
             </div>
         {% endfor %}
     </div>

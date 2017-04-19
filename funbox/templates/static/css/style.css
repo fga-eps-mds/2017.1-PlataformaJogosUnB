@@ -2872,3 +2872,9 @@ table.cart .fa-times {
 #list_button_platforms{
   list-style-type: none;
 }
+
+#media_slider{
+  height: 100%; 
+  width: 100%; 
+  object-fit: contain;
+}

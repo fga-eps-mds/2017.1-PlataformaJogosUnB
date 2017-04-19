@@ -16,7 +16,7 @@
   <div id='carousel-show' class='carousel slide' data-ride='carousel'>
     <div class='carousel-outer'>
         <!-- Wrapper for slides -->
-        <div class='carousel-inner'>  
+        <div class='carousel-inner'>
             {% for image in game.slider_image %}
               {% if forloop.counter0 == 0%}
                 <div class='item active'>
@@ -28,6 +28,13 @@
                 </div>
               {% endif %}
             {% endfor %}
+            {% for video in game.videos.all %}
+              <div class="item">
+                <video controls="">
+                  <source src="{{ video.video.url }}" type="video/mp4">
+                </video>
+              </div>
+            {% endfor %}  
         </div>
 
         <!-- Controls -->
@@ -44,7 +51,7 @@
     <ol class='carousel-indicators-show mCustomScrollbar'>
       <div class="fit">
         {% for image in game.slider_image %}
-          <li data-target='#carousel-show' data-slide-to='{{ forloop.counter0 }}' ><img style='height: 100%; width: 100%; object-fit: contain;' src="{{ image }}" /></li>
+          <li data-target='#carousel-show' data-slide-to='{{ forloop.counter0 }}' ><img id="media_slider" src="{{ image }}" /></li>
         {% endfor %}
       </div>
     </ol>
