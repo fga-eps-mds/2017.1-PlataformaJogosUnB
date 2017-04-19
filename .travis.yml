@@ -13,8 +13,8 @@ script:
   - cd funbox
   - python3 manage.py makemigrations
   - python3 manage.py migrate
-  - pytest --cov-report term-missing --verbose --cov ./
   - cd ..
+  - pytest --cov-report term-missing --verbose --cov funbox/
 after_success: coveralls
 services:
   - postgresql
