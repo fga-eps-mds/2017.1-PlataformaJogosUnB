@@ -9,6 +9,7 @@ before_script:
   - flake8 --ignore=F401 --exclude=settings.py,migrations
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
+  - sudo apt-get install libjpeg-dev
 script: 
   - cd funbox
   - python3 manage.py makemigrations
