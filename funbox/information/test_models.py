@@ -20,7 +20,8 @@ def now():
 def information_created():
     game = Game(name="Teste", official_repository="http://a.aa")
     game.save()
-    information = Information(description="a" * 51, launch_year=now(), game=game)
+    information = Information(description="a" * 51,
+                              launch_year=now(), game=game)
     information.save()
     return information
 
@@ -28,7 +29,8 @@ def information_created():
 class TestInformationCreation:
 
     @pytest.mark.django_db
-    def test_create_information_with_valid_atributtes(self, information_created):
+    def test_create_information_with_valid_atributtes(self,
+                                                      information_created):
         information = Information.objects.get(pk=information_created.pk)
         assert information_created == information
 
@@ -58,9 +60,8 @@ characters!"
         (description, now() + 1, game,
          mount_error_dict(["launch_year"], [[error_message_year_future]])),
     ])
-
-    def test_launch_year_validation
-        (self, description, launch_year, game, errors_dict):
+    def test_launch_year_validation(self, description, launch_year,
+                                    game, errors_dict):
         game.save()
         information = information_creation(description, launch_year, game)
         validation_test(information, errors_dict)

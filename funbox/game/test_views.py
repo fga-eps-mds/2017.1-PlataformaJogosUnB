@@ -4,8 +4,8 @@ from game.models import Game
 
 @pytest.fixture
 def create_game():
-    game = Game(name="jogo1", official_repository="https://github.com/Platafor
-        maJogosUnb/")
+    game = Game(name="jogo1", official_repository="https://github.com/Plata"
+                "formaJogosUnb/")
     game.save()
     return game
 
@@ -26,6 +26,7 @@ class TestGameList:
         assert "games" in response.data
         assert len(response.data["games"]) == 1
         assert response.data["games"].first() == create_game
+
 
 class TestGameDetail:
 

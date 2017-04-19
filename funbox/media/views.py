@@ -6,9 +6,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import APIView
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
+
 class MediaList(APIView):
 
     def get(self, request):
         medias = Media.objects.all()
-        serializer = MediaSerializer(medias, many = True)
+        serializer = MediaSerializer(medias, many=True)
         return Response(serializer.data)
