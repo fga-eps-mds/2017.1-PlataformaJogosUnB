@@ -1,19 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from game.models import Game
 
+
 def index(request):
-	games = Game.objects.all()[:4]
-	
-	for game in games:
-		game.cover_image_url(role='main', atribute='main_image', many=False)
-		game.cover_image_url(role='slider', atribute='slider_image', many=False)
-		game.fetch_package()
+    games = Game.objects.all()[:4]
 
-	return render(request, 'game/index.html', {'games' : games})
+    for game in games:
+        game.cover_image_url(role='main', atribute='main_image', many=False)
+        game.cover_image_url(
+            role='slider',
+            atribute='slider_image',
+            many=False)
+        game.fetch_package()
 
-def show(request):
-    return render(request, 'game/show.html', {} )
+    return render(request, 'game/index.html', {'games': games})
+
 
 def about(request):
-    return render(request, 'game/about.html', {} )
+    return render(request, 'game/about.html', {})
