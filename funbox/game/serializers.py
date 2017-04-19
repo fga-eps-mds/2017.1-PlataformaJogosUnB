@@ -12,17 +12,17 @@ class PlatformSerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
-    # platform = PlatformSerializer()
+    platforms = PlatformSerializer(many=True)
 
     class Meta:
         model = Package
-        fields = ['package']
+        fields = ['package', 'platforms']
 
 
 class GameSerializer(serializers.ModelSerializer):
     information = InformationSerializer()
     packages = PackageSerializer(many=True)
-    # medias = MediaSerializer()
+    # media = MediaSerializer(many=True)
 
     class Meta:
         model = Game

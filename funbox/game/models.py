@@ -121,7 +121,7 @@ class Package(models.Model):
 
     platforms = models.ManyToManyField(
         Platform,
-        # related_name='platform'
+        related_name='platforms'
     )
 
     def save(self, *args, **kwargs):
