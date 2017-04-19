@@ -1,10 +1,8 @@
-import unittest
 import pytest
 from game.models import Game
-from information.models import Information
 
 
-def game_creation(name="", url="", launch_year=0):
+def game_creation(name="", url="", launch_year=0, game_version="1.3.4"):
     return Game(name=name, official_repository=url, game_version=game_version)
 
 

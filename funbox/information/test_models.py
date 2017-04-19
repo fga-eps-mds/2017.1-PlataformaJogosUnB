@@ -25,12 +25,13 @@ def information_created():
 class TestInformationCreation:
 
     @pytest.mark.django_db
-    def test_create_information_with_valid_atributtes(self,information_created):
+    def test_create_information_with_valid_atributtes
+        (self, information_created):
         information = Information.objects.get(pk=information_created.pk)
         assert information_created == information
 
     @pytest.mark.django_db
-    def test_str_information(self,information_created):
+    def test_str_information(self, information_created):
         description = 'a'*50
         assert str(information_created) == "Information description: %s..." \
             % description
@@ -54,7 +55,8 @@ characters!"
         (description, now()+1, game,
         mount_error_dict(["launch_year"], [[error_message_year_future]])),
     ])
-    def test_launch_year_validation(self, description, launch_year, game, errors_dict):
+    def test_launch_year_validation
+        (self, description, launch_year, game, errors_dict):
         game.save()
         information = information_creation(description, launch_year, game)
         validation_test(information, errors_dict)
@@ -94,13 +96,12 @@ class TestAward:
         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
         (None, 2016, 'Unb-Gama',
         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
-        ('a'*101,2016, 'Unb-Gama',
+        ('a'*101, 2016, 'Unb-Gama',
         mount_error_dict(["name"], [[error_message_max_length]])),
     ])
     def test_name_validation(self, name, year, place, errors_dict):
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
-
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("name, year, place, errors_dict", [
@@ -117,14 +118,13 @@ class TestAward:
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
 
-
     @pytest.mark.django_db
     @pytest.mark.parametrize("place, year, name, errors_dict", [
         ('', 2016, 'Unb-Gama',
         mount_error_dict(["place"], [[ErrorMessage.BLANK]])),
         (None, 2016, 'Unb-Gama',
         mount_error_dict(["place"], [[ErrorMessage.NULL]])),
-        ('a'*101,2016, 'Unb-Gama',
+        ('a'*101, 2016, 'Unb-Gama',
         mount_error_dict(["place"], [[error_message_max_length]])),
     ])
     def test_place_validation(self, place, year, name, errors_dict):

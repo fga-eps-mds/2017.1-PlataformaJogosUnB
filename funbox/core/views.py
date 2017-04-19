@@ -10,10 +10,10 @@ def index(request):
 		game.cover_image_url(role='slider', atribute='slider_image', many=False)
 		game.fetch_package()
 
-	return render(request, 'game/index.html', {'games':games})
+	return render(request, 'game/index.html', {'games' : games})
 
 def show(request):
-    return render(request, 'game/show.html',{} )
+    return render(request, 'game/show.html', {} )
 
 def about(request):
-    return render(request, 'game/about.html',{} )
+    return render(request, 'game/about.html', {} )
