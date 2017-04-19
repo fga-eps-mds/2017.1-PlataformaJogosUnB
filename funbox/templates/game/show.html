@@ -28,13 +28,15 @@
                 </div>
               {% endif %}
             {% endfor %}
-            {% for video in game.videos.all %}
-              <div class="item">
-                <video controls="">
-                  <source src="{{ video.video.url }}" type="video/mp4">
-                </video>
-              </div>
-            {% endfor %}  
+            {% if game.videos.first %}
+              {% for video in game.videos.all %}
+                <div class="item">
+                  <video controls="">
+                    <source src="{{ video.video.url }}" type="video/mp4">
+                  </video>
+                </div>
+              {% endfor %}
+            {% endif %}  
         </div>
 
         <!-- Controls -->
@@ -81,20 +83,20 @@
            <div class="panel-footer">
              <div class="btn-group btn-group-justified">
                 <ul id="list_button_platforms">
-               {% for package in game.package %}
-                 {% for platform in package.platforms.all %}
-                    <li>
-                      <div class="btn btn-group-justified">
-                        <a href="{{ package.package.url }}">
-                          <button type="button" class="btn btn-primary btn-lg btn-block">
-                            <img src="{{ platform.icon.url }}">
-                              {{ platform.name }}
-                          </button>
-                        </a>
-                      </div>
-                    </li>
+                 {% for package in game.package %}
+                   {% for platform in package.platforms.all %}
+                      <li>
+                        <div class="btn btn-group-justified">
+                          <a href="{{ package.package.url }}">
+                            <button type="button" class="btn btn-primary btn-lg btn-block">
+                              <img src="{{ platform.icon.url }}">
+                                {{ platform.name }}
+                            </button>
+                          </a>
+                        </div>
+                      </li>
+                   {% endfor %}
                  {% endfor %}
-               {% endfor %}
                 </ul>
              </div>
            </div>
