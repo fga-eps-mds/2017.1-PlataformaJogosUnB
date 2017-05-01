@@ -3,12 +3,30 @@ from game.serializers import GameSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from rest_framework import viewsets
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    def list(self, request, format=None):
+        if request.accepted_renderer.format == 'html':
+            data = {'games': self.queryset, }
+            return Response(data, template_name='game/list.html')
+
+        serializer = GameSerializer(self.queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None, format=None):
+        game = get_object_or_404(self.queryset, pk=pk)
+        if request.accepted_renderer.format == 'html':
+            data = {'game': game}
+            return Response(data, template_name='game/show.html')
+        serializer = GameSerializer(game)
+        return Response(serializer.data)
+
 
 @api_view(['GET', 'POST'])
 def game_list(request, format=None):
