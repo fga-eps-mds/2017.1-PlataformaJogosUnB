@@ -17,8 +17,6 @@ class Award(models.Model):
     name = models.CharField(
         _('Award name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the award.')
     )
 
@@ -32,16 +30,12 @@ class Award(models.Model):
                                         'was not won in the future!'))],
 
 
-        null=False,
-        blank=False,
         help_text=_('Year the award was won.')
     )
 
     place = models.CharField(
         _('Place'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Place where the game won the award.')
     )
 
@@ -58,15 +52,12 @@ class Developer(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the developer.')
     )
 
     avatar = models.FileField(
         _('Avatar'),
         upload_to='public/avatar',
-        null=False,
         blank=True,
         help_text=_('Developer image.')
     )
@@ -74,8 +65,6 @@ class Developer(models.Model):
     login = models.CharField(
         _('Login'),
         max_length=50,
-        null=False,
-        blank=False,
         help_text=_('Developer login for github.')
     )
 
@@ -91,8 +80,6 @@ class Developer(models.Model):
     github_page = models.URLField(
         _('Github Page'),
         validators=[URLValidator()],
-        null=False,
-        blank=False,
         help_text=_('Developer Github page.')
     )
 
@@ -112,8 +99,6 @@ class Information(models.Model):
             MinLengthValidator(MIN_DESCRIPTION,
                                _('A game description must have ' +
                                  'at least 50 characters!'))],
-        null=False,
-        blank=False,
         help_text=_('Describe the game.'),
     )
 
@@ -125,8 +110,6 @@ class Information(models.Model):
                     MaxValueValidator(int(datetime.datetime.now().year),
                                       _('We believe the game ' +
                                         'did not come from future!'))],
-        null=False,
-        blank=False,
         help_text=_('Which was the year the game was launched?'),
     )
 
@@ -163,15 +146,11 @@ class Statistic(models.Model):
 
     downloads_amount = models.BigIntegerField(
         _('Dowloads Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of downloads of the game.')
     )
 
     accesses_amount = models.BigIntegerField(
         _('Accesses Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of accesses to the game.')
     )
 
