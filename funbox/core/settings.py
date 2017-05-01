@@ -14,7 +14,7 @@ SECRET_KEY = '_0eb8h+)&-lcnm*ec@!-#ic**1e@xnhqr2=f!di77ijp=2f(@3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1"]
+ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1", "localhost"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -102,12 +102,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'funbox',
-        'USER': 'pjunb',
-        'PASSWORD': os.environ["pjunbdb"],
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'development.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'funbox',
+        # 'USER': 'pjunb',
+        # 'PASSWORD': os.environ["pjunbdb"],
+        # 'HOST': 'localhost',
+        # 'PORT': '',
     }
 }
 
