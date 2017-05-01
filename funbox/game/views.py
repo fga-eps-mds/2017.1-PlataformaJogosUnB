@@ -4,7 +4,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import redirect
+from rest_framework import viewsets
 
+class GameViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
 
 @api_view(['GET', 'POST'])
 def game_list(request, format=None):

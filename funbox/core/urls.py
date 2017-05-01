@@ -25,7 +25,6 @@ urlpatterns = [
                                namespace='rest_framework')),
     url(r'^games/', include('game.urls', namespace='game')),
 ]
-
 urlpatterns = format_suffix_patterns(urlpatterns)
 
 if settings.DEBUG:
