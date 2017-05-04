@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from game.validators import validate_version, validate_icon, validate_package
 from game.choices import EXTENSION_CHOICES
+import game.validators as validator
 
 KILOBYTE = 1024
 # MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
@@ -23,7 +23,7 @@ class Game(models.Model):
     game_version = models.CharField(
         _('Game Version'),
         max_length=20,
-        validators=[validate_version],
+        validators=[validator.validate_version],
         null=True,
         blank=True,
         help_text=_('What\'s the game version?'),
@@ -92,7 +92,7 @@ class Platform(models.Model):
         null=False,
         blank=False,
         upload_to='Platform',
-        validators=[validate_icon],
+        validators=[validator.validate_icon],
         help_text=_('Valid formats: .png, .jpg, .jpeg and .gif'),
     )
 
@@ -109,7 +109,7 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        validators=[validate_package],
+        validators=[validator.validate_package],
         null=False,
         blank=False,
         help_text=_('Choose the game\'s package')
@@ -127,7 +127,7 @@ class Package(models.Model):
     )
 
     def fill_platforms(self):
-        platforms = validate_package(self.package)
+        platforms = validator.validate_package(self.package)
 
         for platform in platforms:
             self.platforms.add(platform)

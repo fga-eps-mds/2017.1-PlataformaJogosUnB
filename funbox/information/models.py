@@ -6,8 +6,8 @@ from django.core.validators import EmailValidator
 from django.core.validators import URLValidator
 from django.db import models
 from game.models import Game
-from .validators import validate_avatar
 import datetime
+import information.validators as validator
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
@@ -67,7 +67,7 @@ class Developer(models.Model):
     avatar = models.FileField(
         _('Avatar'),
         upload_to='public/avatar',
-        validators=[validate_avatar],
+        validators=[validator.validate_avatar],
         null=False,
         blank=True,
         help_text=_('Developer image. Accepted formats: png, jpg, gif, jpeg')
