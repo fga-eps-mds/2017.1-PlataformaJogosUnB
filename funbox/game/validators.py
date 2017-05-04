@@ -10,7 +10,7 @@ def validate_version(version):
     if re.match(version_pattern, version) is None:
         raise ValidationError(
             _("The version characters can only be either a '.' or a digit" +
-              "and can't have 2 followed '.'. Error at: % (version)s"),
+              " and can't have 2 followed '.'. Error at: % (version)s"),
             params={'version': version},
         )
 
@@ -41,5 +41,5 @@ def validate_icon(icon):
     if not extension.lower() in valid_extensions:
         raise ValidationError(
             _('Invalid image format.' +
-              'Please insert an image with a valid extension')
+              ' Please insert an image with a valid extension')
         )
