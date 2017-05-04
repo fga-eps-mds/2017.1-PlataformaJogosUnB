@@ -1,0 +1,24 @@
+engines:
+  eslint:
+    enabled: true
+    config: .eslintrc
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  csslint:
+    enabled: true
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - BUG
+      - TODO
+
+ratings:
+  paths:
+  - "**.js"
+  - "**.jsx"
+  - "**.css"
