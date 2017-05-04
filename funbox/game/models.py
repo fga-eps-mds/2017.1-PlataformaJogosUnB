@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from game.validators import validate_version
+from game.validators import validate_version, validate_icon
 from game.choices import EXTENSION_CHOICES
 
 KILOBYTE = 1024
@@ -74,7 +74,7 @@ class Platform(models.Model):
         max_length=50,
         null=False,
         blank=False,
-        help_text=('Name of the game\'s package'),
+        help_text=_('Name of the game\'s package'),
     )
 
     extensions = models.CharField(
@@ -84,7 +84,7 @@ class Platform(models.Model):
         default=EXTENSION_CHOICES[0][0],
         null=False,
         blank=False,
-        help_text=('Select the package extension that will be accepted'),
+        help_text=_('Select the package extension that will be accepted'),
     )
 
     icon = models.FileField(
@@ -92,6 +92,8 @@ class Platform(models.Model):
         null=False,
         blank=False,
         upload_to='Platform',
+        validators=[validate_icon],
+        help_text=_('Valid formats: .png, .jpg, .jpeg and .gif'),
     )
 
     def save(self, *args, **kwargs):
@@ -107,10 +109,9 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        # max_length=MAX_UPLOAD_SIZE,
         null=False,
         blank=False,
-        help_text=('Choose the game\'s package')
+        help_text=_('Choose the game\'s package')
     )
 
     game = models.ForeignKey(
