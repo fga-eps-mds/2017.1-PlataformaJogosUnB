@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from game.validators import validate_version, validate_icon
+from game.validators import validate_version, validate_icon, validate_package
 from game.choices import EXTENSION_CHOICES
 
 KILOBYTE = 1024
@@ -109,6 +109,7 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
+        validators=[validate_package],
         null=False,
         blank=False,
         help_text=_('Choose the game\'s package')
@@ -125,9 +126,16 @@ class Package(models.Model):
         related_name='platforms'
     )
 
+    def fill_platforms(self):
+        platforms = validate_package(self.package)
+
+        for platform in platforms:
+            self.platforms.add(platform)
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Package, self).save(*args, **kwargs)
+        self.fill_platforms()
 
     def __str__(self):
         return '{0} (.{1})'.format(
