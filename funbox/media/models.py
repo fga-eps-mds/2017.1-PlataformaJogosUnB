@@ -25,13 +25,7 @@ class Media(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        images = Image.objects.filter(role='main')
-        print (images)
-        if(len(images) < 1) :
-            super(Media, self).save(*args, **kwargs)            
-        else :
-            raise Exception('Error')
-        
+        super(Media, self).save(*args, **kwargs)
 
     def config__str__(self, attr_name):
         return 'file = "{0}", game = {1}'.format(
