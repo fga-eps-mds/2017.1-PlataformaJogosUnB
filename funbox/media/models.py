@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
+import django.apps
 import os
 
 
@@ -24,8 +25,13 @@ class Media(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Media, self).save(*args, **kwargs)
+        images = Image.objects.filter(role='main')
+        print (images)
+        if(len(images) < 1) :
+            super(Media, self).save(*args, **kwargs)            
+        else :
+            raise Exception('Error')
+        
 
     def config__str__(self, attr_name):
         return 'file = "{0}", game = {1}'.format(
