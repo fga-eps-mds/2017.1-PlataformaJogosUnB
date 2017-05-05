@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.dispatch import receiver
 from game.models import Game
 from media.choices import ROLE_CHOICES
 import os
@@ -81,3 +82,33 @@ class Soundtrack(Media):
 
     def __str__(self):
         return self.config__str__('soundtrack')
+
+@receiver(models.signals.post_delete, sender=Soundtrack)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `Media` object is deleted.
+    """
+    if instance.soundtrack:
+        if os.path.isfile(instance.soundtrack.path):
+            os.remove(instance.soundtrack.path)
+
+@receiver(models.signals.pre_save, sender=Soundtrack)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `Soundtrack` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Soundtrack.objects.get(pk=instance.pk).soundtrack
+    except Soundtrack.DoesNotExist:
+        return False
+
+    new_file = instance.soundtrack
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
