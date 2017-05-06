@@ -49,3 +49,11 @@ class TestGameViewSet:
         assert response.get("Content-Type") == 'application/json'
         serializer = GameSerializer(Game.objects.all(), many=True)
         assert response.data == serializer.data
+
+    @pytest.mark.django_db
+    def test_game_detail_json(self, client, create_game):
+        response = client.get("/games/detail/{}.json".format(create_game.pk))
+        assert response.status_code == 200
+        assert response.get("Content-Type") == 'application/json'
+        serializer = GameSerializer(create_game)
+        assert response.data == serializer.data
