@@ -31,6 +31,7 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['name',
+                  'cover_image',
                   'game_version',
                   'official_repository',
                   'information',

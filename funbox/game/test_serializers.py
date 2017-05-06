@@ -22,6 +22,7 @@ class GameSerializerTestCase(TestCase):
         information_game = Information()
 
         game.name = 'Jogo teste 1'
+        game.cover_image = 'Image_do_jogo'
         game.game_version = '1.3.2'
         game.official_repository = 'https://github.com/PlataformaJogosUnb/'
         game.save()
@@ -85,6 +86,9 @@ class GameSerializerTestCase(TestCase):
         sound_serialized = serialized_game.get('media_soundtrack')[0]
 
         self.assertEqual(serialized_game.get('name'), game.name)
+
+        self.assertEqual(serialized_game.get('cover_image'),
+                         game.cover_image.url)
 
         self.assertEqual(serialized_game.get('official_repository'),
                          game.official_repository)
