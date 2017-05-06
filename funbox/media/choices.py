@@ -5,3 +5,8 @@ ROLE_CHOICES = [
     ('slider', _('slider')),
     ('extra', _('extra')),
 ]
+
+IMAGES_ROLE_CHOICES = [
+    ('slider', _('slider')),
+    ('extra', _('extra')),
+]
