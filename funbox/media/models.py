@@ -2,7 +2,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
-from media.choices import IMAGES_ROLE_CHOICES
 import django.apps
 import os
 
@@ -15,6 +14,14 @@ class Media(models.Model):
     game = models.ForeignKey(
         Game,
         related_name='media_%(class)s',
+    )
+
+    role = models.CharField(
+        _('Role'),
+        max_length=10,
+        choices=ROLE_CHOICES,
+        default=ROLE_CHOICES[0][0],
+        help_text=_('Select the role of this media'),
     )
 
     def save(self, *args, **kwargs):
@@ -31,14 +38,6 @@ class Media(models.Model):
 
 class Image(Media):
 
-    role = models.CharField(
-        _('Role'),
-        max_length=10,
-        choices=IMAGES_ROLE_CHOICES,
-        default=IMAGES_ROLE_CHOICES[0][0],
-        help_text=_('Select the role of this media'),
-    )
-
     image = models.ImageField(
         _('Image'),
         upload_to='images/',
@@ -54,14 +53,6 @@ class Image(Media):
 
 class Video(Media):
 
-    role = models.CharField(
-        _('Role'),
-        max_length=10,
-        choices=ROLE_CHOICES,
-        default=ROLE_CHOICES[0][0],
-        help_text=_('Select the role of this media'),
-    )
-
     video = models.FileField(
         _('Video'),
         upload_to='videos/',
@@ -73,14 +64,6 @@ class Video(Media):
 
 
 class Soundtrack(Media):
-
-    role = models.CharField(
-        _('Role'),
-        max_length=10,
-        choices=ROLE_CHOICES,
-        default=ROLE_CHOICES[0][0],
-        help_text=_('Select the role of this media'),
-    )
 
     soundtrack = models.FileField(
         _('Soundtrack'),
