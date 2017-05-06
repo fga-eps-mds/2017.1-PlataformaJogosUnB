@@ -18,7 +18,7 @@ def now():
 
 @pytest.fixture
 def information_created():
-    game = Game(name="Teste", official_repository="http://a.aa")
+    game = Game(name="Teste", cover_image="Imagem_teste", official_repository="http://a.aa")
     game.save()
     information = Information(description="a" * 51,
                               launch_year=now(), game=game)
@@ -47,7 +47,7 @@ characters!"
     short_description = "short description"
     error_message_year_future = 'We believe the game did not come from future!'
     description = "simple description" * 3
-    game = Game(name="Teste", official_repository="http://a.aa")
+    game = Game(name="Teste", cover_image="Imagem_de_capa", official_repository="http://a.aa")
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("description, launch_year, game, errors_dict", [

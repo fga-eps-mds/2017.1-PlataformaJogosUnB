@@ -4,7 +4,7 @@ from game.models import Game
 
 @pytest.fixture
 def create_game():
-    game = Game(name="jogo1", official_repository="https://github.com/Plata"
+    game = Game(name="jogo1", cover_image="image_de_capa", official_repository="https://github.com/Plata"
                 "formaJogosUnb/")
     game.save()
     return game
