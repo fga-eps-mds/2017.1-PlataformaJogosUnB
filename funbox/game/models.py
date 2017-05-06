@@ -18,6 +18,12 @@ class Game(models.Model):
         help_text=_('What\'s the name of the game?'),
     )
 
+    cover_image = models.ImageField(
+        _('CoverImage'),
+        upload_to='images/',
+        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
+    )
+
     game_version = models.CharField(
         _('Game Version'),
         max_length=20,
