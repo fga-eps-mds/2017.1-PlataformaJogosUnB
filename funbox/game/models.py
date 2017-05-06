@@ -24,12 +24,6 @@ class Game(models.Model):
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
-    def __str__(self):
-        return 'file = "{0}", game = {1}'.format(
-            os.path.basename(self.image.path),
-            self.game.name
-        )
-
     game_version = models.CharField(
         _('Game Version'),
         max_length=20,
