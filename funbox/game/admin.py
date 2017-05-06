@@ -3,6 +3,7 @@ from .models import Game, Package, Platform
 from information.models import Information
 from media.models import Image, Video, Soundtrack
 from .choices import EXTENSION_CHOICES
+from media.forms import ImageForm
 
 
 class InformationInline(admin.StackedInline):
@@ -13,6 +14,7 @@ class ImageInline(admin.StackedInline):
     model = Image
     extra = 0
     min_num = 0
+    form = ImageForm
 
 
 class VideoInline(admin.StackedInline):
