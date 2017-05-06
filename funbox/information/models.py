@@ -12,6 +12,15 @@ UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
 
 
+def year_validators(model_name):
+    return [MinValueValidator(UNB_CREATION,
+                              _('Our University had ' +
+                                'not been built at this time!')),
+            MaxValueValidator(int(datetime.datetime.now().year),
+                              _('We believe the {} '.format(model_name) +
+                                'was not won in the future!'))]
+
+
 class Award(models.Model):
 
     name = models.CharField(
@@ -22,12 +31,7 @@ class Award(models.Model):
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had ' +
-                                        'not been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the award ' +
-                                        'was not won in the future!'))],
+        validators=year_validators('award'),
 
 
         help_text=_('Year the award was won.')
@@ -104,12 +108,7 @@ class Information(models.Model):
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had not ' +
-                                        'been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the game ' +
-                                        'did not come from future!'))],
+        validators=year_validators('game'),
         help_text=_('Which was the year the game was launched?'),
     )
 

@@ -45,7 +45,8 @@ class TestInformationValidation:
     error_message_min_value = "A game description must have at least 50 \
 characters!"
     short_description = "short description"
-    error_message_year_future = 'We believe the game did not come from future!'
+    error_message_year_future = 'We believe the game was not won ' \
+        'in the future!'
     description = "simple description" * 3
     game = Game(name="Teste", official_repository="http://a.aa")
 
