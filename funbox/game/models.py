@@ -15,8 +15,6 @@ class Game(models.Model):
     name = models.CharField(
         _('Game Name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('What\'s the name of the game?'),
     )
 
@@ -32,8 +30,6 @@ class Game(models.Model):
     official_repository = models.URLField(
         _('Official Repository'),
         validators=[URLValidator()],
-        null=False,
-        blank=False,
         help_text=_('What is the official repository for this game?'),
     )
 
@@ -72,8 +68,6 @@ class Platform(models.Model):
     name = models.CharField(
         _('Platform name'),
         max_length=50,
-        null=False,
-        blank=False,
         help_text=('Name of the game\'s package'),
     )
 
@@ -82,15 +76,11 @@ class Platform(models.Model):
         max_length=3,
         choices=EXTENSION_CHOICES,
         default=EXTENSION_CHOICES[0][0],
-        null=False,
-        blank=False,
         help_text=('Select the package extension that will be accepted'),
     )
 
     icon = models.FileField(
         _('Platform Icon'),
-        null=False,
-        blank=False,
         upload_to='Platform',
     )
 
@@ -108,8 +98,6 @@ class Package(models.Model):
         _('Package'),
         upload_to='packages/',
         # max_length=MAX_UPLOAD_SIZE,
-        null=False,
-        blank=False,
         help_text=('Choose the game\'s package')
     )
 

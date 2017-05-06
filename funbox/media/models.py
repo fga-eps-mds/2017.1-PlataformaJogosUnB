@@ -19,8 +19,6 @@ class Media(models.Model):
         _('Role'),
         max_length=10,
         choices=ROLE_CHOICES,
-        null=False,
-        blank=False,
         default=ROLE_CHOICES[0][0],
         help_text=_('Select the role of this media'),
     )
@@ -43,8 +41,6 @@ class Image(Media):
     image = models.ImageField(
         _('Image'),
         upload_to='images/',
-        null=False,
-        blank=False,
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
@@ -60,8 +56,6 @@ class Video(Media):
     video = models.FileField(
         _('Video'),
         upload_to='videos/',
-        null=False,
-        blank=False,
         help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
     )
 
@@ -74,8 +68,6 @@ class Soundtrack(Media):
     soundtrack = models.FileField(
         _('Soundtrack'),
         upload_to='soundtrack/',
-        null=False,
-        blank=False,
         help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
     )
 

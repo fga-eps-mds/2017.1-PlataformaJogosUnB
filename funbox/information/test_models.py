@@ -1,4 +1,4 @@
-# import unittest
+# import unitrest
 import pytest
 from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
@@ -45,7 +45,8 @@ class TestInformationValidation:
     error_message_min_value = "A game description must have at least 50 \
 characters!"
     short_description = "short description"
-    error_message_year_future = 'We believe the game did not come from future!'
+    error_message_year_future = 'We believe the game was not won ' \
+        'in the future!'
     description = "simple description" * 3
     game = Game(name="Teste", official_repository="http://a.aa")
 
@@ -92,18 +93,25 @@ def award_creation():
 class TestAward:
     error_message_year_future = 'We believe the award was not won in the\
  future!'
-    error_message_max_length = 'Certifique-se de que o valor tenha no máximo 100\
- caracteres (ele possui 101).'
+
+    @staticmethod
+    def parametrized_str(attribute):
+
+        error_message_max_length = 'Certifique-se de que o valor tenha no '\
+            'máximo 100 caracteres (ele possui 101).'
+
+        return [
+            ('', 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
+            (None, 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[ErrorMessage.NULL]])),
+            ('a' * 101, 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[error_message_max_length]])),
+        ]
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, year, place, errors_dict", [
-        ('', 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
-        (None, 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
-        ('a' * 101, 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[error_message_max_length]])),
-    ])
+    @pytest.mark.parametrize("name, year, place, errors_dict",
+                             parametrized_str.__func__('name'))
     def test_name_validation(self, name, year, place, errors_dict):
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
@@ -124,14 +132,8 @@ class TestAward:
         validation_test(award, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("place, year, name, errors_dict", [
-        ('', 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[ErrorMessage.BLANK]])),
-        (None, 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[ErrorMessage.NULL]])),
-        ('a' * 101, 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[error_message_max_length]])),
-    ])
+    @pytest.mark.parametrize("place, year, name, errors_dict",
+                             parametrized_str.__func__('place'))
     def test_place_validation(self, place, year, name, errors_dict):
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
