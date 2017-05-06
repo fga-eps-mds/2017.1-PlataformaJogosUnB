@@ -2,7 +2,7 @@ from game.models import Game, Package, Platform
 from rest_framework import serializers
 from information.serializers import InformationSerializer
 from media.serializers import ImageSerializer
-from media.serializers import VideoSerializer 
+from media.serializers import VideoSerializer
 from media.serializers import SoundtrackSerializer
 
 
