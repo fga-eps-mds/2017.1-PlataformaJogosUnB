@@ -15,9 +15,13 @@ class Game(models.Model):
     name = models.CharField(
         _('Game Name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('What\'s the name of the game?'),
+    )
+
+    cover_image = models.ImageField(
+        _('CoverImage'),
+        upload_to='images/',
+        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
     game_version = models.CharField(
@@ -32,8 +36,6 @@ class Game(models.Model):
     official_repository = models.URLField(
         _('Official Repository'),
         validators=[URLValidator()],
-        null=False,
-        blank=False,
         help_text=_('What is the official repository for this game?'),
     )
 
@@ -48,7 +50,7 @@ class Game(models.Model):
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
 
-    def cover_image_url(self, role, atribute, many):
+    def get_image_url(self, role, atribute, many):
         images_game = self.fetch_media('image', role)
         if many:
             images_urls = []
@@ -74,7 +76,7 @@ class Platform(models.Model):
         max_length=50,
         null=False,
         blank=False,
-        help_text=_('Name of the game\'s package'),
+        help_text=('Name of the game\'s package'),
     )
 
     extensions = models.CharField(
@@ -84,13 +86,11 @@ class Platform(models.Model):
         default=EXTENSION_CHOICES[0][0],
         null=False,
         blank=False,
-        help_text=_('Select the package extension that will be accepted'),
+        help_text=('Select the package extension that will be accepted'),
     )
 
     icon = models.FileField(
         _('Platform Icon'),
-        null=False,
-        blank=False,
         upload_to='Platform',
         validators=[validator.validate_icon],
         help_text=_('Valid formats: .png, .jpg, .jpeg and .gif'),
@@ -112,7 +112,8 @@ class Package(models.Model):
         validators=[validator.validate_package],
         null=False,
         blank=False,
-        help_text=_('Choose the game\'s package')
+        # max_length=MAX_UPLOAD_SIZE,
+        help_text=('Choose the game\'s package')
     )
 
     game = models.ForeignKey(

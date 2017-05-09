@@ -13,36 +13,34 @@ UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
 
 
+def year_validators(model_name):
+    return [MinValueValidator(UNB_CREATION,
+                              _('Our University had ' +
+                                'not been built at this time!')),
+            MaxValueValidator(int(datetime.datetime.now().year),
+                              _('We believe the {} '.format(model_name) +
+                                'was not won in the future!'))]
+
+
 class Award(models.Model):
 
     name = models.CharField(
         _('Award name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the award.')
     )
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had ' +
-                                        'not been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the award ' +
-                                        'was not won in the future!'))],
+        validators=year_validators('award'),
 
 
-        null=False,
-        blank=False,
         help_text=_('Year the award was won.')
     )
 
     place = models.CharField(
         _('Place'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Place where the game won the award.')
     )
 
@@ -59,8 +57,6 @@ class Developer(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the developer.')
     )
 
@@ -76,8 +72,6 @@ class Developer(models.Model):
     login = models.CharField(
         _('Login'),
         max_length=50,
-        null=False,
-        blank=False,
         help_text=_('Developer login for github.')
     )
 
@@ -93,8 +87,6 @@ class Developer(models.Model):
     github_page = models.URLField(
         _('Github Page'),
         validators=[URLValidator()],
-        null=False,
-        blank=False,
         help_text=_('Developer Github page.')
     )
 
@@ -114,21 +106,12 @@ class Information(models.Model):
             MinLengthValidator(MIN_DESCRIPTION,
                                _('A game description must have ' +
                                  'at least 50 characters!'))],
-        null=False,
-        blank=False,
         help_text=_('Describe the game.'),
     )
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had not ' +
-                                        'been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the game ' +
-                                        'did not come from future!'))],
-        null=False,
-        blank=False,
+        validators=year_validators('game'),
         help_text=_('Which was the year the game was launched?'),
     )
 
@@ -165,15 +148,11 @@ class Statistic(models.Model):
 
     downloads_amount = models.BigIntegerField(
         _('Dowloads Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of downloads of the game.')
     )
 
     accesses_amount = models.BigIntegerField(
         _('Accesses Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of accesses to the game.')
     )
 

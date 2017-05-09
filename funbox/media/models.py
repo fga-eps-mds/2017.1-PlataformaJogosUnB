@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
+import django.apps
 import os
 import media.validators as validator
 
@@ -20,14 +21,11 @@ class Media(models.Model):
         _('Role'),
         max_length=10,
         choices=ROLE_CHOICES,
-        null=False,
-        blank=False,
         default=ROLE_CHOICES[0][0],
         help_text=_('Select the role of this media'),
     )
 
     def save(self, *args, **kwargs):
-        self.clean_fields()
         super(Media, self).save(*args, **kwargs)
 
     def config__str__(self, attr_name):
@@ -47,7 +45,7 @@ class Image(Media):
         validators=[validator.validate_image],
         null=False,
         blank=False,
-        help_text=_('Accepted formats: png, jpg, jpeg, gif')
+        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
     def __str__(self):
@@ -65,7 +63,7 @@ class Video(Media):
         validators=[validator.validate_video],
         null=False,
         blank=False,
-        help_text=_('Accepted formats: mp4, rmvb, mkv, avi, wmv, flv, mpeg')
+        help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
     )
 
     def __str__(self):
@@ -80,7 +78,7 @@ class Soundtrack(Media):
         validators=[validator.validate_soundtrack],
         null=False,
         blank=False,
-        help_text=_('Accepted formats: mp3, wma, aac, ac3, wav')
+        help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
     )
 
     def __str__(self):
