@@ -6,8 +6,8 @@ def index(request):
     games = Game.objects.all()[:4]
 
     for game in games:
-        game.cover_image_url(role='main', atribute='main_image', many=False)
-        game.cover_image_url(
+        game.cover_image.url
+        game.get_image_url(
             role='slider',
             atribute='slider_image',
             many=False)

@@ -50,7 +50,7 @@ class Game(models.Model):
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
 
-    def cover_image_url(self, role, atribute, many):
+    def get_image_url(self, role, atribute, many):
         images_game = self.fetch_media('image', role)
         if many:
             images_urls = []

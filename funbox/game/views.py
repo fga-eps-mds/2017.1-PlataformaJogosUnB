@@ -11,8 +11,13 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def list(self, request, format=None):
         for game in self.queryset:
-            game.cover_image_url(role='main', atribute='main_image',
-                                 many=False)
+            print("\n\n")
+            print(game.cover_image.url)
+            game.cover_image.url
+            print("\n\n")
+            print("\n\n")
+            print(game.fetch_package())
+            print("\n\n")
             game.fetch_package()
 
         if request.accepted_renderer.format == 'html':
@@ -24,7 +29,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None, format=None):
         game = get_object_or_404(self.queryset, pk=pk)
-        game.cover_image_url(role='slider', atribute='slider_image', many=True)
+        game.get_image_url(role='slider', atribute='slider_image', many=True)
         game.fetch_package()
         game.videos = game.fetch_media('video', 'slider')
 
