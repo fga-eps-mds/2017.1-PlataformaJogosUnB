@@ -8,4 +8,3 @@ class ImageForm(ModelForm):
         fields=('game','role','image')
         widgets={"image": forms.FileInput(attrs={'id':'image','required':True,'multiple':True})}
 
-
