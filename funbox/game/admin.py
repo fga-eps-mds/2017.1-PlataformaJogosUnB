@@ -54,7 +54,6 @@ class PackageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Game, GameAdmin)
-admin.site.register(Image)
 admin.site.register(Video)
 admin.site.register(Soundtrack)
 admin.site.register(Platform)
