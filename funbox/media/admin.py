@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 from media.models import Image, Video, Soundtrack
 from django.contrib import admin
 from media.forms import ImageForm, VideoForm, SoundtrackForm
@@ -55,19 +56,18 @@ admin.site.register(Video, VideoAdmin)
 admin.site.register(Soundtrack, SoundtrackAdmin)
 =======
 from media.models import Image
+=======
+from media.models import Image, Video, Soundtrack
+>>>>>>> Fix many image selection on admin of media
 from django.contrib import admin
 from media.forms import ImageForm
 
-class ImageInline(admin.StackedInline):
-      model = Image
-      extra = 0
-      min_num = 1
-      form = ImageForm
 
 class ImageAdmin(admin.ModelAdmin):
-      inlines = [ImageInline]
+    form = ImageForm
 
-
-
-
+<<<<<<< HEAD
 >>>>>>> Create admin.py in media.
+=======
+admin.site.register(Image, ImageAdmin)
+>>>>>>> Fix many image selection on admin of media
