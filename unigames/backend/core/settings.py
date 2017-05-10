@@ -43,6 +43,7 @@ DEFAULT_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
+    'webpack_loader',
 ]
 
 LOCAL_APPS = [
@@ -156,10 +157,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(
-        os.path.dirname(__file__),
-        '../templates/static',
-    ),
+    os.path.join(BASE_DIR, '../frontend/assets'),
+    # os.path.join(
+    #     os.path.dirname(__file__),
+    #     '../templates/static',
+    # ),
 )
 STATIC_ROOT = os.path.join(
     os.path.dirname(__file__),
@@ -174,3 +176,10 @@ MEDIA_ROOT = os.path.join(
     os.path.dirname(__file__),
     '../public',
 )
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, '../frontend/webpack-stats.json'),
+    }
+}
