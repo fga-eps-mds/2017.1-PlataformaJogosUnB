@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from media.models import Image, Video, Soundtrack
 from django import forms
 from django.forms import ModelForm
@@ -64,3 +65,15 @@ class SoundtrackForm(ModelForm):
             instance = Soundtrack.objects.create(
                 game=game, role=role, soundtrack=archive)
             instance.save()
+=======
+from media.models import Image
+from django import forms
+from django.forms import ModelForm
+
+class ImageForm(ModelForm):
+    class Meta:
+        model=Image
+        fields=('game','role','image')
+        widgets={"image": forms.FileInput(attrs={'id':'image','required':True,'multiple':True})}
+
+>>>>>>> Create admin.py in media.
