@@ -20,7 +20,7 @@ def now():
 def information_created():
     game = Game(
         name="Teste",
-        cover_image="Imagem_teste",
+        cover_image="Imagem_teste.jpg",
         official_repository="http://a.aa")
     game.save()
     information = Information(description="a" * 51,
@@ -53,7 +53,7 @@ characters!"
     description = "simple description" * 3
     game = Game(
         name="Teste",
-        cover_image="Imagem_de_capa",
+        cover_image="Imagem_de_capa.jpg",
         official_repository="http://a.aa")
 
     @pytest.mark.django_db

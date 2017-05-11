@@ -22,7 +22,7 @@ class GameSerializerTestCase(TestCase):
         information_game = Information()
 
         game.name = 'Jogo teste 1'
-        game.cover_image = 'Image_do_jogo'
+        game.cover_image = 'Image_do_jogo.jpg'
         game.game_version = '1.3.2'
         game.official_repository = 'https://github.com/PlataformaJogosUnb/'
         game.save()

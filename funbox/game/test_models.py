@@ -12,7 +12,7 @@ def game_creation(name="", cover_image="", url="",
 def game_created():
     game = Game()
     game.name = 'mario'
-    game.cover_image = "imagem_de_capa_mario"
+    game.cover_image = "imagem_de_capa_mario.jpg"
     game.official_repository = 'https://github.com/PlataformaJogosUnb/'
     game.save()
     return game

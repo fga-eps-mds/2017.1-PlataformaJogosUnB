@@ -1,6 +1,7 @@
 # Helper methods to execute tests
 import pytest
 from enum import Enum
+from django.core.exceptions import ValidationError
 
 
 def validation_test(model, errors_dict):
@@ -11,8 +12,7 @@ def validation_test(model, errors_dict):
     :param model: object to be validated
     :param errors_dict: dictionary with validation errors
     """
-    from django.core.exceptions import ValidationError
-    with pytest.raises(ValidationError)as validation_error:
+    with pytest.raises(ValidationError) as validation_error:
         model.save()
     print(validation_error.value.message_dict)
     assert validation_error.value.message_dict == errors_dict
@@ -20,11 +20,12 @@ def validation_test(model, errors_dict):
 
 def mount_error_dict(keys, values):
     """ This method is used to join the keys and values in a dictionary.
+        Each field is a key that is associated to a list of error messages
 
     :param keys: array with the names of attributes [key1, key2]
     :param values: values of error messages [[message_key1], [message_key2]]
     """
-    return dict([x for x in zip(keys, values)])
+    return dict(zip(keys, values))
 
 
 class ErrorMessage(Enum):
