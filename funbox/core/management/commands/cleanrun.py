@@ -8,8 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         path = os.path.realpath('.')
-        result = os.system("flake8 --ignore=F401 " +
-                           "--exclude=settings.py,migrations %s" % path)
+        result = os.system("flake8 --exclude=settings.py,migrations %s" % path)
         if result == 0:
             call_command('makemigrations')
             call_command('migrate')
