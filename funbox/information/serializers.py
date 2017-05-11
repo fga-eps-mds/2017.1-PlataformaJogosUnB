@@ -26,7 +26,7 @@ class GenreSerialization(serializers.ModelSerializer):
 class InformationSerializer(serializers.ModelSerializer):
     developers = DeveloperSerialization(many=True)
     awards = AwardSerialization(many=True)
-    genre = GenreSerialization(many=True)
+    genres = GenreSerialization(many=True)
 
     class Meta:
         model = Information
@@ -34,4 +34,4 @@ class InformationSerializer(serializers.ModelSerializer):
                   'launch_year',
                   'developers',
                   'awards',
-                  'genre']
+                  'genres']
