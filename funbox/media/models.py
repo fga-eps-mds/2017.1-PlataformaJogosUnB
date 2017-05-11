@@ -2,7 +2,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
-import django.apps
 import os
 
 

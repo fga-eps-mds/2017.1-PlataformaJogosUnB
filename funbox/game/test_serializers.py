@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.db import models
 from game.models import Game, Platform, Package
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
