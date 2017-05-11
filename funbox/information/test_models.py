@@ -2,7 +2,7 @@
 import pytest
 from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
-from information.models import Information, Award
+from information.models import Information, Award, Genre
 
 
 def information_creation(description="", launch_year=0, game=None):
@@ -152,3 +152,26 @@ class TestAward:
     @pytest.mark.django_db
     def test_str_award(self, award_creation):
         assert str(award_creation) == "UnB (%d): %s" % (now(), "award")
+
+
+@pytest.fixture
+def genre_creation():
+    genre = Genre.objects.create(name="Genre", description="Here is only the'\
+                                description of genre ")
+    genre.save()
+    return genre
+
+
+class TestGenre:
+
+    @pytest.mark.django_db
+    def test_genre_save(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert genre == genre_creation
+
+    @pytest.mark.django_db
+    def test_str_genre(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert str(genre_creation) == genre.name
+
+
