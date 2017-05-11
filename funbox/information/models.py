@@ -10,7 +10,7 @@ import datetime
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
-
+MIN_GENRE_DESCRIPTION = 20
 
 def year_validators(model_name):
     return [MinValueValidator(UNB_CREATION,
@@ -106,9 +106,9 @@ class Genre(models.Model):
     description = models.TextField(
         _('Description'),
         validators=[
-            MinLengthValidator(MIN_DESCRIPTION,
+            MinLengthValidator(MIN_GENRE_DESCRIPTION,
                                _('A genre description must have ' +
-                                 'at least 50 characters!'))],
+                                 'at least 20 characters!'))],
         help_text=_('Describe the genre.'),
     )
 
@@ -146,6 +146,11 @@ class Information(models.Model):
     developers = models.ManyToManyField(
         Developer,
         related_name='developers'
+    )
+
+    genres = models.ManyToManyField(
+        Genre,
+        related_name='genres'
     )
 
     awards = models.ManyToManyField(
