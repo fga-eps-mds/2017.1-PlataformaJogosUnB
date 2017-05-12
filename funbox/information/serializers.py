@@ -2,21 +2,21 @@ from information.models import Information, Award, Developer, Genre
 from rest_framework import serializers
 
 
-class AwardSerialization(serializers.ModelSerializer):
+class AwardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Award
         fields = ['name', 'year', 'place']
 
 
-class DeveloperSerialization(serializers.ModelSerializer):
+class DeveloperSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Developer
         fields = ['name', 'avatar', 'login', 'email', 'github_page']
 
 
-class GenreSerialization(serializers.ModelSerializer):
+class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genre
@@ -24,10 +24,10 @@ class GenreSerialization(serializers.ModelSerializer):
 
 
 class InformationSerializer(serializers.ModelSerializer):
-    developers = DeveloperSerialization(many=True)
-    awards = AwardSerialization(many=True)
-    genres = GenreSerialization(many=True)
-
+    developers = DeveloperSerializer(many=True)
+    awards = AwardSerializer(many=True)
+    genres = GenreSerializer(many=True)
+ 
     class Meta:
         model = Information
         fields = ['description',
