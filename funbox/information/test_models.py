@@ -175,3 +175,28 @@ class TestGenre:
         assert str(genre_creation) == genre.name
 
 
+def genre_created(name="Corrida", description=""):
+    return Genre(name=name, description=description)
+
+
+class TestGenreValidation:
+
+    error_message_min_value = 'A genre description must have \
+at least 20 characters!'
+    short_description = "short description"
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict", [
+        ('Corrida', None,
+         mount_error_dict(["description"], [[ErrorMessage.NULL]])),
+        ("Corrida", "",
+         mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
+        ('Corrida', short_description,
+         mount_error_dict(["description"], [[error_message_min_value]])),
+    ])
+    def test_description_validation(self, name, description,
+                                    errors_dict):
+        genre = genre_created(name, description)
+        validation_test(genre, errors_dict)
+
+
