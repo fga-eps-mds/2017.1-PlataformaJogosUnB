@@ -2,11 +2,15 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from game.choices import EXTENSION_CHOICES
+from core.validators import (
+        image_extension_validator,
+        HELP_TEXT_IMAGES
+)
 import game.validators as validators
-import core.validators as general_validators
 import os
 
-KILOBYTE = 1024
+# KILOBYTE = 1024
+
 # MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
 
 # TODO: fix MAX_UPLOAD_SIZE validation - save as a string or define a constant.
@@ -21,10 +25,10 @@ class Game(models.Model):
     )
 
     cover_image = models.ImageField(
-        _('CoverImage'),
-        validators=[general_validators.image_extension_validator],
+        _('Cover Image'),
+        validators=[image_extension_validator],
         upload_to='images/',
-        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
+        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES)
     )
 
     version = models.CharField(
@@ -80,7 +84,7 @@ class Platform(models.Model):
     name = models.CharField(
         _('Platform name'),
         max_length=50,
-        help_text=('Name of the game\'s package'),
+        help_text=('Name of the platform'),
     )
 
     extensions = models.CharField(
@@ -88,15 +92,23 @@ class Platform(models.Model):
         max_length=3,
         choices=EXTENSION_CHOICES,
         default=EXTENSION_CHOICES[0][0],
-        help_text=('Select the package extension that will be accepted'),
+        help_text=_(
+            'Select the extension that will be accepted' +
+            ' for the packages'),
     )
 
     icon = models.ImageField(
         _('Platform Icon'),
-        validators=[general_validators.image_extension_validator],
+        validators=[image_extension_validator],
         upload_to='Platform',
-        help_text=_('Valid formats: .png, .jpg, .jpeg and .gif'),
+        help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
     )
+
+    @staticmethod
+    def get_platform_extensions():
+        return list(
+            set(platform.extensions for platform in Platform.objects.all())
+        )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -112,7 +124,9 @@ class Package(models.Model):
         _('Package'),
         upload_to='packages/',
         # max_length=MAX_UPLOAD_SIZE,
-        help_text=('Choose the game\'s package')
+        help_text=_(
+            'Choose one game\'s package. '
+        )
     )
 
     game = models.ForeignKey(

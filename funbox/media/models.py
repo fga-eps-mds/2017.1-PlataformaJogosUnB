@@ -43,7 +43,10 @@ class Image(Media):
         _('Image'),
         validators=[general_validators.image_extension_validator],
         upload_to='images/',
-        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
+        help_text=_(
+            'Images for the game. ' +
+            general_validators.HELP_TEXT_IMAGES
+        )
     )
 
     def __str__(self):
@@ -59,7 +62,10 @@ class Video(Media):
         _('Video'),
         upload_to='videos/',
         validators=[validators.video_extension_validator],
-        help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
+        help_text=_(
+            'Videos for the game. ' +
+            general_validators.HELP_TEXT_VIDEO
+        )
     )
 
     def __str__(self):
@@ -72,7 +78,10 @@ class Soundtrack(Media):
         _('Soundtrack'),
         upload_to='soundtrack/',
         validators=[validators.soundtrack_extension_validator],
-        help_text=_('Accepted formats: mp3, zip, etc')
+        help_text=_(
+            'Soundtracks for the game. ' +
+            general_validators.HELP_TEXT_SOUNDTRACK
+        )
     )
 
     def __str__(self):

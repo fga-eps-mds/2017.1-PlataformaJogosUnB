@@ -1,11 +1,13 @@
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import MinValueValidator
-from django.core.validators import MaxValueValidator
-from django.core.validators import MinLengthValidator
-from django.core.validators import EmailValidator
-from django.core.validators import URLValidator
 from django.db import models
-from game.models import Game
+from game.models import Game, HELP_TEXT_IMAGES
+from django.core.validators import (
+        MinValueValidator,
+        MaxValueValidator,
+        MinLengthValidator,
+        EmailValidator,
+        URLValidator,
+)
 import datetime
 import core.validators as general_validators
 
@@ -25,7 +27,7 @@ def year_validators(model_name):
 class Award(models.Model):
 
     name = models.CharField(
-        _('Award name'),
+        _('Name'),
         max_length=100,
         help_text=_('Name of the award.')
     )
@@ -63,7 +65,7 @@ class Developer(models.Model):
         upload_to='public/avatar',
         blank=True,
         validators=[general_validators.image_extension_validator],
-        help_text=_('Developer image. Accepted formats: png, jpg, gif, jpeg')
+        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
     )
 
     login = models.CharField(
@@ -152,10 +154,6 @@ class Statistic(models.Model):
         _('Accesses Amount'),
         help_text=_('Amount of accesses to the game.')
     )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Statistic, self).save(*args, **kwargs)
 
     def __str__(self):
         return "statistic: {0}".format(self.accesses_amount)
