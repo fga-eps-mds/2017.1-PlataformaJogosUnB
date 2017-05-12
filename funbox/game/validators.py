@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import FileExtensionValidator
 import game.models
-import os
 import re
 
 
@@ -15,31 +15,17 @@ def validate_version(version):
         )
 
 
-def validate_package(package):
-    extension = os.path.splitext(package.name)[1][1:]
-    platforms = game.models.Platform.objects.filter(extensions=extension)
-
-    if platforms.count():
-        return platforms
-    else:
-        raise ValidationError(
-            _('Your package format doesn\'t match the platforms' +
-              ' available. Please send a file that matchs the platforms' +
-              ' or register the platform you need')
-        )
+def package_extension_validator(package):
+    validator = FileExtensionValidator(
+        get_valid_package_extensions(),
+        _('Your package format doesn\'t match the platforms' +
+          ' available. Please send a file that matchs the platforms' +
+          ' or register the platform you need')
+    )
+    validator(package)
 
 
-def validate_icon(icon):
-    extension = os.path.splitext(icon.name)[1]
-    valid_extensions = [
-        '.png',
-        '.jpg',
-        '.gif',
-        '.jpeg',
+def get_valid_package_extensions():
+    return [
+        platform.extensions for platform in game.models.Platform.objects.all()
     ]
-
-    if not extension.lower() in valid_extensions:
-        raise ValidationError(
-            _('Invalid image format.' +
-              ' Please insert an image with a valid extension')
-        )

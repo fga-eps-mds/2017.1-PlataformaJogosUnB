@@ -7,7 +7,7 @@ from django.core.validators import URLValidator
 from django.db import models
 from game.models import Game
 import datetime
-import information.validators as validator
+import core.validators as general_validators
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
@@ -33,8 +33,6 @@ class Award(models.Model):
     year = models.PositiveIntegerField(
         _('Year'),
         validators=year_validators('award'),
-
-
         help_text=_('Year the award was won.')
     )
 
@@ -60,12 +58,11 @@ class Developer(models.Model):
         help_text=_('Name of the developer.')
     )
 
-    avatar = models.FileField(
+    avatar = models.ImageField(
         _('Avatar'),
         upload_to='public/avatar',
-        validators=[validator.validate_avatar],
-        null=False,
         blank=True,
+        validators=[general_validators.image_extension_validator],
         help_text=_('Developer image. Accepted formats: png, jpg, gif, jpeg')
     )
 

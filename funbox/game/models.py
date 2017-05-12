@@ -2,7 +2,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from game.choices import EXTENSION_CHOICES
-import game.validators as validator
+import game.validators as validators
+import core.validators as general_validators
+import os
 
 KILOBYTE = 1024
 # MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
@@ -20,14 +22,15 @@ class Game(models.Model):
 
     cover_image = models.ImageField(
         _('CoverImage'),
+        validators=[general_validators.image_extension_validator],
         upload_to='images/',
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
-    game_version = models.CharField(
+    version = models.CharField(
         _('Game Version'),
         max_length=20,
-        validators=[validator.validate_version],
+        validators=[validators.validate_version],
         null=True,
         blank=True,
         help_text=_('What\'s the game version?'),
@@ -44,8 +47,11 @@ class Game(models.Model):
         super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0} v{1}".format(self.name,
-                                 self.game_version)
+        if self.version is None:
+            return self.name
+        else:
+            return "{0} v{1}".format(self.name,
+                                     self.game_version)
 
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
@@ -74,8 +80,6 @@ class Platform(models.Model):
     name = models.CharField(
         _('Platform name'),
         max_length=50,
-        null=False,
-        blank=False,
         help_text=('Name of the game\'s package'),
     )
 
@@ -84,15 +88,13 @@ class Platform(models.Model):
         max_length=3,
         choices=EXTENSION_CHOICES,
         default=EXTENSION_CHOICES[0][0],
-        null=False,
-        blank=False,
         help_text=('Select the package extension that will be accepted'),
     )
 
-    icon = models.FileField(
+    icon = models.ImageField(
         _('Platform Icon'),
+        validators=[general_validators.image_extension_validator],
         upload_to='Platform',
-        validators=[validator.validate_icon],
         help_text=_('Valid formats: .png, .jpg, .jpeg and .gif'),
     )
 
@@ -109,9 +111,6 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        validators=[validator.validate_package],
-        null=False,
-        blank=False,
         # max_length=MAX_UPLOAD_SIZE,
         help_text=('Choose the game\'s package')
     )
@@ -128,18 +127,26 @@ class Package(models.Model):
     )
 
     def fill_platforms(self):
-        platforms = validator.validate_package(self.package)
-
+        extension = os.path.splitext(self.package.name)[1][1:].lower()
+        platforms = Platform.objects.filter(extensions=extension)
         for platform in platforms:
             self.platforms.add(platform)
 
+    def clean(self):
+        validators.package_extension_validator(self.package)
+
     def save(self, *args, **kwargs):
-        self.clean_fields()
+        self.clean()
         super(Package, self).save(*args, **kwargs)
         self.fill_platforms()
 
     def __str__(self):
-        return '{0} (.{1})'.format(
-            self.game.name,
-            self.platforms.first().extensions.title().lower()
-        )
+        if self.platforms.count():
+            return '{0} (.{1})'.format(
+                self.game.name,
+                self.platforms.first().extensions.title().lower()
+            )
+        else:
+            return ("Invalid package." +
+                    " There aren't registered platforms" +
+                    " able to play it")

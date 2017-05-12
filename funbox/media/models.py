@@ -2,9 +2,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
-import django.apps
+import core.validators as general_validators
+import media.validators as validators
 import os
-import media.validators as validator
 
 
 class Media(models.Model):
@@ -41,10 +41,8 @@ class Image(Media):
 
     image = models.ImageField(
         _('Image'),
+        validators=[general_validators.image_extension_validator],
         upload_to='images/',
-        validators=[validator.validate_image],
-        null=False,
-        blank=False,
         help_text=_('Accepted formats: png, jpg, jpeg, etc.')
     )
 
@@ -60,9 +58,7 @@ class Video(Media):
     video = models.FileField(
         _('Video'),
         upload_to='videos/',
-        validators=[validator.validate_video],
-        null=False,
-        blank=False,
+        validators=[validators.video_extension_validator],
         help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
     )
 
@@ -75,10 +71,8 @@ class Soundtrack(Media):
     soundtrack = models.FileField(
         _('Soundtrack'),
         upload_to='soundtrack/',
-        validators=[validator.validate_soundtrack],
-        null=False,
-        blank=False,
-        help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
+        validators=[validators.soundtrack_extension_validator],
+        help_text=_('Accepted formats: mp3, zip, etc')
     )
 
     def __str__(self):
