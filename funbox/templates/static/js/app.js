@@ -2,6 +2,13 @@
 	
 	$(document).ready(function(){
 
+    //TODO add to specific .js file
+    $('#id_post_anonymously').click(function () {
+      dynamicField = $('#id_github_user'); 
+      if ( $('#id_post_anonymously').is(':checked') ) { dynamicField.hide() }
+      else { dynamicField.show() }
+    });
+
 		// Cloning main navigation for mobile menu
 		$(".mobile-navigation").append($(".main-navigation .menu").clone());
 

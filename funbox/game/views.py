@@ -42,11 +42,10 @@ class GameViewSet(viewsets.ModelViewSet):
     def report_bug(self, request):
         if request.method == 'POST':
             form = (request.POST)
-            if form.is_valid():
-                return HttpResponseRedirect('/reportbug/')
+            return HttpResponseRedirect('/reportbug/')
 
         else:
             form = ReportBugForm()
 
-        return render(request, 'report_bug.html', {'form': form})
+        return render(request, 'game/report_bug.html', {'form': form})
 
