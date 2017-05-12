@@ -199,4 +199,24 @@ at least 20 characters!'
         genre = genre_created(name, description)
         validation_test(genre, errors_dict)
 
+    @staticmethod
+    def parametrized_str(attribute):
 
+        error_message_max_length = 'Certifique-se de que o valor tenha no '\
+            'máximo 100 caracteres (ele possui 101).'
+
+        return [
+            ('', 'descricao' * 4,
+             mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
+            (None, 'descricao' * 4,
+             mount_error_dict([attribute], [[ErrorMessage.NULL]])),
+            ('a' * 101, 'descricao' * 4,
+             mount_error_dict([attribute], [[error_message_max_length]])),
+        ]
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict",
+                             parametrized_str.__func__('name'))
+    def test_name_validation(self, name, description, errors_dict):
+        genre = Genre(name=name, description=description)
+        validation_test(genre, errors_dict)
