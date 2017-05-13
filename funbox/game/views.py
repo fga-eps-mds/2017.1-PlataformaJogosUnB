@@ -45,6 +45,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
         if request.method == 'POST':
             form = (request.POST)
+
             title = form['title']
             description = form['description']
             github_user = form['github_user']
