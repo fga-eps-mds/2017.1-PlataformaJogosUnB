@@ -61,23 +61,6 @@ class GameAdmin(admin.ModelAdmin):
             obj_form.delete()
         for instance in instances:
             if not self.__save_media__(request, instance, formset, change):
-        if isinstance(instances[0], Image):
-            for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist(
-                    'media_image-' + str(count) + '-image')
-                forms.save_instances(list_files)
-        elif isinstance(instances[0], Video):
-            for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist(
-                    'media_video-' + str(count) + '-video')
-                forms.save_instances(list_files)
-        elif isinstance(instances[0], Soundtrack):
-            for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist(
-                    'media_soundtrack-' + str(count) + '-soundtrack')
-                forms.save_instances(list_files)
-        else:
-            for instance in instances:
                 instance.save()
         formset.save_m2m()
 
@@ -92,7 +75,6 @@ class GameAdmin(admin.ModelAdmin):
                     forms.save_instances(list_files, obj, change, model)
             return True
         return False
-
 
 
 admin.site.register(Game, GameAdmin)
