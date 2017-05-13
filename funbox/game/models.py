@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from game.validators import validate_version, validate_packge_size
+from game.validators import validate_version, validate_package_size
 from game.choices import EXTENSION_CHOICES
 
 
@@ -98,7 +98,7 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        validators=[validate_packge_size],
+        validators=[validate_package_size],
         help_text=('Choose the game\'s package')
     )
 

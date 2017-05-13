@@ -31,15 +31,15 @@ class GameSerializerTestCase(TestCase):
         platform.icon = 'Platform/linux.png'
         platform.save()
 
-        package_game.package = 'packages/exemplo.deb'
-        package_game.game_id = game.id
-        package_game.save()
-        package_game.platforms.add(platform)
-
         image_game.image = 'images/exemplo.jpeg'
         image_game.role = ROLE_CHOICES[0][0]
         image_game.game_id = game.id
         image_game.save()
+
+        package_game.package = 'packages/exemplo.deb'
+        package_game.game_id = game.id
+        package_game.save()
+        package_game.platforms.add(platform)
 
         video_game.video = 'videos/exemplo.mp4'
         video_game.role = ROLE_CHOICES[0][0]

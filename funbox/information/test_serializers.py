@@ -9,13 +9,13 @@ class GenreSerializerTestCase(TestCase):
 
     def test_serialization_genre(self):
         genre = Genre(
-                name='Corrida',
-                description='Jogos de carros velozes')
+                name='Race',
+                description='Games like fast and furious')
         genre.save()
         genre_serialized = GenreSerializer(genre).data
         expected_json_genre = {
-                'name': 'Corrida',
-                'description': 'Jogos de carros velozes'}
+                'name': 'Race',
+                'description': 'Games like fast and furious'}
         self.assertEqual(genre_serialized, expected_json_genre)
 
 
