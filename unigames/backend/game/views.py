@@ -11,13 +11,9 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def list(self, request, format=None):
         for game in self.queryset:
-            print("\n\n")
             print(game.cover_image.url)
             game.cover_image.url
-            print("\n\n")
-            print("\n\n")
             print(game.fetch_package())
-            print("\n\n")
             game.fetch_package()
 
         if request.accepted_renderer.format == 'html':
