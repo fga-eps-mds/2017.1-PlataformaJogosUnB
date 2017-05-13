@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
+from game.utils.issue_handler import IssueHandler
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
@@ -50,22 +51,8 @@ class GameViewSet(viewsets.ModelViewSet):
             label = 'pjunb'
             official_repository = game.official_repository
 
-
-            url = 'https://api.github.com/repos/%s/%s/issues' % (REPO_OWNER, REPO_NAME)
-            session = requests.Session()
-            session.auth=('username', 'password')
-
-            issue = {'title':title,
-                    'body':description,
-                    'milestone':None,
-                    'labels':[label]}
-
-            r = session.post(url, json.dumps(issue))
-            if r.status_code == 201:
-                print('Successfully created Issue "%s"' % title)
-            else:
-                print('Could not create Issue "%s"' % title)
-                print('Response:', r.content)
+            issue_handler = IssueHandler()
+            issue_handler.submit_issue(title,description,label,official_repository)
 
             return HttpResponseRedirect('/games/reportbug/')
 
