@@ -1,13 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from game.validators import validate_version
+from game.validators import validate_version, validate_packge_size
 from game.choices import EXTENSION_CHOICES
-
-KILOBYTE = 1024
-# MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
-
-# TODO: fix MAX_UPLOAD_SIZE validation - save as a string or define a constant.
 
 
 class Game(models.Model):
@@ -103,7 +98,7 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        # max_length=MAX_UPLOAD_SIZE,
+        validators=[validate_packge_size],
         help_text=('Choose the game\'s package')
     )
 

@@ -27,7 +27,7 @@ class InformationSerializer(serializers.ModelSerializer):
     developers = DeveloperSerializer(many=True)
     awards = AwardSerializer(many=True)
     genres = GenreSerializer(many=True)
- 
+
     class Meta:
         model = Information
         fields = ['description',

@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import filesizeformat
 import re
 
 
@@ -11,3 +12,13 @@ def validate_version(version):
               "and can't have 2 followed '.'. Error at: % (version)s"),
             params={'version': version},
         )
+
+
+def validate_packge_size(packge):
+    KILOBYTE = 1024
+    MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
+
+    if(packge.size > MAX_UPLOAD_SIZE):
+        raise ValidationError(
+            _('Please keep filesize under %s. Current filesize %s')
+            % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(packge.size)))

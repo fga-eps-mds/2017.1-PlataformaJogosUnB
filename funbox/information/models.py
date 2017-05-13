@@ -12,6 +12,7 @@ UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
 MIN_GENRE_DESCRIPTION = 20
 
+
 def year_validators(model_name):
     return [MinValueValidator(UNB_CREATION,
                               _('Our University had ' +
