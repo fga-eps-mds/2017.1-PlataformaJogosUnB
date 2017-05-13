@@ -35,6 +35,11 @@ class GameSerializerTestCase(TestCase):
         image_game.role = ROLE_CHOICES[0][0]
         image_game.game_id = game.id
         image_game.save()
+        
+        package_game.package = 'packages/exemplo.deb'
+        package_game.game_id = game.id
+        package_game.save()
+        package_game.platforms.add(platform)
 
         package_game.package = 'packages/exemplo.deb'
         package_game.game_id = game.id
