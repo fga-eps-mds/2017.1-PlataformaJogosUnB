@@ -7,14 +7,15 @@ class ImageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_images = request.FILES.getlist('image')
-        save_object(instance=obj, list_file=list_images)
+        form.save_instances(list_images)
 
 class VideoAdmin(admin.ModelAdmin):
     form = VideoForm
 
     def save_model(self, request, obj, form, change):
         list_videos = request.FILES.getlist('video')
-        save_object(instance=obj, list_file=list_videos)
+        #save_object(instance=obj, list_file=list_videos)
+        form.save_instances(list_videos)
 
 
 class SoundtrackAdmin(admin.ModelAdmin):
@@ -22,7 +23,8 @@ class SoundtrackAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_soundtrack = request.FILES.getlist('soundtrack')
-        save_object(instance=obj, list_file=list_soundtrack)
+        #save_object(instance=obj, list_file=list_soundtrack)
+        form.save_instances(list_soundtrack)
 
 def save_object(instance, list_file):
     game = instance.game
