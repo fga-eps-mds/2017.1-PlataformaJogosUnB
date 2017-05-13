@@ -2,7 +2,7 @@
 import pytest
 from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
-from information.models import Information, Award, Genre
+from information.models import Information, Award, Genre, Developer
 
 
 def information_creation(description="", launch_year=0, game=None):
@@ -220,3 +220,24 @@ at least 20 characters!'
     def test_name_validation(self, name, description, errors_dict):
         genre = Genre(name=name, description=description)
         validation_test(genre, errors_dict)
+
+
+@pytest.fixture
+def developer_creation():
+    developer = Developer.objects.create(name="Developer", login="login",
+                                         email="developer@gmail.com",
+                                         github_page="https://github.com/dev")
+    developer.save
+    return developer
+
+
+class TestDeveloper:
+
+    @pytest.mark.django_db
+    def test_developer_save(self, developer_creation):
+        developer = Developer.objects.get(pk=developer_creation.pk)
+        assert developer == developer_creation
+
+    @pytest.mark.django_db
+    def test_str_developer(self, developer_creation):
+        assert str(developer_creation) == "Developer <https://github.com/dev>"
