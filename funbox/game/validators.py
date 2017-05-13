@@ -15,11 +15,11 @@ def validate_version(version):
 
 
 def validate_package_size(package):
-    
+    '''
     KILOBYTE = 1024
     MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
     if(package.size > MAX_UPLOAD_SIZE):
         raise ValidationError(
             _('Please keep filesize under %s. Current filesize %s')
             % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(package.size)))
-    
+    '''
