@@ -40,12 +40,36 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def report_bug(self, request):
+        game = get_object_or_404(self.queryset)
+
         if request.method == 'POST':
             form = (request.POST)
-            return HttpResponseRedirect('/reportbug/')
+            title = form['title']
+            description = form['description']
+            github_user = form['github_user']
+            label = 'pjunb'
+            official_repository = game.official_repository
+
+
+            url = 'https://api.github.com/repos/%s/%s/issues' % (REPO_OWNER, REPO_NAME)
+            session = requests.Session()
+            session.auth=('username', 'password')
+
+            issue = {'title':title,
+                    'body':description,
+                    'milestone':None,
+                    'labels':[label]}
+
+            r = session.post(url, json.dumps(issue))
+            if r.status_code == 201:
+                print('Successfully created Issue "%s"' % title)
+            else:
+                print('Could not create Issue "%s"' % title)
+                print('Response:', r.content)
+
+            return HttpResponseRedirect('/games/reportbug/')
 
         else:
             form = ReportBugForm()
 
         return render(request, 'game/report_bug.html', {'form': form})
-
