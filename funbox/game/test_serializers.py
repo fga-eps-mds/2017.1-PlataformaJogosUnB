@@ -41,6 +41,11 @@ class GameSerializerTestCase(TestCase):
         package_game.save()
         package_game.platforms.add(platform)
 
+        package_game.package = 'packages/exemplo.deb'
+        package_game.game_id = game.id
+        package_game.save()
+        package_game.platforms.add(platform)
+
         video_game.video = 'videos/exemplo.mp4'
         video_game.role = ROLE_CHOICES[0][0]
         video_game.game_id = game.id
