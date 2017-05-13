@@ -30,6 +30,7 @@ class SoundtrackInline(admin.StackedInline):
     min_num = 0
     form = SoundtrackForm
 
+
 class PackageInline(admin.StackedInline):
     model = Package
     exclude = ['platforms']
@@ -49,25 +50,28 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
 
-
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
 
-        if type(instances[0]) == Image:
+        if isinstance(instances[0], Image):
             for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist('media_image-'+str(count)+'-image')
+                list_files = request.FILES.getlist(
+                    'media_image-' + str(count) + '-image')
                 forms.save_instances(list_files)
-        elif type(instances[0]) == Video:
+        elif isinstance(instances[0], Video):
             for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist('media_video-'+str(count)+'-video')
+                list_files = request.FILES.getlist(
+                    'media_video-' + str(count) + '-video')
                 forms.save_instances(list_files)
-        elif type(instances[0]) == Soundtrack:
+        elif isinstance(instances[0], Soundtrack):
             for count, forms in enumerate(formset):
-                list_files = request.FILES.getlist('media_soundtrack-'+str(count)+'-soundtrack')
+                list_files = request.FILES.getlist(
+                    'media_soundtrack-' + str(count) + '-soundtrack')
                 forms.save_instances(list_files)
         else:
             for instance in instances:
                 instance.save()
+
 
 admin.site.register(Game, GameAdmin)
 admin.site.register(Platform)
