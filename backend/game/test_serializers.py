@@ -1,6 +1,7 @@
 from django.test import TestCase
 from game.models import Game, Platform
 from game.factory import PackageFactory
+from game.models import Package
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
 from media.models import Image, Video, Soundtrack
