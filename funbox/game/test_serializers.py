@@ -1,5 +1,6 @@
 from django.test import TestCase
-from game.models import Game, Platform, Package
+from game.models import Game, Platform
+from game.factory import PackageFactory
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
 from media.models import Image, Video, Soundtrack
@@ -11,7 +12,6 @@ class GameSerializerTestCase(TestCase):
 
     def setUp(self):
         game = Game()
-        package_game = Package()
         platform = Platform()
         image_game = Image()
         video_game = Video()
@@ -25,6 +25,7 @@ class GameSerializerTestCase(TestCase):
         game.game_version = '1.3.2'
         game.official_repository = 'https://github.com/PlataformaJogosUnb/'
         game.save()
+        package_game = PackageFactory.build(game=game)
 
         platform.name = 'Ubuntu'
         platform.extensions = EXTENSION_CHOICES[0][0]
@@ -36,8 +37,6 @@ class GameSerializerTestCase(TestCase):
         image_game.game_id = game.id
         image_game.save()
 
-        package_game.package = 'packages/exemplo.deb'
-        package_game.game_id = game.id
         package_game.save()
         package_game.platforms.add(platform)
 

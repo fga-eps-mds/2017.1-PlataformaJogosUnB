@@ -1,5 +1,7 @@
-from game.validators import validate_version
+from game.validators import validate_version, validate_package_size
 from django.core.exceptions import ValidationError
+from game.factory import PackageFactory
+from unittest.mock import patch
 import pytest
 
 
@@ -20,3 +22,20 @@ class TestValidateVersion:
             validate_version(version)
         assert validation_error.value.params == {'version': version}
         assert self.error_message == str(validation_error.value.message)
+
+
+class TestSize:
+
+    @pytest.mark.django_db
+    def test_size_validation(self):
+        error_message = "Please keep filesize under 1,0 GB. " \
+                        "Current filesize 10 bytes"
+        package_package = PackageFactory().package
+        with patch("game.validators._get_size", return_value=1 + 1024**3):
+            try:
+                validate_package_size(package_package)
+            except ValidationError as ve:
+                assert ve.message == error_message
+            else:
+                print("Not error validation raised")
+                assert False
