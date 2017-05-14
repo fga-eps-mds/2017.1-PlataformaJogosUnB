@@ -40,7 +40,7 @@ render: function() {
         }
         return (
             <div>
-                <h1>Hello MARCELO!</h1>
+                <h1>Hello React!</h1>
                 <ul>
                     {gameNodes}
                 </ul>
