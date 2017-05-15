@@ -11,7 +11,7 @@ class ImageForm(ModelForm):
             "image": forms.FileInput(
                 attrs={
                     'id': 'image',
-                    'required': True,
+                    'required': False,
                     'multiple': True})}
 
     def save_instances(self, list_files):
@@ -32,7 +32,7 @@ class VideoForm(ModelForm):
             "video": forms.FileInput(
                 attrs={
                     'id': 'video',
-                    'required': True,
+                    'required': False,
                     'multiple': True})}
 
     def save_instances(self, list_files):
@@ -53,7 +53,7 @@ class SoundtrackForm(ModelForm):
             "soundtrack": forms.FileInput(
                 attrs={
                     'id': 'soundtrack',
-                    'required': True,
+                    'required': False,
                     'multiple': True})}
 
     def save_instances(self, list_files):
