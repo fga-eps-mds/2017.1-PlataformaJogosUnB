@@ -48,12 +48,12 @@ class GameViewSet(viewsets.ModelViewSet):
 
             title = form['title']
             description = form['description']
-            github_user = form['github_user']
-            label = 'pjunb'
+            label = form['issue_label']
             official_repository = game.official_repository
 
             issue_handler = IssueHandler()
-            issue_handler.submit_issue(title,description,label,official_repository)
+            issue_handler.submit_issue(title, description, label,
+            official_repository)
 
             return HttpResponseRedirect('/games/reportbug/')
 
