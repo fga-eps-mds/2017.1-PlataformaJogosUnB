@@ -2,7 +2,6 @@ language: python
 python:
   - 3.4
   - 3.5
-sudo: required
 install: "pip3 install -r requirements.txt"
 env:
   - DJANGO_VERSION=1.10
@@ -12,10 +11,8 @@ before_script:
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
   - sudo apt-get install libjpeg-dev
 script: 
-  - cd funbox
-  - python3 manage.py makemigrations
-  - python3 manage.py migrate
-  - cd ..
+  - python3 funbox/manage.py makemigrations
+  - python3 funbox/manage.py migrate
   - pytest --cov-report term-missing --verbose --cov funbox/
 after_success: coveralls
 services:
@@ -24,4 +21,3 @@ branch:
   only:
     - master
     - devel
-    - continuos_integration
