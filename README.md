@@ -8,5 +8,5 @@ Repositório oficial do projeto plataforma de jogos da Universidade de Brasília
 [![Code Climate](https://codeclimate.com/github/fga-gpp-mds/2017.1-PlataformaJogosUnB/badges/gpa.svg)](https://codeclimate.com/github/fga-gpp-mds/2017.1-PlataformaJogosUnB)
 [![Issue Count](https://codeclimate.com/github/fga-gpp-mds/2017.1-PlataformaJogosUnB/badges/issue_count.svg)](https://codeclimate.com/github/fga-gpp-mds/2017.1-PlataformaJogosUnB)
 
-## Organizaço do projeto:
+## Organização do projeto:
 https://github.com/PlataformaJogosUnB
