@@ -16,5 +16,5 @@ class PackageFactory(factory.DjangoModelFactory):
     class Meta:
         model = Package
 
-    package = factory.django.FileField(data=b'1'*10, filename='package.deb')
+    package = factory.django.FileField(data=b'1' * 10, filename='package.deb')
     game = factory.SubFactory(GameFactory)

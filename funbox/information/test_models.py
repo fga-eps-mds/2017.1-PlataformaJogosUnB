@@ -158,7 +158,6 @@ class TestAward:
 def genre_creation():
     genre = Genre.objects.create(name="Genre", description="Here is only the'\
                                 description of genre ")
-    genre.save()
     return genre
 
 
@@ -185,13 +184,16 @@ class TestGenreValidation:
 at least 20 characters!'
     short_description = "short description"
 
+    error_message_max_length = 'Certifique-se de que o valor tenha no '\
+        'máximo 100 caracteres (ele possui 101).'
+
     @pytest.mark.django_db
     @pytest.mark.parametrize("name, description, errors_dict", [
-        ('Corrida', None,
+        ('Race', None,
          mount_error_dict(["description"], [[ErrorMessage.NULL]])),
-        ("Corrida", "",
+        ("Race", "",
          mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
-        ('Corrida', short_description,
+        ('Race', short_description,
          mount_error_dict(["description"], [[error_message_min_value]])),
     ])
     def test_description_validation(self, name, description,
@@ -199,24 +201,15 @@ at least 20 characters!'
         genre = genre_created(name, description)
         validation_test(genre, errors_dict)
 
-    @staticmethod
-    def parametrized_str(attribute):
-
-        error_message_max_length = 'Certifique-se de que o valor tenha no '\
-            'máximo 100 caracteres (ele possui 101).'
-
-        return [
-            ('', 'descricao' * 4,
-             mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
-            (None, 'descricao' * 4,
-             mount_error_dict([attribute], [[ErrorMessage.NULL]])),
-            ('a' * 101, 'descricao' * 4,
-             mount_error_dict([attribute], [[error_message_max_length]])),
-        ]
-
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, description, errors_dict",
-                             parametrized_str.__func__('name'))
+    @pytest.mark.parametrize("name, description, errors_dict", [
+        ('', 'description' * 4,
+         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, 'description' * 4,
+         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a' * 101, 'description' * 4,
+         mount_error_dict(["name"], [[error_message_max_length]])),
+    ])
     def test_name_validation(self, name, description, errors_dict):
         genre = Genre(name=name, description=description)
         validation_test(genre, errors_dict)
@@ -227,7 +220,6 @@ def developer_creation():
     developer = Developer.objects.create(name="Developer", login="login",
                                          email="developer@gmail.com",
                                          github_page="https://github.com/dev")
-    developer.save
     return developer
 
 

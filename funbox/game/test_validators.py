@@ -31,11 +31,11 @@ class TestSize:
         error_message = "Please keep filesize under 1,0 GB. " \
                         "Current filesize 10 bytes"
         package_package = PackageFactory().package
-        with patch("game.validators._get_size", return_value=1 + 1024**3):
-            try:
-                validate_package_size(package_package)
-            except ValidationError as ve:
-                assert ve.message == error_message
-            else:
-                print("Not error validation raised")
-                assert False
+        package = patch("game.validators._get_size", return_value=1 + 1024**3)
+        package.start()
+        try:
+            validate_package_size(package_package)
+            assert False
+        except ValidationError as ve:
+            assert ve.message == error_message
+        package.stop()
