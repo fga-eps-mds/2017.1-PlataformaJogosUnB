@@ -4,6 +4,12 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
+from game.utils.issue_handler import IssueHandler
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
+from .forms import ReportBugForm
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
@@ -38,3 +44,27 @@ class GameViewSet(viewsets.ModelViewSet):
             return Response(data, template_name='game/show.html')
         serializer = GameSerializer(game)
         return Response(serializer.data)
+
+    def report_bug(self, request):
+        game = get_object_or_404(self.queryset)
+        print(request, "\n\n\n\n\n\n")
+
+        if request.method == 'POST':
+            form = (request.POST)
+
+            title = form['title']
+            description = form['description']
+            label = form['issue_label']
+            official_repository = game.official_repository
+
+            issue_handler = IssueHandler()
+            issue_handler.submit_issue(title, description, label,
+                                       official_repository)
+
+            return HttpResponseRedirect('/games/reportbug/')
+
+        else:
+            print(game, "\n\n\n\n\n")
+            form = ReportBugForm()
+
+        return render(request, 'game/report_bug.html', {'form': form})

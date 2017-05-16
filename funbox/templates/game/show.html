@@ -7,6 +7,9 @@
 <li class="menu-item"><a href="{% url 'about' %}">Sobre</a></li>
 {% endblock %}
 {% block main %}
+<a href="{% url 'game:report_bug' %}">
+  <button id="button_list_game" type="button" class="btn btn-success">Reportar bug</button>
+</a>
 <div class="row spacing">
 </div>
 <h1>{{ game.name }}</h1>
@@ -36,7 +39,7 @@
                   </video>
                 </div>
               {% endfor %}
-            {% endif %}  
+            {% endif %}
         </div>
 
         <!-- Controls -->
