@@ -7,6 +7,8 @@ Django==1.10.6
 django-extensions==1.7.8
 django-filter==1.0.2
 djangorestframework==3.6.2
+factory-boy==2.8.1
+Faker==0.7.12
 flake8==3.3.0
 flake8-polyfill==1.0.1
 html5lib==0.999
@@ -26,8 +28,9 @@ pytest==3.0.7
 pytest-cov==2.4.0
 pytest-django==3.1.2
 python-coveralls==2.9.0
+python-dateutil==2.6.0
 PyYAML==3.12
 radon==1.5.0
 requests==2.4.3
-six==1.8.0
+six==1.10.0
 urllib3==1.9.1

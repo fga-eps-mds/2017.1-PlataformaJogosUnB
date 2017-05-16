@@ -1,8 +1,8 @@
-# import unittest
+# import unitrest
 import pytest
 from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
-from information.models import Information, Award
+from information.models import Information, Award, Genre, Developer
 
 
 def information_creation(description="", launch_year=0, game=None):
@@ -18,7 +18,10 @@ def now():
 
 @pytest.fixture
 def information_created():
-    game = Game(name="Teste", official_repository="http://a.aa")
+    game = Game(
+        name="Teste",
+        cover_image="Imagem_teste",
+        official_repository="http://a.aa")
     game.save()
     information = Information(description="a" * 51,
                               launch_year=now(), game=game)
@@ -45,9 +48,13 @@ class TestInformationValidation:
     error_message_min_value = "A game description must have at least 50 \
 characters!"
     short_description = "short description"
-    error_message_year_future = 'We believe the game did not come from future!'
+    error_message_year_future = 'We believe the game was not won ' \
+        'in the future!'
     description = "simple description" * 3
-    game = Game(name="Teste", official_repository="http://a.aa")
+    game = Game(
+        name="Teste",
+        cover_image="Imagem_de_capa",
+        official_repository="http://a.aa")
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
@@ -92,18 +99,25 @@ def award_creation():
 class TestAward:
     error_message_year_future = 'We believe the award was not won in the\
  future!'
-    error_message_max_length = 'Certifique-se de que o valor tenha no máximo 100\
- caracteres (ele possui 101).'
+
+    @staticmethod
+    def parametrized_str(attribute):
+
+        error_message_max_length = 'Certifique-se de que o valor tenha no '\
+            'máximo 100 caracteres (ele possui 101).'
+
+        return [
+            ('', 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
+            (None, 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[ErrorMessage.NULL]])),
+            ('a' * 101, 2016, 'Unb-Gama',
+             mount_error_dict([attribute], [[error_message_max_length]])),
+        ]
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, year, place, errors_dict", [
-        ('', 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
-        (None, 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
-        ('a' * 101, 2016, 'Unb-Gama',
-         mount_error_dict(["name"], [[error_message_max_length]])),
-    ])
+    @pytest.mark.parametrize("name, year, place, errors_dict",
+                             parametrized_str.__func__('name'))
     def test_name_validation(self, name, year, place, errors_dict):
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
@@ -124,14 +138,8 @@ class TestAward:
         validation_test(award, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("place, year, name, errors_dict", [
-        ('', 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[ErrorMessage.BLANK]])),
-        (None, 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[ErrorMessage.NULL]])),
-        ('a' * 101, 2016, 'Unb-Gama',
-         mount_error_dict(["place"], [[error_message_max_length]])),
-    ])
+    @pytest.mark.parametrize("place, year, name, errors_dict",
+                             parametrized_str.__func__('place'))
     def test_place_validation(self, place, year, name, errors_dict):
         award = Award(name=name, place=place, year=year)
         validation_test(award, errors_dict)
@@ -144,3 +152,92 @@ class TestAward:
     @pytest.mark.django_db
     def test_str_award(self, award_creation):
         assert str(award_creation) == "UnB (%d): %s" % (now(), "award")
+
+
+@pytest.fixture
+def genre_creation():
+    genre = Genre.objects.create(name="Genre", description="Here is only the'\
+                                description of genre ")
+    genre.save()
+    return genre
+
+
+class TestGenre:
+
+    @pytest.mark.django_db
+    def test_genre_save(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert genre == genre_creation
+
+    @pytest.mark.django_db
+    def test_str_genre(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert str(genre_creation) == genre.name
+
+
+def genre_created(name="Corrida", description=""):
+    return Genre(name=name, description=description)
+
+
+class TestGenreValidation:
+
+    error_message_min_value = 'A genre description must have \
+at least 20 characters!'
+    short_description = "short description"
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict", [
+        ('Corrida', None,
+         mount_error_dict(["description"], [[ErrorMessage.NULL]])),
+        ("Corrida", "",
+         mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
+        ('Corrida', short_description,
+         mount_error_dict(["description"], [[error_message_min_value]])),
+    ])
+    def test_description_validation(self, name, description,
+                                    errors_dict):
+        genre = genre_created(name, description)
+        validation_test(genre, errors_dict)
+
+    @staticmethod
+    def parametrized_str(attribute):
+
+        error_message_max_length = 'Certifique-se de que o valor tenha no '\
+            'máximo 100 caracteres (ele possui 101).'
+
+        return [
+            ('', 'descricao' * 4,
+             mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
+            (None, 'descricao' * 4,
+             mount_error_dict([attribute], [[ErrorMessage.NULL]])),
+            ('a' * 101, 'descricao' * 4,
+             mount_error_dict([attribute], [[error_message_max_length]])),
+        ]
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict",
+                             parametrized_str.__func__('name'))
+    def test_name_validation(self, name, description, errors_dict):
+        genre = Genre(name=name, description=description)
+        validation_test(genre, errors_dict)
+
+
+@pytest.fixture
+def developer_creation():
+    developer = Developer.objects.create(name="Developer", login="login",
+                                         email="developer@gmail.com",
+                                         github_page="https://github.com/dev")
+    developer.save
+    return developer
+
+
+class TestDeveloper:
+
+    @pytest.mark.django_db
+    def test_developer_save(self, developer_creation):
+        developer = Developer.objects.get(pk=developer_creation.pk)
+        assert developer == developer_creation
+
+    @pytest.mark.django_db
+    def test_str_developer(self, developer_creation):
+        assert str(developer_creation) == "Developer <https://github.com/dev>"

@@ -74,6 +74,14 @@
                <br/>
                <p class="list-group-item-text"><strong>Versão: </strong>{{ game.game_version }}</p>
                <br/>
+               <p class="list-group-item-text"><strong>Genêro: </strong>
+                  {% for genre in game.information.genres.all %}
+                      <button class="btn-group-xs btn btn-info">
+                        {{ genre.name }}
+                     </button>
+                  {% endfor %}
+                </p>
+               <br/>
                <p class="list-group-item-text"><strong>Repositório oficial: </strong><a href="{{ game.official_repository }}">{{ game.official_repository }}</a></p>
              </div>
            </div>

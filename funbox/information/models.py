@@ -10,6 +10,16 @@ import datetime
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
+MIN_GENRE_DESCRIPTION = 20
+
+
+def year_validators(model_name):
+    return [MinValueValidator(UNB_CREATION,
+                              _('Our University had ' +
+                                'not been built at this time!')),
+            MaxValueValidator(int(datetime.datetime.now().year),
+                              _('We believe the {} '.format(model_name) +
+                                'was not won in the future!'))]
 
 
 class Award(models.Model):
@@ -17,31 +27,20 @@ class Award(models.Model):
     name = models.CharField(
         _('Award name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the award.')
     )
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had ' +
-                                        'not been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the award ' +
-                                        'was not won in the future!'))],
+        validators=year_validators('award'),
 
 
-        null=False,
-        blank=False,
         help_text=_('Year the award was won.')
     )
 
     place = models.CharField(
         _('Place'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Place where the game won the award.')
     )
 
@@ -58,15 +57,12 @@ class Developer(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=100,
-        null=False,
-        blank=False,
         help_text=_('Name of the developer.')
     )
 
     avatar = models.FileField(
         _('Avatar'),
         upload_to='public/avatar',
-        null=False,
         blank=True,
         help_text=_('Developer image.')
     )
@@ -74,8 +70,6 @@ class Developer(models.Model):
     login = models.CharField(
         _('Login'),
         max_length=50,
-        null=False,
-        blank=False,
         help_text=_('Developer login for github.')
     )
 
@@ -91,8 +85,6 @@ class Developer(models.Model):
     github_page = models.URLField(
         _('Github Page'),
         validators=[URLValidator()],
-        null=False,
-        blank=False,
         help_text=_('Developer Github page.')
     )
 
@@ -104,6 +96,31 @@ class Developer(models.Model):
         return "{0} <{1}>".format(self.name, self.github_page)
 
 
+class Genre(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=100,
+        help_text=('Name of game genre.')
+    )
+
+    description = models.TextField(
+        _('Description'),
+        validators=[
+            MinLengthValidator(MIN_GENRE_DESCRIPTION,
+                               _('A genre description must have ' +
+                                 'at least 20 characters!'))],
+        help_text=_('Describe the genre.'),
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Genre, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Information(models.Model):
 
     description = models.TextField(
@@ -112,21 +129,12 @@ class Information(models.Model):
             MinLengthValidator(MIN_DESCRIPTION,
                                _('A game description must have ' +
                                  'at least 50 characters!'))],
-        null=False,
-        blank=False,
         help_text=_('Describe the game.'),
     )
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=[MinValueValidator(UNB_CREATION,
-                                      _('Our University had not ' +
-                                        'been built at this time!')),
-                    MaxValueValidator(int(datetime.datetime.now().year),
-                                      _('We believe the game ' +
-                                        'did not come from future!'))],
-        null=False,
-        blank=False,
+        validators=year_validators('game'),
         help_text=_('Which was the year the game was launched?'),
     )
 
@@ -139,6 +147,11 @@ class Information(models.Model):
     developers = models.ManyToManyField(
         Developer,
         related_name='developers'
+    )
+
+    genres = models.ManyToManyField(
+        Genre,
+        related_name='genres'
     )
 
     awards = models.ManyToManyField(
@@ -163,15 +176,11 @@ class Statistic(models.Model):
 
     downloads_amount = models.BigIntegerField(
         _('Dowloads Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of downloads of the game.')
     )
 
     accesses_amount = models.BigIntegerField(
         _('Accesses Amount'),
-        null=False,
-        blank=False,
         help_text=_('Amount of accesses to the game.')
     )
 
