@@ -29,23 +29,40 @@ getInitialState: function(){
 
 componentDidMount: function(){
     this.loadGamesFromServer();
-    setInterval(this.loadBooksFromServer, this.props.pollInterval)
+    setInterval(this.loadGamesFromServer, this.props.pollInterval)
 },
 render: function() {
         if (this.state.data) {
             console.log('DATA!', this.state.data);
-            var gameNodes = this.state.data.map(function(game){
-                return <li> {game.name} </li>
-            })
+                return ( 
+
+                    <div>            
+                      <table className="pure-table">
+                        <thead>
+                          <tr>
+                            <th>Nome</th>
+                            <th>Versão</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                            this.state.data.map(function(game){
+                              return (
+                                <tr key={game.id}>
+                                  <td>{game.name}</td>
+                                  <td>{game.game_version}</td>
+                                </tr>
+                              );
+                            })
+                          }
+                        </tbody>
+                      </table> 
+                    </div>    
+                )
+                
+        
         }
-        return (
-            <div>
-                <h1>Hello React!</h1>
-                <ul>
-                    {gameNodes}
-                </ul>
-            </div>
-        )
+        
     }
 })
 
