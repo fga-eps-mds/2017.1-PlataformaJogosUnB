@@ -115,14 +115,12 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+git 
 # webpack config
-/assets/bundle/
+/assets/bundles/
 
 # Python useless files
 *.pyc
 
 # Django DB migrations
 migrations/
-
-/backend/public/
