@@ -12,7 +12,7 @@ def validation_test(model, errors_dict):
     :param errors_dict: dictionary with validation errors
     """
     from django.core.exceptions import ValidationError
-    with pytest.raises(ValidationError)as validation_error:
+    with pytest.raises(ValidationError) as validation_error:
         model.save()
     print(validation_error.value.message_dict)
     assert validation_error.value.message_dict == errors_dict

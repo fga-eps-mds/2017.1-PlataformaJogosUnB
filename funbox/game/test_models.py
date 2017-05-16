@@ -1,5 +1,8 @@
 import pytest
 from game.models import Game
+from game.factory import PackageFactory, GameFactory
+from unittest.mock import patch
+from core.helper_test import validation_test
 
 
 def game_creation(name="", cover_image="", url="",
@@ -16,6 +19,19 @@ def game_created():
     game.official_repository = 'https://github.com/PlataformaJogosUnb/'
     game.save()
     return game
+
+
+class TestPackageModel:
+
+    @pytest.mark.django_db
+    def test_package(self):
+        package = PackageFactory.build(game=GameFactory())
+        with patch("game.validators._get_size", return_value=1 + 1024**3):
+            validation_test(package,
+                            {"package": ["Please keep filesize under 1,0"
+                                         "\xa0GB. Current filesize 10\xa0"
+                                         "bytes"]
+                             })
 
 
 class TestGame:
