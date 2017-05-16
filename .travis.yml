@@ -5,3 +5,29 @@ script:
   - cd unigames
   - npm install
   - npm test
+language: python
+python:
+  - 3.4
+  - 3.5
+install: "pip3 install -r requirements.txt"
+env:
+  - DJANGO_VERSION=1.10
+before_script:
+  - flake8 --exclude=settings.py,migrations
+  - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
+  - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
+  - sudo apt-get install libjpeg-dev
+script: 
+  - cd funbox
+  - python3 manage.py makemigrations
+  - python3 manage.py migrate
+  - cd ..
+  - pytest --cov-report term-missing --verbose --cov funbox/
+after_success: coveralls
+services:
+  - postgresql
+branch:
+  only:
+    - master
+    - devel
+    - continuos_integration
