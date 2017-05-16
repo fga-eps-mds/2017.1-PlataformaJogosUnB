@@ -2,6 +2,16 @@
 import pytest
 from enum import Enum
 from django.core.exceptions import ValidationError
+from core.validators import (
+    IMAGE_ALLOWED_EXTENSIONS,
+    VIDEO_ALLOWED_EXTENSIONS,
+    SOUNDTRACK_ALLOWED_EXTENSIONS,
+)
+from django.db import models
+
+IMAGE_ALLOWED_EXTENSIONS = ', '.join(IMAGE_ALLOWED_EXTENSIONS) + "'."
+VIDEO_ALLOWED_EXTENSIONS = ', '.join(VIDEO_ALLOWED_EXTENSIONS) + "'."
+SOUNDTRACK_ALLOWED_EXTENSIONS = ', '.join(SOUNDTRACK_ALLOWED_EXTENSIONS) + "'."
 
 
 def validation_test(model, errors_dict):
@@ -29,10 +39,53 @@ def mount_error_dict(keys, values):
 
 
 class ErrorMessage(Enum):
+
+    def get_image_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            IMAGE_ALLOWED_EXTENSIONS
+        ).format(extension)
+
+    def get_video_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            VIDEO_ALLOWED_EXTENSIONS
+        ).format(extension)
+
+    def get_soundtrack_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            SOUNDTRACK_ALLOWED_EXTENSIONS
+        ).format(extension)
+
     YEAR_PAST = 'Our University had not been built at this time!'
     NULL = 'Este campo não pode ser nulo.'
     BLANK = "Este campo não pode estar vazio."
     NOT_INTEGER = "'' valor deve ser um inteiro."
+
+    IMAGE_EXTENSION = get_image_extension_message('ppm')
+    VIDEO_EXTENSION = get_video_extension_message('jpg')
+    SOUNDTRACK_EXTENSION = get_soundtrack_extension_message('mp4')
+
+    NOT_IMAGE = [
+        (
+            get_image_extension_message('py').replace(
+                IMAGE_ALLOWED_EXTENSIONS,
+                ', '.join(
+                    models.ImageField().validators[0].allowed_extensions
+                ) + "'."
+            )
+        ),  # Because ImageFields default validator
+        get_image_extension_message('py')
+    ]
+    INVALID_PACKAGE = (
+        'Your package format doesn\'t match the platforms' +
+        ' available. Please send a file that matchs the platforms' +
+        ' or register the platform you need'
+    )
 
     def __eq__(self, other_object):
         return self.value == other_object

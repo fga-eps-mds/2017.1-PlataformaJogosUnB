@@ -3,8 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from game.choices import EXTENSION_CHOICES
 from core.validators import (
-        image_extension_validator,
-        HELP_TEXT_IMAGES
+    image_extension_validator,
+    HELP_TEXT_IMAGES
 )
 import game.validators as validators
 import os
@@ -123,6 +123,7 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
+        validators=[validators.package_extension_validator],
         # max_length=MAX_UPLOAD_SIZE,
         help_text=_(
             'Choose one game\'s package. '
@@ -155,12 +156,14 @@ class Package(models.Model):
         self.fill_platforms()
 
     def __str__(self):
+        text = ("Invalid package." +
+                " There aren't registered platforms" +
+                " able to play it")
+
         if self.platforms.count():
-            return '{0} (.{1})'.format(
+            text = '{0} (.{1})'.format(
                 self.game.name,
                 self.platforms.first().extensions.title().lower()
             )
-        else:
-            return ("Invalid package." +
-                    " There aren't registered platforms" +
-                    " able to play it")
+
+        return text

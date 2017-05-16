@@ -26,6 +26,7 @@ class Media(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        self.clean_fields()
         super(Media, self).save(*args, **kwargs)
 
     def config__str__(self, attr_name):
