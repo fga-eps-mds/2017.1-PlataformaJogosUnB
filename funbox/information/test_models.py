@@ -3,9 +3,9 @@ import pytest
 from game.models import Game
 from information.models import Information, Award, Developer
 from core.helper_test import (
-        validation_test,
-        mount_error_dict,
-        ErrorMessage
+    validation_test,
+    mount_error_dict,
+    ErrorMessage
 )
 
 
@@ -172,24 +172,24 @@ class TestDeveloper:
                                         ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
     def test_avatar_valid_extension(self, name, avatar, login,
-                              email, github_page, errors_dict):
+                                    email, github_page, errors_dict):
         developer = Developer(
-                name=name,
-                avatar=avatar,
-                login=login,
-                email=email,
-                github_page=github_page
+            name=name,
+            avatar=avatar,
+            login=login,
+            email=email,
+            github_page=github_page
         )
         validation_test(developer, errors_dict)
 
     @pytest.mark.django_db
     def test_avatar_invalid_extension(self):
         developer = Developer(
-                name='developer_name',
-                avatar='avatar.jpg',
-                login='developer',
-                email='devel@host.com',
-                github_page='https://devel.com'
+            name='developer_name',
+            avatar='avatar.jpg',
+            login='developer',
+            email='devel@host.com',
+            github_page='https://devel.com'
         )
         developer.save()
         assert Developer.objects.last() == developer

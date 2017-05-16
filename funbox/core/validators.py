@@ -29,11 +29,11 @@ VERSION_FORMAT_ERROR = _(
 
 def get_valid_extensions_text(allowed_extensions):
     text = (
-            'Accepted formats: ' +
-            ', '.join(allowed_extensions[:-1]) +
-            ' and ' +
-            allowed_extensions[-1]
-        )
+        'Accepted formats: ' +
+        ', '.join(allowed_extensions[:-1]) +
+        ' and ' +
+        allowed_extensions[-1]
+    )
     if not len(allowed_extensions):
         text = 'There are no valid extensions'
 

@@ -2,9 +2,9 @@ from django.core.exceptions import ValidationError
 from game.models import Game, Platform, Package
 from core.validators import PACKAGE_EXTENSION_ERROR
 from core.helper_test import (
-        validation_test,
-        mount_error_dict,
-        ErrorMessage
+    validation_test,
+    mount_error_dict,
+    ErrorMessage
 )
 import pytest
 
