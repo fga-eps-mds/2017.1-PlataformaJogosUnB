@@ -7,7 +7,7 @@ from core.helper_test import (
     ErrorMessage
 )
 import pytest
-from game.factory import PackageFactory, GameFactory
+from game.factory import PackageFactory, GameFactory, PlatformFactory
 from unittest.mock import patch
 
 
@@ -45,6 +45,7 @@ class TestPackageModel:
 
     @pytest.mark.django_db
     def test_package(self):
+        PlatformFactory()
         package = PackageFactory.build(game=GameFactory())
         with patch("game.validators._get_size", return_value=1 + 1024**3):
             validation_test(package,
@@ -114,24 +115,14 @@ class TestPackage:
         assert validation_error.value.message == message
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize(('package_file, platform_name,' +
-                              ' platform_extension, platform_icon'), [
-        ('package.deb', 'Ubuntu', 'deb', 'icon.jpg'),
-        ('package.exe', 'Windows 10', 'exe', 'icon.jpg'),
+    @pytest.mark.parametrize(('extension'), [
+        ('deb'),
+        ('exe'),
     ])
-    def test_valid_package_extensions(self, package_file, platform_name,
-                                      platform_extension, platform_icon,
-                                      game_created):
-        platform = Platform(
-            name=platform_name,
-            extensions=platform_extension,
-            icon=platform_icon
-        )
-        platform.save()
+    def test_valid_package_extensions(self, extension):
+        PlatformFactory(extensions=extension)
 
-        package = Package(package=package_file, game=game_created)
+        package = PackageFactory.build(game=GameFactory())
+        package.package.name = package.package.name.replace('deb', extension)
         package.save()
-
-        package.platforms.add(platform)
-
         assert package == Package.objects.last()

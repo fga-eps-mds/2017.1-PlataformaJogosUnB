@@ -49,7 +49,7 @@ class Game(models.Model):
             return self.name
         else:
             return "{0} v{1}".format(self.name,
-                                     self.game_version)
+                                     self.version)
 
     def fetch_media(self, media, role):
         return getattr(self, 'media_' + media).filter(role=role)
@@ -117,7 +117,8 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        validators=[validators.validate_package_size, validators.package_extension_validator],
+        validators=[validators.validate_package_size,
+                    validators.package_extension_validator],
         help_text=('Choose the game\'s package')
     )
 
@@ -143,6 +144,7 @@ class Package(models.Model):
 
     def save(self, *args, **kwargs):
         self.clean()
+        self.clean_fields()
         super(Package, self).save(*args, **kwargs)
         self.fill_platforms()
 

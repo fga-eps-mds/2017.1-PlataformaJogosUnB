@@ -177,5 +177,6 @@ MEDIA_ROOT = os.path.join(
 
 # Dev settings, shell plus
 SHELL_PLUS_PRE_IMPORTS = [
-    ("game.factory", ("GameFactory", "PackageFactory"))
+    ("game.factory", ("GameFactory", "PackageFactory",
+                      "PlatformFactory"))
 ]
