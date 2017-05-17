@@ -29,6 +29,7 @@ class SoundtrackInline(admin.StackedInline):
 
 class PackageInline(admin.StackedInline):
     model = Package
+    exclude = ['platforms']
     extra = 0
     min_num = 1
     max_num = len(EXTENSION_CHOICES)
@@ -46,9 +47,13 @@ class GameAdmin(admin.ModelAdmin):
                ImageInline, VideoInline, SoundtrackInline]
 
 
+class PackageAdmin(admin.ModelAdmin):
+    exclude = ['platforms']
+
+
 admin.site.register(Game, GameAdmin)
 admin.site.register(Image)
 admin.site.register(Video)
 admin.site.register(Soundtrack)
 admin.site.register(Platform)
-admin.site.register(Package)
+admin.site.register(Package, PackageAdmin)

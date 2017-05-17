@@ -1,11 +1,12 @@
 from game.validators import validate_version, validate_package_size
 from django.core.exceptions import ValidationError
-from game.factory import PackageFactory
+from game.factory import PackageFactory, PlatformFactory
 from unittest.mock import patch
 import pytest
 
 
 class TestValidateVersion:
+
     @pytest.mark.parametrize("version", ["2", "20", "2.0", "20.0", "2.01",
                                          "20.01", "2.2.2", "20.0.20", "0.0.1"])
     def test_valid_versions(self, version):
@@ -30,6 +31,7 @@ class TestSize:
     def test_size_validation(self):
         error_message = "Please keep filesize under 1,0 GB. " \
                         "Current filesize 10 bytes"
+        PlatformFactory()
         package_package = PackageFactory().package
         package = patch("game.validators._get_size", return_value=1 + 1024**3)
         package.start()

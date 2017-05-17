@@ -4,7 +4,7 @@ python:
   - 3.5
 install: "pip3 install -r requirements.txt"
 env:
-  - DJANGO_VERSION=1.10
+  - DJANGO_VERSION=1.11
 before_script:
   - flake8 --exclude=settings.py,migrations
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres

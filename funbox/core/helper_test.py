@@ -1,6 +1,17 @@
 # Helper methods to execute tests
 import pytest
 from enum import Enum
+from django.core.exceptions import ValidationError
+from core.validators import (
+    IMAGE_ALLOWED_EXTENSIONS,
+    VIDEO_ALLOWED_EXTENSIONS,
+    SOUNDTRACK_ALLOWED_EXTENSIONS,
+)
+from django.db import models
+
+IMAGE_ALLOWED_EXTENSIONS = ', '.join(IMAGE_ALLOWED_EXTENSIONS) + "'."
+VIDEO_ALLOWED_EXTENSIONS = ', '.join(VIDEO_ALLOWED_EXTENSIONS) + "'."
+SOUNDTRACK_ALLOWED_EXTENSIONS = ', '.join(SOUNDTRACK_ALLOWED_EXTENSIONS) + "'."
 
 
 def validation_test(model, errors_dict):
@@ -11,27 +22,69 @@ def validation_test(model, errors_dict):
     :param model: object to be validated
     :param errors_dict: dictionary with validation errors
     """
-    from django.core.exceptions import ValidationError
     with pytest.raises(ValidationError) as validation_error:
         model.save()
-    print(validation_error.value.message_dict)
     assert validation_error.value.message_dict == errors_dict
 
 
 def mount_error_dict(keys, values):
     """ This method is used to join the keys and values in a dictionary.
+        Each field is a key that is associated to a list of error messages
 
     :param keys: array with the names of attributes [key1, key2]
     :param values: values of error messages [[message_key1], [message_key2]]
     """
-    return dict([x for x in zip(keys, values)])
+    return dict(zip(keys, values))
 
 
 class ErrorMessage(Enum):
+
+    def get_image_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            IMAGE_ALLOWED_EXTENSIONS
+        ).format(extension)
+
+    def get_video_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            VIDEO_ALLOWED_EXTENSIONS
+        ).format(extension)
+
+    def get_soundtrack_extension_message(extension):
+        return (
+            "A extensão de arquivo '{}' não é permitida." +
+            " As extensões permitidas são: '" +
+            SOUNDTRACK_ALLOWED_EXTENSIONS
+        ).format(extension)
+
     YEAR_PAST = 'Our University had not been built at this time!'
     NULL = 'Este campo não pode ser nulo.'
     BLANK = "Este campo não pode estar vazio."
     NOT_INTEGER = "'' valor deve ser um inteiro."
+
+    IMAGE_EXTENSION = get_image_extension_message('ppm')
+    VIDEO_EXTENSION = get_video_extension_message('jpg')
+    SOUNDTRACK_EXTENSION = get_soundtrack_extension_message('mp4')
+
+    NOT_IMAGE = [
+        (
+            get_image_extension_message('py').replace(
+                IMAGE_ALLOWED_EXTENSIONS,
+                ', '.join(
+                    models.ImageField().validators[0].allowed_extensions
+                ) + "'."
+            )
+        ),  # Because ImageFields default validator
+        get_image_extension_message('py')
+    ]
+    INVALID_PACKAGE = (
+        'Your package format doesn\'t match the platforms' +
+        ' available. Please send a file that matchs the platforms' +
+        ' or register the platform you need'
+    )
 
     def __eq__(self, other_object):
         return self.value == other_object

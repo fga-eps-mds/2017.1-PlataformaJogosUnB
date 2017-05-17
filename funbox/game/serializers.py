@@ -32,7 +32,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = ['name',
                   'cover_image',
-                  'game_version',
+                  'version',
                   'official_repository',
                   'information',
                   'packages',

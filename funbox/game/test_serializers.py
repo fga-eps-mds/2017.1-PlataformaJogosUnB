@@ -21,8 +21,8 @@ class GameSerializerTestCase(TestCase):
         information_game = Information()
 
         game.name = 'Jogo teste 1'
-        game.cover_image = 'Image_do_jogo'
-        game.game_version = '1.3.2'
+        game.cover_image = 'Image_do_jogo.jpg'
+        game.version = '1.3.2'
         game.official_repository = 'https://github.com/PlataformaJogosUnb/'
         game.save()
         package_game = PackageFactory.build(game=game)
@@ -91,8 +91,8 @@ class GameSerializerTestCase(TestCase):
         self.assertEqual(serialized_game.get('official_repository'),
                          game.official_repository)
 
-        self.assertEqual(serialized_game.get('game_version'),
-                         game.game_version)
+        self.assertEqual(serialized_game.get('version'),
+                         game.version)
 
         self.assertEqual(image_serialized.get('image'),
                          game.media_image.first().image.url)

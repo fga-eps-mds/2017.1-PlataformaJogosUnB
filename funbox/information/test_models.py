@@ -1,6 +1,10 @@
 import pytest
-from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
+from core.helper_test import (
+    validation_test,
+    mount_error_dict,
+    ErrorMessage
+)
 from information.models import Information, Award, Genre, Developer
 
 
@@ -19,7 +23,7 @@ def now():
 def information_created():
     game = Game(
         name="Teste",
-        cover_image="Imagem_teste",
+        cover_image="Imagem_teste.jpg",
         official_repository="http://a.aa")
     game.save()
     information = Information(description="a" * 51,
@@ -52,7 +56,7 @@ characters!"
     description = "simple description" * 3
     game = Game(
         name="Teste",
-        cover_image="Imagem_de_capa",
+        cover_image="Imagem_de_capa.jpg",
         official_repository="http://a.aa")
 
     @pytest.mark.django_db
@@ -123,13 +127,13 @@ class TestAward:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("name, year, place, errors_dict", [
-        ('description', 1900, 'Unb-Gama',
+        ('award_name', 1900, 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.YEAR_PAST]])),
-        ('description', 2018, 'Unb-Gama',
+        ('award_name', 2018, 'Unb-Gama',
          mount_error_dict(["year"], [[error_message_year_future]])),
-        ('description', None, 'Unb-Gama',
+        ('award_name', None, 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.NULL]])),
-        ('description', '', 'Unb-Gama',
+        ('award_name', '', 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.NOT_INTEGER]])),
     ])
     def test_year_validation(self, name, year, place, errors_dict):
@@ -220,6 +224,43 @@ def developer_creation():
                                          email="developer@gmail.com",
                                          github_page="https://github.com/dev")
     return developer
+
+
+class TestDeveloperAvatar:
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(('name, avatar, login, email, github_page,' +
+                             ' errors_dict'), [
+        ('developer_name', 'avatar.ppm', 'developer_login',
+            'devel@host.com', 'https://devel.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
+        ('developer_name', 'avatar.py', 'developer_login',
+         'devel@host.com', 'https://devel.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
+                                        ErrorMessage.NOT_IMAGE.value[1]]])),
+    ])
+    def test_avatar_valid_extension(self, name, avatar, login,
+                                    email, github_page, errors_dict):
+        developer = Developer(
+            name=name,
+            avatar=avatar,
+            login=login,
+            email=email,
+            github_page=github_page
+        )
+        validation_test(developer, errors_dict)
+
+    @pytest.mark.django_db
+    def test_avatar_invalid_extension(self):
+        developer = Developer(
+            name='developer_name',
+            avatar='avatar.jpg',
+            login='developer',
+            email='devel@host.com',
+            github_page='https://devel.com'
+        )
+        developer.save()
+        assert Developer.objects.last() == developer
 
 
 class TestDeveloper:
