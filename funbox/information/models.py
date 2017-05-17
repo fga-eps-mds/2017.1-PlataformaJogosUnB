@@ -13,6 +13,7 @@ import core.validators as general_validators
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
+MIN_GENRE_DESCRIPTION = 20
 
 
 def year_validators(model_name):
@@ -97,6 +98,31 @@ class Developer(models.Model):
         return "{0} <{1}>".format(self.name, self.github_page)
 
 
+class Genre(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=100,
+        help_text=('Name of game genre.')
+    )
+
+    description = models.TextField(
+        _('Description'),
+        validators=[
+            MinLengthValidator(MIN_GENRE_DESCRIPTION,
+                               _('A genre description must have ' +
+                                 'at least 20 characters!'))],
+        help_text=_('Describe the genre.'),
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Genre, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Information(models.Model):
 
     description = models.TextField(
@@ -123,6 +149,11 @@ class Information(models.Model):
     developers = models.ManyToManyField(
         Developer,
         related_name='developers'
+    )
+
+    genres = models.ManyToManyField(
+        Genre,
+        related_name='genres'
     )
 
     awards = models.ManyToManyField(

@@ -9,12 +9,6 @@ from core.validators import (
 import game.validators as validators
 import os
 
-# KILOBYTE = 1024
-
-# MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
-
-# TODO: fix MAX_UPLOAD_SIZE validation - save as a string or define a constant.
-
 
 class Game(models.Model):
 
@@ -123,11 +117,8 @@ class Package(models.Model):
     package = models.FileField(
         _('Package'),
         upload_to='packages/',
-        validators=[validators.package_extension_validator],
-        # max_length=MAX_UPLOAD_SIZE,
-        help_text=_(
-            'Choose one game\'s package. '
-        )
+        validators=[validators.validate_package_size, validators.package_extension_validator],
+        help_text=('Choose the game\'s package')
     )
 
     game = models.ForeignKey(

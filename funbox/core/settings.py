@@ -174,3 +174,8 @@ MEDIA_ROOT = os.path.join(
     os.path.dirname(__file__),
     '../public',
 )
+
+# Dev settings, shell plus
+SHELL_PLUS_PRE_IMPORTS = [
+    ("game.factory", ("GameFactory", "PackageFactory"))
+]
