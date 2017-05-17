@@ -2,7 +2,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
 from media.choices import ROLE_CHOICES
-import django.apps
+import core.validators as general_validators
+import media.validators as validators
 import os
 
 
@@ -25,6 +26,7 @@ class Media(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        self.clean_fields()
         super(Media, self).save(*args, **kwargs)
 
     def config__str__(self, attr_name):
@@ -40,8 +42,12 @@ class Image(Media):
 
     image = models.ImageField(
         _('Image'),
+        validators=[general_validators.image_extension_validator],
         upload_to='images/',
-        help_text=_('Accepted formats: png, jpg, jpeg, etc.')
+        help_text=_(
+            'Images for the game. ' +
+            general_validators.HELP_TEXT_IMAGES
+        )
     )
 
     def __str__(self):
@@ -56,7 +62,11 @@ class Video(Media):
     video = models.FileField(
         _('Video'),
         upload_to='videos/',
-        help_text=_('Accepted formats: mp4, avi, rmvb, etc.')
+        validators=[validators.video_extension_validator],
+        help_text=_(
+            'Videos for the game. ' +
+            general_validators.HELP_TEXT_VIDEO
+        )
     )
 
     def __str__(self):
@@ -68,7 +78,11 @@ class Soundtrack(Media):
     soundtrack = models.FileField(
         _('Soundtrack'),
         upload_to='soundtrack/',
-        help_text=_('Accepted formats: mp3, tar.gz, zip, etc')
+        validators=[validators.soundtrack_extension_validator],
+        help_text=_(
+            'Soundtracks for the game. ' +
+            general_validators.HELP_TEXT_SOUNDTRACK
+        )
     )
 
     def __str__(self):

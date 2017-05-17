@@ -1,15 +1,19 @@
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import MinValueValidator
-from django.core.validators import MaxValueValidator
-from django.core.validators import MinLengthValidator
-from django.core.validators import EmailValidator
-from django.core.validators import URLValidator
 from django.db import models
-from game.models import Game
+from game.models import Game, HELP_TEXT_IMAGES
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+    MinLengthValidator,
+    EmailValidator,
+    URLValidator,
+)
 import datetime
+import core.validators as general_validators
 
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
+MIN_GENRE_DESCRIPTION = 20
 
 
 def year_validators(model_name):
@@ -24,7 +28,7 @@ def year_validators(model_name):
 class Award(models.Model):
 
     name = models.CharField(
-        _('Award name'),
+        _('Name'),
         max_length=100,
         help_text=_('Name of the award.')
     )
@@ -32,8 +36,6 @@ class Award(models.Model):
     year = models.PositiveIntegerField(
         _('Year'),
         validators=year_validators('award'),
-
-
         help_text=_('Year the award was won.')
     )
 
@@ -59,11 +61,12 @@ class Developer(models.Model):
         help_text=_('Name of the developer.')
     )
 
-    avatar = models.FileField(
+    avatar = models.ImageField(
         _('Avatar'),
         upload_to='public/avatar',
         blank=True,
-        help_text=_('Developer image.')
+        validators=[general_validators.image_extension_validator],
+        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
     )
 
     login = models.CharField(
@@ -95,6 +98,31 @@ class Developer(models.Model):
         return "{0} <{1}>".format(self.name, self.github_page)
 
 
+class Genre(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=100,
+        help_text=('Name of game genre.')
+    )
+
+    description = models.TextField(
+        _('Description'),
+        validators=[
+            MinLengthValidator(MIN_GENRE_DESCRIPTION,
+                               _('A genre description must have ' +
+                                 'at least 20 characters!'))],
+        help_text=_('Describe the genre.'),
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Genre, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Information(models.Model):
 
     description = models.TextField(
@@ -121,6 +149,11 @@ class Information(models.Model):
     developers = models.ManyToManyField(
         Developer,
         related_name='developers'
+    )
+
+    genres = models.ManyToManyField(
+        Genre,
+        related_name='genres'
     )
 
     awards = models.ManyToManyField(
@@ -152,10 +185,6 @@ class Statistic(models.Model):
         _('Accesses Amount'),
         help_text=_('Amount of accesses to the game.')
     )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Statistic, self).save(*args, **kwargs)
 
     def __str__(self):
         return "statistic: {0}".format(self.accesses_amount)

@@ -1,8 +1,11 @@
-# import unitrest
 import pytest
-from core.helper_test import validation_test, mount_error_dict, ErrorMessage
 from game.models import Game
-from information.models import Information, Award
+from core.helper_test import (
+    validation_test,
+    mount_error_dict,
+    ErrorMessage
+)
+from information.models import Information, Award, Genre, Developer
 
 
 def information_creation(description="", launch_year=0, game=None):
@@ -20,7 +23,7 @@ def now():
 def information_created():
     game = Game(
         name="Teste",
-        cover_image="Imagem_teste",
+        cover_image="Imagem_teste.jpg",
         official_repository="http://a.aa")
     game.save()
     information = Information(description="a" * 51,
@@ -53,7 +56,7 @@ characters!"
     description = "simple description" * 3
     game = Game(
         name="Teste",
-        cover_image="Imagem_de_capa",
+        cover_image="Imagem_de_capa.jpg",
         official_repository="http://a.aa")
 
     @pytest.mark.django_db
@@ -124,13 +127,13 @@ class TestAward:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("name, year, place, errors_dict", [
-        ('description', 1900, 'Unb-Gama',
+        ('award_name', 1900, 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.YEAR_PAST]])),
-        ('description', 2018, 'Unb-Gama',
+        ('award_name', 2018, 'Unb-Gama',
          mount_error_dict(["year"], [[error_message_year_future]])),
-        ('description', None, 'Unb-Gama',
+        ('award_name', None, 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.NULL]])),
-        ('description', '', 'Unb-Gama',
+        ('award_name', '', 'Unb-Gama',
          mount_error_dict(["year"], [[ErrorMessage.NOT_INTEGER]])),
     ])
     def test_year_validation(self, name, year, place, errors_dict):
@@ -152,3 +155,121 @@ class TestAward:
     @pytest.mark.django_db
     def test_str_award(self, award_creation):
         assert str(award_creation) == "UnB (%d): %s" % (now(), "award")
+
+
+@pytest.fixture
+def genre_creation():
+    genre = Genre.objects.create(name="Genre", description="Here is only the'\
+                                description of genre ")
+    return genre
+
+
+class TestGenre:
+
+    @pytest.mark.django_db
+    def test_genre_save(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert genre == genre_creation
+
+    @pytest.mark.django_db
+    def test_str_genre(self, genre_creation):
+        genre = Genre.objects.get(pk=genre_creation.pk)
+        assert str(genre_creation) == genre.name
+
+
+def genre_created(name="Corrida", description=""):
+    return Genre(name=name, description=description)
+
+
+class TestGenreValidation:
+
+    error_message_min_value = 'A genre description must have \
+at least 20 characters!'
+    short_description = "short description"
+
+    error_message_max_length = 'Certifique-se de que o valor tenha no '\
+        'máximo 100 caracteres (ele possui 101).'
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict", [
+        ('Race', None,
+         mount_error_dict(["description"], [[ErrorMessage.NULL]])),
+        ("Race", "",
+         mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
+        ('Race', short_description,
+         mount_error_dict(["description"], [[error_message_min_value]])),
+    ])
+    def test_description_validation(self, name, description,
+                                    errors_dict):
+        genre = genre_created(name, description)
+        validation_test(genre, errors_dict)
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, description, errors_dict", [
+        ('', 'description' * 4,
+         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, 'description' * 4,
+         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a' * 101, 'description' * 4,
+         mount_error_dict(["name"], [[error_message_max_length]])),
+    ])
+    def test_name_validation(self, name, description, errors_dict):
+        genre = Genre(name=name, description=description)
+        validation_test(genre, errors_dict)
+
+
+@pytest.fixture
+def developer_creation():
+    developer = Developer.objects.create(name="Developer", login="login",
+                                         email="developer@gmail.com",
+                                         github_page="https://github.com/dev")
+    return developer
+
+
+class TestDeveloperAvatar:
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(('name, avatar, login, email, github_page,' +
+                             ' errors_dict'), [
+        ('developer_name', 'avatar.ppm', 'developer_login',
+            'devel@host.com', 'https://devel.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
+        ('developer_name', 'avatar.py', 'developer_login',
+         'devel@host.com', 'https://devel.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
+                                        ErrorMessage.NOT_IMAGE.value[1]]])),
+    ])
+    def test_avatar_valid_extension(self, name, avatar, login,
+                                    email, github_page, errors_dict):
+        developer = Developer(
+            name=name,
+            avatar=avatar,
+            login=login,
+            email=email,
+            github_page=github_page
+        )
+        validation_test(developer, errors_dict)
+
+    @pytest.mark.django_db
+    def test_avatar_invalid_extension(self):
+        developer = Developer(
+            name='developer_name',
+            avatar='avatar.jpg',
+            login='developer',
+            email='devel@host.com',
+            github_page='https://devel.com'
+        )
+        developer.save()
+        assert Developer.objects.last() == developer
+
+
+class TestDeveloper:
+
+    @pytest.mark.django_db
+    def test_developer_save(self, developer_creation):
+        developer = Developer.objects.get(pk=developer_creation.pk)
+        assert developer == developer_creation
+
+    @pytest.mark.django_db
+    def test_str_developer(self, developer_creation):
+        assert str(developer_creation) == "Developer <https://github.com/dev>"

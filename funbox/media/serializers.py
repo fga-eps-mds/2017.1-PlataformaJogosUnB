@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from media.models import Media, Image, Video, Soundtrack
+from media.models import Image, Video, Soundtrack
 
 
 class ImageSerializer(serializers.ModelSerializer):

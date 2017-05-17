@@ -1,6 +1,6 @@
 from django.test import TestCase
-from django.db import models
-from game.models import Game, Platform, Package
+from game.models import Game, Platform
+from game.factory import PackageFactory
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
 from media.models import Image, Video, Soundtrack
@@ -12,7 +12,6 @@ class GameSerializerTestCase(TestCase):
 
     def setUp(self):
         game = Game()
-        package_game = Package()
         platform = Platform()
         image_game = Image()
         video_game = Video()
@@ -22,25 +21,24 @@ class GameSerializerTestCase(TestCase):
         information_game = Information()
 
         game.name = 'Jogo teste 1'
-        game.cover_image = 'Image_do_jogo'
-        game.game_version = '1.3.2'
+        game.cover_image = 'Image_do_jogo.jpg'
+        game.version = '1.3.2'
         game.official_repository = 'https://github.com/PlataformaJogosUnb/'
         game.save()
+        package_game = PackageFactory.build(game=game)
 
         platform.name = 'Ubuntu'
         platform.extensions = EXTENSION_CHOICES[0][0]
         platform.icon = 'Platform/linux.png'
         platform.save()
 
-        package_game.package = 'packages/exemplo.deb'
-        package_game.game_id = game.id
-        package_game.save()
-        package_game.platforms.add(platform)
-
         image_game.image = 'images/exemplo.jpeg'
         image_game.role = ROLE_CHOICES[0][0]
         image_game.game_id = game.id
         image_game.save()
+
+        package_game.save()
+        package_game.platforms.add(platform)
 
         video_game.video = 'videos/exemplo.mp4'
         video_game.role = ROLE_CHOICES[0][0]
@@ -93,8 +91,8 @@ class GameSerializerTestCase(TestCase):
         self.assertEqual(serialized_game.get('official_repository'),
                          game.official_repository)
 
-        self.assertEqual(serialized_game.get('game_version'),
-                         game.game_version)
+        self.assertEqual(serialized_game.get('version'),
+                         game.version)
 
         self.assertEqual(image_serialized.get('image'),
                          game.media_image.first().image.url)
