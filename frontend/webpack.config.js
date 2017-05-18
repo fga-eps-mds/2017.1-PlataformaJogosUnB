@@ -12,7 +12,7 @@ module.exports = {
     
     output: {
         //where you want your compiled bundle to be stored
-        path: path.resolve('./assets/bundles/'), 
+        path: path.resolve('./public/bundles/'), 
         //naming convention webpack should use for your files
         filename: '[name]-[hash].js', 
     },
@@ -41,7 +41,7 @@ module.exports = {
                 loader: 'babel-loader', 
                 query: {
                     //specify that we will be dealing with React code
-                    presets: ['react'] 
+                    presets: ['react', 'es2015'] 
                 }
             },
             // the next regex tells webpack to use style-loader and css-loader

@@ -105,6 +105,7 @@ node_modules
 
 # testing
 /coverage
+coverage
 
 # production
 /build
@@ -126,3 +127,4 @@ yarn-error.log*
 migrations/
 
 /backend/public/
+

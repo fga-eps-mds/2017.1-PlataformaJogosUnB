@@ -1,26 +1,28 @@
-language: node_js
-node_js:
-  - "6"
-script:
-  - cd unigames
-  - npm install
-  - npm test
+env:
+  - DJANGO_VERSION=1.11
 language: python
 python:
   - 3.4
   - 3.5
-install: "pip3 install -r requirements.txt"
-env:
-  - DJANGO_VERSION=1.11
+node_js:
+  - "6"
+before_install:
+  - sudo apt-get install libjpeg-dev
+install: 
+  - pip3 install -r requirements.txt
+  - pushd frontend && npm install && popd
 before_script:
   - flake8 --exclude=settings.py,migrations
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
-  - sudo apt-get install libjpeg-dev
 script: 
-  - python3 funbox/manage.py makemigrations
-  - python3 funbox/manage.py migrate
-  - pytest --cov-report term-missing --verbose --cov funbox/
+  - python3 backend/funbox/manage.py makemigrations
+  - python3 backend/funbox/manage.py migrate
+  - pytest --cov-report term-missing --verbose --cov backend/funbox/
+  - pushd frontend
+# - ./node_modules/eslint/bin/eslint.js
+  - npm test
+  - popd
 after_success: coveralls
 services:
   - postgresql

@@ -77,7 +77,7 @@ class Soundtrack(Media):
 
     soundtrack = models.FileField(
         _('Soundtrack'),
-        upload_to='soundtrack/',
+        upload_to='sounds/',
         validators=[validators.soundtrack_extension_validator],
         help_text=_(
             'Soundtracks for the game. ' +

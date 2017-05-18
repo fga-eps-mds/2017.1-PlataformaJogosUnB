@@ -157,11 +157,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../frontend/assets'),
+    os.path.join(BASE_DIR, '../frontend/public'),
 )
 STATIC_ROOT = os.path.join(
     os.path.dirname(__file__),
-    '../static',
+    '../public/assets',
 )
 
 # Media Files

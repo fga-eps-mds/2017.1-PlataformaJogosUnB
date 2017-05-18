@@ -94,7 +94,7 @@ class Platform(models.Model):
     icon = models.ImageField(
         _('Platform Icon'),
         validators=[image_extension_validator],
-        upload_to='Platform',
+        upload_to='images/',
         help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
     )
 

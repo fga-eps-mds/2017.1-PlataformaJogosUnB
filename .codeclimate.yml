@@ -22,7 +22,7 @@ ratings:
   - "**.js"
   - "**.jsx"
   - "**.css"
-      - python
+  - python
   fixme:
     enabled: true
   radon:
@@ -36,4 +36,6 @@ ratings:
   - "**.module"
   - "**.py"
 exclude_paths:
-  - "funbox/templates/static/"
+  - "backend/public"
+  - "frontend/public"
+  - "frontend/node_modules"

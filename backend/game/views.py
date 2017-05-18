@@ -17,13 +17,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def list(self, request, format=None):
         for game in self.queryset:
-            print("\n\n")
-            print(game.cover_image.url)
             game.cover_image.url
-            print("\n\n")
-            print("\n\n")
-            print(game.fetch_package())
-            print("\n\n")
             game.fetch_package()
 
         if request.accepted_renderer.format == 'html':
@@ -47,7 +41,6 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def report_bug(self, request):
         game = get_object_or_404(self.queryset)
-        print(request, "\n\n\n\n\n\n")
 
         if request.method == 'POST':
             form = (request.POST)
@@ -64,7 +57,6 @@ class GameViewSet(viewsets.ModelViewSet):
             return HttpResponseRedirect('/games/reportbug/')
 
         else:
-            print(game, "\n\n\n\n\n")
             form = ReportBugForm()
 
         return render(request, 'game/report_bug.html', {'form': form})
