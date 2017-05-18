@@ -47,7 +47,6 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def report_bug(self, request):
         game = get_object_or_404(self.queryset)
-        print(request, "\n\n\n\n\n\n")
 
         if request.method == 'POST':
             form = (request.POST)
@@ -64,7 +63,6 @@ class GameViewSet(viewsets.ModelViewSet):
             return HttpResponseRedirect('/games/reportbug/')
 
         else:
-            print(game, "\n\n\n\n\n")
             form = ReportBugForm()
 
         return render(request, 'game/report_bug.html', {'form': form})
