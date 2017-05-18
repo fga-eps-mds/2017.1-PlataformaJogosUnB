@@ -1,24 +1,30 @@
-env:
-  - DJANGO_VERSION=1.11
 language: python
 python:
   - 3.4
   - 3.5
+  - 3.6
 node_js:
-  - "6"
+  - 6
+env:
+  - NODE_VERSION=6
+  - NODE_VERSION=7
 before_install:
   - sudo apt-get install libjpeg-dev
+  - . $HOME/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - nvm use stable
 install: 
-  - pip3 install -r requirements.txt
+  - pip3 install -r backend/requirements.txt
+  - npm install npm -g
   - pushd frontend && npm install && popd
 before_script:
-  - flake8 --exclude=settings.py,migrations
+  - flake8 --exclude=settings.py,migrations backend/
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
 script: 
-  - python3 backend/funbox/manage.py makemigrations
-  - python3 backend/funbox/manage.py migrate
-  - pytest --cov-report term-missing --verbose --cov backend/funbox/
+  - python3 backend/manage.py makemigrations
+  - python3 backend/manage.py migrate
+  - pytest --cov-report term-missing --verbose --cov backend/
   - pushd frontend
 # - ./node_modules/eslint/bin/eslint.js
   - npm test

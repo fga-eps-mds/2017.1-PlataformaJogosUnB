@@ -15,14 +15,14 @@ class GameList extends React.Component {
                 headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
                 method: "GET",
             })
-        .then(function(response){
+        .then((response) => {
              return response.json(); 
             })
-        .then(function(games){
-            games.forEach(function(game){ console.debug(game.name); });
+        .then(((games) => {
+            games.forEach((game) => { console.debug(game.name); });
             this.setState({ data: games });
-        }.bind(this))
-        .catch(function(error){
+        }).bind(this))
+        .catch((error) => {
             console.error(error);
         });
     }
@@ -51,11 +51,11 @@ class GameList extends React.Component {
                 </tr>
               </thead>
               <tbody> {
-                this.state.data.map(function(game){
+                this.state.data.map((game) => {
                   return (
                     <tr key={game.id}>
                       <td>{game.name}</td>
-                      <td>{game.game_version}</td>
+                      <td>{game.version}</td>
                     </tr>
                   );
                 })

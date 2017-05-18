@@ -126,5 +126,7 @@ yarn-error.log*
 # Django DB migrations
 migrations/
 
+#Public files
 /backend/public/
-
+/frontend/public/bundles/
+/frontend/webpack-stats.json
