@@ -1,16 +1,16 @@
 import factory
 from media.models import Image, Video, Soundtrack
+from game.factory import GameFactory
 
 
 class ImageFactory(factory.DjangoModelFactory):
+
     class Meta:
         model = Image
 
-    image = factory.django.ImageField(
-        filename='image.jpg', color='orange', width=100, height=50
-    )
-    default_alt_text = factory.Sequence(lambda n: 'alt text {0}'.format(n))
-
+    image = factory.django.ImageField(width=100, height=50)
+    game = factory.SubFactory(GameFactory)
+    #default_alt_text = factory.Sequence(lambda n: 'alt text {0}'.format(n))
 
 class VideoFactory(factory.DjangoModelFactory):
     class Meta:
