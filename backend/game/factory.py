@@ -11,6 +11,7 @@ class GameFactory(factory.DjangoModelFactory):
     cover_image = factory.django.ImageField()
     version = factory.LazyAttribute(lambda x: "1.0")
     official_repository = factory.faker.Faker("url")
+    game_activated = True
 
 
 class PlatformFactory(factory.DjangoModelFactory):
