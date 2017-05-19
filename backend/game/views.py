@@ -12,7 +12,7 @@ from .forms import ReportBugForm
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.all()
+    queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
 
     def list(self, request, format=None):
