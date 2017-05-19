@@ -16,7 +16,7 @@ class Game(models.Model):
         _('Game Name'),
         max_length=100,
         help_text=_('What\'s the name of the game?'),
-    )
+    )    
 
     cover_image = models.ImageField(
         _('Cover Image'),
@@ -39,6 +39,13 @@ class Game(models.Model):
         validators=[URLValidator()],
         help_text=_('What is the official repository for this game?'),
     )
+
+    game_activated = models.BooleanField(
+        _('Game activated'),
+        max_length=100,
+        help_text=_('What\'s the status of the game?'),
+        default=True
+    )    
 
     def save(self, *args, **kwargs):
         self.clean_fields()
