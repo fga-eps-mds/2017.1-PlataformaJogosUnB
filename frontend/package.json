@@ -26,6 +26,8 @@
   "dependencies": {
     "coveralls": "^2.13.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
   }
 }

@@ -1,8 +1,26 @@
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Link, Switch, Miss } from 'react-router-dom'
 
-class GameList extends React.Component {
+class Menu extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return (
+      <div>
+        <Link to="/">Index</Link>
+        <Link to="/games">Jogos</Link>
+      </div>
+    );
+  }
+
+}
+ 
+
+class Index extends React.Component {
 
     constructor(props){
       super(props);
@@ -39,37 +57,41 @@ class GameList extends React.Component {
         
     }
     render() {
-
-      if (this.state.data) {
         return ( 
-          <div>            
-            <table className="pure-table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Versão</th>
-                </tr>
-              </thead>
-              <tbody> {
-                this.state.data.map((game) => {
-                  return (
-                    <tr key={game.id}>
-                      <td>{game.name}</td>
-                      <td>{game.version}</td>
-                    </tr>
-                  );
-                })
-              } </tbody>
-            </table> 
-          </div>    
+          <BrowserRouter>
+            <div>          
+              <Switch>
+                <Route exact path="/" render={() => (<h1>ola</h1>) } />
+                <Route path="/games" render={() => (<h1>oi</h1>) } />
+                <Miss render={() => (<h1>404 Page</h1>)} />
+              </Switch>
+              <Menu />
+              <table className="pure-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Versão</th>
+                  </tr>
+               </thead>
+               <tbody> {
+                 this.state.data.map((game) => {
+                   return (
+                      <tr key={game.id}>
+                       <td>{game.name}</td>
+                       <td>{game.version}</td>
+                     </tr>
+                   );
+                 })
+               } </tbody>
+              </table> 
+            </div>
+            </BrowserRouter>
+                
         );
-      } else {
-        return (<span>No games</span>);
-      }
 
     }
 };
 
 
 
-ReactDOM.render(<GameList url='/games/list' pollInterval={1000}/>,document.getElementById('container'))
+ReactDOM.render(<Index url='/games/list' pollInterval={1000}/>,document.getElementById('container'))
