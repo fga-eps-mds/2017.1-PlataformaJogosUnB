@@ -16,6 +16,7 @@ class GameViewSet(viewsets.ModelViewSet):
     serializer_class = GameSerializer
 
     def list(self, request, format=None):
+        self.queryset = Game.objects.exclude(game_activated=False)
         for game in self.queryset:
             game.cover_image.url
             game.fetch_package()
