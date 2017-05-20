@@ -17,7 +17,8 @@ class ImageForm(ModelForm):
     def save_instances(self, list_files, obj, change):
         game = self.cleaned_data['game']
         role = self.cleaned_data['role']
-        list_files = update_saved_medias(obj, list_files, change, self, 'image')
+        list_files = update_saved_medias(
+            obj, list_files, change, self, 'image')
         for archive in list_files:
             instance = Image.objects.create(
                 game=game, role=role, image=archive)
@@ -38,7 +39,8 @@ class VideoForm(ModelForm):
     def save_instances(self, list_files, obj, change):
         game = self.cleaned_data['game']
         role = self.cleaned_data['role']
-        list_files = update_saved_medias(obj, list_files, change, self, 'video')
+        list_files = update_saved_medias(
+            obj, list_files, change, self, 'video')
         for archive in list_files:
             instance = Video.objects.create(
                 game=game, role=role, video=archive)
@@ -59,7 +61,8 @@ class SoundtrackForm(ModelForm):
     def save_instances(self, list_files, obj, change):
         game = self.cleaned_data['game']
         role = self.cleaned_data['role']
-        list_files = update_saved_medias(obj, list_files, change, self, 'soundtrack')
+        list_files = update_saved_medias(
+            obj, list_files, change, self, 'soundtrack')
         for archive in list_files:
             instance = Soundtrack.objects.create(
                 game=game, role=role, soundtrack=archive)

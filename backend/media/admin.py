@@ -8,7 +8,7 @@ class ImageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_images = request.FILES.getlist('image')
-        form.save_instances(list_images, obj, change) 
+        form.save_instances(list_images, obj, change)
 
 
 class VideoAdmin(admin.ModelAdmin):
