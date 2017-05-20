@@ -13,13 +13,14 @@ from unittest.mock import patch
 
 def game_creation(name="", cover_image="", url="",
                   launch_year=0, version="1.3.4"):
-        return Game(
-            name=name,
-            cover_image=cover_image,
-            official_repository=url,
-            game_activated=True,
-            version=version
-        )
+    return Game(
+        name=name,
+        cover_image=cover_image,
+        official_repository=url,
+        game_activated=True,
+        version=version
+    )
+
 
 @pytest.fixture
 def game_created():
