@@ -19,7 +19,44 @@ class Menu extends React.Component {
 
 }
  
+class Game extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = { game: {}};
+  }
 
+  loadGameFromServer(){
+    console.log(this.props);
+    const id = this.props.match.params.id;
+    console.log(id)
+        fetch("/api/detail/"+id+"/", 
+              { 
+                headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
+                method: "GET",
+            })
+        .then((response) => {
+             return response.json(); 
+            })
+        .then(((game) => {
+            this.setState({ game: game });
+        }).bind(this))
+        .catch((error) => {
+            console.error(error);
+        });
+  }
+
+  componentDidMount() {
+        this.loadGameFromServer();
+    }
+
+  render(){
+    return (
+      <div>
+        <h1>{this.state.game.name} - v{this.state.game.version}</h1>
+      </div>
+    );
+  }
+}
 class Index extends React.Component {
 
     constructor(props){
@@ -47,8 +84,8 @@ class Index extends React.Component {
 
     componentDidMount() {
         this.loadGamesFromServer();
-        this.loading = setInterval(this.loadGamesFromServer.bind(this), 
-          this.props.pollInterval);
+        // this.loading = setInterval(this.loadGamesFromServer.bind(this), 
+        //   this.props.pollInterval);
     }
 
 
@@ -62,7 +99,8 @@ class Index extends React.Component {
             <div>          
               <Switch>
                 <Route exact path="/" render={() => (<h1>ola</h1>) } />
-                <Route path="/games" render={() => (<h1>oi</h1>) } />
+                <Route path="/games/:id" component={Game} />
+                <Route path="/games/" render={() => (<h1>oi</h1>) } />
                 <Miss render={() => (<h1>404 Page</h1>)} />
               </Switch>
               <Menu />
@@ -77,7 +115,9 @@ class Index extends React.Component {
                  this.state.data.map((game) => {
                    return (
                       <tr key={game.id}>
-                       <td>{game.name}</td>
+                       <td>
+                         <Link to={`/games/${game.pk}`} params={{id: game.pk}}>{game.name}</Link>
+                       </td>
                        <td>{game.version}</td>
                      </tr>
                    );
@@ -92,6 +132,8 @@ class Index extends React.Component {
     }
 };
 
+class Layout extends React.Component {
+  
+}
 
-
-ReactDOM.render(<Index url='/games/list' pollInterval={1000}/>,document.getElementById('container'))
+ReactDOM.render(<Index url='/api/list/' pollInterval={1000} />,document.getElementById('container'))
