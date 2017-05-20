@@ -1,13 +1,28 @@
----
 engines:
-  csslint:
+  eslint:
     enabled: true
+    config: .eslintrc
   duplication:
     enabled: true
     config:
       languages:
       - javascript
-      - python
+  csslint:
+    enabled: true
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - BUG
+      - TODO
+
+ratings:
+  paths:
+  - "**.js"
+  - "**.jsx"
+  - "**.css"
+  - python
   fixme:
     enabled: true
   radon:
@@ -21,4 +36,6 @@ ratings:
   - "**.module"
   - "**.py"
 exclude_paths:
-  - "funbox/templates/static/"
+  - "backend/public"
+  - "frontend/public"
+  - "frontend/node_modules"
