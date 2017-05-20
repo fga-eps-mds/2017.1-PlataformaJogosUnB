@@ -1,8 +1,10 @@
-// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { FlatButton, MuiThemeProvider }  from 'material-ui';
+
 
 class GameList extends React.Component {
+
 
     constructor(props){
       super(props);
@@ -42,25 +44,10 @@ class GameList extends React.Component {
 
       if (this.state.data) {
         return ( 
-          <div>            
-            <table className="pure-table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Versão</th>
-                </tr>
-              </thead>
-              <tbody> {
-                this.state.data.map((game) => {
-                  return (
-                    <tr key={game.id}>
-                      <td>{game.name}</td>
-                      <td>{game.version}</td>
-                    </tr>
-                  );
-                })
-              } </tbody>
-            </table> 
+          <div>
+          <MuiThemeProvider>
+            <FlatButton label="Full width" />
+            </MuiThemeProvider>
           </div>    
         );
       } else {
@@ -69,7 +56,6 @@ class GameList extends React.Component {
 
     }
 };
-
 
 
 ReactDOM.render(<GameList url='/games/list' pollInterval={1000}/>,document.getElementById('container'))
