@@ -30,7 +30,7 @@ class TestMedia:
          mount_error_dict(['image'], [[ErrorMessage.IMAGE_EXTENSION]])),
         ('image.py',
          mount_error_dict(['image'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                      ErrorMessage.NOT_IMAGE.value[1]]])),
+                                       ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
     def test_image_invalid_extension(self, image, errors_dict, game_created):
         image = Image(image=image, game=game_created)
