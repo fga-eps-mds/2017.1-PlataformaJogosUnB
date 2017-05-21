@@ -17,6 +17,7 @@ def game_creation(name="", cover_image="", url="",
             name=name,
             cover_image=cover_image,
             official_repository=url,
+            game_activated=True,
             version=version
         )
 
@@ -27,6 +28,7 @@ def game_created():
     game.name = 'mario'
     game.cover_image = "image.jpg"
     game.official_repository = 'https://github.com/PlataformaJogosUnb/'
+    game.game_activated = True
     game.save()
     return game
 
