@@ -7,7 +7,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         path = os.path.realpath('.')
-        print('Try small fixes')
         os.system(
             "autopep8 --exclude=migrations,settings.py,__init__.py -iar %s" %
             path)

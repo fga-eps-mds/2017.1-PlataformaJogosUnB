@@ -18,6 +18,8 @@
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^7.0.1",
     "jest": "^20.0.3",
+    "material-ui": "^0.18.1",
+    "react-tap-event-plugin": "^2.0.1",
     "react-test-renderer": "^15.5.4",
     "style-loader": "^0.17.0",
     "webpack": "^2.5.1",
