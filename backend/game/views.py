@@ -12,10 +12,11 @@ from .forms import ReportBugForm
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.all()
+    queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
 
     def list(self, request, format=None):
+        self.queryset = Game.objects.exclude(game_activated=False)
         for game in self.queryset:
             game.cover_image.url
             game.fetch_package()

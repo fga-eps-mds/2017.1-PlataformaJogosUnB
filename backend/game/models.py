@@ -40,6 +40,13 @@ class Game(models.Model):
         help_text=_('What is the official repository for this game?'),
     )
 
+    game_activated = models.BooleanField(
+        _('Game activated'),
+        max_length=100,
+        help_text=_('What\'s the status of the game?'),
+        default=True
+    )
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)
