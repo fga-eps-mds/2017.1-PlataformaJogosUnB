@@ -1,6 +1,5 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-# from django.dispatch import receiver
 from smartfields import fields
 from game.models import Game
 from media.choices import ROLE_CHOICES
@@ -59,12 +58,12 @@ class Image(Media):
                 self.game.name
             )
         else:
-            return 'Image deleted!'
+            return 'Image has been deleted!'
 
 
 class Video(Media):
 
-    video = models.FileField(
+    video = fields.FileField(
         _('Video'),
         upload_to='videos/',
         validators=[validators.video_extension_validator],
@@ -75,12 +74,16 @@ class Video(Media):
     )
 
     def __str__(self):
-        return self.config__str__('video')
+        if self.video:
+            return self.config__str__('video')
+
+        else:
+            return 'Video has been deleted!'
 
 
 class Soundtrack(Media):
 
-    soundtrack = models.FileField(
+    soundtrack = fields.FileField(
         _('Soundtrack'),
         upload_to='sounds/',
         validators=[validators.soundtrack_extension_validator],
@@ -91,56 +94,8 @@ class Soundtrack(Media):
     )
 
     def __str__(self):
-        return self.config__str__('soundtrack')
+        if self.soundtrack:
+            return self.config__str__('soundtrack')
 
-
-# @receiver(models.signals.post_delete, sender=Soundtrack)
-# def auto_delete_soundtrack_on_delete(sender, instance, **kwargs):
-#     """
-#     Deletes file from filesystem
-#     when corresponding `Soundtrack` object is deleted.
-#     """
-#     if instance.soundtrack:
-#         if os.path.isfile(instance.soundtrack.path):
-#             os.remove(instance.soundtrack.path)
-
-
-# @receiver(models.signals.pre_save, sender=Soundtrack)
-# def auto_delete_soundtrack_on_change(sender, instance, **kwargs):
-#     """
-#     Deletes old file from filesystem
-#     when corresponding `Soundtrack` object is updated
-#     with new file.
-#     """
-#     if not instance.pk:
-#         return False
-
-#     try:
-#         old_file = Soundtrack.objects.get(pk=instance.pk).soundtrack
-#     except Soundtrack.DoesNotExist:
-#         return False
-
-#     new_file = instance.soundtrack
-#     if not old_file == new_file:
-#         if os.path.isfile(old_file.path):
-#             os.remove(old_file.path)
-
-# @receiver(models.signals.post_delete, sender=Video)
-# def auto_delete_video_on_delete(sender, instance, **kwargs):
-#     if instance.video:
-#         if os.path.isfile(instance.video.path):
-#             os.remove(instance.video.path)
-
-
-# @receiver(models.signals.pre_save, sender=Video)
-# def auto_delete_video_on_change(sender, instance, **kwargs):
-#     if not instance.pk:
-#         return False
-#     try:
-#         old_file = Video.objects.get(pk=instance.pk).video
-#     except Video.DoesNotExist:
-#         return False
-#     new_file = instance.video
-#     if not old_file == new_file:
-#         if os.path.isfile(old_file.path):
-#             os.remove(old_file.path)
+        else:
+            return 'Soundtrack has been deleted!'
