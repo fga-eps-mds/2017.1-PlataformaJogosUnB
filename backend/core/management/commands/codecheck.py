@@ -9,7 +9,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         path = os.path.realpath('.')
-        os.system("pytest -q --cov-config {}/.coveragerc --cov-report term --cov".format(BASE_DIR))
+        os.system("pytest -q --cov-config {}/.coveragerc" +
+                  "--cov-report term --cov".format(BASE_DIR))
         os.system("flake8 --exclude=settings.py,migrations --count "
                   "--statistics %s" % path)
         os.system("radon cc -s %s" % path)
