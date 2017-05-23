@@ -89,6 +89,7 @@ class Soundtrack(Media):
     def __str__(self):
         return self.config__str__('soundtrack')
 
+
 @receiver(models.signals.post_delete, sender=Soundtrack)
 def auto_delete_soundtrack_on_delete(sender, instance, **kwargs):
     """
@@ -98,6 +99,7 @@ def auto_delete_soundtrack_on_delete(sender, instance, **kwargs):
     if instance.soundtrack:
         if os.path.isfile(instance.soundtrack.path):
             os.remove(instance.soundtrack.path)
+
 
 @receiver(models.signals.pre_save, sender=Soundtrack)
 def auto_delete_soundtrack_on_change(sender, instance, **kwargs):
@@ -119,11 +121,13 @@ def auto_delete_soundtrack_on_change(sender, instance, **kwargs):
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
 
+
 @receiver(models.signals.post_delete, sender=Image)
 def auto_delete_image_on_delete(sender, instance, **kwargs):
     if instance.image:
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
+
 
 @receiver(models.signals.pre_save, sender=Image)
 def auto_delete_image_on_change(sender, instance, **kwargs):
@@ -145,11 +149,13 @@ def auto_delete_image_on_change(sender, instance, **kwargs):
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
 
+
 @receiver(models.signals.post_delete, sender=Video)
 def auto_delete_video_on_delete(sender, instance, **kwargs):
     if instance.video:
         if os.path.isfile(instance.video.path):
             os.remove(instance.video.path)
+
 
 @receiver(models.signals.pre_save, sender=Video)
 def auto_delete_video_on_change(sender, instance, **kwargs):
