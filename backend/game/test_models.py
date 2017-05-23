@@ -20,9 +20,9 @@ def game_creation(name="", cover_image="", url="",
         official_repository=url,
         game_activated=True,
         version=version
-        )
+    )
 
-  
+
 @pytest.fixture
 def game_created():
     game = Game()
