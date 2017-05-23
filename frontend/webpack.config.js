@@ -48,8 +48,9 @@ module.exports = {
             // (notice the chaining through the '!' syntax)
             // on all css files
             {
-                test: /\.css$/,
-                use: 'style-loader!css-loader'
+            test: /\.css$/,
+            loader: 'style-loader!css-loader?modules',
+            include: /flexboxgrid/
             },
             {
                 test: /\.png$/,
