@@ -13,13 +13,14 @@ from unittest.mock import patch
 
 def game_creation(name="", cover_image="", url="",
                   launch_year=0, version="1.3.4"):
-        return Game(
-            name=name,
-            cover_image=cover_image,
-            official_repository=url,
-            game_activated=True,
-            version=version
-        )
+
+    return Game(
+        name=name,
+        cover_image=cover_image,
+        official_repository=url,
+        game_activated=True,
+        version=version
+    )
 
 
 @pytest.fixture
@@ -61,13 +62,12 @@ class TestGame:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize(('name, cover_image, version, ' +
-                             'official_repository, errors_dict'), [
+                              'official_repository, errors_dict'), [
         ('game_name', 'test_image.ppm', '1.0', 'http://a.com',
          mount_error_dict(['cover_image'], [[ErrorMessage.IMAGE_EXTENSION]])),
         ('game_name', 'test_image.py', '1.0', 'http://a.com',
          mount_error_dict(['cover_image'],
-                          [[ErrorMessage.NOT_IMAGE.value[0],
-                            ErrorMessage.NOT_IMAGE.value[1]]])),
+                          [[ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
     def test_cover_image_extension(self, name, cover_image, version,
                                    official_repository, errors_dict):
@@ -88,8 +88,7 @@ class TestPlatform:
         ('platform_name', 'test_image.ppm', 'deb',
          mount_error_dict(['icon'], [[ErrorMessage.IMAGE_EXTENSION]])),
         ('platform_name', 'test_image.py', 'deb',
-         mount_error_dict(['icon'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                      ErrorMessage.NOT_IMAGE.value[1]]])),
+         mount_error_dict(['icon'], [[ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
     def test_icon_extension(self, name, icon, extensions, errors_dict):
         platform = Platform(name=name, icon=icon, extensions=extensions)

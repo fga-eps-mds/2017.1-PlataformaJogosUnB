@@ -230,7 +230,7 @@ class TestDeveloperAvatar:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize(('name, avatar, login, email, github_page,' +
-                             ' errors_dict'), [
+                              ' errors_dict'), [
         ('developer_name', 'avatar.ppm', 'developer_login',
             'devel@host.com', 'https://devel.com',
          mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
