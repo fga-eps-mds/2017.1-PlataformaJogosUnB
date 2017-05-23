@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
-from smartfields import fields
 from game.choices import EXTENSION_CHOICES
 from core.validators import (
     image_extension_validator,
@@ -19,7 +18,7 @@ class Game(models.Model):
         help_text=_('What\'s the name of the game?'),
     )
 
-    cover_image = fields.ImageField(
+    cover_image = models.ImageField(
         _('Cover Image'),
         validators=[image_extension_validator],
         upload_to='images/',
@@ -99,7 +98,7 @@ class Platform(models.Model):
             ' for the packages'),
     )
 
-    icon = fields.ImageField(
+    icon = models.ImageField(
         _('Platform Icon'),
         validators=[image_extension_validator],
         upload_to='images/',
