@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import InformationCard from './information_card.js';
+import DescriptionCard from './description_card.js';
 import InternalSlider from './internal_slider.js';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import {Grid, Row, Column} from 'react-cellblock';
 import { MuiThemeProvider } from 'material-ui';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
 
 class GameList extends React.Component {
@@ -44,18 +47,21 @@ class GameList extends React.Component {
     render() {
 
       return ( 
-        <Grid fluid>
-        <MuiThemeProvider>
-          <Row>
-            <Col md="6">
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <Grid>
+            <Row>
+            <Column width="1/2">
               <InternalSlider />            
-            </Col>
-            <Col md="6"> 
+            </Column>
+            <Column width="1/2"> 
               <InformationCard />
-            </Col>
-          </Row>
-        </MuiThemeProvider>
-        </Grid>    
+            </Column>
+            <Column width="1/2"> 
+              <DescriptionCard />
+            </Column>
+           </Row>
+          </Grid>
+        </MuiThemeProvider> 
       );
     }
 };
