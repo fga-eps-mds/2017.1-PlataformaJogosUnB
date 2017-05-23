@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InformationCard from './information_card.js';
-import DescriptionCard from './description_card.js';
-import InternalSlider from './internal_slider.js';
+import InformationCard from './components/information_card.js';
+import DescriptionCard from './components/description_card.js';
+import InternalSlider from './components/internal_slider.js';
 import {Grid, Row, Column} from 'react-cellblock';
 import { MuiThemeProvider } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
