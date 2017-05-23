@@ -70,7 +70,7 @@ class SoundtrackForm(ModelForm):
 
 
 def update_saved_medias(obj, list_files, change, form, type_instance):
-    if change:
+    if change and obj:
         obj.game = form.cleaned_data['game']
         obj.role = form.cleaned_data['role']
         setattr(obj, type_instance, list_files[0])
