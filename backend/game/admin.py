@@ -72,7 +72,7 @@ class GameAdmin(admin.ModelAdmin):
                     'media_{}-{}-{}'.format(model, str(count), model))
                 obj = forms.cleaned_data['id']
                 if len(list_files) > 0:
-                    forms.save_instances(list_files, obj, change)
+                    forms.save_instances(list_files, obj, change, model)
             return True
         return False
 

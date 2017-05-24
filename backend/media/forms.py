@@ -1,9 +1,36 @@
 from media.models import Image, Video, Soundtrack
 from django import forms
 from django.forms import ModelForm
+from django.apps import apps
 
 
-class ImageForm(ModelForm):
+class MediaForm(ModelForm):
+    class Meta:
+        abstract = True
+
+    def save_instances(self, list_files, obj, change, type_instance):
+        game = self.cleaned_data['game']
+        role = self.cleaned_data['role']
+        list_files = self.update_medias(
+            obj, list_files, change, type_instance)
+        for archive in list_files:
+            instance = apps.get_model('media', type_instance)()
+            instance.game = game
+            instance.role = role
+            setattr(instance, type_instance, archive)
+            instance.save()
+
+    def update_medias(self, obj, list_files, change, type_instance):
+        if change and obj:
+            obj.game = self.cleaned_data['game']
+            obj.role = self.cleaned_data['role']
+            setattr(obj, type_instance, list_files[0])
+            obj.save()
+            del list_files[0]
+        return list_files
+
+
+class ImageForm(MediaForm):
     class Meta:
         fields = ('game', 'role', 'image')
         model = Image
@@ -14,18 +41,8 @@ class ImageForm(ModelForm):
                     'required': False,
                     'multiple': True})}
 
-    def save_instances(self, list_files, obj, change):
-        game = self.cleaned_data['game']
-        role = self.cleaned_data['role']
-        list_files = update_saved_medias(
-            obj, list_files, change, self, 'image')
-        for archive in list_files:
-            instance = Image.objects.create(
-                game=game, role=role, image=archive)
-            instance.save()
 
-
-class VideoForm(ModelForm):
+class VideoForm(MediaForm):
     class Meta:
         widgets = {
             "video": forms.FileInput(
@@ -36,18 +53,8 @@ class VideoForm(ModelForm):
         model = Video
         fields = ('game', 'role', 'video')
 
-    def save_instances(self, list_files, obj, change):
-        game = self.cleaned_data['game']
-        role = self.cleaned_data['role']
-        list_files = update_saved_medias(
-            obj, list_files, change, self, 'video')
-        for archive in list_files:
-            instance = Video.objects.create(
-                game=game, role=role, video=archive)
-            instance.save()
 
-
-class SoundtrackForm(ModelForm):
+class SoundtrackForm(MediaForm):
     class Meta:
         model = Soundtrack
         fields = ('game', 'role', 'soundtrack')
@@ -57,25 +64,3 @@ class SoundtrackForm(ModelForm):
                     'id': 'soundtrack',
                     'required': False,
                     'multiple': True})}
-
-    def save_instances(self, list_files, obj, change):
-        game = self.cleaned_data['game']
-        role = self.cleaned_data['role']
-        list_files = update_saved_medias(
-            obj, list_files, change, self, 'soundtrack')
-        for archive in list_files:
-            instance = Soundtrack.objects.create(
-                game=game, role=role, soundtrack=archive)
-            instance.save()
-
-
-def update_saved_medias(obj, list_files, change, form, type_instance):
-    if change and obj:
-        obj.game = form.cleaned_data['game']
-        obj.role = form.cleaned_data['role']
-        setattr(obj, type_instance, list_files[0])
-        obj.save()
-        del list_files[0]
-        return list_files
-    else:
-        return list_files

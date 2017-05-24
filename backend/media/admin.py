@@ -8,7 +8,7 @@ class ImageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_images = request.FILES.getlist('image')
-        form.save_instances(list_images, obj, change)
+        form.save_instances(list_images, obj, change, 'image')
 
 
 class VideoAdmin(admin.ModelAdmin):
@@ -16,7 +16,7 @@ class VideoAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_videos = request.FILES.getlist('video')
-        form.save_instances(list_videos, obj, change)
+        form.save_instances(list_videos, obj, change, 'video')
 
 
 class SoundtrackAdmin(admin.ModelAdmin):
@@ -24,7 +24,7 @@ class SoundtrackAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         list_soundtrack = request.FILES.getlist('soundtrack')
-        form.save_instances(list_soundtrack, obj, change)
+        form.save_instances(list_soundtrack, obj, change, 'soundtrack')
 
 
 admin.site.register(Image, ImageAdmin)
