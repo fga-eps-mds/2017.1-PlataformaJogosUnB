@@ -64,4 +64,3 @@ class SoundtrackForm(MediaForm):
                     'id': 'soundtrack',
                     'required': False,
                     'multiple': True})}
-
