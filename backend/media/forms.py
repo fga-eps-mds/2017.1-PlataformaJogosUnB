@@ -5,8 +5,8 @@ from django.forms import ModelForm
 
 class ImageForm(ModelForm):
     class Meta:
-        model = Image
         fields = ('game', 'role', 'image')
+        model = Image
         widgets = {
             "image": forms.FileInput(
                 attrs={
@@ -27,14 +27,14 @@ class ImageForm(ModelForm):
 
 class VideoForm(ModelForm):
     class Meta:
-        model = Video
-        fields = ('game', 'role', 'video')
         widgets = {
             "video": forms.FileInput(
                 attrs={
                     'id': 'video',
                     'required': False,
                     'multiple': True})}
+        model = Video
+        fields = ('game', 'role', 'video')
 
     def save_instances(self, list_files, obj, change):
         game = self.cleaned_data['game']

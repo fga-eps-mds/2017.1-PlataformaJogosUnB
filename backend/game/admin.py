@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Game, Package, Platform
 from information.models import Information
-from media.models import Image, Video, Soundtrack
+from media.models import Image, Video, Soundtrack, Media
 from .choices import EXTENSION_CHOICES
 from media.forms import ImageForm, VideoForm, SoundtrackForm
 
@@ -52,36 +52,29 @@ class PackageAdmin(admin.ModelAdmin):
 
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
-        ImageInline, VideoInline, SoundtrackInline]
+               ImageInline, VideoInline, SoundtrackInline]
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
 
-        if instances:
-            if isinstance(instances[0], Image):
-                for count, forms in enumerate(formset):
-                    list_files = request.FILES.getlist(
-                        'media_image-' + str(count) + '-image')
-                    obj = forms.cleaned_data['id']
-                    if len(list_files) > 0:
-                        forms.save_instances(list_files, obj, change)
-            elif isinstance(instances[0], Video):
-                for count, forms in enumerate(formset):
-                    list_files = request.FILES.getlist(
-                        'media_video-' + str(count) + '-video')
-                    obj = forms.cleaned_data['id']
-                    if len(list_files) > 0:
-                        forms.save_instances(list_files, obj, change)
-            elif isinstance(instances[0], Soundtrack):
-                for count, forms in enumerate(formset):
-                    list_files = request.FILES.getlist(
-                        'media_soundtrack-' + str(count) + '-soundtrack')
-                    obj = forms.cleaned_data['id']
-                    if len(list_files) > 0:
-                        forms.save_instances(list_files, )
-            else:
-                for instance in instances:
-                    instance.save()
+        for obj_form in formset.deleted_objects:
+            obj_form.delete()
+        for instance in instances:
+            if not self.__save_media__(request, instance, formset, change):
+                instance.save()
+        formset.save_m2m()
+
+    def __save_media__(self, request, instance, formset, change):
+        if isinstance(instance, Media):
+            model = instance.__class__.__name__.lower()
+            for count, forms in enumerate(formset):
+                list_files = request.FILES.getlist(
+                    'media_{}-{}-{}'.format(model, str(count), model))
+                obj = forms.cleaned_data['id']
+                if len(list_files) > 0:
+                    forms.save_instances(list_files, obj, change)
+            return True
+        return False
 
 
 admin.site.register(Game, GameAdmin)
