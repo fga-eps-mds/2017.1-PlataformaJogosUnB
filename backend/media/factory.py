@@ -1,9 +1,10 @@
 import factory
-from game.factory import *
-from media.models import Media, Image, Video, Soundtrack
+from game.factory import GameFactory
+from media.models import Image, Video, Soundtrack
 from faker import Faker
 
 faker = Faker()
+
 
 class ImageFactory(factory.DjangoModelFactory):
 

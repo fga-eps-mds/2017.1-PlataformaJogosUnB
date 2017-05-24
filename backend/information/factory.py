@@ -1,8 +1,7 @@
 import factory
-from game.models import Game, Package, Platform
 from faker import Faker
-from information.models import *
-from game.factory import *
+from information.models import Award, Developer, Genre, Information
+from game.factory import GameFactory
 
 
 faker = Faker()

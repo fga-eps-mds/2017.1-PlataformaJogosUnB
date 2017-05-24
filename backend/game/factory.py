@@ -1,5 +1,4 @@
 import factory
-import random
 from game.models import Game, Package, Platform
 from faker import Faker
 
