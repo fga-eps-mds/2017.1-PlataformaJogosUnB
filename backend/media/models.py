@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from smartfields import fields
 from game.models import Game
 from media.choices import ROLE_CHOICES
 import core.validators as general_validators
@@ -40,7 +41,7 @@ class Media(models.Model):
 
 class Image(Media):
 
-    image = models.ImageField(
+    image = fields.ImageField(
         _('Image'),
         validators=[general_validators.image_extension_validator],
         upload_to='images/',
@@ -51,15 +52,18 @@ class Image(Media):
     )
 
     def __str__(self):
-        return 'file = "{0}", game = {1}'.format(
-            os.path.basename(self.image.path),
-            self.game.name
-        )
+        if self.image:
+            return 'file = "{0}", game = {1}'.format(
+                os.path.basename(self.image.path),
+                self.game.name
+            )
+        else:
+            return 'Image has been deleted!'
 
 
 class Video(Media):
 
-    video = models.FileField(
+    video = fields.FileField(
         _('Video'),
         upload_to='videos/',
         validators=[validators.video_extension_validator],
@@ -70,12 +74,16 @@ class Video(Media):
     )
 
     def __str__(self):
-        return self.config__str__('video')
+        if self.video:
+            return self.config__str__('video')
+
+        else:
+            return 'Video has been deleted!'
 
 
 class Soundtrack(Media):
 
-    soundtrack = models.FileField(
+    soundtrack = fields.FileField(
         _('Soundtrack'),
         upload_to='sounds/',
         validators=[validators.soundtrack_extension_validator],
@@ -86,4 +94,8 @@ class Soundtrack(Media):
     )
 
     def __str__(self):
-        return self.config__str__('soundtrack')
+        if self.soundtrack:
+            return self.config__str__('soundtrack')
+
+        else:
+            return 'Soundtrack has been deleted!'
