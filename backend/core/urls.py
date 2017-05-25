@@ -11,12 +11,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
     url(r'^api/', include('game.urls', namespace='api')),
-    url(r'^.*$', views.index, name="any"),
 
 ]
 
@@ -32,9 +30,8 @@ password_patterns = [
 
 ]
 
-urlpatterns = format_suffix_patterns(password_patterns + urlpatterns)
-
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+url_any = [url(r'^.*$', views.index, name="any"),]
+urlpatterns = format_suffix_patterns(password_patterns + urlpatterns + url_any)
