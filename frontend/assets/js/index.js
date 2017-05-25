@@ -4,10 +4,8 @@ import InformationCard from './components/information_card.js';
 import DescriptionCard from './components/description_card.js';
 import InternalSlider from './components/internal_slider.js';
 import {Grid, Row, Column} from 'react-cellblock';
-import { MuiThemeProvider } from 'material-ui';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-
+import '../../public/semantic/semantic';
+import '../../public/semantic/semantic.less';
 
 class GameList extends React.Component {
     constructor(props){
@@ -41,27 +39,24 @@ class GameList extends React.Component {
 
     componentWillUnmount() {
       clearInterval(this.loading);
-        
     }
 
     render() {
 
       return ( 
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <Grid>
             <Row>
             <Column width="1/2">
-              <InternalSlider />            
+                <InternalSlider />
             </Column>
             <Column width="1/2"> 
               <InformationCard />
             </Column>
             <Column width="1/2"> 
-              <DescriptionCard />
+                <DescriptionCard />
             </Column>
            </Row>
           </Grid>
-        </MuiThemeProvider> 
       );
     }
 };

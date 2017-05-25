@@ -1,6 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
-var BundleTracker = require('webpack-bundle-tracker')
+var path = require('path');
+var webpack = require('webpack');
+var BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
     //the base directory (absolute path) for resolving the entry option
@@ -9,14 +9,14 @@ module.exports = {
     //your current directory. You don't have to specify the extension  now,
     //because you will specify extensions later in the `resolve` section
     entry: './assets/js/index', 
-    
+
     output: {
         //where you want your compiled bundle to be stored
         path: path.resolve('./public/bundles/'), 
         //naming convention webpack should use for your files
         filename: '[name]-[hash].js', 
     },
-    
+
     plugins: [
         //tells webpack where to store data about your bundles.
         new BundleTracker({filename: './webpack-stats.json'}), 
@@ -25,9 +25,9 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery' 
-        })
+        }),
     ],
-    
+
     module: {
         loaders: [
             //a regexp that tells webpack use the following loaders on all 
@@ -48,9 +48,9 @@ module.exports = {
             // (notice the chaining through the '!' syntax)
             // on all css files
             {
-            test: /\.css$/,
-            loader: 'style-loader!css-loader?modules',
-            include: /flexboxgrid/
+                test: /\.css$/,
+                loader: 'style-loader!css-loader?modules',
+                include: /flexboxgrid/
             },
             {
                 test: /\.png$/,
@@ -80,9 +80,17 @@ module.exports = {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url?limit=10000&mimetype=image/svg+xml'
             },
+            {
+                test: /\.less$/, ;
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
+                ]
+            },
         ]
     },
-    
+
     resolve: {
         //tells webpack where to look for modules
         modules: ['node_modules'],

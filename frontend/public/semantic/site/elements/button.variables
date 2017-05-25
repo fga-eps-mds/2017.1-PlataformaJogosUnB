@@ -1,0 +1,3 @@
+@backgroundColor: black
+
+<button className="ui button">Button with custom background</button>

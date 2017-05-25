@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "webpack:dev": "./node_modules/webpack/bin/webpack.js --progress --colors -p --watch --hot"
+    "webpack:dev": "./node_modules/webpack/bin/webpack.js --progress --colors -p --watch --hot",
+    "postinstall": "node semantic-fix.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,8 @@
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^7.0.1",
     "jest": "^20.0.3",
-    "material-ui": "^0.18.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
     "node-sass": "^4.5.3",
     "react-cellblock": "^3.0.0",
     "react-pure-grid": "^2.1.1",
@@ -29,7 +31,7 @@
   "dependencies": {
     "coveralls": "^2.13.1",
     "css-loader": "^0.28.2",
-    "material-ui": "^0.18.1",
+    "less-loader": "^4.0.3",
     "react": "^15.5.4",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
@@ -37,6 +39,7 @@
     "react-image-gallery": "^0.8.0",
     "react-tap-event-plugin": "^2.0.1",
     "sass-loader": "^6.0.5",
+    "semantic-ui-less": "^2.2.10",
     "style-loader": "^0.18.1",
     "toolbox-loader": "0.0.3"
   }
