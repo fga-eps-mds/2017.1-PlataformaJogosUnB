@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainRoutes from './routes/MainRoutes';
+import MenuComponent from './layout/MenuComponent';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component{
     render(){
       return(
-      <div>
-        <MainRoutes/>
-        <h1>OLAR</h1>
-      </div>
+        <BrowserRouter>
+		  <div>
+		    <MenuComponent/>
+		    <MainRoutes/>
+		    <h1>App</h1>
+		  </div>
+        </BrowserRouter>
     );
   }
 }
