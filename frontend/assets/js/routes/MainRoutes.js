@@ -5,7 +5,7 @@ import MenuComponent from '../layout/MenuComponent';
 import Game from '../layout/Game';
 
 export default class MainRoutes extends React.Component {
-
+  
     render() {
         return (
             <div>
