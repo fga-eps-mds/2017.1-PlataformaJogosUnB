@@ -25,6 +25,7 @@
     "react-cellblock": "^3.0.0",
     "react-pure-grid": "^2.1.1",
     "react-test-renderer": "^15.5.4",
+    "semantic-ui-react": "^0.68.3",
     "webpack": "^2.6.0",
     "webpack-bundle-tracker": "^0.2.0"
   },
