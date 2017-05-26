@@ -24,6 +24,7 @@
     "node-sass": "^4.5.3",
     "react-cellblock": "^3.0.0",
     "react-pure-grid": "^2.1.1",
+    "react-tap-event-plugin": "^2.0.1",
     "react-test-renderer": "^15.5.4",
     "semantic-ui-react": "^0.68.3",
     "webpack": "^2.6.0",
@@ -42,6 +43,8 @@
     "sass-loader": "^6.0.5",
     "semantic-ui-less": "^2.2.10",
     "style-loader": "^0.18.1",
-    "toolbox-loader": "0.0.3"
+    "toolbox-loader": "0.0.3",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
   }
 }

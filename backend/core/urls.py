@@ -9,10 +9,16 @@ from core import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^about/$', views.about, name='about'),
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+    url(r'^api/', include('game.urls', namespace='api')),
+
+]
+
+password_patterns = [
     url(r'^admin/reset-password/$', password_reset, name='reset_password'),
     url(r'^admin/reset-password/done/$',
         password_reset_done, name='password_reset_done'),
@@ -21,12 +27,11 @@ urlpatterns = [
         name='password_reset_confirm'),
     url(r'^admin/reset-password/complete/$',
         password_reset_complete, name='password_reset_complete'),
-    url(r'^api-auth/', include('rest_framework.urls',
-                               namespace='rest_framework')),
-    url(r'^games/', include('game.urls', namespace='game')),
+
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+url_any = [url(r'^.*$', views.index, name="any"),]
+urlpatterns = format_suffix_patterns(password_patterns + urlpatterns + url_any)
