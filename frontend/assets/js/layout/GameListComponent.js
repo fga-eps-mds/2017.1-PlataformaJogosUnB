@@ -7,7 +7,7 @@ export default class GameListComponent extends React.Component {
 
     constructor(props){
       super(props);
-      this.state = { games: {} };
+      this.state = { games: [] };
     }
 
     loadGameFromServer(){
@@ -32,14 +32,7 @@ export default class GameListComponent extends React.Component {
       }
 
     render() {
-      var gameCards = '';
-      try{
-
-        gameCards=this.state.games.map((game,index)=>{console.log(index); return <GameCard data={game} />});
-      }
-      catch(error){
-        console.error(error);
-      }
+      var gameCards = gameCards=this.state.games.map((game)=>{return <GameCard data={game} />});
       return(
 
 
