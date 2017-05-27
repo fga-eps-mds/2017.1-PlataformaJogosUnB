@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GameCard from '../Components/GameCard'
+import { Card } from 'semantic-ui-react'
 
 export default class GameListComponent extends React.Component {
 
@@ -33,16 +34,19 @@ export default class GameListComponent extends React.Component {
     render() {
       var gameCards = '';
       try{
-        gameCards=this.state.games.map((game)=>{return <GameCard data={game}/>});
+
+        gameCards=this.state.games.map((game,index)=>{console.log(index); return <GameCard data={game} />});
       }
       catch(error){
         console.error(error);
       }
       return(
-          <div>
-          <h1>Games</h1>
-          {gameCards}
-          </div>
+
+
+          <Card.Group itemsPerRow={4}>
+            {gameCards}
+          </Card.Group>
+
     );
   }
 };
