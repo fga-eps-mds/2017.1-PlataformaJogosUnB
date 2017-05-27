@@ -21,10 +21,6 @@ class GameViewSet(viewsets.ModelViewSet):
             game.cover_image.url
             game.fetch_package()
 
-        if request.accepted_renderer.format == 'html':
-            data = {'games': self.queryset, }
-            return Response(data, template_name='game/list.html')
-
         serializer = GameSerializer(self.queryset, many=True)
         return Response(serializer.data)
 
@@ -34,9 +30,6 @@ class GameViewSet(viewsets.ModelViewSet):
         game.fetch_package()
         game.videos = game.fetch_media('video', 'slider')
 
-        if request.accepted_renderer.format == 'html':
-            data = {'game': game}
-            return Response(data, template_name='game/show.html')
         serializer = GameSerializer(game)
         return Response(serializer.data)
 
@@ -59,5 +52,3 @@ class GameViewSet(viewsets.ModelViewSet):
 
         else:
             form = ReportBugForm()
-
-        return render(request, 'game/report_bug.html', {'form': form})
