@@ -1,12 +1,12 @@
-import React from 'react'
-import { Card } from 'semantic-ui-react'
+import React from 'react';
+import { Card } from 'semantic-ui-react';
 
-class AboutCard extends React.Component {
 
-    const description = 'A plataforma de jogos UnB Games oferece dezenas de jogos para o seu entertenimento.'
-    
+export default class AboutCardComponent extends React.Component {
 
-    render(){
+
+    render(){ 
+
         return (
             <div>
                 <Card>
@@ -15,7 +15,7 @@ class AboutCard extends React.Component {
                             UnB Games
                         </Card.Header>
                         <Card.Description>
-                            {description}
+                            A plataforma de jogos oficial da UnB
                         </Card.Description>
                     </Card.Content> 
                 </Card>

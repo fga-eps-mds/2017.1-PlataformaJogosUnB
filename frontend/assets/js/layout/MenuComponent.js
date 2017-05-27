@@ -20,6 +20,7 @@ export default class MenuComponent extends React.Component {
           <Menu stackable container inverted pointing secondary>
             <Menu.Item as={ Link } name='index' to='/' active={activeItem === 'index'}>Index</Menu.Item>
             <Menu.Item as={ Link } name='games' to='/games/' active={activeItem === 'games'}>Jogos</Menu.Item>
+            <Menu.Item as={ Link } name='about' to='/about/' active={activeItem === 'about'}>Sobre</Menu.Item>
             <Menu.Menu position='right'>
               <Menu.Item>
                 <Input className='icon' placeholder='Search...' />
