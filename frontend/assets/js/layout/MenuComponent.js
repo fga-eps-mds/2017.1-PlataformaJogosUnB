@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router';
 
 
 export default class MenuComponent extends React.Component {
-  
+
   constructor(props){
     super(props);
     this.state = { activeItem: 'index' };

@@ -16,7 +16,7 @@ class App extends React.Component{
         <MenuComponent/>
         <Container>
 		      <MainRoutes/>
-          <h1>App</h1>
+
         </Container>
 		  </div>
         </BrowserRouter>
@@ -24,4 +24,4 @@ class App extends React.Component{
   }
 }
 
-ReactDOM.render(<App url='/api/list/' pollInterval={1000}/>, document.getElementById('container'))
+ReactDOM.render(<App />, document.getElementById('container'))
