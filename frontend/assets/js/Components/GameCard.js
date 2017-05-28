@@ -7,7 +7,7 @@ import {Grid, Row, Column} from 'react-cellblock';
 export default class GameCard extends React.Component{
   constructor(props){
     super(props);
-    this.state = { games: {} };
+    this.state = { games: [] };
   }
 
   loadGameFromServer(){
