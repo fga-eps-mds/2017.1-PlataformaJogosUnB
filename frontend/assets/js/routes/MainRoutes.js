@@ -4,6 +4,7 @@ import { Route, Link, Switch, Miss } from 'react-router-dom';
 import MenuComponent from '../layout/MenuComponent';
 import Game from '../layout/Game';
 import AboutPage from '../pages/AboutPage';
+import GameListComponent from '../layout/GameListComponent';
 
 export default class MainRoutes extends React.Component {
   
@@ -12,7 +13,7 @@ export default class MainRoutes extends React.Component {
             <div>
                 <Switch>
                   <Route exact path="/" render={() => (<h1>/RAIZ</h1>) } />
-                  <Route exact path="/games/" render={() => (<h1>/GAMES</h1>) } />
+                  <Route exact path="/games/" component={GameListComponent} />
                   <Route path="/games/:id" component={Game} />
                   <Route exact path="/about/" component={AboutPage} />
                   <Miss render={() => (<h1>404 Page</h1>)} />
