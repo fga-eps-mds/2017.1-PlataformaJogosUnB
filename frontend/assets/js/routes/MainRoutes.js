@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, Switch, Miss } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import MenuComponent from '../layout/MenuComponent';
 import Game from '../layout/Game';
 import AboutPage from '../pages/AboutPage';
