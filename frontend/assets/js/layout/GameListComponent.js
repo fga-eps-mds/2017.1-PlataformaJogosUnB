@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import ReactDOM from 'react-dom';
 import GameCard from '../Components/GameCard'
 import { Card } from 'semantic-ui-react'
