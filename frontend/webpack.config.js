@@ -1,101 +1,77 @@
-var path = require('path');
-var webpack = require('webpack');
-var BundleTracker = require('webpack-bundle-tracker');
+const path = require('path');
+const webpack = require('webpack');
+const BundleTracker = require('webpack-bundle-tracker');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractLess = new ExtractTextPlugin('stylesheet/[name]_less.css');
 
 module.exports = {
-    //the base directory (absolute path) for resolving the entry option
     context: __dirname,
-    //the entry point we created earlier. Note that './' means
-    //your current directory. You don't have to specify the extension  now,
-    //because you will specify extensions later in the `resolve` section
 
     entry: './assets/js/App', 
 
     output: {
-        //where you want your compiled bundle to be stored
         path: path.resolve('./public/bundles/'),
-        //naming convention webpack should use for your files
-        filename: '[name]-[hash].js',
+        filename: '[name].js',
     },
 
     plugins: [
-        //tells webpack where to store data about your bundles.
         new BundleTracker({filename: './webpack-stats.json'}),
-        //makes jQuery available in every module
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery'
         }),
+        extractLess
     ],
 
     module: {
-        loaders: [
-            //a regexp that tells webpack use the following loaders on all
-            //.js and .jsx files
+        rules: [
             {
-                test: /\.jsx?$/,
-                //we definitely don't want babel to transpile all the files in
-                //node_modules. That would take a long time.
+                test: /.jsx?$/,
                 exclude: /node_modules/,
-                //use the babel loader
-                loader: 'babel-loader',
-                query: {
-                    //specify that we will be dealing with React code
-                    presets: ['react', 'es2015']
-                }
-            },
-            // the next regex tells webpack to use style-loader and css-loader
-            // (notice the chaining through the '!' syntax)
-            // on all css files
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader?modules',
-                include: /flexboxgrid/
-            },
-            {
-                test: /\.png$/,
-                use: 'url-loader?limit=100000'
-            },
-            {
-                test: /\.jpg$/,
-                use: 'file-loader'
-            },
-            {
-                test: /\.png$/,
-                use: 'url-loader?limit=100000'
-            },
-            {
-                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff'
-            },
-            {
-                test: /\.tff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/octet-stream'
-            },
-            {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file'
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=image/svg+xml'
-            },
-            {
-                test: /\.less$/,
                 use: [
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                ['es2015', { modules: false }],
+                                'react',
+                            ],
+                        }
+                    }
                 ]
-            },
-        ]
+            }, {
+                test: /\.less$/,
+                use: extractLess.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader' },
+                        { loader: 'less-loader' }
+                    ]
+                }),
+            }, {
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10240,
+                        absolute: true,
+                        name: 'images/[path][name]-[hash:7].[ext]'
+                    }
+                },
+                include: [path.join(__dirname, 'public'), /[\/\\]node_modules[\/\\]semantic-ui-less[\/\\]/]
+            }, {
+                test: /\.(woff|woff2|ttf|svg|eot)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10240,
+                        name: 'fonts/[name]-[hash:7].[ext]'
+                    }
+                },
+                include: [path.join(__dirname, 'public'), /[\/\\]node_modules[\/\\]semantic-ui-less[\/\\]/]
+            }
+        ],
     },
-
-    resolve: {
-        //tells webpack where to look for modules
-        modules: ['node_modules'],
-        //extensions that should be used to resolve modules
-        extensions: ['.js', '.jsx', '.css']
-    }
 };
