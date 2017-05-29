@@ -4,22 +4,27 @@ import { Card } from 'semantic-ui-react';
 
 export default class AboutCardComponent extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            title: null,
+            description: null,
+        };
+    }
 
     render(){ 
 
         return (
-            <div>
                 <Card>
                     <Card.Content>
                         <Card.Header>
-                            UnB Games
+                            {this.state.title}
                         </Card.Header>
                         <Card.Description>
-                            A plataforma de jogos oficial da UnB
+                            {this.state.description}
                         </Card.Description>
                     </Card.Content> 
                 </Card>
-            </div>
         );
     }
 }
