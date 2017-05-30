@@ -12,15 +12,15 @@ class App extends React.Component{
     render(){
       return(
         <BrowserRouter>
-		  <div>
+          <div>
             <MenuComponent/>
-                <Container>
-		            <MainRoutes/>
-                </Container>
-		  </div>
+            <Container>
+              <MainRoutes/>
+            </Container>
+          </div>
         </BrowserRouter>
     );
   }
 }
 
-ReactDOM.render(<App url='/api/list/' pollInterval={1000}/>, document.getElementById('container'))
+ReactDOM.render(<App />, document.getElementById('container'))
