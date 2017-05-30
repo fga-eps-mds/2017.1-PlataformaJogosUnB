@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import (
     password_reset, password_reset_done, password_reset_confirm,
-    password_reset_complete,
+    password_reset_complete
 )
 from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
-    url(r'^api/', include('game.urls', namespace='api')),
+    url(r'^api/', include('game.urls', namespace='api'))
 
 ]
 
@@ -26,12 +26,12 @@ password_patterns = [
         '-(?P<token>.+)/$', password_reset_confirm,
         name='password_reset_confirm'),
     url(r'^admin/reset-password/complete/$',
-        password_reset_complete, name='password_reset_complete'),
-
+        password_reset_complete, name='password_reset_complete')
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-url_any = [url(r'^.*$', views.index, name="any"),]
+
+url_any = [url(r'^.*$', views.index, name="any")]
 urlpatterns = format_suffix_patterns(password_patterns + urlpatterns + url_any)

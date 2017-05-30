@@ -14,9 +14,9 @@ class IssueHandler:
         SUCCESS_STATUS = 201
 
         if response.status_code == SUCCESS_STATUS:
-            print('Successfully created Issue "{}"'.format(title))
+            print('Successfully created Issue {0}'.format(title))
         else:
-            print('Could not create Issue "{}"' .fomart(title))
+            print('Could not create Issue {0}' .format(title))
             print('Response: ', response.content)
 
     def create_url(self, official_repository):
@@ -24,8 +24,8 @@ class IssueHandler:
         repo_owner = match_object.group(1)
         repo_name = match_object.group(2)
 
-        url = 'https://api.github.com/repos/%s/%s/issues' % (repo_owner,
-                                                             repo_name)
+        url = 'https://api.github.com/repos/{0}/{1}/issues', format(repo_owner,
+                                                                    repo_name)
         return url
 
     def create_issue(self, title, description, label):
@@ -43,5 +43,5 @@ class IssueHandler:
 
     def get_session(self):
         session = requests.Session()
-        session.auth = ('Username', 'Password')
+        session.auth = ('username', 'password')
         return session
