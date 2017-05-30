@@ -35,7 +35,10 @@ export default class GameListComponent extends React.Component {
     render() {
       var gameCards = gameCards=this.state.games.map((game)=>{return <GameCard data={game} />});
       return(
-         <div>
+         <div
+               <br/>
+               <br/>
+               <br/>
                <IndexSlider/>
                <br/>
                <br/>
