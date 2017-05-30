@@ -19,3 +19,5 @@ export default class InformationCard extends React.Component{
     ); 
   }
 }
+
+
