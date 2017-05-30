@@ -42,7 +42,7 @@ export default class GameCard extends React.Component{
               </Card.Header>
             </Card.Content>
             <Card.Content extra>
-              {this.props.data.name}
+              <img src={this.props.data.packages[0].platforms[0].icon} height="42" width="42" />
             </Card.Content>
           </Card>
 

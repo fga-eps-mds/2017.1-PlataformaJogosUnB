@@ -35,7 +35,7 @@ export default class GameListComponent extends React.Component {
     render() {
       var gameCards = gameCards=this.state.games.map((game)=>{return <GameCard data={game} />});
       return(
-         <div
+         <div>
                <br/>
                <br/>
                <br/>
@@ -43,6 +43,7 @@ export default class GameListComponent extends React.Component {
                <br/>
                <br/>
                <br/>
+            <h1><font color="#00ff00">Mais jogados!!!!</font></h1>
             <Card.Group itemsPerRow={4}>
             {gameCards}
             </Card.Group>
