@@ -2,8 +2,7 @@ import React from 'react';
 import InformationCard from './InformationCard.js';
 import DescriptionCard from './DescriptionCard.js';
 import InternalSlider from './InternalSlider.js';
-import {Grid, Row, Column} from 'react-cellblock';
-import { Card } from 'semantic-ui-react'
+import { Card, Grid } from 'semantic-ui-react'
 
 
 export default class Game extends React.Component{
@@ -35,7 +34,6 @@ export default class Game extends React.Component{
   componentDidMount() {
         this.loadGameFromServer();
     }
-
 
   render(){
 

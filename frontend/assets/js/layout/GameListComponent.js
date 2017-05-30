@@ -47,7 +47,7 @@ export default class GameListComponent extends React.Component {
             <Card.Group itemsPerRow={4}>
             {gameCards}
             </Card.Group>
-    </div>
-);
-}
+        </div>
+      );
+    }
 }
