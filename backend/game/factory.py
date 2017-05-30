@@ -1,5 +1,8 @@
 import factory
 from game.models import Game, Package, Platform
+from faker import Faker
+
+faker = Faker()
 
 
 class GameFactory(factory.DjangoModelFactory):
@@ -8,9 +11,11 @@ class GameFactory(factory.DjangoModelFactory):
         model = Game
 
     name = factory.faker.Faker("word")
-    cover_image = factory.django.ImageField()
+    cover_image = factory.django.ImageField(
+        width=204, height=234, color=faker.safe_color_name())
     version = factory.LazyAttribute(lambda x: "1.0")
     official_repository = factory.faker.Faker("url")
+    game_activated = True
 
 
 class PlatformFactory(factory.DjangoModelFactory):

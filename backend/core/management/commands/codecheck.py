@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from core.settings import BASE_DIR
 import os
 
 
@@ -8,7 +9,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         path = os.path.realpath('.')
-        os.system("pytest -q --cov %s --cov-report=html " % path)
+
+        os.system("pytest -q --cov-config {}/.coveragerc --cov-report "
+                  "term --cov".format(BASE_DIR))
         print("\nCode style check:")
         os.system("flake8 --exclude=settings.py,migrations --count "
                   "--statistics %s" % path)

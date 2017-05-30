@@ -1,6 +1,8 @@
 # 2017.1-PlataformaJogosUnB
 Repositório oficial do projeto plataforma de jogos da Universidade de Brasília
 
+[UnB Games](http://unbgames.lappis.rocks/)
+
 ## Projeto
 
 [![Build Status](https://travis-ci.org/fga-gpp-mds/2017.1-PlataformaJogosUnB.svg?branch=master)](https://travis-ci.org/fga-gpp-mds/2017.1-PlataformaJogosUnB)
