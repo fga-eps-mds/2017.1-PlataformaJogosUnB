@@ -1,4 +1,5 @@
 /*******************************
-    User Variable Overrides
+     User Global Variables
 *******************************/
 
+@pageBackground      : #000000;
