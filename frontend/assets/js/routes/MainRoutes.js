@@ -6,7 +6,7 @@ import Game from '../layout/Game';
 import GameListComponent from '../layout/GameListComponent';
 
 export default class MainRoutes extends React.Component {
-  
+
     render() {
         return (
             <div>

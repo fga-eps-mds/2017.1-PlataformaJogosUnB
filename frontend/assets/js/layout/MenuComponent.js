@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Container} from 'semantic-ui-react'
 
 export default class MenuComponent extends React.Component {
-  
+
   constructor(props){
     super(props);
     this.state = { activeItem: window.location.pathname, visible: false };

@@ -2,7 +2,7 @@ import React from 'react';
 import InformationCard from './InformationCard.js';
 import DescriptionCard from './DescriptionCard.js';
 import InternalSlider from './InternalSlider.js';
-import { Grid } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react'
 
 
 export default class Game extends React.Component{
@@ -34,20 +34,19 @@ export default class Game extends React.Component{
   componentDidMount() {
         this.loadGameFromServer();
     }
-  
- 
+
   render(){
-    
+
     return (
       <div>
         <h1>{this.state.game.name} </h1>
           <Grid>
             <Grid.Row>
-              <Grid.Column width={10}> 
+              <Grid.Column width={10}>
                   <InternalSlider/>
               </Grid.Column>
-              <Grid.Column width={6}> 
-                <DescriptionCard 
+              <Grid.Column width={6}>
+                <DescriptionCard
                   version={ this.state.game.version }
                   official_repository={ this.state.game.official_repository }
                   launch_year={ this.state.game.information.launch_year }
