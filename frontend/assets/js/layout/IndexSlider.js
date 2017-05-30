@@ -43,9 +43,6 @@ export default class IndexSlider extends React.Component{
        var imgs = [];
        var gameCards = gameCards=this.state.games.map((game)=>{
          for(var i = 0;i < game.media_image.length;i++){
-             {console.log(game.media_image[i].role)}
-             {console.log(i)}
-             {console.log(game.media_image.length)}
              if (game.media_image[i].role === "slider"){
                  {temp.push(game.media_image[i].image)}
 
