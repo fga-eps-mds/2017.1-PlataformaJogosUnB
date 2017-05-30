@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GameCard from '../Components/GameCard'
 import { Card } from 'semantic-ui-react'
-
+import IndexSlider from './IndexSlider.js'
+import { Grid, Row, Column } from 'react-cellblock'
 export default class GameListComponent extends React.Component {
 
     constructor(props){
@@ -34,12 +35,12 @@ export default class GameListComponent extends React.Component {
     render() {
       var gameCards = gameCards=this.state.games.map((game)=>{return <GameCard data={game} />});
       return(
-
-
-          <Card.Group itemsPerRow={4}>
+         <div>
+               <IndexSlider/>
+            <Card.Group itemsPerRow={4}>
             {gameCards}
-          </Card.Group>
-
-    );
-  }
-};
+            </Card.Group>
+    </div>
+);
+}
+}
