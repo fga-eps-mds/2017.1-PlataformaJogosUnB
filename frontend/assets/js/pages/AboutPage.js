@@ -16,8 +16,8 @@ export default class AboutPage extends React.Component{
         ].join(' ');
 
         return(
-            <Grid columns={1} padded='vertically'>
-                <Grid.Row color='grey'>
+            <Grid padded='vertically'>
+                <Grid.Row color='red'>
                     <Container>
                         <Card.Group itemsPerRow={1}>
                             <AboutCardComponent
@@ -28,7 +28,7 @@ export default class AboutPage extends React.Component{
                         </Card.Group>
                     </Container>
                 </Grid.Row>
-                <Grid.Row color='black'>
+                <Grid.Row>
                     <Container>
                         <Card.Group itemsPerRow={2}>
                             <AboutCardComponent
