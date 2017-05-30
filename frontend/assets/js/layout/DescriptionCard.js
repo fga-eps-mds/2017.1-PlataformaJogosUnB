@@ -21,7 +21,6 @@ export default class DescriptionCard extends React.Component{
             { this.getVersion() }
             <p><strong>Repositório Oficial: </strong>{this.props.official_repository}</p>
             <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
-            <p><strong>Gênero: </strong>{this.props.name}</p>
             <p><strong>Developers: </strong> {this.props.developers.map((developer) => {return developer.name} )}</p>
           </Card.Description>
         </Card.Content>
