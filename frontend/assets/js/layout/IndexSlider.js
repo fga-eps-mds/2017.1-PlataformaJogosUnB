@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import ImageGallery from 'react-image-gallery';
 
 require('style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss');
-// https://github.com/xiaolin/react-image-gallery
 
-  var Carousel = require('nuka-carousel');
+var Carousel = require('nuka-carousel');
 
 export default class IndexSlider extends React.Component{
 
