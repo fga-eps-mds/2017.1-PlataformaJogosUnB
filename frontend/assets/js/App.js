@@ -12,10 +12,12 @@ class App extends React.Component{
     render(){
       return(
         <BrowserRouter>
-		  <div>
-        <MenuComponent/>
-		      <MainRoutes/>
-		  </div>
+    		  <div>
+            <MenuComponent/>
+            <Container>
+    		      <MainRoutes/>
+            </Container>
+    		  </div>
         </BrowserRouter>
     );
   }
