@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import ReactDOM from 'react-dom';
 import GameCard from '../Components/GameCard'
 import { Card } from 'semantic-ui-react'
@@ -38,6 +37,9 @@ export default class GameListComponent extends React.Component {
       return(
          <div>
                <IndexSlider/>
+               <br/>
+               <br/>
+               <br/>
             <Card.Group itemsPerRow={4}>
             {gameCards}
             </Card.Group>
