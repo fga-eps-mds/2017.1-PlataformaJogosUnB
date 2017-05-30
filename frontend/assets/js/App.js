@@ -14,10 +14,8 @@ class App extends React.Component{
         <BrowserRouter>
 		  <div>
         <MenuComponent/>
-        <Container>
 		      <MainRoutes/>
           <h1>App</h1>
-        </Container>
 		  </div>
         </BrowserRouter>
     );

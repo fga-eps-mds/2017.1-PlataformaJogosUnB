@@ -1,6 +1,6 @@
 import React from 'react';
 import AboutCardComponent from '../layout/AboutCardComponent';
-import { Grid, Card } from 'semantic-ui-react';
+import { Grid, Card, Container } from 'semantic-ui-react';
 
 
 export default class AboutPage extends React.Component{
@@ -17,24 +17,28 @@ export default class AboutPage extends React.Component{
 
         return(
             <Grid columns={1} padded='vertically'>
-                <Grid.Row/ >
-                <Grid.Row>
-                    <Grid.Column>
+                <Grid.Row color='grey'>
+                    <Container>
                         <Card.Group itemsPerRow={1}>
-                            <AboutCardComponent title={titleCardHeader} description={descriptionCardHeader}/>
+                            <AboutCardComponent
+                                title={titleCardHeader}
+                                description={descriptionCardHeader}
+                                sizeGrid={1}
+                            />
                         </Card.Group>
-                    </Grid.Column>
+                    </Container>
                 </Grid.Row>
-                <Grid.Row />
-                <Grid.Row />
-                <Grid.Row />
-                <Grid.Row>
-                    <Grid.Column>
+                <Grid.Row color='black'>
+                    <Container>
                         <Card.Group itemsPerRow={2}>
-                            <AboutCardComponent />
+                            <AboutCardComponent
+                                title={'Venha conhecer'}
+                                description={'desfrute de inumeros jogos'}
+                                sizeGrid={1}
+                            />
                             <AboutCardComponent />
                         </Card.Group>
-                    </Grid.Column>
+                    </Container>
                 </Grid.Row>
             </Grid>
         );
