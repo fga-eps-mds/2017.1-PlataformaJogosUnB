@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
 export default class DescriptionCard extends React.Component{
   getVersion(){
@@ -15,14 +15,19 @@ export default class DescriptionCard extends React.Component{
       <Card fluid={true}>
         <Card.Content>
           <Card.Header>
-            Sobre o jogo
+              Sobre o jogo
           </Card.Header>
           <Card.Description>   
             { this.getVersion() }
             <p><strong>Repositório Oficial: </strong>{this.props.official_repository}</p>
             <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
-            <p><strong>Developers: </strong> {this.props.developers.map((developer) => {return developer.name} )}</p>
           </Card.Description>
+          <Card.Content extra>
+            <Button animated='fade'>
+              <Button.Content visible>Linux</Button.Content>
+              <Button.Content hidden>Baixe agora</Button.Content>
+            </Button>
+          </Card.Content>
         </Card.Content>
       </Card>
     ); 

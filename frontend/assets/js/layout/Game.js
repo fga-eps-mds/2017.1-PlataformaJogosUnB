@@ -8,7 +8,7 @@ import { Grid } from 'semantic-ui-react';
 export default class Game extends React.Component{
   constructor(props){
     super(props);
-    this.state = { game: {information: {developers: []}, genres:[], packages:[] }};
+    this.state = { game: {information: {developers: [], awards: []}, genres:[], packages:[] }};
   }
 
   loadGameFromServer(){
@@ -51,7 +51,16 @@ export default class Game extends React.Component{
                   version={ this.state.game.version }
                   official_repository={ this.state.game.official_repository }
                   launch_year={ this.state.game.information.launch_year }
+                />
+              </Grid.Column>
+              </Grid.Row>
+
+              <Grid.Row>
+              <Grid.Column width={10}>
+                <InformationCard
+                  description={this.state.game.information.description}
                   developers={this.state.game.information.developers}
+                  awards={this.state.game.information.awards}
                 />
               </Grid.Column>
               </Grid.Row>
