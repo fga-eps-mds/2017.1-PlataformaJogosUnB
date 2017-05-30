@@ -1,8 +1,49 @@
-// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import Menu from './layout/MenuComponent';
 
 class GameList extends React.Component {
+
+class Game extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = { game: {}};
+  }
+
+  loadGameFromServer(){
+    console.log(this.props);
+    const id = this.props.match.params.id;
+    console.log(id)
+        fetch("/api/detail/"+id+"/",
+              {
+                headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
+                method: "GET",
+            })
+        .then((response) => {
+             return response.json();
+            })
+        .then(((game) => {
+            this.setState({ game: game });
+        }).bind(this))
+        .catch((error) => {
+            console.error(error);
+        });
+  }
+
+  componentDidMount() {
+        this.loadGameFromServer();
+    }
+
+  render(){
+    return (
+      <div>
+        <h1>{this.state.game.name} - v{this.state.game.version}</h1>
+      </div>
+    );
+  }
+}
+class Index extends React.Component {
 
     constructor(props){
       super(props);
@@ -10,13 +51,13 @@ class GameList extends React.Component {
     }
 
     loadGamesFromServer() {
-        fetch(this.props.url, 
-            { 
+        fetch(this.props.url,
+            {
                 headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
                 method: "GET",
             })
         .then((response) => {
-             return response.json(); 
+             return response.json();
             })
         .then(((games) => {
             games.forEach((game) => { console.debug(game.name); });
@@ -29,47 +70,46 @@ class GameList extends React.Component {
 
     componentDidMount() {
         this.loadGamesFromServer();
-        this.loading = setInterval(this.loadGamesFromServer.bind(this), 
-          this.props.pollInterval);
+        // this.loading = setInterval(this.loadGamesFromServer.bind(this),
+        //   this.props.pollInterval);
     }
-
 
     componentWillUnmount() {
       clearInterval(this.loading);
-        
     }
     render() {
+        return (
+          <BrowserRouter>
+            <div>
+            <Switch>
+              <Route exact path="/" render={() => (<h1>ola</h1>) } />
+              <Route path="/games/:id" component={Game} />
+              <Route path="/games/" render={() => (<h1>oi</h1>) } />
+              </Switch>
+              <Menu />
+              <table className="pure-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Versão</th>
+                  </tr>
+               </thead>
+               <tbody> {
+                 this.state.data.map((game) => {
+                   return (
+                      <tr key={game.id}>
+                       <td>
+                         <Link to={`/games/${game.pk}`} params={{id: game.pk}}>{game.name}</Link>
+                       </td>
+                       <td>{game.version}</td>
+                     </tr>
+                   );
+                 })
+               } </tbody>
+              </table>
+            </div>
+            </BrowserRouter>
 
-      if (this.state.data) {
-        return ( 
-          <div>            
-            <table className="pure-table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Versão</th>
-                </tr>
-              </thead>
-              <tbody> {
-                this.state.data.map((game) => {
-                  return (
-                    <tr key={game.id}>
-                      <td>{game.name}</td>
-                      <td>{game.version}</td>
-                    </tr>
-                  );
-                })
-              } </tbody>
-            </table> 
-          </div>    
         );
-      } else {
-        return (<span>No games</span>);
-      }
-
     }
 };
-
-
-
-ReactDOM.render(<GameList url='/games/list' pollInterval={1000}/>,document.getElementById('container'))
