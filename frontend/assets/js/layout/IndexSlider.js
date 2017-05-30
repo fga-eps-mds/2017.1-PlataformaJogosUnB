@@ -40,6 +40,7 @@ export default class IndexSlider extends React.Component{
     render(){
        var temp = [];
        var temps;
+       var imgs = [];
        var gameCards = gameCards=this.state.games.map((game)=>{
          for(var i = 0;i < game.media_image.length;i++){
              {console.log(game.media_image[i].role)}
@@ -57,16 +58,14 @@ export default class IndexSlider extends React.Component{
 
         temps = temp.map((image)=>{
           return (
-            <img src={image} />
-          )
+            imgs.push(<img src={image} />
+          ))
         });
         {console.log (temp[0])}
         return (
-          <div style={{width:'50%', margin:'auto'}}>
           <Carousel>
-          <img src={temp[0]} />
+          {imgs}
           </Carousel>
-          </div>
         )
     }
 
