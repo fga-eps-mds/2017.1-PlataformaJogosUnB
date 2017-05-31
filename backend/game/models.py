@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
+from smartfields.dependencies import FileDependency
+from smartfields.processors import ImageProcessor
 from game.choices import EXTENSION_CHOICES
 from core.validators import (
     image_extension_validator,
@@ -22,8 +24,17 @@ class Game(models.Model):
     cover_image = fields.ImageField(
         _('Cover Image'),
         validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES)
+        upload_to="images/",
+        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES),
+        dependencies=[
+            FileDependency(
+                           processor=ImageProcessor(format="JPEG",
+                                                    scale={
+                                                        "max_width": 480,
+                                                        "max_height": 320
+                                                    }
+                                                    )
+                           )]
     )
 
     version = models.CharField(
