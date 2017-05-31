@@ -30,6 +30,7 @@ export default class MenuComponent extends React.Component {
                 <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} vertical inverted onClick={this.showMenuMobile}>    
                   <Menu.Item as={ Link } to='/' active={activeItem === '/'}>Index</Menu.Item>
                   <Menu.Item as={ Link } to='/games/' active={activeItem === '/games/'}>Jogos</Menu.Item>
+                  <Menu.Item as={ Link } to='/about/' active={activeItem === '/about/'}>Sobre</Menu.Item>
                 </Sidebar>
                 <Segment inverted>
                   <Menu inverted pointing secondary>
@@ -47,6 +48,7 @@ export default class MenuComponent extends React.Component {
                     <Container>
                       <Menu.Item as={ Link } to='/' active={activeItem === '/'}>Index</Menu.Item>
                       <Menu.Item as={ Link } to='/games/' active={activeItem === '/games/'}>Jogos</Menu.Item>
+                      <Menu.Item as={ Link } to='/about/' active={activeItem === '/about/'}>Sobre</Menu.Item>  
                     </Container>
                   </Menu>
               </Segment>
