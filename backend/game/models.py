@@ -13,6 +13,16 @@ import game.validators as validators
 import os
 
 
+def __cover_image__(attr, width, height):
+    processor = ImageProcessor(format="JPEG",
+                               scale={
+                                   "max_width": width,
+                                   "max_height": height
+                               }
+                               )
+    return FileDependency(attname=attr, processor=processor)
+
+
 class Game(models.Model):
 
     name = models.CharField(
@@ -27,15 +37,12 @@ class Game(models.Model):
         upload_to="images/",
         help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES),
         dependencies=[
-            FileDependency(
-                           processor=ImageProcessor(format="JPEG",
-                                                    scale={
-                                                        "max_width": 480,
-                                                        "max_height": 320
-                                                    }
-                                                    )
-                           )]
+            __cover_image__("slide_image", 1920, 1080),
+            __cover_image__("card_image", 480, 320)
+        ],
     )
+    slide_image = fields.ImageField(null=True, blank=True)
+    card_image = fields.ImageField(null=True, blank=True)
 
     version = models.CharField(
         _('Game Version'),
