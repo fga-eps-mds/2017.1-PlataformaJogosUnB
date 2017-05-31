@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from media.factory import ImageFactory
 from information.factory import AwardFactory, DeveloperFactory, \
-  GenreFactory, InformationFactory
+    GenreFactory, InformationFactory
 import os
 
 
