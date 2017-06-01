@@ -5,6 +5,7 @@ import Game from "../components/Game";
 import IndexPage from "../pages/IndexPage";
 import AboutPage from "../pages/AboutPage";
 import GamesPage from "../pages/GamesPage";
+import Game from '../pages/Game';
 
 export default class MainRoutes extends React.Component {
 

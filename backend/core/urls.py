@@ -32,6 +32,5 @@ password_patterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-
 url_any = [url(r'^.*$', views.index, name="any")]
 urlpatterns = format_suffix_patterns(password_patterns + urlpatterns + url_any)
