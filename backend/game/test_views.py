@@ -7,11 +7,7 @@ from game.factory import GameFactory
 
 @pytest.fixture
 def create_game():
-    game = Game(name="jogo1", cover_image="image_de_capa.jpg",
-                official_repository="https://github.com/Plata"
-                "formaJogosUnb/")
-    game.save()
-    return game
+    return GameFactory()
 
 
 class TestGameViewSet:

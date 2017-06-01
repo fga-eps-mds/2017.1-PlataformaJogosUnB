@@ -1,11 +1,12 @@
 import pytest
-from game.models import Game
+from game.factory import GameFactory
 from core.helper_test import (
     validation_test,
     mount_error_dict,
     ErrorMessage
 )
 from information.models import Information, Award, Genre, Developer
+from information.factory import InformationFactory
 
 
 def information_creation(description="", launch_year=0, game=None):
@@ -21,15 +22,7 @@ def now():
 
 @pytest.fixture
 def information_created():
-    game = Game(
-        name="Teste",
-        cover_image="Imagem_teste.jpg",
-        official_repository="http://a.aa")
-    game.save()
-    information = Information(description="a" * 51,
-                              launch_year=now(), game=game)
-    information.save()
-    return information
+    return InformationFactory()
 
 
 class TestInformationCreation:
@@ -42,9 +35,10 @@ class TestInformationCreation:
 
     @pytest.mark.django_db
     def test_str_information(self, information_created):
-        description = 'a' * 50
-        assert str(information_created) == "Teste's description: %s..." \
-            % description
+        description = information_created.description[:50]
+        name = information_created.game.name
+        assert str(information_created) == "%s's description: %s..." \
+            % (name, description)
 
 
 class TestInformationValidation:
@@ -54,10 +48,7 @@ characters!"
     error_message_year_future = 'We believe the game was not won ' \
         'in the future!'
     description = "simple description" * 3
-    game = Game(
-        name="Teste",
-        cover_image="Imagem_de_capa.jpg",
-        official_repository="http://a.aa")
+    game = GameFactory.build()
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
