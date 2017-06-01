@@ -1,7 +1,7 @@
 import React from 'react';
-import InformationCard from './InformationCard.js';
-import DescriptionCard from './DescriptionCard.js';
-import InternalSlider from './InternalSlider.js';
+import InformationCard from '../components/cards/InformationCard.js';
+import DescriptionCard from '../components/cards/DescriptionCard.js';
+import InternalSlider from '../layout/InternalSlider.js';
 import { Card, Grid } from 'semantic-ui-react'
 
 

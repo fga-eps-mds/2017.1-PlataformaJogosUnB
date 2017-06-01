@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, Switch } from 'react-router-dom';
 import MenuComponent from '../layout/MenuComponent';
-import Game from '../layout/Game';
+import Game from '../pages/Game';
 import GameListComponent from '../layout/GameListComponent';
 import AboutPage from '../pages/AboutPage';
 
