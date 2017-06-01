@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Card} from "semantic-ui-react";
-import Index from "../layout/IndexSlide";
-import GameCard from "../layout/card/GameCard";
+import GameCard from "./cards/GameCard";
 
 export default class GameListComponent extends React.Component {
 
@@ -47,11 +46,8 @@ export default class GameListComponent extends React.Component {
 
         const gameCards = this.state.games.map((game) => <GameCard data={game} />);
 
-
         return (
             <div>
-                <IndexSlide />
-                <h1><font color="#00ff00">Mais jogados!!!!</font></h1>
                 <Card.Group itemsPerRow={4}>
                     {gameCards}
                 </Card.Group>

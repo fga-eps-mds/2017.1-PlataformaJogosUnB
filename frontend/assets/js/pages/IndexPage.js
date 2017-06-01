@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Card} from "semantic-ui-react";
+import {Card, Segment} from "semantic-ui-react";
 import IndexSlide from "../layout/IndexSlide";
 import GameCard from "../components/cards/GameCard";
 
@@ -47,11 +47,12 @@ export default class IndexPage extends React.Component {
 
         const gameCards = this.state.games.map((game) => <GameCard data={game} />);
 
-
         return (
             <div>
                 <IndexSlide />
-                <h1><font color="#00ff00">Mais jogados!!!!</font></h1>
+                <Segment raised inverted color='gray'>
+                    <h1>Mais curtidos</h1>
+                </Segment>
                 <Card.Group itemsPerRow={4}>
                     {gameCards}
                 </Card.Group>
