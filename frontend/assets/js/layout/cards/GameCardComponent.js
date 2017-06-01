@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
-import {Grid, Row, Column} from 'react-cellblock';
 
 export default class GameCard extends React.Component{
   constructor(props){
@@ -42,7 +41,6 @@ export default class GameCard extends React.Component{
               </Card.Header>
             </Card.Content>
             <Card.Content extra>
-              <img src={this.props.data.packages[0].platforms[0].icon} height="42" width="42" />
             </Card.Content>
           </Card>
 

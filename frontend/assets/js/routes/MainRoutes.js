@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, Switch } from 'react-router-dom';
-import MenuComponent from '../layout/MenuComponent';
 import Game from '../layout/Game';
-import GameListComponent from '../layout/GameListComponent';
+import IndexPage from '../pages/IndexPage';
 import AboutPage from '../pages/AboutPage';
+import MenuComponent from '../layout/MenuComponent';
 
 export default class MainRoutes extends React.Component {
 
@@ -12,8 +12,7 @@ export default class MainRoutes extends React.Component {
         return (
             <div>
                 <Switch>
-                  <Route exact path="/" render={() => (<h1>/RAIZ</h1>) } />
-                  <Route exact path="/games/" component={GameListComponent} />
+                  <Route exact path="/" component={IndexPage} />
                   <Route path="/games/:id" component={Game} />
                   <Route exact path="/about/" component={AboutPage} />
                 </Switch>

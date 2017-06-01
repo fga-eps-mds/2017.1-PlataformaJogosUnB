@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GameCard from '../layout/card/GameCardComponent'
 import { Card } from 'semantic-ui-react'
-import IndexSlider from './IndexSlider.js'
+import IndexSlider from '../layout/IndexSlider'
+import GameCard from '../layout/cards/GameCardComponent'
 
-export default class GameListComponent extends React.Component {
+export default class IndexPage extends React.Component {
 
     constructor(props){
       super(props);
