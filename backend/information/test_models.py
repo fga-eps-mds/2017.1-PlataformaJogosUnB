@@ -9,9 +9,9 @@ from information.models import Information, Award, Genre, Developer
 from information.factory import InformationFactory
 
 
-def information_creation(description="", launch_year=0, game=None):
+def information_creation(description="", launch_year=0, semester=1, game=None):
     return Information(description=description, launch_year=launch_year,
-                       game=game)
+                       semester=semester, game=game)
 
 
 def now():
@@ -49,37 +49,42 @@ characters!"
         'in the future!'
     description = "simple description" * 3
     game = GameFactory.build()
+    semester = '1'
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
-        (description, None, game,
+    @pytest.mark.parametrize("description, launch_year, \
+                             game, semester, errors_dict", [
+        (description, None, game, semester,
          mount_error_dict(["launch_year"], [[ErrorMessage.NULL]])),
-        (description, "", game,
+        (description, "", game, semester,
          mount_error_dict(["launch_year"], [[ErrorMessage.NOT_INTEGER]])),
-        (description, 1961, game,
+        (description, 1961, game, semester,
          mount_error_dict(["launch_year"], [[ErrorMessage.YEAR_PAST]])),
-        (description, now() + 1, game,
+        (description, now() + 1, game, semester,
          mount_error_dict(["launch_year"], [[error_message_year_future]])),
     ])
-    def test_launch_year_validation(self, description, launch_year,
+    def test_launch_year_validation(self, description, launch_year, semester,
                                     game, errors_dict):
         game.save()
-        information = information_creation(description, launch_year, game)
+        information = information_creation(description, launch_year,
+                                           semester, game)
         validation_test(information, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
-        (None, 2017, game,
+    @pytest.mark.parametrize("description, launch_year, \
+                             game, semester, errors_dict", [
+        (None, 2017, game, semester,
          mount_error_dict(["description"], [[ErrorMessage.NULL]])),
-        ("", 2017, game,
+        ("", 2017, game, semester,
          mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
-        (short_description, 2017, game,
+        (short_description, 2017, game, semester,
          mount_error_dict(["description"], [[error_message_min_value]])),
     ])
-    def test_description_validation(self, description, launch_year, game,
-                                    errors_dict):
+    def test_description_validation(self, description, launch_year, semester,
+                                    game, errors_dict):
         game.save()
-        information = information_creation(description, launch_year, game)
+        information = information_creation(description, launch_year,
+                                           semester, game)
         validation_test(information, errors_dict)
 
 
