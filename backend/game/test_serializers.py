@@ -55,6 +55,7 @@ class TestGameSerializer:
         information_game.description = 'This is a test game used to test the\
         serializer of the model game.'
         information_game.launch_year = 2013
+        information_game.semester = 1
         information_game.game = game
         information_game.save()
         information_game.developers.add(developer)
