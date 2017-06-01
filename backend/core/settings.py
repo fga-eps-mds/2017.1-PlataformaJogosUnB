@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
     'webpack_loader',
+    'social_django',
 ]
 
 LOCAL_APPS = [
