@@ -41,6 +41,7 @@ export default class IndexSlider extends React.Component{
        var temp = [];
        var temps;
        var imgs = [];
+	var images = [];
        var gameCards = gameCards=this.state.games.map((game)=>{
          for(var i = 0;i < game.media_image.length;i++){
              if (game.media_image[i].role === "slider"){
@@ -58,11 +59,15 @@ export default class IndexSlider extends React.Component{
             imgs.push(<img src={image} height="400" width="250" />
           ))
         });
+	for(var i = 0;i < 4;i++){
+                {images.push(imgs[i])}
+        }
+
         {console.log (temp[0])}
         return (
           <Carousel>
 
-          {imgs}
+          {images}
           </Carousel>
         )
     }
