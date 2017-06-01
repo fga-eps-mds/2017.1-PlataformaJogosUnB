@@ -2,25 +2,14 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from smartfields.dependencies import FileDependency
-from smartfields.processors import ImageProcessor
 from game.choices import EXTENSION_CHOICES
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
 )
+from media.utils import image_attribute_resize
 import game.validators as validators
 import os
-
-
-def __cover_image__(attr, width, height):
-    processor = ImageProcessor(format="JPEG",
-                               scale={
-                                   "max_width": width,
-                                   "max_height": height
-                               }
-                               )
-    return FileDependency(attname=attr, processor=processor)
 
 
 class Game(models.Model):
@@ -37,8 +26,8 @@ class Game(models.Model):
         upload_to="images/",
         help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES),
         dependencies=[
-            __cover_image__("slide_image", 1920, 1080),
-            __cover_image__("card_image", 480, 320)
+            image_attribute_resize("slide_image", 1920, 1080),
+            image_attribute_resize("card_image", 480, 320)
         ],
     )
     slide_image = fields.ImageField(null=True, blank=True)

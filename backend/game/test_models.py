@@ -26,6 +26,7 @@ def game_creation(name="", cover_image="", url="",
 def game_created():
     return GameFactory()
 
+
 @pytest.fixture
 def platform_created():
     platform = Platform()

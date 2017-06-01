@@ -3,7 +3,8 @@ from game.factory import PackageFactory, GameFactory
 from game.models import Game, Platform  # Package
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
-from media.models import Image, Video, Soundtrack
+from media.models import Video, Soundtrack
+from media.factory import ImageFactory
 from game.choices import EXTENSION_CHOICES
 from media.choices import ROLE_CHOICES
 
@@ -13,7 +14,6 @@ class TestGameSerializer:
     @pytest.fixture
     def data(self):
         platform = Platform()
-        image_game = Image()
         video_game = Video()
         sound_game = Soundtrack()
         award_game = Award()
@@ -21,17 +21,13 @@ class TestGameSerializer:
         information_game = Information()
 
         game = GameFactory()
+        ImageFactory(game=game)
         package_game = PackageFactory.build(game=game)
 
         platform.name = 'Ubuntu'
         platform.extensions = EXTENSION_CHOICES[0][0]
         platform.icon = 'Platform/linux.png'
         platform.save()
-
-        image_game.image = 'images/exemplo.jpeg'
-        image_game.role = ROLE_CHOICES[0][0]
-        image_game.game_id = game.id
-        image_game.save()
 
         package_game.save()
         package_game.platforms.add(platform)
