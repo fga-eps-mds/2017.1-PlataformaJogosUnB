@@ -80,38 +80,54 @@ class TestGameSerializer:
 
         assert serialized_game.get('cover_image') == game.cover_image.url
 
-        assert serialized_game.get('official_repository') == game.official_repository
+        assert serialized_game.get(
+            'official_repository') == game.official_repository
 
         assert serialized_game.get('version') == game.version
 
-        assert image_serialized.get('image') == game.media_image.first().image.url
+        assert image_serialized.get(
+            'image') == game.media_image.first().image.url
 
-        assert video_serialized.get('video') == game.media_video.first().video.url
+        assert video_serialized.get(
+            'video') == game.media_video.first().video.url
 
-        assert sound_serialized.get('soundtrack') == game.media_soundtrack.first().soundtrack.url
+        assert sound_serialized.get(
+            'soundtrack') == game.media_soundtrack.first().soundtrack.url
 
-        assert information_serialized.get('description') == game.information.description
+        assert information_serialized.get(
+            'description') == game.information.description
 
-        assert information_serialized.get('launch_year') == game.information.launch_year
+        assert information_serialized.get(
+            'launch_year') == game.information.launch_year
 
-        assert developer_serialized.get('name') == game.information.developers.first().name
+        assert developer_serialized.get(
+            'name') == game.information.developers.first().name
 
-        assert developer_serialized.get('login') == game.information.developers.first().login
+        assert developer_serialized.get(
+            'login') == game.information.developers.first().login
 
-        assert developer_serialized.get('github_page') == game.information.developers.first().github_page
+        assert developer_serialized.get(
+            'github_page') == game.information.developers.first().github_page
 
-        assert award_serialized.get('name') == game.information.awards.first().name
+        assert award_serialized.get(
+            'name') == game.information.awards.first().name
 
-        assert award_serialized.get('year') == game.information.awards.first().year
+        assert award_serialized.get(
+            'year') == game.information.awards.first().year
 
-        assert award_serialized.get('place') == game.information.awards.first().place
+        assert award_serialized.get(
+            'place') == game.information.awards.first().place
 
-        assert package_serialized.get('package') == game.packages.first().package.url
+        assert package_serialized.get(
+            'package') == game.packages.first().package.url
 
-        assert platform_serialized.get('name') == game.packages.first().platforms.first().name
+        assert platform_serialized.get(
+            'name') == game.packages.first().platforms.first().name
 
-        assert platform_serialized.get('extensions') == game.packages.first().platforms.first().extensions
+        assert platform_serialized.get(
+            'extensions') == game.packages.first().platforms.first().extensions
 
-        assert platform_serialized.get('icon') == game.packages.first().platforms.first().icon.url
+        assert platform_serialized.get(
+            'icon') == game.packages.first().platforms.first().icon.url
 
         game.delete()
