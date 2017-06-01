@@ -55,12 +55,13 @@ export default class IndexSlider extends React.Component{
 
         temps = temp.map((image)=>{
           return (
-            imgs.push(<img src={image} height="250" width="250" />
+            imgs.push(<img src={image} height="400" width="250" />
           ))
         });
         {console.log (temp[0])}
         return (
           <Carousel>
+
           {imgs}
           </Carousel>
         )

@@ -33,7 +33,14 @@ export default class GameListComponent extends React.Component {
       }
 
     render() {
-      var gameCards = gameCards=this.state.games.map((game)=>{return <GameCard data={game} />});
+	var images=[];
+	var count = 0;
+      var gameCards= gameCards=this.state.games.map((game)=>{
+		return <GameCard data={game} />
+	});
+	for(var i = 0;i < 8;i++){
+		{images.push(gameCards[i])}
+	} 
       return(
          <div>
                <br/>
@@ -45,7 +52,7 @@ export default class GameListComponent extends React.Component {
                <br/>
             <h1><font color="#00ff00">Mais jogados!!!!</font></h1>
             <Card.Group itemsPerRow={4}>
-            {gameCards}
+            {images}
             </Card.Group>
         </div>
       );
