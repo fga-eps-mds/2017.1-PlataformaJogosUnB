@@ -185,5 +185,8 @@ WEBPACK_LOADER = {
 # Dev settings, shell plus
 SHELL_PLUS_PRE_IMPORTS = [
     ("game.factory", ("GameFactory", "PackageFactory",
-                      "PlatformFactory"))
+                      "PlatformFactory")),
+    ("information.factory", ("AwardFactory", "InformationFactory",
+                             "DeveloperFactory", "GenreFactory")),
+    ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory"))
 ]
