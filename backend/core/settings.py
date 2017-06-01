@@ -188,5 +188,6 @@ SHELL_PLUS_PRE_IMPORTS = [
                       "PlatformFactory")),
     ("information.factory", ("AwardFactory", "InformationFactory",
                              "DeveloperFactory", "GenreFactory")),
-    ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory"))
+    ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
+    ("core.factory", ("UserFactory")),
 ]
