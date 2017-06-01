@@ -1,7 +1,7 @@
 import React from 'react';
-import InformationCard from './InformationCard.js';
-import DescriptionCard from './DescriptionCard.js';
-import InternalSlider from './InternalSlider.js';
+import InformationCard from './cards/InformationCard.js';
+import DescriptionCard from './cards/DescriptionCard.js';
+import InternalSlider from '../layout/InternalSlider.js';
 import { Card, Grid } from 'semantic-ui-react'
 
 
@@ -53,7 +53,7 @@ export default class Game extends React.Component{
                   developers={this.state.game.information.developers}
                 />
               </Grid.Column>
-              </Grid.Row>
+            </Grid.Row>
           </Grid>
       </div>
     );

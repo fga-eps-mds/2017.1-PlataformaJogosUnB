@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, Switch } from 'react-router-dom';
-import Game from '../layout/Game';
+import Game from '../components/Game';
 import IndexPage from '../pages/IndexPage';
 import AboutPage from '../pages/AboutPage';
-import MenuComponent from '../layout/MenuComponent';
 
 export default class MainRoutes extends React.Component {
 

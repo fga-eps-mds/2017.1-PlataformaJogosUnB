@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card } from 'semantic-ui-react'
 import IndexSlider from '../layout/IndexSlider'
-import GameCard from '../layout/cards/GameCardComponent'
+import GameCard from '../components/cards/GameCard'
 
 export default class IndexPage extends React.Component {
 
