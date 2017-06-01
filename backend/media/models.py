@@ -3,6 +3,7 @@ from django.db import models
 from smartfields import fields
 from game.models import Game
 from media.choices import ROLE_CHOICES
+from media.utils import image_attribute_resize
 import core.validators as general_validators
 import media.validators as validators
 import os
@@ -48,8 +49,10 @@ class Image(Media):
         help_text=_(
             'Images for the game. ' +
             general_validators.HELP_TEXT_IMAGES
-        )
+        ),
+        dependencies=[image_attribute_resize("slide", 1920, 1080)]
     )
+    slide = fields.ImageField(blank=True)
 
     def __str__(self):
         if self.image:
