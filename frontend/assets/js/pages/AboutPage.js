@@ -1,23 +1,24 @@
-import React from 'react';
-import AboutCard from '../layout/AboutCard';
-import { Grid, Card, Container } from 'semantic-ui-react';
+import React from "react";
+import AboutCard from "../layout/AboutCard";
+import {Card, Container, Grid} from "semantic-ui-react";
 
 
-export default class AboutPage extends React.Component{
+export default class AboutPage extends React.Component {
 
-    render(){
-        const titleCardHeader = 'UnB Games';
+    render () {
+
+        const titleCardHeader = "UnB Games";
         const descriptionCardHeader = [
-            'A UnB games e a plataforma de jogos oficial da UnB.',
-            'Aqui encontra-se jogos criados pelos alunos das disicplinas',
-            'de desenvolvimento de jogos em parceria com alunos de artes',
-            'cenicas, visuais e musicais. Divarta-se fazendo o download',
-            'do seu jogo preferido disponivel a varias plataformas.'
-        ].join(' ');
+            "A UnB games e a plataforma de jogos oficial da UnB.",
+            "Aqui encontra-se jogos criados pelos alunos das disicplinas",
+            "de desenvolvimento de jogos em parceria com alunos de artes",
+            "cenicas, visuais e musicais. Divarta-se fazendo o download",
+            "do seu jogo preferido disponivel a varias plataformas."
+        ].join(" ");
 
-        return(
-            <Grid padded='vertically'>
-                <Grid.Row color='red'>
+        return (
+            <Grid padded="vertically">
+                <Grid.Row color="red">
                     <Container>
                         <Card.Group itemsPerRow={1}>
                             <AboutCard
@@ -32,8 +33,8 @@ export default class AboutPage extends React.Component{
                     <Container>
                         <Card.Group itemsPerRow={2}>
                             <AboutCard
-                                title={'Venha conhecer'}
-                                description={'desfrute de inumeros jogos'}
+                                title={"Venha conhecer"}
+                                description={"desfrute de inumeros jogos"}
                                 sizeGrid={1}
                             />
                             <AboutCard />
@@ -42,5 +43,6 @@ export default class AboutPage extends React.Component{
                 </Grid.Row>
             </Grid>
         );
+
     }
 }

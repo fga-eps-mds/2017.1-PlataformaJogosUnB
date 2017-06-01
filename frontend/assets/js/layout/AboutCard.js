@@ -1,10 +1,9 @@
-import React from 'react';
-import { Card, Image, Grid } from 'semantic-ui-react';
-
+import React from "react";
+import {Card, Grid, Image} from "semantic-ui-react";
 
 export default class AboutCardComponent extends React.Component {
 
-    render(){ 
+    render () {
 
         return (
             <Card>
@@ -21,7 +20,7 @@ export default class AboutCardComponent extends React.Component {
                                     {this.props.description}
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Image centered size='medium' src={this.props.image} />
+                                    <Image centered size="medium" src={this.props.image} />
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
@@ -29,5 +28,6 @@ export default class AboutCardComponent extends React.Component {
                 </Card.Content>
             </Card>
         );
+
     }
 }
