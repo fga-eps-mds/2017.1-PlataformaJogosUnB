@@ -30,19 +30,31 @@ export default class GameCard extends React.Component{
   componentDidMount() {
         this.loadGameFromServer();
     }
+  hasPackage(){
+	var package_game 
+	var image_icon 
+	if(typeof  this.props.data.packages[0] === "undefined"){
+		console.log("entrou")
+		image_icon = ""
+	}else{
+		image_icon = <img src={this.props.data.packages[0].platforms[0].icon}  height="42" width="42"/> 
+	}			
+	return image_icon
+  }
 
   render(){
+
     return (
 
           <Card>
-          <img src={this.props.data.cover_image}  height="142"/>
+		<img src={this.props.data.cover_image} height="142" />
             <Card.Content>
               <Card.Header>
                 {this.props.data.name}
               </Card.Header>
             </Card.Content>
             <Card.Content extra>
-              <img src={this.props.data.packages[0].platforms[0].icon} height="42" width="42" />
+		{this.hasPackage()}
             </Card.Content>
           </Card>
 
