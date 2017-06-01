@@ -14,15 +14,28 @@ import core.validators as general_validators
 UNB_CREATION = 1962
 MIN_DESCRIPTION = 50
 MIN_GENRE_DESCRIPTION = 20
+MIN_SEMESTER_VALUE = 1
+MAX_SEMESTER_VALUE = 2
+MIN_IDX = 0
+MAX_IDX = 1
 
 
-def year_validators(model_name):
-    return [MinValueValidator(UNB_CREATION,
-                              _('Our University had ' +
-                                'not been built at this time!')),
-            MaxValueValidator(int(datetime.datetime.now().year),
-                              _('We believe the {} '.format(model_name) +
-                                'was not won in the future!'))]
+def min_max_validators(values, messages):
+    return [MinValueValidator(values[MIN_IDX],
+                              _(messages[MIN_IDX])),
+            MaxValueValidator(values[MAX_IDX],
+                              _(messages[MAX_IDX]))]
+
+
+def years_validator(model_name):
+    return {
+        'values': (UNB_CREATION, int(datetime.datetime.now().year)),
+        'messages': (
+            _('Our University had not been built at this time!'),
+            _('We believe the {} '.format(model_name) +
+              'was not won in the future!')
+        )
+    }
 
 
 class Award(models.Model):
@@ -35,7 +48,7 @@ class Award(models.Model):
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=year_validators('award'),
+        validators=min_max_validators(**years_validator('award')),
         help_text=_('Year the award was won.')
     )
 
@@ -136,8 +149,19 @@ class Information(models.Model):
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=year_validators('game'),
+        validators=min_max_validators(**years_validator('game')),
         help_text=_('Which was the year the game was launched?'),
+    )
+
+    semester = models.PositiveIntegerField(
+        _('Semester'),
+        validators=min_max_validators(
+            (MIN_SEMESTER_VALUE, MAX_SEMESTER_VALUE),
+            (_("The semester can't be lower than 1"),
+             _("The semester can't be higher than 2"))
+        ),
+        help_text=_('Which was the semester the game was launched?'),
+        choices=[(1, _('1')), (2, _('2'))],
     )
 
     game = models.OneToOneField(
