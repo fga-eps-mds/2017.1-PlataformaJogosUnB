@@ -1,5 +1,5 @@
-from django.test import TestCase
-from game.factory import PackageFactory
+import pytest
+from game.factory import PackageFactory, GameFactory
 from game.models import Game, Platform  # Package
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
@@ -8,10 +8,10 @@ from game.choices import EXTENSION_CHOICES
 from media.choices import ROLE_CHOICES
 
 
-class GameSerializerTestCase(TestCase):
+class TestGameSerializer:
 
-    def setUp(self):
-        game = Game()
+    @pytest.fixture
+    def data(self):
         platform = Platform()
         image_game = Image()
         video_game = Video()
@@ -20,11 +20,7 @@ class GameSerializerTestCase(TestCase):
         developer = Developer()
         information_game = Information()
 
-        game.name = 'Jogo teste 1'
-        game.cover_image = 'Image_do_jogo.jpg'
-        game.version = '1.3.2'
-        game.official_repository = 'https://github.com/PlataformaJogosUnb/'
-        game.save()
+        game = GameFactory()
         package_game = PackageFactory.build(game=game)
 
         platform.name = 'Ubuntu'
@@ -68,8 +64,9 @@ class GameSerializerTestCase(TestCase):
         information_game.developers.add(developer)
         information_game.awards.add(award_game)
 
-    def test_serialization_game_object(self):
-        game = Game.objects.get(name="Jogo teste 1")
+    @pytest.mark.django_db
+    def test_serialization_game_object(self, data):
+        game = Game.objects.last()
         serialized_game = GameSerializer(game).data
 
         information_serialized = serialized_game.get('information')
@@ -83,60 +80,42 @@ class GameSerializerTestCase(TestCase):
         video_serialized = serialized_game.get('media_video')[0]
         sound_serialized = serialized_game.get('media_soundtrack')[0]
 
-        self.assertEqual(serialized_game.get('name'), game.name)
+        assert serialized_game.get('name') == game.name
 
-        self.assertEqual(serialized_game.get('cover_image'),
-                         game.cover_image.url)
+        assert serialized_game.get('cover_image') == game.cover_image.url
 
-        self.assertEqual(serialized_game.get('official_repository'),
-                         game.official_repository)
+        assert serialized_game.get('official_repository') == game.official_repository
 
-        self.assertEqual(serialized_game.get('version'),
-                         game.version)
+        assert serialized_game.get('version') == game.version
 
-        self.assertEqual(image_serialized.get('image'),
-                         game.media_image.first().image.url)
+        assert image_serialized.get('image') == game.media_image.first().image.url
 
-        self.assertEqual(video_serialized.get('video'),
-                         game.media_video.first().video.url)
+        assert video_serialized.get('video') == game.media_video.first().video.url
 
-        self.assertEqual(sound_serialized.get('soundtrack'),
-                         game.media_soundtrack.first().soundtrack.url)
+        assert sound_serialized.get('soundtrack') == game.media_soundtrack.first().soundtrack.url
 
-        self.assertEqual(information_serialized.get('description'),
-                         game.information.description)
+        assert information_serialized.get('description') == game.information.description
 
-        self.assertEqual(information_serialized.get('launch_year'),
-                         game.information.launch_year)
+        assert information_serialized.get('launch_year') == game.information.launch_year
 
-        self.assertEqual(developer_serialized.get('name'),
-                         game.information.developers.first().name)
+        assert developer_serialized.get('name') == game.information.developers.first().name
 
-        self.assertEqual(developer_serialized.get('login'),
-                         game.information.developers.first().login)
+        assert developer_serialized.get('login') == game.information.developers.first().login
 
-        self.assertEqual(developer_serialized.get('github_page'),
-                         game.information.developers.first().github_page)
+        assert developer_serialized.get('github_page') == game.information.developers.first().github_page
 
-        self.assertEqual(award_serialized.get('name'),
-                         game.information.awards.first().name)
+        assert award_serialized.get('name') == game.information.awards.first().name
 
-        self.assertEqual(award_serialized.get('year'),
-                         game.information.awards.first().year)
+        assert award_serialized.get('year') == game.information.awards.first().year
 
-        self.assertEqual(award_serialized.get('place'),
-                         game.information.awards.first().place)
+        assert award_serialized.get('place') == game.information.awards.first().place
 
-        self.assertEqual(package_serialized.get('package'),
-                         game.packages.first().package.url)
+        assert package_serialized.get('package') == game.packages.first().package.url
 
-        self.assertEqual(platform_serialized.get('name'),
-                         game.packages.first().platforms.first().name)
+        assert platform_serialized.get('name') == game.packages.first().platforms.first().name
 
-        self.assertEqual(platform_serialized.get('extensions'),
-                         game.packages.first().platforms.first().extensions)
+        assert platform_serialized.get('extensions') == game.packages.first().platforms.first().extensions
 
-        self.assertEqual(platform_serialized.get('icon'),
-                         game.packages.first().platforms.first().icon.url)
+        assert platform_serialized.get('icon') == game.packages.first().platforms.first().icon.url
 
         game.delete()
