@@ -10,6 +10,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["sk"]
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ["authfacebookkey"]
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -92,6 +95,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -99,6 +104,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -191,3 +204,8 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),
 ]
+
+#Social Authentication
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'index'
