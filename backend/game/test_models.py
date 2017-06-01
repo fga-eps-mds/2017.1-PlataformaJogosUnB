@@ -24,14 +24,7 @@ def game_creation(name="", cover_image="", url="",
 
 @pytest.fixture
 def game_created():
-    game = Game()
-    game.name = 'mario'
-    game.cover_image = "image.jpg"
-    game.official_repository = 'https://github.com/PlataformaJogosUnb/'
-    game.game_activated = True
-    game.save()
-    return game
-
+    return GameFactory()
 
 @pytest.fixture
 def platform_created():
