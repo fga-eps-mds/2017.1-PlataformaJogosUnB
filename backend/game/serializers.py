@@ -35,6 +35,7 @@ class GameSerializer(serializers.ModelSerializer):
                   'cover_image',
                   'version',
                   'official_repository',
+                  'game_activated',
                   'information',
                   'packages',
                   'media_image',

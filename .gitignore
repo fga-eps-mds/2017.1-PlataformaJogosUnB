@@ -124,7 +124,7 @@ yarn-error.log*
 *.pyc
 
 # Django DB migrations
-migrations/
+000*.py
 
 #Public files
 /backend/public/
