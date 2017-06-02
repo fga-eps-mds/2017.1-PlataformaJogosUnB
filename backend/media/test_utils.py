@@ -16,12 +16,13 @@ class TestImageAttributeRezise:
 
     def test_processor_format(self, file_dependency):
         assert file_dependency._processor.get_ext() == '.jpg'
+
     def test_processor_params(self, file_dependency):
         expected_params = {
-          'scale': {
-            'max_width': 100,
-            'max_height': 200
-          },
-          'format': 'JPEG'
+            'scale': {
+                'max_width': 100,
+                'max_height': 200
+            },
+            'format': 'JPEG'
         }
         assert file_dependency._processor.default_params == expected_params

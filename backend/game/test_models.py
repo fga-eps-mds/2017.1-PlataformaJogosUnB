@@ -66,6 +66,10 @@ class TestPlatform:
         platform = Platform(name=name, icon=icon, extensions=extensions)
         validation_test(platform, errors_dict)
 
+    def test_str(self):
+        platform = PlatformFactory.build()
+        assert str(platform) == "{} (.deb)".format(platform.name)
+
 
 class TestPackage:
     '''
@@ -99,3 +103,12 @@ class TestPackage:
         package.package.name = package.package.name.replace('deb', extension)
         package.save()
         assert package == Package.objects.last()
+
+    @pytest.fixture
+    def platform(self):
+        return PlatformFactory()
+
+    @pytest.mark.django_db
+    def test_package_str(self, platform):
+        package = PackageFactory()
+        assert str(package) == "{} (.deb)".format(package.game.name)

@@ -55,7 +55,7 @@ characters!"
     ])
     def test_launch_year_validation(self, launch_year, errors_dict, game):
         information = InformationFactory.build(launch_year=launch_year,
-          game=game)
+                                               game=game)
         validation_test(information, errors_dict)
 
     @pytest.mark.django_db
@@ -67,7 +67,7 @@ characters!"
     ])
     def test_description_validation(self, description, errors_dict, game):
         information = InformationFactory.build(description=description,
-        game=game)
+                                               game=game)
         validation_test(information, errors_dict)
 
 
@@ -253,8 +253,9 @@ class TestDeveloper:
     def test_str_developer(self, developer_creation):
         assert str(developer_creation) == "Developer <https://github.com/dev>"
 
+
 class TestStatistic:
 
     def test_str(self):
-        statistic = Statistic(downloads_amount=30,accesses_amount=10)
+        statistic = Statistic(downloads_amount=30, accesses_amount=10)
         assert str(statistic) == 'statistic: 10'

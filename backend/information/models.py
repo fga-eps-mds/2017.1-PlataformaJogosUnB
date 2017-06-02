@@ -2,8 +2,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game, HELP_TEXT_IMAGES
 from django.core.validators import (
-    MinValueValidator,
-    MaxValueValidator,
     MinLengthValidator,
     EmailValidator,
     URLValidator,

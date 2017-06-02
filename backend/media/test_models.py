@@ -11,7 +11,6 @@ from media.models import (
 import pytest
 from media.factory import ImageFactory, SoundtrackFactory, VideoFactory
 from game.factory import GameFactory
-from core.settings import BASE_DIR
 
 
 @pytest.fixture
@@ -23,14 +22,15 @@ def game_created():
 class TestMediasStr:
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize('model, attr',[
+    @pytest.mark.parametrize('model, attr', [
         (SoundtrackFactory, 'soundtrack'),
         (ImageFactory, 'image'),
         (VideoFactory, 'video')
     ])
     def test_media_str(self, model, attr, game_created):
         midia = model.build(game=game_created)
-        assert str(midia) == 'file = "{}", game = game'.format(getattr(midia, attr).name)
+        assert str(midia) == 'file = "{}", game = game'.format(
+            getattr(midia, attr).name)
         setattr(midia, attr, None)
         assert str(midia) == '{} has been deleted!'.format(attr.capitalize())
 
@@ -53,6 +53,7 @@ class TestMediaImage:
         image = ImageFactory.build(game=game_created)
         image.save()
         assert Image.objects.last() == image
+
 
 class TestMediaSoundtrack:
 
@@ -93,4 +94,3 @@ class TestMediaVideo:
         video = VideoFactory.build(game=game_created)
         video.save()
         assert Video.objects.last() == video
-
