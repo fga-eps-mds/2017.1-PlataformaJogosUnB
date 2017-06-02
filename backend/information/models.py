@@ -164,6 +164,7 @@ class Information(models.Model):
         related_name='awards',
         blank=True
     )
+    rating = models.ManyToManyField
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -191,3 +192,15 @@ class Statistic(models.Model):
 
     def __str__(self):
         return "statistic: {0}".format(self.accesses_amount)
+
+class Rating(models.Model):
+
+    vote = models.BooleanField(
+        _('Like or dislike some game.'),
+        help_text=_('Votes of the game.')
+    )
+
+    email_authenticate = models.EmailField(
+        _('Email authentication'),
+        help_text=_('Email that authentic users.')
+    )
