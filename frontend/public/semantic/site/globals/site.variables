@@ -2,7 +2,7 @@
      User Global Variables
 *******************************/
 
-@pageBackground : #2c2f36;
+@pageBackground : #292a2f;
 @headerFont        : 'Orbitron', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @pageFont          : 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @googleFontName    : 'Orbitron';
@@ -13,7 +13,7 @@
 --------------------*/
 
 /*---  Colors  ---*/
-@orange			  : #2c2f36;
+@orange			  : #f08422;
 @red              : #DB2828;
 @orange           : #2c2f36;
 @yellow           : #FBBD08;

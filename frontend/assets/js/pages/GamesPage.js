@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Card, Segment} from "semantic-ui-react";
+import {Card, Segment, Container} from "semantic-ui-react";
 import GameList from "../components/GameList";
 
 export default class GamesPage extends React.Component {
@@ -8,12 +8,12 @@ export default class GamesPage extends React.Component {
     render () {
 
         return (
-            <div>
-                <Segment padded inverted color='grey'>
+            <Container>
+                <Segment padded inverted color='brown'>
                     <h1>Lista de jogos</h1>
                 </Segment>
                 <GameList />
-            </div>
+            </Container>
         );
 
     }
