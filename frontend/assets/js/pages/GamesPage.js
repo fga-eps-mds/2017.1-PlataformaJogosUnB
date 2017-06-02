@@ -9,7 +9,7 @@ export default class GamesPage extends React.Component {
 
         return (
             <div>
-                <Segment raised inverted color='gray'>
+                <Segment padded inverted color='grey'>
                     <h1>Lista de jogos</h1>
                 </Segment>
                 <GameList />

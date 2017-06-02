@@ -46,7 +46,7 @@ export default class MenuComponent extends React.Component {
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
-                                        <Icon bars inverted onClick={this.showMenuMobile} />
+                                        <Icon name='download' inverted onClick={this.showMenuMobile} />
                                     </Menu>
                                 </Segment>
                             </Sidebar.Pusher>
@@ -58,9 +58,9 @@ export default class MenuComponent extends React.Component {
                             <Segment inverted stackable container>
                                 <Menu inverted pointing secondary>
                                     <Container>
-                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}>Index</Menu.Item>
-                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}>Jogos</Menu.Item>
-                                        <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}>Sobre</Menu.Item>
+                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
+                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
+                                        <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
                                     </Container>
                                 </Menu>
                             </Segment>

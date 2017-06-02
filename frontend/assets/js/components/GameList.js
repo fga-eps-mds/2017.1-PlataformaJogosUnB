@@ -43,16 +43,22 @@ export default class GameListComponent extends React.Component {
     }
 
     render () {
+        var images=[];
+        var count = 0;
+        var gameCards= gameCards=this.state.games.map((game)=>{
+          return <GameCard data={game} />
+        });
+        
+        for(var i = 0;i < 8;i++){
+          {images.push(gameCards[i])}
+        } 
 
-        const gameCards = this.state.games.map((game) => <GameCard data={game} />);
-
-        return (
-            <div>
-                <Card.Group itemsPerRow={4}>
-                    {gameCards}
-                </Card.Group>
-            </div>
+        return(
+          <div>
+            <Card.Group itemsPerRow={4}>
+              {images}
+            </Card.Group>
+          </div>
         );
-
     }
 }

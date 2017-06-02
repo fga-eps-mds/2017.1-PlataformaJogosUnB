@@ -6,7 +6,7 @@ export default class AboutCardComponent extends React.Component {
     render () {
 
         return (
-            <Card>
+            <Card color="orange">
                 <Card.Content>
                     <Card.Header>
                         {this.props.title}
