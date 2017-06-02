@@ -1,14 +1,14 @@
 import React from 'react';
-import InformationCard from './InformationCard.js';
-import DescriptionCard from './DescriptionCard.js';
-import InternalSlider from './InternalSlider.js';
-import { Card, Grid } from 'semantic-ui-react'
+import InformationCard from '../components/cards/InformationCard.js';
+import DescriptionCard from '../components/cards/DescriptionCard.js';
+import InternalSlider from '../layout/InternalSlider.js';
+import { Card, Grid, Container } from 'semantic-ui-react'
 
 
 export default class Game extends React.Component{
   constructor(props){
     super(props);
-    this.state = { game: {information: {developers: []}, genres:[], packages:[] }};
+    this.state = { game: {information: {developers: [], awards: [], packages: []} }};
   }
 
   loadGameFromServer(){
@@ -38,8 +38,8 @@ export default class Game extends React.Component{
   render(){
 
     return (
-      <div>
-        <h1>{this.state.game.name} </h1>
+      <Container>
+        <h1 color='f0f8ff'>{this.state.game.name} </h1>
           <Grid>
             <Grid.Row>
               <Grid.Column width={10}>
@@ -50,11 +50,20 @@ export default class Game extends React.Component{
                   version={ this.state.game.version }
                   official_repository={ this.state.game.official_repository }
                   launch_year={ this.state.game.information.launch_year }
-                  developers={this.state.game.information.developers}
                 />
               </Grid.Column>
               </Grid.Row>
-          </Grid>
+
+              <Grid.Row>
+              <Grid.Column width={10}>
+                <InformationCard
+                  description={this.state.game.information.description}
+                  developers={this.state.game.information.developers}
+                  awards={this.state.game.information.awards}
+                />
+              </Grid.Column>
+              </Grid.Row>
+          </Container>
       </div>
     );
   }
