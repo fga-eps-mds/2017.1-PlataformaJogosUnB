@@ -2,7 +2,7 @@ import React from 'react';
 import InformationCard from '../components/cards/InformationCard.js';
 import DescriptionCard from '../components/cards/DescriptionCard.js';
 import InternalSlide from '../layout/InternalSlide.js';
-import { Card, Grid } from 'semantic-ui-react'
+import { Card, Grid, Container } from 'semantic-ui-react'
 
 
 export default class Game extends React.Component{
@@ -38,7 +38,7 @@ export default class Game extends React.Component{
   render(){
 
     return (
-      <div>
+      <Container>
         <h1 color='f0f8ff'>{this.state.game.name} </h1>
           <Grid>
             <Grid.Row>
@@ -64,7 +64,7 @@ export default class Game extends React.Component{
               </Grid.Column>
               </Grid.Row>
           </Grid>
-      </div>
+      </Container>
     );
   }
 }
