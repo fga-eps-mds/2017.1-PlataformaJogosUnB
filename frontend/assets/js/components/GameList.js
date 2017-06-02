@@ -44,22 +44,22 @@ export default class GameListComponent extends React.Component {
     }
 
     render () {
-        var gameCards = this.state.games.map((game,index)=>{
-          return (
+
+        const gameCards = this.state.games.map((game, index) =>
             <Grid.Column>
-              <Link to={`/games/${game.pk}`} params={{id: game.pk}}>
-                <GameCard data={game} />
-              </Link>
-            </Grid.Column>
-          )
-        });
-        
-        return(
-          <div>
-            <Grid doubling columns={5}>  
-            {gameCards}
-            </Grid>
-          </div>
+                  <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
+                    <GameCard data={game} />
+                </Link>
+              </Grid.Column>
+          );
+
+        return (
+            <div>
+                <Grid doubling columns={5}>
+                    {gameCards}
+                </Grid>
+            </div>
         );
+
     }
 }

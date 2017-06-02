@@ -9,18 +9,18 @@ export default class AboutPage extends React.Component {
 
         const titleCardHeader = "UnB Games";
         const descriptionCardHeader = [
-                'Atualmente a Unviersidade de Brasília (UnB) oferece aos seus alunos a possibilidade fazerem parte',
-                'da produção de jogos digitais. Se trata de uma disciplina multidisciplinar promovendo a integração',
-                'entre as áreas de design, programação e música.\n',
-                'Os que cursam a disciplina pelo design - a qual é intitulada Design de Jogos - são responsáveis pela',
-                'produção artística da mídia. A produção do motor gráfico e de toda a progamação é responsabilidade dos',
-                'alunos que cursam Ciência da Computacao (Campus Darcy Ribeiro)  ou Engenharia de Software (Campus Gama).',
-                'E os responsáveis pelas músicas e efeitos sonoros dos jogos são os alunos da disciplina Música para Jogos',
-                'restrita ao curso de música do Campus Darcy Ribeiro.\n',            
-                'Ao longo do semestre, os alunos devem formar equipes interdisciplinares e produzir jogos inteiramente originais,',
-                'e isso dá razão à existência do site em questão.  Ele foi criado com o intuito de facilitar o acesso aos jogos',
-                'produzidos ao longo da disciplina, trazendo assim exemplos para futuros alunos e maior visibilidade e incentivo',
-                'aos que já finalizaram a disciplina.'].join(" ");
+            "Atualmente a Unviersidade de Brasília (UnB) oferece aos seus alunos a possibilidade fazerem parte",
+            "da produção de jogos digitais. Se trata de uma disciplina multidisciplinar promovendo a integração",
+            "entre as áreas de design, programação e música.\n",
+            "Os que cursam a disciplina pelo design - a qual é intitulada Design de Jogos - são responsáveis pela",
+            "produção artística da mídia. A produção do motor gráfico e de toda a progamação é responsabilidade dos",
+            "alunos que cursam Ciência da Computacao (Campus Darcy Ribeiro)  ou Engenharia de Software (Campus Gama).",
+            "E os responsáveis pelas músicas e efeitos sonoros dos jogos são os alunos da disciplina Música para Jogos",
+            "restrita ao curso de música do Campus Darcy Ribeiro.\n",
+            "Ao longo do semestre, os alunos devem formar equipes interdisciplinares e produzir jogos inteiramente originais,",
+            "e isso dá razão à existência do site em questão.  Ele foi criado com o intuito de facilitar o acesso aos jogos",
+            "produzidos ao longo da disciplina, trazendo assim exemplos para futuros alunos e maior visibilidade e incentivo",
+            "aos que já finalizaram a disciplina."].join(" ");
 
         return (
             <Grid padded="vertically">

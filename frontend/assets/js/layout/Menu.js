@@ -46,7 +46,7 @@ export default class MenuComponent extends React.Component {
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
-                                        <Icon name='download' inverted onClick={this.showMenuMobile} />
+                                        <Icon name="download" inverted onClick={this.showMenuMobile} />
                                     </Menu>
                                 </Segment>
                             </Sidebar.Pusher>
