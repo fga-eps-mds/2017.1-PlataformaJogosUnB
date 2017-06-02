@@ -35,7 +35,7 @@ export default class GameCard extends React.Component{
     return (
 
           <Card>
-          <img src={this.props.data.cover_image}  height="142"/>
+          <img src={this.props.data.card_image}  height="142"/>
             <Card.Content>
               <Card.Header>
                 {this.props.data.name}
