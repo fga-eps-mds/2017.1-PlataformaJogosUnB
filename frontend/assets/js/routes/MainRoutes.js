@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, Link, Switch } from 'react-router-dom';
 import GamePage from '../pages/GamePage';
 import GameList from '../components/GameList';
+import MenuComponent from '../layout/MenuComponent';
 import Game from "../pages/Game";
 import IndexPage from "../pages/IndexPage";
 import AboutPage from "../pages/AboutPage";
