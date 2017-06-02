@@ -11,30 +11,9 @@ from game.factory import PackageFactory, GameFactory, PlatformFactory
 from unittest.mock import patch
 
 
-def game_creation(name="", cover_image="", url="",
-                  launch_year=0, version="1.3.4"):
-    return Game(
-        name=name,
-        cover_image=cover_image,
-        official_repository=url,
-        game_activated=True,
-        version=version
-    )
-
-
 @pytest.fixture
 def game_created():
     return GameFactory()
-
-
-@pytest.fixture
-def platform_created():
-    platform = Platform()
-    platform.name = 'Ubuntu'
-    platform.extensions = 'deb'
-    platform.icon = "icon.png"
-    platform.save()
-    return platform
 
 
 class TestPackageModel:
