@@ -32,6 +32,7 @@ class InformationSerializer(serializers.ModelSerializer):
         model = Information
         fields = ['description',
                   'launch_year',
+                  'semester',
                   'developers',
                   'awards',
                   'genres']

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
 import {Grid, Row, Column} from 'react-cellblock';
 
+const styleImage = {height: '100%'};
 export default class GameCard extends React.Component{
   constructor(props){
     super(props);
@@ -35,7 +36,7 @@ export default class GameCard extends React.Component{
     return (
 
           <Card>
-          <img src={this.props.data.card_image}  height="142"/>
+          <img src={this.props.data.card_image} style={styleImage}/>
             <Card.Content>
               <Card.Header>
                 {this.props.data.name}
