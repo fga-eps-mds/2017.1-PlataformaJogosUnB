@@ -8,34 +8,14 @@ from django.core.validators import (
     EmailValidator,
     URLValidator,
 )
-import datetime
 import core.validators as general_validators
+from information.validators import min_max_validators, years_validator
 
-UNB_CREATION = 1962
+
 MIN_DESCRIPTION = 50
 MIN_GENRE_DESCRIPTION = 20
 MIN_SEMESTER_VALUE = 1
 MAX_SEMESTER_VALUE = 2
-MIN_IDX = 0
-MAX_IDX = 1
-
-
-def min_max_validators(values, messages):
-    return [MinValueValidator(values[MIN_IDX],
-                              _(messages[MIN_IDX])),
-            MaxValueValidator(values[MAX_IDX],
-                              _(messages[MAX_IDX]))]
-
-
-def years_validator(model_name):
-    return {
-        'values': (UNB_CREATION, int(datetime.datetime.now().year)),
-        'messages': (
-            _('Our University had not been built at this time!'),
-            _('We believe the {} '.format(model_name) +
-              'was not won in the future!')
-        )
-    }
 
 
 class Award(models.Model):
