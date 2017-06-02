@@ -6,7 +6,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ['image', 'role']
+        fields = ['image', 'slide', 'role']
 
 
 class VideoSerializer(serializers.ModelSerializer):

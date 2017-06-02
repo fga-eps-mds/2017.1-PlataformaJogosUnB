@@ -9,4 +9,5 @@ def image_attribute_resize(attr, width, height):
                                    "max_height": height
                                }
                                )
+  
     return FileDependency(attname=attr, processor=processor)
