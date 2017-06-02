@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Card} from "semantic-ui-react";
+import {Link} from "react-router-dom";
+import {Card, Grid} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
 export default class GameListComponent extends React.Component {
@@ -43,21 +44,21 @@ export default class GameListComponent extends React.Component {
     }
 
     render () {
-        var images=[];
-        var count = 0;
-        var gameCards= gameCards=this.state.games.map((game)=>{
-          return <GameCard data={game} />
+        var gameCards = this.state.games.map((game,index)=>{
+          return (
+            <Grid.Column>
+              <Link to={`/games/${game.pk}`} params={{id: game.pk}}>
+                <GameCard data={game} />
+              </Link>
+            </Grid.Column>
+          )
         });
         
-        for(var i = 0;i < 8;i++){
-          {images.push(gameCards[i])}
-        } 
-
         return(
           <div>
-            <Card.Group itemsPerRow={4}>
-              {images}
-            </Card.Group>
+            <Grid doubling columns={5}>  
+            {gameCards}
+            </Grid>
           </div>
         );
     }
