@@ -46,7 +46,7 @@ export default class GameListComponent extends React.Component {
     render () {
 
         const gameCards = this.state.games.map((game, index) =>
-            <Grid.Column>
+            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
@@ -55,7 +55,7 @@ export default class GameListComponent extends React.Component {
 
         return (
             <div>
-                <Grid doubling columns={4}>
+                <Grid doubling>
                     {gameCards}
                 </Grid>
             </div>

@@ -27,7 +27,7 @@ class Game(models.Model):
         help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES),
         dependencies=[
             image_attribute_resize("slide_image", 1920, 1080),
-            image_attribute_resize("card_image", 320, 480)
+            image_attribute_resize("card_image", 320, 180)
         ],
     )
     slide_image = fields.ImageField(null=True, blank=True)
