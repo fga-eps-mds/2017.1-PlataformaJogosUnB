@@ -8,6 +8,8 @@ class UserFactory(factory.DjangoModelFactory):
         model = User
 
     username = "admin"
-    password = "qwer1234"
+    password = factory.PostGenerationMethodCall('set_password', 'qwer1234')
+
     is_superuser = True
     is_staff = True
+    is_active = True

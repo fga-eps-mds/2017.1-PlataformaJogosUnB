@@ -55,7 +55,7 @@ export default class GameListComponent extends React.Component {
 
         return (
             <div>
-                <Grid doubling columns={5}>
+                <Grid doubling columns={4}>
                     {gameCards}
                 </Grid>
             </div>
