@@ -5,7 +5,7 @@ import {Card, Image} from "semantic-ui-react";
 const cardImageStyle = {
     "background": "#000000",
     "position": "relative",
-    "minHeight": "320px"
+    "minHeight": "180px",
 };
 const imageStyle = {
     "position": "absolute",
@@ -13,7 +13,8 @@ const imageStyle = {
     "bottom": 0,
     "right": 0,
     "left": 0,
-    "margin": "auto"
+    "margin": "auto",
+    "height": "100%",
 };
 
 export default class GameCard extends React.Component {
