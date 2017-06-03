@@ -6,7 +6,7 @@ export default class lomments extends Component {
   render() {
       return (
       <div>
-        <FacebookProvider appId="1850394608544081">
+        <FacebookProvider appId={process.env.appId}>
           <Comments href={this.props.url} colorScheme="dark" width={600} />
         </FacebookProvider>
       </div>

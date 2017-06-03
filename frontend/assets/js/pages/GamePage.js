@@ -1,9 +1,9 @@
 import React from 'react';
-import InformationCard from '../layout/InformationCard.js';
-import DescriptionCard from '../layout/DescriptionCard.js';
-import InternalSlider from '../layout/InternalSlider.js';
+import InformationCard from '../components/cards/InformationCard.js';
+import DescriptionCard from '../components/cards/DescriptionCard.js';
+import InternalSlider from '../layout/InternalSlide.js';
 import { Card, Grid } from 'semantic-ui-react'
-import Comment from '../Components/Comments';
+import Comment from '../components/Comments';
 
 
 export default class GamePage extends React.Component{

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
-import {Card, Grid} from "semantic-ui-react";
+import {Card, Grid, Container} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
-export default class GameListComponent extends React.Component {
+export default class GameList extends React.Component {
 
     constructor (props) {
 
@@ -54,11 +54,11 @@ export default class GameListComponent extends React.Component {
           );
 
         return (
-            <div>
+            <Container>
                 <Grid doubling columns={5}>
                     {gameCards}
                 </Grid>
-            </div>
+            </Container>
         );
 
     }

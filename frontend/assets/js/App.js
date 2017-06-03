@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import MainRoutes from "./routes/MainRoutes";
-import Menu from "./layout/Menu";
+import MenuComponent from "./layout/MenuComponent";
 import {BrowserRouter} from "react-router-dom";
 import {Container, Grid} from "semantic-ui-react";
 import "../../public/semantic/semantic";
@@ -14,7 +14,7 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div>
-                    <Menu />
+                    <MenuComponent />
                     <MainRoutes />
                 </div>
             </BrowserRouter>
