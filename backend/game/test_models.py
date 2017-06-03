@@ -11,36 +11,9 @@ from game.factory import PackageFactory, GameFactory, PlatformFactory
 from unittest.mock import patch
 
 
-def game_creation(name="", cover_image="", url="",
-                  launch_year=0, version="1.3.4"):
-    return Game(
-        name=name,
-        cover_image=cover_image,
-        official_repository=url,
-        game_activated=True,
-        version=version
-    )
-
-
 @pytest.fixture
 def game_created():
-    game = Game()
-    game.name = 'mario'
-    game.cover_image = "image.jpg"
-    game.official_repository = 'https://github.com/PlataformaJogosUnb/'
-    game.game_activated = True
-    game.save()
-    return game
-
-
-@pytest.fixture
-def platform_created():
-    platform = Platform()
-    platform.name = 'Ubuntu'
-    platform.extensions = 'deb'
-    platform.icon = "icon.png"
-    platform.save()
-    return platform
+    return GameFactory()
 
 
 class TestPackageModel:
@@ -93,6 +66,10 @@ class TestPlatform:
         platform = Platform(name=name, icon=icon, extensions=extensions)
         validation_test(platform, errors_dict)
 
+    def test_str(self):
+        platform = PlatformFactory.build()
+        assert str(platform) == "{} (.deb)".format(platform.name)
+
 
 class TestPackage:
     '''
@@ -126,3 +103,12 @@ class TestPackage:
         package.package.name = package.package.name.replace('deb', extension)
         package.save()
         assert package == Package.objects.last()
+
+    @pytest.fixture
+    def platform(self):
+        return PlatformFactory()
+
+    @pytest.mark.django_db
+    def test_package_str(self, platform):
+        package = PackageFactory()
+        assert str(package) == "{} (.deb)".format(package.game.name)

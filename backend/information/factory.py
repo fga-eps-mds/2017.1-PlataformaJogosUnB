@@ -1,4 +1,5 @@
 import factory
+from factory.fuzzy import FuzzyChoice
 from faker import Faker
 from information.models import Award, Developer, Genre, Information
 from game.factory import GameFactory
@@ -45,6 +46,7 @@ class InformationFactory(factory.DjangoModelFactory):
 
     description = factory.LazyAttribute(lambda x: "word " * 12)
     launch_year = factory.LazyAttribute(lambda x: 2000 + faker.pyint() % 17)
+    semester = FuzzyChoice(['1', '2'])
     game = factory.SubFactory(GameFactory)
 
     @factory.post_generation

@@ -33,6 +33,8 @@ class GameSerializer(serializers.ModelSerializer):
         fields = ['pk',
                   'name',
                   'cover_image',
+                  'slide_image',
+                  'card_image',
                   'version',
                   'official_repository',
                   'game_activated',
