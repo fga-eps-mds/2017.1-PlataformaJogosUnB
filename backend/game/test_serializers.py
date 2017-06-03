@@ -1,6 +1,6 @@
 import pytest
 from game.factory import PackageFactory, GameFactory
-from game.models import Game, Platform  # Package
+from game.models import Platform  # Package
 from game.serializers import GameSerializer
 from information.models import Award, Developer, Information
 from media.models import Video, Soundtrack
@@ -12,7 +12,7 @@ from media.choices import ROLE_CHOICES
 class TestGameSerializer:
 
     @pytest.fixture
-    def data(self):
+    def game(self):
         platform = Platform()
         video_game = Video()
         sound_game = Soundtrack()
@@ -60,22 +60,11 @@ class TestGameSerializer:
         information_game.save()
         information_game.developers.add(developer)
         information_game.awards.add(award_game)
+        return game
 
     @pytest.mark.django_db
-    def test_serialization_game_object(self, data):
-        game = Game.objects.last()
+    def test_serialization_game_object(self, game):
         serialized_game = GameSerializer(game).data
-
-        information_serialized = serialized_game.get('information')
-        developer_serialized = information_serialized.get('developers')[0]
-        award_serialized = information_serialized.get('awards')[0]
-
-        package_serialized = serialized_game.get('packages')[0]
-        platform_serialized = package_serialized.get('platforms')[0]
-
-        image_serialized = serialized_game.get('media_image')[0]
-        video_serialized = serialized_game.get('media_video')[0]
-        sound_serialized = serialized_game.get('media_soundtrack')[0]
 
         assert serialized_game.get('name') == game.name
 
@@ -86,6 +75,13 @@ class TestGameSerializer:
 
         assert serialized_game.get('version') == game.version
 
+    @pytest.mark.django_db
+    def test_serialization_medias_object(self, game):
+        serialized_game = GameSerializer(game).data
+        image_serialized = serialized_game.get('media_image')[0]
+        video_serialized = serialized_game.get('media_video')[0]
+        sound_serialized = serialized_game.get('media_soundtrack')[0]
+
         assert image_serialized.get(
             'image') == game.media_image.first().image.url
 
@@ -95,29 +91,38 @@ class TestGameSerializer:
         assert sound_serialized.get(
             'soundtrack') == game.media_soundtrack.first().soundtrack.url
 
+    @pytest.mark.django_db
+    def test_serialization_information_object(self, game):
+        serialized_game = GameSerializer(game).data
+        information_serialized = serialized_game.get('information')
+        developer_serialized = information_serialized.get('developers')[0]
+        award_serialized = information_serialized.get('awards')[0]
+
         assert information_serialized.get(
             'description') == game.information.description
 
         assert information_serialized.get(
             'launch_year') == game.information.launch_year
 
-        assert developer_serialized.get(
-            'name') == game.information.developers.first().name
+        assert developer_serialized == {
+            'login': game.information.developers.first().login,
+            'github_page': game.information.developers.first().github_page,
+            'email': None,
+            'avatar': None,
+            'name': game.information.developers.first().name
+        }
 
-        assert developer_serialized.get(
-            'login') == game.information.developers.first().login
+        assert award_serialized == {
+            'name': game.information.awards.first().name,
+            'year': game.information.awards.first().year,
+            'place': game.information.awards.first().place,
+        }
 
-        assert developer_serialized.get(
-            'github_page') == game.information.developers.first().github_page
-
-        assert award_serialized.get(
-            'name') == game.information.awards.first().name
-
-        assert award_serialized.get(
-            'year') == game.information.awards.first().year
-
-        assert award_serialized.get(
-            'place') == game.information.awards.first().place
+    @pytest.mark.django_db
+    def test_serialization_extra_object(self, game):
+        serialized_game = GameSerializer(game).data
+        package_serialized = serialized_game.get('packages')[0]
+        platform_serialized = package_serialized.get('platforms')[0]
 
         assert package_serialized.get(
             'package') == game.packages.first().package.url
@@ -130,5 +135,3 @@ class TestGameSerializer:
 
         assert platform_serialized.get(
             'icon') == game.packages.first().platforms.first().icon.url
-
-        game.delete()

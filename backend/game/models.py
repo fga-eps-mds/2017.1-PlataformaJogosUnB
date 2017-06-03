@@ -21,10 +21,11 @@ class Game(models.Model):
     )
 
     cover_image = fields.ImageField(
-        _('Cover Image'),
+        _('Cover Image (1920x1080 recommended)'),
         validators=[image_extension_validator],
         upload_to="images/",
-        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES),
+        help_text=_('ASPECT RATIO EXPECTED IS 16:9 OR IMAGE WILL NOT FIT '
+                    'CORRECTLY IN CARD. ' + HELP_TEXT_IMAGES),
         dependencies=[
             image_attribute_resize("slide_image", 1920, 1080),
             image_attribute_resize("card_image", 320, 180)
