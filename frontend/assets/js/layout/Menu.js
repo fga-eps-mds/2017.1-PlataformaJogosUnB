@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar} from "semantic-ui-react";
+import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar, Dropdown} from "semantic-ui-react";
 
 export default class MenuComponent extends React.Component {
 
@@ -43,6 +43,7 @@ export default class MenuComponent extends React.Component {
                                     <Menu.Item as={Link} to="/" active={activeItem === "/"}>Index</Menu.Item>
                                     <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}>Jogos</Menu.Item>
                                     <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}>Sobre</Menu.Item>
+                                    
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
@@ -61,6 +62,23 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+          
+                                     <Header inverted><Dropdown inverted item text= 'Filtros'>
+                                                <Dropdown.Menu>
+                                                <Dropdown.Item>Semestre</Dropdown.Item>  
+                                                <Dropdown.Item>Ano</Dropdown.Item>  
+                                                <Dropdown vertical item text='Gênero' inverted>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item>Aventura
+                                                            </Dropdown.Item>
+                                                            <Dropdown.Item>Ação</Dropdown.Item>
+                                                            <Dropdown.Item>Corrida</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                </Dropdown>
+                                                </Dropdown.Menu>
+                                    </Dropdown>
+                                    </Header>
+                               
                                     </Container>
                                 </Menu>
                             </Segment>

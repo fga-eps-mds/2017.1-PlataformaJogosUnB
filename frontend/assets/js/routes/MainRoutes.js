@@ -17,6 +17,7 @@ export default class MainRoutes extends React.Component {
                     <Route path="/games/:id" component={Game} />
                     <Route exact path="/games/" component={GamesPage} />
                     <Route exact path="/about/" component={AboutPage} />
+                    <Route exact path="/filter/" />
                 </Switch>
             </div>
         );
