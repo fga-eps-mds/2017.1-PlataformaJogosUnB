@@ -4,16 +4,16 @@ import {Link} from "react-router-dom";
 import {Card, Image} from "semantic-ui-react";
 const cardImageStyle = {
   background: '#000000',
-  minHeight: '320px',
   position: 'relative',
+  minHeight: '320px',
 }
 const imageStyle = {
   position: 'absolute',
-  margin: 'auto',
   top: 0,
   bottom: 0,
+  right: 0,
   left: 0,
-  right: 0
+  margin: 'auto',
 }
 
 export default class GameCard extends React.Component {

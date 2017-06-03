@@ -6,6 +6,22 @@ require("style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/ima
 
 const Carousel = require("nuka-carousel");
 
+const imageStyle = {
+  position: 'absolute',
+  margin: 'auto',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: '100%'
+}
+
+const carouselImageStyle = {
+  background: '#000000',
+  minHeight: '400px',
+  position: 'relative',
+}
+
 export default class IndexSlider extends React.Component {
 
     constructor (props) {
@@ -61,8 +77,12 @@ export default class IndexSlider extends React.Component {
             if (game.cover_image !== "undefined" && countImgsInSlide <= imgsInSlide) {
 
                 {
-
-                    images.push(<img src={game.slide_image} style={{height: "100%", maxHeight: "400px"}} />);
+                    var image = (
+                        <div style={carouselImageStyle}>
+                            <img src={game.slide_image} style={imageStyle} />
+                        </div>
+                    )
+                    images.push(image);
 
                 }
                 countImgsInSlide++;
