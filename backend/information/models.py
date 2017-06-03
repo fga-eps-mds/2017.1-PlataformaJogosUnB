@@ -140,6 +140,7 @@ class Information(models.Model):
         ),
         help_text=_('Which was the semester the game was launched?'),
         choices=[(1, _('1')), (2, _('2'))],
+        default=1
     )
 
     game = models.OneToOneField(

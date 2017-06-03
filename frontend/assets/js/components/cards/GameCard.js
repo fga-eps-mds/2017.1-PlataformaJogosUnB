@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import {Card, Image} from "semantic-ui-react";
 const cardImageStyle = {
     "background": "#000000",
@@ -18,12 +17,6 @@ const imageStyle = {
 };
 
 export default class GameCard extends React.Component {
-    constructor (props) {
-
-        super(props);
-
-    }
-
     render () {
 
         return (
@@ -42,4 +35,8 @@ export default class GameCard extends React.Component {
         );
 
     }
+}
+
+GameCard.propTypes = {
+    data: PropTypes.object.isRequired,
 }
