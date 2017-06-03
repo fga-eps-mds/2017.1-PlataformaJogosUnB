@@ -62,7 +62,7 @@ export default class IndexSlider extends React.Component {
 
                 {
 
-                    images.push(<img src={game.cover_image} height="400" />);
+                    images.push(<img src={game.slide_image} style={{height: "100%", maxHeight: "400px"}} />);
 
                 }
                 countImgsInSlide++;
