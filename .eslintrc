@@ -1,6 +1,22 @@
 {
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    
+  },
  "plugins": [
     "react"
   ],
- "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "settings": {
+    "react": {
+      "version": "15.0"
+    }
+  },
+  "parseOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
 }

@@ -15,12 +15,27 @@ from game.factory import GameFactory
 
 @pytest.fixture
 def game_created():
-    game = GameFactory()
-    game.save()
+    game = GameFactory(name="game")
     return game
 
 
-class TestMedia:
+class TestMediasStr:
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize('model, attr', [
+        (SoundtrackFactory, 'soundtrack'),
+        (ImageFactory, 'image'),
+        (VideoFactory, 'video')
+    ])
+    def test_media_str(self, model, attr, game_created):
+        midia = model.build(game=game_created)
+        assert str(midia) == 'file = "{}", game = game'.format(
+            getattr(midia, attr).name)
+        setattr(midia, attr, None)
+        assert str(midia) == '{} has been deleted!'.format(attr.capitalize())
+
+
+class TestMediaImage:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize('image, errors_dict', [
@@ -39,6 +54,9 @@ class TestMedia:
         image.save()
         assert Image.objects.last() == image
 
+
+class TestMediaSoundtrack:
+
     @pytest.mark.django_db
     def test_soundtrack_invalid_extension(self, game_created):
         soundtrack = SoundtrackFactory.build(soundtrack='soundtrack.mp4',
@@ -56,6 +74,9 @@ class TestMedia:
         soundtrack = SoundtrackFactory.build(game=game_created)
         soundtrack.save()
         assert Soundtrack.objects.last() == soundtrack
+
+
+class TestMediaVideo:
 
     @pytest.mark.django_db
     def test_video_invalid_extension(self, game_created):

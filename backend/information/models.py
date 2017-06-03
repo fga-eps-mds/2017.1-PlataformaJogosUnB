@@ -2,27 +2,18 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game, HELP_TEXT_IMAGES
 from django.core.validators import (
-    MinValueValidator,
-    MaxValueValidator,
     MinLengthValidator,
     EmailValidator,
     URLValidator,
 )
-import datetime
 import core.validators as general_validators
+from information.validators import min_max_validators, years_validator
 
-UNB_CREATION = 1962
+
 MIN_DESCRIPTION = 50
 MIN_GENRE_DESCRIPTION = 20
-
-
-def year_validators(model_name):
-    return [MinValueValidator(UNB_CREATION,
-                              _('Our University had ' +
-                                'not been built at this time!')),
-            MaxValueValidator(int(datetime.datetime.now().year),
-                              _('We believe the {} '.format(model_name) +
-                                'was not won in the future!'))]
+MIN_SEMESTER_VALUE = 1
+MAX_SEMESTER_VALUE = 2
 
 
 class Award(models.Model):
@@ -35,7 +26,7 @@ class Award(models.Model):
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=year_validators('award'),
+        validators=min_max_validators(**years_validator('award')),
         help_text=_('Year the award was won.')
     )
 
@@ -136,8 +127,20 @@ class Information(models.Model):
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=year_validators('game'),
+        validators=min_max_validators(**years_validator('game')),
         help_text=_('Which was the year the game was launched?'),
+    )
+
+    semester = models.PositiveIntegerField(
+        _('Semester'),
+        validators=min_max_validators(
+            (MIN_SEMESTER_VALUE, MAX_SEMESTER_VALUE),
+            (_("The semester can't be lower than 1"),
+             _("The semester can't be higher than 2"))
+        ),
+        help_text=_('Which was the semester the game was launched?'),
+        choices=[(1, _('1')), (2, _('2'))],
+        default=1
     )
 
     game = models.OneToOneField(
