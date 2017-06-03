@@ -26,6 +26,7 @@ script:
   - python3 backend/manage.py migrate
   - pushd backend
   - pytest --cov-report term-missing --verbose --cov-config .coveragerc --cov
+  - mv .coverage ../
   - popd && pushd frontend
 # - ./node_modules/eslint/bin/eslint.js
   - npm test
