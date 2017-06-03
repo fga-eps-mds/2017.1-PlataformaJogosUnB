@@ -121,10 +121,22 @@ class Rating(models.Model):
         help_text=_('Votes of the game.')
     )
 
-    email_authenticate = models.EmailField(
-        _('Email authentication'),
+    email_voter = models.EmailField(
+        _('Email voter'),
         help_text=_('Email that authentic users.')
     )
+
+    information = models.ForeignKey(
+	'Information',
+	on_delete=models.CASCADE,
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Rating, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}: {1}".format(self.email_authenticate,self.vote)
 
 
 class Information(models.Model):
@@ -176,10 +188,6 @@ class Information(models.Model):
         Award,
         related_name='awards',
         blank=True
-    )
-    ratings = models.ManyToManyField(
-	Rating,
-	related_name='ratings',
     )
 
     def save(self, *args, **kwargs):
