@@ -17,5 +17,5 @@
       "jsx": true
     }
   },
-  "extends": ["eslint:all", "plugin:react/all"]
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
 }
