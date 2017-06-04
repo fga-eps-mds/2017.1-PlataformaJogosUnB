@@ -27,6 +27,8 @@ class InformationSerializer(serializers.ModelSerializer):
     developers = DeveloperSerializer(many=True)
     awards = AwardSerializer(many=True)
     genres = GenreSerializer(many=True)
+    likes = serializers.ReadOnlyField()
+    dislikes = serializers.ReadOnlyField()
 
     class Meta:
         model = Information
@@ -35,4 +37,6 @@ class InformationSerializer(serializers.ModelSerializer):
                   'semester',
                   'developers',
                   'awards',
-                  'genres']
+                  'genres',
+		  'likes',
+		  'dislikes']

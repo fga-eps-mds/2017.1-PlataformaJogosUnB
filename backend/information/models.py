@@ -201,6 +201,15 @@ class Information(models.Model):
             self.description[0:min_value]
         )
 
+    @property
+    def likes(self):
+        return Rating.objects.filter(vote=True, information=self).count()
+
+
+    @property
+    def dislikes(self):
+        return Rating.objects.filter(vote=False, information=self).count()
+
 
 class Statistic(models.Model):
 
