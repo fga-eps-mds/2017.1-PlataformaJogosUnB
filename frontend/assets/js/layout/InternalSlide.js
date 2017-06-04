@@ -4,7 +4,7 @@ import ImageGallery from "react-image-gallery";
 require("style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss");
 // https://github.com/xiaolin/react-image-gallery
 
-export default class InternalSlider extends React.Component {
+export default class InternalSlide extends React.Component {
 
     handleImageLoad (event) {
 
