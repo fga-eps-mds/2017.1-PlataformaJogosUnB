@@ -10,7 +10,7 @@ export default class MenuComponent extends React.Component {
         this.state = {
             "activeItem": window.location.pathname,
             "visible": false,
-            games : []
+            "games" : []
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
    
@@ -93,10 +93,11 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
           
-                                     <Header inverted><Dropdown inverted item text= 'Gêneros'>
+                                    <Header inverted><Dropdown inverted item text= 'Gêneros'>
                                                 <Dropdown.Menu>
-                                                {this.getGenre()}
+                                                    {this.getGenre()}
                                                 </Dropdown.Menu>
+                                    </Dropdown>    
                                     </Header>
                                
                                     </Container>
@@ -112,7 +113,8 @@ export default class MenuComponent extends React.Component {
     getGenre(){
         const genres = [];
         for(var i = 0;i < this.state.games.length;i++){
-               const genre = <Dropdown.Item>{this.state.games.information.genre[0].name</Dropdown.Item>
+                console.log(this.state.games[i].information.genres[0].name)
+               const genre = <Dropdown.Item text={this.state.games[i].information.genres[0].name} />
                 genres.push(genre)
         }
         return genres
