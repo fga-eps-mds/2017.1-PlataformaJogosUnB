@@ -190,4 +190,10 @@ SHELL_PLUS_PRE_IMPORTS = [
                              "DeveloperFactory", "GenreFactory")),
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),
+    ("game.serializers", ("GameSerializer", "PackageSerializer",
+                          "PlatformSerializer")),
+    ("information.serializers", ("AwardSerializer", "InformationSerializer",
+                                 "DeveloperSerializer", "GenreSerializer")),
+    ("media.serializers", ("ImageSerializer", "SoundtrackSerializer",
+                           "VideoSerializer")),
 ]
