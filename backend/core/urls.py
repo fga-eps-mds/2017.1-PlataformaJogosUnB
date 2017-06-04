@@ -11,10 +11,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
-    url(r'^api/', include('game.urls', namespace='api'))
+    url(r'^api/', include('game.urls')),
+    # url(r'^api/', include('media.urls'))
 
 ]
 
