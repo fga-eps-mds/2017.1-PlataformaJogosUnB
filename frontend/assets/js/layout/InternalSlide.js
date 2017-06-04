@@ -14,14 +14,14 @@ export default class InternalSlider extends React.Component {
     }
     render () {
 
-        const imagesTeste = this.props.data.media_image.map((testando) => ({
-            "original": testando.image,
-            "thumbnail": testando.image
+        const images = this.props.data.media_image.map((slide) => ({
+            "original": slide.image,
+            "thumbnail": slide.image
         }));
 
         return (
             <ImageGallery
-                items={imagesTeste}
+                items={images}
                 slideInterval={2000}
                 onImageLoad={this.handleImageLoad}
                 slideOnThumbnailHover
