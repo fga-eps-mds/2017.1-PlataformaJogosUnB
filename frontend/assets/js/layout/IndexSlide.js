@@ -1,6 +1,7 @@
 import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
-import Carousel from "nuka-carousel";
+
 import React from "react";
+import InfiniteCarousel from "react-leaf-carousel";
 
 const imageStyle = {
     "bottom": 0,
@@ -13,7 +14,7 @@ const imageStyle = {
 }, carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
-    "position": "relative"
+    "position": "relative",
 };
 
 export default class IndexSlider extends React.Component {
@@ -53,28 +54,41 @@ export default class IndexSlider extends React.Component {
     
 
     render () {
+		const images = this.mountImages();
+    	if(images.length){
+        	return (
 
-        return (
-            <Carousel>
-                {this.mountImages()}
-            </Carousel>
-        );
-
+                <InfiniteCarousel
+  
+    	            autoCycle={true}
+                	cycleInterval={4200}
+                  	showSides={false}
+                	sidesOpacity={.5}
+                   	slidesToScroll={1}
+                	slidesToShow={1}
+    	            scrollOnDevice={true}
+    
+                >	{images}
+                </InfiniteCarousel>
+            );
+        }else{
+            return <img/>
+        }
     }
+    
 
     mountImages(){
        const images = [], imagesSlide = 4;
 
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
-           const image =
+            const image =
                    (<div style={carouselImageStyle}>
                             <img 
                                src={this.state.games[idx].slide_image} 
                                style={imageStyle} />
                         </div>)
-
-
            images.push(image);
+        
         }
         return images;
     }
