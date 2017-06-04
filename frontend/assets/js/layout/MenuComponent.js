@@ -9,11 +9,36 @@ export default class MenuComponent extends React.Component {
         super(props);
         this.state = {
             "activeItem": window.location.pathname,
-            "visible": false
+            "visible": false,
+            games : []
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
+   
+    }
+    loadGameFromServer () {
+
+        fetch("/api/list/",
+            {
+                "headers": new Headers({
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }),
+                "method": "GET"
+            }).
+          then((response) => response.json()).
+          then((games) => {
+
+              this.setState({games});
+
+          }).
+          catch((error) => {
+
+              console.error(error);
+
+          });
 
     }
+
 
     showMenuMobile () {
 
@@ -24,6 +49,11 @@ export default class MenuComponent extends React.Component {
     componentWillReceiveProps () {
 
         this.state = {"activeItem": window.location.pathname};
+
+    }
+    componentWillMount () {
+
+        this.loadGameFromServer();
 
     }
 
@@ -63,20 +93,10 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
           
-                                     <Header inverted><Dropdown inverted item text= 'Filtros'>
+                                     <Header inverted><Dropdown inverted item text= 'Gêneros'>
                                                 <Dropdown.Menu>
-                                                <Dropdown.Item>Semestre</Dropdown.Item>  
-                                                <Dropdown.Item>Ano</Dropdown.Item>  
-                                                <Dropdown vertical item text='Gênero' inverted>
-                                                        <Dropdown.Menu>
-                                                            <Dropdown.Item>Aventura
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item>Ação</Dropdown.Item>
-                                                            <Dropdown.Item>Corrida</Dropdown.Item>
-                                                        </Dropdown.Menu>
-                                                </Dropdown>
+                                                {this.getGenre()}
                                                 </Dropdown.Menu>
-                                    </Dropdown>
                                     </Header>
                                
                                     </Container>
@@ -89,4 +109,18 @@ export default class MenuComponent extends React.Component {
         );
 
     }
+    getGenre(){
+        const genres = [];
+        for(var i = 0;i < this.state.games.length;i++){
+               const genre = <Dropdown.Item>{this.state.games.information.genre[0].name</Dropdown.Item>
+                genres.push(genre)
+        }
+        return genres
+    }
+
+
+
+
+
+
 }
