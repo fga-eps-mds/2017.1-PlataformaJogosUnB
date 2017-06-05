@@ -52,6 +52,13 @@ class TestGame:
         game = Game.objects.get(pk=game_created.pk)
         assert game_created == game
 
+    @pytest.mark.django_db
+    def test_str_game(self):
+        game = GameFactory.build(version=None, name="Game")
+        assert str(game) == "Game"
+        game.version = "1.1"
+        assert str(game) == "Game v1.1"
+
 
 class TestPlatform:
 
