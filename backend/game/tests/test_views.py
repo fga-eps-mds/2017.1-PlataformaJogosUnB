@@ -46,3 +46,10 @@ class TestGameViewSet:
         data['slide_image'] = 'http://testserver' + data['slide_image']
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
+
+
+class TestViewGamePost:
+
+    def test_save_game(self, client):
+        # TODO: Implement authentication and make the post request
+        pass
