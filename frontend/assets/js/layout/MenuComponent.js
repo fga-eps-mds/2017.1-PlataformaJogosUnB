@@ -111,18 +111,29 @@ export default class MenuComponent extends React.Component {
 
     }
     getGenre(){
+        var index = 0;
         const genres = [];
+        const genres_strings = [];
         for(var i = 0;i < this.state.games.length;i++){
-                console.log(this.state.games[i].information.genres[0].name)
-               const genre = <Dropdown.Item text={this.state.games[i].information.genres[0].name} />
-                genres.push(genre)
+                var genre_name = this.state.games[i].information.genres[0].name 
+                if(this.deleteEqualElements(genre_name, genres_strings)){
+                    const genre = <Dropdown.Item text={genre_name} />
+                    genres.push(genre)
+                    genres_strings.push(genre_name)
+                }
         }
         return genres
     }
-
-
-
-
-
-
+    deleteEqualElements(element, list){
+        var i = 0;
+        while(i < list.length){
+            if(element === list[i]){
+                return false 
+            }
+            i++ 
+        }
+      
+    return true
+    
+    }
 }
