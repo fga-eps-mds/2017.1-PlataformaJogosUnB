@@ -259,5 +259,5 @@ class TestInformationRelations:
         ("genres", 3)
     ])
     @pytest.mark.django_db
-    def informatino_award(self, field, length, information_relations):
+    def test_informatino_award(self, field, length, information_relations):
         assert getattr(information_relations, field).count() == length
