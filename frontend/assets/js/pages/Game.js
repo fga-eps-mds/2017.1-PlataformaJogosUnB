@@ -2,7 +2,7 @@ import React from "react";
 import InformationCard from "../components/cards/InformationCard.js";
 import DescriptionCard from "../components/cards/DescriptionCard.js";
 import InternalSlide from "../layout/InternalSlide.js";
-import {Card, Container, Grid} from "semantic-ui-react";
+import {Card, Container, Grid, Header} from "semantic-ui-react";
 
 
 export default class Game extends React.Component {
@@ -15,6 +15,7 @@ export default class Game extends React.Component {
                 "information": {
                     "developers": [],
                     "awards": [],
+                    "genres": [],
                     "packages": []
                 }
             }
@@ -75,6 +76,7 @@ export default class Game extends React.Component {
                                 version={this.state.game.version}
                                 official_repository={this.state.game.official_repository}
                                 launch_year={this.state.game.information.launch_year}
+                                genres={this.state.game.information.genres}
                             />
                         </Grid.Column>
                     </Grid.Row>
