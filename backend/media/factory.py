@@ -32,3 +32,4 @@ class SoundtrackFactory(factory.DjangoModelFactory):
         model = Soundtrack
 
     soundtrack = factory.django.FileField(filename='soundtrack.mp3')
+    game = factory.SubFactory(GameFactory)

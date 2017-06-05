@@ -17,7 +17,7 @@ class GameViewSet(viewsets.ModelViewSet):
     serializer_class = GameSerializer
 
     @detail_route(methods=["POST"])
-    def report_bug(self, request):
+    def report_bug(self, request, pk=None):
         game = get_object_or_404(self.queryset)
 
         if request.method == 'POST':
