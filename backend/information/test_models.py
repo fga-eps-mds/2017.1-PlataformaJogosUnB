@@ -1,16 +1,12 @@
 import pytest
-from game.models import Game
+from game.factory import GameFactory
 from core.helper_test import (
     validation_test,
     mount_error_dict,
     ErrorMessage
 )
-from information.models import Information, Award, Genre, Developer
-
-
-def information_creation(description="", launch_year=0, game=None):
-    return Information(description=description, launch_year=launch_year,
-                       game=game)
+from information.models import Information, Award, Genre, Developer, Statistic
+from information.factory import InformationFactory
 
 
 def now():
@@ -19,20 +15,11 @@ def now():
     return year
 
 
-@pytest.fixture
-def information_created():
-    game = Game(
-        name="Teste",
-        cover_image="Imagem_teste.jpg",
-        official_repository="http://a.aa")
-    game.save()
-    information = Information(description="a" * 51,
-                              launch_year=now(), game=game)
-    information.save()
-    return information
-
-
 class TestInformationCreation:
+
+    @pytest.fixture
+    def information_created(self):
+        return InformationFactory()
 
     @pytest.mark.django_db
     def test_create_information_with_valid_atributtes(self,
@@ -42,53 +29,45 @@ class TestInformationCreation:
 
     @pytest.mark.django_db
     def test_str_information(self, information_created):
-        description = 'a' * 50
-        assert str(information_created) == "Teste's description: %s..." \
-            % description
+        description = information_created.description[:50]
+        name = information_created.game.name
+        assert str(information_created) == "%s's description: %s..." \
+            % (name, description)
 
 
 class TestInformationValidation:
     error_message_min_value = "A game description must have at least 50 \
 characters!"
-    short_description = "short description"
     error_message_year_future = 'We believe the game was not won ' \
         'in the future!'
-    description = "simple description" * 3
-    game = Game(
-        name="Teste",
-        cover_image="Imagem_de_capa.jpg",
-        official_repository="http://a.aa")
+
+    @pytest.fixture
+    def game(self):
+        return GameFactory()
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
-        (description, None, game,
-         mount_error_dict(["launch_year"], [[ErrorMessage.NULL]])),
-        (description, "", game,
-         mount_error_dict(["launch_year"], [[ErrorMessage.NOT_INTEGER]])),
-        (description, 1961, game,
-         mount_error_dict(["launch_year"], [[ErrorMessage.YEAR_PAST]])),
-        (description, now() + 1, game,
+    @pytest.mark.parametrize("launch_year, errors_dict", [
+        (None, mount_error_dict(["launch_year"], [[ErrorMessage.NULL]])),
+        ("", mount_error_dict(["launch_year"], [[ErrorMessage.NOT_INTEGER]])),
+        (1961, mount_error_dict(["launch_year"], [[ErrorMessage.YEAR_PAST]])),
+        (now() + 1,
          mount_error_dict(["launch_year"], [[error_message_year_future]])),
     ])
-    def test_launch_year_validation(self, description, launch_year,
-                                    game, errors_dict):
-        game.save()
-        information = information_creation(description, launch_year, game)
+    def test_launch_year_validation(self, launch_year, errors_dict, game):
+        information = InformationFactory.build(launch_year=launch_year,
+                                               game=game)
         validation_test(information, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("description, launch_year, game, errors_dict", [
-        (None, 2017, game,
-         mount_error_dict(["description"], [[ErrorMessage.NULL]])),
-        ("", 2017, game,
-         mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
-        (short_description, 2017, game,
+    @pytest.mark.parametrize("description, errors_dict", [
+        (None, mount_error_dict(["description"], [[ErrorMessage.NULL]])),
+        ("", mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
+        ('short',
          mount_error_dict(["description"], [[error_message_min_value]])),
     ])
-    def test_description_validation(self, description, launch_year, game,
-                                    errors_dict):
-        game.save()
-        information = information_creation(description, launch_year, game)
+    def test_description_validation(self, description, errors_dict, game):
+        information = InformationFactory.build(description=description,
+                                               game=game)
         validation_test(information, errors_dict)
 
 
@@ -273,3 +252,10 @@ class TestDeveloper:
     @pytest.mark.django_db
     def test_str_developer(self, developer_creation):
         assert str(developer_creation) == "Developer <https://github.com/dev>"
+
+
+class TestStatistic:
+
+    def test_str(self):
+        statistic = Statistic(downloads_amount=30, accesses_amount=10)
+        assert str(statistic) == 'statistic: 10'

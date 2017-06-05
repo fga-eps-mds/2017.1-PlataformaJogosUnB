@@ -1,52 +1,29 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {Link} from "react-router-dom";
-import {Card} from "semantic-ui-react";
+import PropTypes from "prop-types";
+import {Card, Image} from "semantic-ui-react";
+const cardImageStyle = {
+    "background": "#000000",
+    "position": "relative",
+    "minHeight": "180px",
+};
+const imageStyle = {
+    "position": "absolute",
+    "top": 0,
+    "bottom": 0,
+    "right": 0,
+    "left": 0,
+    "margin": "auto",
+    "height": "100%",
+};
 
 export default class GameCard extends React.Component {
-    constructor (props) {
-
-        super(props);
-        this.state = {"games": []};
-
-    }
-
-    loadGameFromServer () {
-
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-        then((response) => response.json()).
-        then((games) => {
-
-            this.setState({games});
-
-        }).
-        catch((error) => {
-
-            console.error(error);
-
-        });
-
-    }
-
-    componentDidMount () {
-
-        this.loadGameFromServer();
-
-    }
-
     render () {
 
         return (
-
             <Card>
-                <img src={this.props.data.cover_image} height="142" />
+                <div style={cardImageStyle}>
+                    <Image src={this.props.data.card_image} style={imageStyle} />
+                </div>
                 <Card.Content>
                     <Card.Header>
                         {this.props.data.name}
@@ -58,4 +35,8 @@ export default class GameCard extends React.Component {
         );
 
     }
+}
+
+GameCard.propTypes = {
+    data: PropTypes.object.isRequired,
 }

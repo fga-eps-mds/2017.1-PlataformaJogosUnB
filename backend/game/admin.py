@@ -53,6 +53,7 @@ class PackageAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
+    exclude = ['slide_image', 'card_image']
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)

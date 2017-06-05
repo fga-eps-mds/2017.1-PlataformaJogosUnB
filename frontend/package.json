@@ -4,8 +4,8 @@
   "description": "Repositório oficial do projeto plataforma de jogos da Universidade de Brasília",
   "main": "index.js",
   "scripts": {
-    "stylecodefix": "./node_modules/eslint/bin/eslint.js --fix",
-    "stylefile": "./node_modules/eslint/bin/eslint.js ",
+    "stylesheetfix": "./node_modules/eslint/bin/eslint.js -c ../.eslintrc ./ --fix",
+    "stylesheet": "./node_modules/eslint/bin/eslint.js -c ../.eslintrc ./",
     "test": "./node_modules/jest/bin/jest.js",
     "webpack:dev": "./node_modules/webpack/bin/webpack.js --progress --colors -p --watch --hot",
     "postinstall": "node semantic-fix.js"
@@ -42,6 +42,7 @@
     "react": "^15.5.4",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
+    "react-facebook": "^4.0.12",
     "react-flexbox-grid": "^1.1.3",
     "react-image-gallery": "^0.8.0",
     "react-responsive-carousel": "^3.1.19",

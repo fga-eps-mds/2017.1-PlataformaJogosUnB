@@ -7,6 +7,7 @@ from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
 )
+from media.utils import image_attribute_resize
 import game.validators as validators
 import os
 
@@ -20,11 +21,18 @@ class Game(models.Model):
     )
 
     cover_image = fields.ImageField(
-        _('Cover Image'),
+        _('Cover Image (1920x1080 recommended)'),
         validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES)
+        upload_to="images/",
+        help_text=_('ASPECT RATIO EXPECTED IS 16:9 OR IMAGE WILL NOT FIT '
+                    'CORRECTLY IN CARD. ' + HELP_TEXT_IMAGES),
+        dependencies=[
+            image_attribute_resize("slide_image", 1920, 1080),
+            image_attribute_resize("card_image", 320, 180)
+        ],
     )
+    slide_image = fields.ImageField(null=True, blank=True)
+    card_image = fields.ImageField(null=True, blank=True)
 
     version = models.CharField(
         _('Game Version'),

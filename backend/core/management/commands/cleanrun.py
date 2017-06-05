@@ -16,3 +16,5 @@ class Command(BaseCommand):
         else:
             print("Try small fix")
             call_command('codefix')
+            if input("try run again?\ny - yes\nother - no\n") == "y":
+                call_command('cleanrun')

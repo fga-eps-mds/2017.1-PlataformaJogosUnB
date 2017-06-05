@@ -3,6 +3,7 @@ from django.db import models
 from smartfields import fields
 from game.models import Game
 from media.choices import ROLE_CHOICES
+from media.utils import image_attribute_resize
 import core.validators as general_validators
 import media.validators as validators
 import os
@@ -30,7 +31,7 @@ class Media(models.Model):
         self.clean_fields()
         super(Media, self).save(*args, **kwargs)
 
-    def config__str__(self, attr_name):
+    def __config_str__(self, attr_name):
         return 'file = "{0}", game = {1}'.format(
             os.path.basename(
                 getattr(self, attr_name).path
@@ -48,15 +49,14 @@ class Image(Media):
         help_text=_(
             'Images for the game. ' +
             general_validators.HELP_TEXT_IMAGES
-        )
+        ),
+        dependencies=[image_attribute_resize("slide", 1920, 1080)]
     )
+    slide = fields.ImageField(blank=True)
 
     def __str__(self):
         if self.image:
-            return 'file = "{0}", game = {1}'.format(
-                os.path.basename(self.image.path),
-                self.game.name
-            )
+            return self.__config_str__('image')
         else:
             return 'Image has been deleted!'
 
@@ -75,7 +75,7 @@ class Video(Media):
 
     def __str__(self):
         if self.video:
-            return self.config__str__('video')
+            return self.__config_str__('video')
 
         else:
             return 'Video has been deleted!'
@@ -95,7 +95,7 @@ class Soundtrack(Media):
 
     def __str__(self):
         if self.soundtrack:
-            return self.config__str__('soundtrack')
+            return self.__config_str__('soundtrack')
 
         else:
             return 'Soundtrack has been deleted!'
