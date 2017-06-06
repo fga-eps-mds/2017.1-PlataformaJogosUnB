@@ -36,6 +36,7 @@ export default class SearchBox extends Component {
 
     handleResultSelect(e, result) {
         this.setState({ value: result.name })
+        window.location = `/games/${result.pk}`;
     }
 
     handleSearchChange(e, value) {
@@ -58,20 +59,20 @@ export default class SearchBox extends Component {
         const { isLoading, value, results } = this.state
 
         return (
-        <Grid>
-            <Grid.Column width={8}>
-                <Search
-                    size='small'
-                    placeholder='Search...'
-                    loading={isLoading}
-                    onResultSelect={this.handleResultSelect}
-                    onSearchChange={this.handleSearchChange}
-                    results={results}
-                    value={value}
-                    {...this.props}
-                />
-            </Grid.Column>
-        </Grid>
+            <Grid>
+                <Grid.Column width={8}>
+                    <Search
+                        size='small'
+                        placeholder='Search...'
+                        loading={isLoading}
+                        onResultSelect={this.handleResultSelect}
+                        onSearchChange={this.handleSearchChange}
+                        results={results}
+                        value={value}
+                        {...this.props}
+                    />
+                </Grid.Column>
+            </Grid>
         )
     }
 }
