@@ -15,6 +15,12 @@ export default class Genres extends React.Component{
 
     }
 
+    componentDidMount () {
+
+        this.loadGameFromServer();
+
+    }
+
     loadGameFromServer () {
 
         fetch("/api/list/",
@@ -85,7 +91,7 @@ export default class Genres extends React.Component{
 
     render (){
         return(
-            <Dropdown inverted item text= 'Gêneros'>
+            <Dropdown text= 'Gêneros'>
                         <Dropdown.Menu>
                             {this.mountGenreItems()}
                         </Dropdown.Menu>
