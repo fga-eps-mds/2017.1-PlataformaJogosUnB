@@ -62,7 +62,7 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
-                                        <Menu.Menu position='Right'>
+                                        <Menu.Menu position='right'>
                                             <Menu.Item>
                                                 <SearchBox />
                                             </Menu.Item>

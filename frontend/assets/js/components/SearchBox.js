@@ -1,23 +1,32 @@
 import _ from 'lodash'
-import faker from 'faker'
 import React, { Component } from 'react'
-import { Search, Grid, Header } from 'semantic-ui-react'
-
-const source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, '$'),
-}))
+import { Search, Grid } from 'semantic-ui-react'
 
 export default class SearchBox extends Component {
-    constructor() {
-        super();
+    loadGameFromServer () {
+        fetch("/api/list/",
+            {
+                "headers": new Headers({
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                }),
+                "method": "GET"
+            }).
+          then((response) => response.json()).
+          then((games) => {
+              this.setState({games});
+          });
+    }
+
+    constructor(props) {
+        super(props);
         this.resetComponent = this.resetComponent.bind(this)
         this.handleResultSelect = this.handleResultSelect.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
+
     componentWillMount() {
+        this.loadGameFromServer()
         this.resetComponent()
     }
 
@@ -26,7 +35,7 @@ export default class SearchBox extends Component {
     }
 
     handleResultSelect(e, result) {
-        this.setState({ value: result.title })
+        this.setState({ value: result.name })
     }
 
     handleSearchChange(e, value) {
@@ -36,11 +45,11 @@ export default class SearchBox extends Component {
             if (this.state.value.length < 1) return this.resetComponent()
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = (result) => re.test(result.title)
+            const isMatch = (result) => re.test(result.name)
 
             this.setState({
                 isLoading: false,
-                results: _.filter(source, isMatch),
+                results: _.filter(this.state.games, isMatch),
             })
         }, 500)
     }
@@ -52,6 +61,8 @@ export default class SearchBox extends Component {
         <Grid>
             <Grid.Column width={8}>
                 <Search
+                    size='small'
+                    placeholder='Search...'
                     loading={isLoading}
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={this.handleSearchChange}
