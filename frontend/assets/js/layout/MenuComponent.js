@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import Genres from "./Genres";
 import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar, Dropdown} from "semantic-ui-react";
 
 export default class MenuComponent extends React.Component {
@@ -8,42 +9,12 @@ export default class MenuComponent extends React.Component {
 
         super(props);
         this.state = {
-            "games":[],
             "activeItem": window.location.pathname,
             "visible": false
-          
+
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
     }
-    componentWillMount () {
-
-        this.loadGameFromServer();
-
-    }
-    loadGameFromServer () {
-
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          }).
-          catch((error) => {
-
-              console.error(error);
-
-          });
-
-    }
-
 
     showMenuMobile () {
 
@@ -54,13 +25,13 @@ export default class MenuComponent extends React.Component {
     componentWillReceiveProps () {
 
         this.state = {"activeItem": window.location.pathname};
-        this.loadGameFromServer();
+
     }
     render () {
 
         const {activeItem} = this.state;
         const {visible} = this.state;
-        
+
         return (
             <div>
                 <Grid>
@@ -71,7 +42,9 @@ export default class MenuComponent extends React.Component {
                                     <Menu.Item as={Link} to="/" active={activeItem === "/"}>Index</Menu.Item>
                                     <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}>Jogos</Menu.Item>
                                     <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}>Sobre</Menu.Item>
-                                    
+                                    <Menu.Item>
+                                            <Genres />
+                                    </Menu.Item>
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
@@ -90,14 +63,10 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
-                     
-                                    <Header inverted><Dropdown inverted item text= 'Gêneros'>
-                                                <Dropdown.Menu>
-                                                    {this.mountGenreItems()}
-                                                </Dropdown.Menu>
-                                    </Dropdown>    
-                                    </Header>
-                               
+                                        <Header inverted><Dropdown.Menu inverted item text= 'Gêneros'>
+                                                <Genres />
+                                            </Dropdown.Menu>
+                                        </Header>
                                     </Container>
                                 </Menu>
                             </Segment>
@@ -107,48 +76,5 @@ export default class MenuComponent extends React.Component {
             </div>
         );
 
-    }
-    getGenres(){
-
-        const gameGenres = [];
-        for(var i = 0;i < this.state.games.length;i++){
-            var genresList = this.state.games[i].information.genres
-            for(var k = 0;k < genresList.length;k++){
-                var genreName = this.state.games[i].information.genres[k].name 
-                if(this.deleteEqualElements(genreName, gameGenres)){
-                    gameGenres.push(genreName)
-                }   
-            }
-        }
-        return gameGenres
-
-    }
-    
-    mountGenreItems(){
-        if(typeof this.state.games === "undefined"){
-            return false
-        }
-        const genreNames = this.getGenres()
-        const gameGenresItems = [];
-        for(var i = 0;i < genreNames.length;i++){
-            var url = "/filter/" + genreNames[i]
-            const genreComponent = <Dropdown.Item text={genreNames[i]} as={Link} to={`/filter/${genreNames[i]}`} params={{"genre":genreNames[i]}}/>
-            gameGenresItems.push(genreComponent) 
-        }
-        return gameGenresItems
-
-    }
-    
-    deleteEqualElements(element, list){
-        var i = 0;
-        while(i < list.length){
-            if(element === list[i]){
-                return false 
-            }
-            i++ 
-        }
-      
-    return true
-    
     }
 }

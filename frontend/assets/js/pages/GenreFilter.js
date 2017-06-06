@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
 import {Segment, Card, Grid, Container} from "semantic-ui-react";
-import GameCard from "./cards/GameCard";
-
+import GameCard from "../components/cards/GameCard";
 
 export default class GenreFilter extends React.Component{
 
@@ -17,7 +16,6 @@ export default class GenreFilter extends React.Component{
     }
 
     loadGameFromServer () {
-
 
         fetch("/api/list/",
             {
