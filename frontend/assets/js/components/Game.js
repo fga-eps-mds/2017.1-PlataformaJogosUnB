@@ -15,7 +15,7 @@ export default class Game extends React.Component{
     console.log(this.props);
     const id = this.props.match.params.id;
     console.log(id)
-        fetch("/api/detail/"+id+"/",
+        fetch("/api/games/"+id+"/",
               {
                 headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
                 method: "GET",

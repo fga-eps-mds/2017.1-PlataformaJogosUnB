@@ -33,7 +33,7 @@ export default class IndexSlider extends React.Component {
 
     loadGameFromServer () {
 
-        fetch("/api/list/",
+        fetch("/api/games/",
             {
                 "headers": new Headers({
                     "Accept": "application/json",
@@ -50,7 +50,7 @@ export default class IndexSlider extends React.Component {
 
     }
 
-    
+
 
     render () {
 

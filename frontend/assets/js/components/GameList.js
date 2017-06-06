@@ -15,7 +15,7 @@ export default class GameList extends React.Component {
 
     loadGameFromServer () {
 
-        fetch("/api/list/",
+        fetch("/api/games/",
             {
                 "headers": new Headers({
                     "Content-Type": "application/json",
