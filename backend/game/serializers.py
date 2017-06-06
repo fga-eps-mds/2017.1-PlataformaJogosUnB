@@ -14,7 +14,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
-    platforms = PlatformSerializer(many=True)
+    platforms = PlatformSerializer(many=True, read_only=True)
 
     class Meta:
         model = Package
@@ -22,11 +22,11 @@ class PackageSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
-    information = InformationSerializer()
-    packages = PackageSerializer(many=True)
-    media_image = ImageSerializer(many=True)
-    media_video = VideoSerializer(many=True)
-    media_soundtrack = SoundtrackSerializer(many=True)
+    information = InformationSerializer(read_only=True)
+    packages = PackageSerializer(many=True, read_only=True)
+    media_image = ImageSerializer(many=True, read_only=True)
+    media_video = VideoSerializer(many=True, read_only=True)
+    media_soundtrack = SoundtrackSerializer(many=True, read_only=True)
 
     class Meta:
         model = Game
