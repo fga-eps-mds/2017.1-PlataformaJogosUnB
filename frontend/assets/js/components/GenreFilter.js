@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Link} from "react-router-dom";
 import {Segment, Card, Grid, Container} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
@@ -10,7 +11,7 @@ export default class GenreFilter extends React.Component{
 
         super(props);
         this.state = {
-            "game":[] 
+            "game":[]
                 }
 
     }
@@ -48,24 +49,26 @@ export default class GenreFilter extends React.Component{
     render(){
 
         const genre = this.props.match.params.genre;
-        const gameByGenreCards =  this.getGamesByGenre().map((isso) => 
+        const gameByGenreCards =  this.getGamesByGenre().map((game,index) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
-                <GameCard data={isso} />
+                <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
+                    <GameCard data={game} />
+                </Link>
             </Grid.Column>
-        );        
+        );
 
-    return(
-            <Container>
-                <Segment padded inverted color="brown">
-                    <h1>Jogos de {genre}</h1>
-                </Segment>
-  
-                <Grid doubling columns={5}>
-                    {gameByGenreCards}
-                </Grid>
-            </Container>
- 
-            );
+        return(
+                <Container>
+                    <Segment padded inverted color="brown">
+                        <h1>Jogos de {genre}</h1>
+                    </Segment>
+
+                    <Grid doubling columns={5}>
+                        {gameByGenreCards}
+                    </Grid>
+                </Container>
+
+                );
     }
 
     getGamesByGenre(){
