@@ -20,8 +20,7 @@ export default class MainRoutes extends React.Component {
                     <Route path="/games/:id" component={Game} />
                     <Route exact path="/games/" component={GamesPage} />
                     <Route exact path="/about/" component={AboutPage} />
-                    <Route exact path="/filter/" />
-                    <Route path="/games/:genre" component={GenreFilter} />
+                    <Route exact path="/filter/:genre" component={GenreFilter}/>
                 </Switch>
             </div>
         );
