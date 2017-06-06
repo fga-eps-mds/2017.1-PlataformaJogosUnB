@@ -112,9 +112,12 @@ export default class MenuComponent extends React.Component {
 
         const gameGenres = [];
         for(var i = 0;i < this.state.games.length;i++){
-            var genreName = this.state.games[i].information.genres[0].name 
-            if(this.deleteEqualElements(genreName, gameGenres)){
-                gameGenres.push(genreName)
+            var genresList = this.state.games[i].information.genres
+            for(var k = 0;k < genresList.length;k++){
+                var genreName = this.state.games[i].information.genres[k].name 
+                if(this.deleteEqualElements(genreName, gameGenres)){
+                    gameGenres.push(genreName)
+                }   
             }
         }
         return gameGenres
@@ -128,8 +131,8 @@ export default class MenuComponent extends React.Component {
         const genreNames = this.getGenres()
         const gameGenresItems = [];
         for(var i = 0;i < genreNames.length;i++){
-            var url = "/games/" + genreNames[i]
-            const genreComponent = <Dropdown.Item text={genreNames[i]} as={Link} to={url} />
+            var url = "/filter/" + genreNames[i]
+            const genreComponent = <Dropdown.Item text={genreNames[i]} as={Link} to={`/filter/${genreNames[i]}`} params={{"genre":genreNames[i]}}/>
             gameGenresItems.push(genreComponent) 
         }
         return gameGenresItems
