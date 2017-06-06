@@ -32,7 +32,9 @@ class InformationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Information
-        fields = ['description',
+        fields = [
+                  'pk',
+                  'description',
                   'launch_year',
                   'semester',
                   'developers',
