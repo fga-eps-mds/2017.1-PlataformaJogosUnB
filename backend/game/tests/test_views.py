@@ -1,13 +1,11 @@
 import pytest
-import json
-from core.factory import UserFactory
 from game.serializers import GameSerializer
 from game.factory import GameFactory
 from game.models import Game
+import json
+import base64
 
 
-"""
-from game.models import Game
 from game.views import GameViewSet
 
 
@@ -53,24 +51,34 @@ class TestGameViewSet:
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
 
-"""
-
 
 class TestViewGamePost:
 
     @pytest.fixture
-    def client_loggin(self, client):
-        user = UserFactory()
-        client.login(username=user.username, password='qwer1234')
-        return client
+    def image_str(self):
+        image = GameFactory.build(name=None, official_repository=None,
+                                  version=None).cover_image.file
+
+        return base64.b64encode(image.read()).decode('utf-8')
 
     @pytest.mark.django_db
-    def test_save_only_game(self, client_loggin):
-        game = GameSerializer(GameFactory.build()).data
-        response = client_loggin.post("/api/games/",
-                                      data=json.dumps(game),
-                                      content_type='application/json')
-        print(response.content)
-        print(response.data)
+    def test_save_only_game(self, admin_client, image_str):
+        gs = {'name': 'quae',
+              'version': '1.0',
+              'official_repository': 'https://www.martinez.com/',
+              'game_activated': True,
+              'cover_image': {
+                  'name': 'image.jpg',
+                  'data': image_str,
+              }
+              }
+
+        response = admin_client.post("/api/games/", data=json.dumps(gs),
+                                     content_type="application/json")
         assert 200 <= response.status_code < 300
         assert Game.objects.count() == 1
+        print(response.data)
+
+    @pytest.mark.django_db
+    def test_save_with_information(self, admin_client):
+        assert True

@@ -11,10 +11,18 @@ from django.http import HttpResponseRedirect
 
 from .forms import ReportBugForm
 
+from media.factory import ImageFactory
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
+
+    def create(self, request):
+        request.data['cover_image'] = ImageFactory.build().image
+        response = super(GameViewSet, self).create(request)
+        print('TODO: delete old image')
+        return response
 
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):
