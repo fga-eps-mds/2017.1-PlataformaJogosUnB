@@ -11,8 +11,7 @@ export default class GenreFilter extends React.Component{
         super(props);
         this.state = {
             "game":[]
-                }
-
+        }        
     }
 
     loadGameFromServer () {
@@ -47,7 +46,7 @@ export default class GenreFilter extends React.Component{
     render(){
 
         const genre = this.props.match.params.genre;
-        const gameByGenreCards =  this.getGamesByGenre().map((game,index) =>
+        const gameByGenreCards =  this.getGamesByGenre().map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                 <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
                     <GameCard data={game} />

@@ -1,6 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
+import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
-import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar, Dropdown} from "semantic-ui-react";
+import {Dropdown} from "semantic-ui-react";
 
 export default class Genres extends React.Component{
 
@@ -9,17 +10,6 @@ export default class Genres extends React.Component{
         this.state = {"games":[]};
     }
 
-    componentWillMount () {
-
-        this.loadGameFromServer();
-
-    }
-
-    componentDidMount () {
-
-        this.loadGameFromServer();
-
-    }
 
     loadGameFromServer () {
 
@@ -42,6 +32,19 @@ export default class Genres extends React.Component{
               console.error(error);
 
           });
+
+    }
+    
+
+    componentWillMount () {
+
+        this.loadGameFromServer();
+
+    }
+
+    componentDidMount () {
+
+        this.loadGameFromServer();
 
     }
 
@@ -68,7 +71,6 @@ export default class Genres extends React.Component{
         const genreNames = this.getGenres()
         const gameGenresItems = [];
         for(var i = 0;i < genreNames.length;i++){
-            var url = "/filter/" + genreNames[i]
             const genreComponent = <Dropdown.Item text={genreNames[i]} as={Link} to={`/filter/${genreNames[i]}`} params={{"genre":genreNames[i]}}/>
             gameGenresItems.push(genreComponent)
         }
