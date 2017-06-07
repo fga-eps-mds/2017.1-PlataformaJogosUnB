@@ -55,18 +55,19 @@ export default class IndexSlider extends React.Component {
 
     render () {
 		const images = this.mountImages();
-    	if(images.length){
-        	return (
+
+        if(images.length){
+        return (
 
                 <InfiniteCarousel
   
-    	            autoCycle={true}
-                	cycleInterval={4200}
-                  	showSides={false}
-                	sidesOpacity={.5}
-                   	slidesToScroll={1}
-                	slidesToShow={1}
-    	            scrollOnDevice={true}
+                    autoCycle={true}
+                    cycleInterval={4200}
+                    showSides={false}
+                    slidesToScroll={1}
+                    slidesToShow={1}
+                    scrollOnDevice={true}
+
     
                 >	{images}
                 </InfiniteCarousel>

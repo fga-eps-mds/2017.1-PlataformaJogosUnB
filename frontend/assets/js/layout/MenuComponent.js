@@ -11,9 +11,10 @@ export default class MenuComponent extends React.Component {
         this.state = {
             "activeItem": window.location.pathname,
             "visible": false
-
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
+
+
     }
 
     showMenuMobile () {
@@ -27,10 +28,12 @@ export default class MenuComponent extends React.Component {
         this.state = {"activeItem": window.location.pathname};
 
     }
+
     render () {
 
         const {activeItem} = this.state;
         const {visible} = this.state;
+
 
         return (
             <div>

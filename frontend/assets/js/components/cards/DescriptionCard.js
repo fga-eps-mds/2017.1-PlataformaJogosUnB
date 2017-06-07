@@ -21,12 +21,13 @@ export default class DescriptionCard extends React.Component {
             <Card fluid>
                 <Card.Content>
                     <Card.Header>
-              Sobre o jogo
-          </Card.Header>
+                        Sobre o jogo
+                     </Card.Header>
                     <Card.Description>
                         { this.getVersion() }
                         <p><strong>Repositório Oficial: </strong>{this.props.official_repository}</p>
                         <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
+                        <p><strong>Gêneros: </strong>{this.props.genres.map((genre) => genre.name).reduce((accu, elem) => accu === null ? [elem] : [...accu, ", ", elem], null)}</p>
                     </Card.Description>
                     <Card.Content extra>
                         <Button animated="fade">
