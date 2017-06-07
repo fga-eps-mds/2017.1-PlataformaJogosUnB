@@ -16,6 +16,7 @@ urlpatterns = [
                                namespace='rest_framework')),
     url(r'^api/', include('game.urls', namespace='api')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^api/', include('information.urls', namespace='vote')),
 
 ]
 
