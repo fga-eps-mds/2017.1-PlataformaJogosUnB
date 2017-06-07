@@ -8,10 +8,7 @@ from rest_framework.decorators import detail_route
 from game.utils.issue_handler import IssueHandler
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-
-from .forms import ReportBugForm
-
-from media.factory import ImageFactory
+from game.forms import ReportBugForm
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -19,10 +16,8 @@ class GameViewSet(viewsets.ModelViewSet):
     serializer_class = GameSerializer
 
     def create(self, request):
-        request.data['cover_image'] = ImageFactory.build().image
-        response = super(GameViewSet, self).create(request)
         print('TODO: delete old image')
-        return response
+        return super(GameViewSet, self).create(request)
 
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):

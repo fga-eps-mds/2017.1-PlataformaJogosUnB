@@ -61,23 +61,36 @@ class TestViewGamePost:
 
         return base64.b64encode(image.read()).decode('utf-8')
 
-    @pytest.mark.django_db
-    def test_save_only_game(self, admin_client, image_str):
-        gs = {'name': 'quae',
-              'version': '1.0',
-              'official_repository': 'https://www.martinez.com/',
-              'game_activated': True,
-              'cover_image': {
-                  'name': 'image.jpg',
-                  'data': image_str,
-              }
-              }
+    @pytest.fixture
+    def game_serial(self, image_str):
+        return {'name': 'quae',
+                'version': '1.0',
+                'official_repository': 'https://www.martinez.com/',
+                'game_activated': True,
+                'image_name': 'example',
+                'extension': 'jpg',
+                'data': image_str,
+                }
 
-        response = admin_client.post("/api/games/", data=json.dumps(gs),
-                                     content_type="application/json")
+    @pytest.mark.django_db
+    def test_save_only_game(self, admin_client, game_serial):
+        response = admin_client.post("/api/games/",
+                                     data=json.dumps(game_serial),
+                                     content_type="application/json",
+                                     format="multipart")
+        print(response.data)
         assert 200 <= response.status_code < 300
         assert Game.objects.count() == 1
-        print(response.data)
+
+    def test_invalid_format_extension(self, admin_client, game_serial):
+        game_serial['extension'] = 'jpe'
+        response = admin_client.post("/api/games/",
+                                     data=json.dumps(game_serial),
+                                     content_type="application/json",
+                                     format="multipart")
+        assert response.status_code == 400
+        assert response.data == {'non_field_errors': ['invalid image '
+                                                      'extension']}
 
     @pytest.mark.django_db
     def test_save_with_information(self, admin_client):
