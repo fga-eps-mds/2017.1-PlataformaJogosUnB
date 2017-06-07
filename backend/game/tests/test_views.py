@@ -69,7 +69,7 @@ class TestViewGamePost:
                 'game_activated': True,
                 'image_name': 'example',
                 'extension': 'jpg',
-                'data': image_str,
+                'image_data': image_str,
                 }
 
     @pytest.mark.django_db

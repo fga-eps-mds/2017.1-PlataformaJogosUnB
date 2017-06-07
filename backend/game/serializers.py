@@ -6,6 +6,11 @@ from media.serializers import VideoSerializer
 from media.serializers import SoundtrackSerializer
 from core.validators import IMAGE_ALLOWED_EXTENSIONS
 
+from core.settings import MEDIA_ROOT
+from PIL import Image
+import base64
+from django.core.files.images import ImageFile
+
 
 class PlatformSerializer(serializers.ModelSerializer):
 
@@ -22,10 +27,6 @@ class PackageSerializer(serializers.ModelSerializer):
         fields = ['package', 'platforms']
 
 
-def valid_me(self, value):
-    print('here')
-
-
 class GameSerializer(serializers.ModelSerializer):
     cover_image = serializers.ImageField(read_only=True)
     information = InformationSerializer(read_only=True)
@@ -33,8 +34,10 @@ class GameSerializer(serializers.ModelSerializer):
     media_image = ImageSerializer(many=True, read_only=True)
     media_video = VideoSerializer(many=True, read_only=True)
     media_soundtrack = SoundtrackSerializer(many=True, read_only=True)
+
+# Fields to submit image for game
     image_name = serializers.CharField(write_only=True)
-    data = serializers.CharField(write_only=True)
+    image_data = serializers.CharField(write_only=True)
     extension = serializers.CharField(write_only=True)
 
     class Meta:
@@ -48,21 +51,35 @@ class GameSerializer(serializers.ModelSerializer):
                   'packages',
                   'media_image',
                   'media_video',
+                  'media_soundtrack',
                   'cover_image',
                   'slide_image',
                   'card_image',
-                  'media_soundtrack',
                   'image_name',
                   'extension',
-                  'data',
+                  'image_data',
                   ]
 
     def create(self, validated_data):
-        from game.factory import GameFactory
-        print('\n\narr\n')
-        return GameFactory()
+        validated_data['cover_image'] = self.__image_create__(validated_data)
+        print(validated_data)
+        return Game.objects.create(**validated_data)
 
     def validate(self, data):
         if data.get('extension') not in IMAGE_ALLOWED_EXTENSIONS:
             raise serializers.ValidationError("invalid image extension")
         return data
+
+    def __image_decode__(self, name, extension, data):
+        raw_data = Image.io.BytesIO(base64.b64decode(data))
+        float_image = Image.open(raw_data)
+        float_image.save("{}/temp_{}.{}".format(MEDIA_ROOT, name, extension))
+        float_image.close()
+
+    def __image_create__(self, validated_data):
+        name = validated_data.pop('image_name', 'temp')
+        extension = validated_data.pop('extension', 'jpg')
+        data = validated_data.pop('image_data', b'0x00')
+        self.__image_decode__(name, extension, data)
+        img = open('{}/temp_{}.{}'.format(MEDIA_ROOT, name, extension), 'rb')
+        return ImageFile(img)
