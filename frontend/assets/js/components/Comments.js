@@ -1,8 +1,7 @@
 import React, { Component} from 'react';
 import FacebookProvider, { Comments } from 'react-facebook';
-import { Button } from 'semantic-ui-react';
 
-export default class lomments extends Component {
+export default class Comment extends Component {
   render() {
       return (
       <div>

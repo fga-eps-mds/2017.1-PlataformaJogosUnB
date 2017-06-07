@@ -61,12 +61,12 @@ export default class IndexSlider extends React.Component {
 
                 <InfiniteCarousel
   
-    	            autoCycle={true}
-                	cycleInterval={4200}
-                  	showSides={false}
-                   	slidesToScroll={1}
-                	slidesToShow={1}
-    	            scrollOnDevice={true}
+                    autoCycle={true}
+                    cycleInterval={4200}
+                    showSides={false}
+                    slidesToScroll={1}
+                    slidesToShow={1}
+                    scrollOnDevice={true}    	            
     
                 >	{images}
                 </InfiniteCarousel>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, Popup} from "semantic-ui-react";
+import {Card, Popup} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
 export default class InformationCard extends React.Component {

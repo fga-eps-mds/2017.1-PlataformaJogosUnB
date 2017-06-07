@@ -2,7 +2,7 @@ import React from "react";
 import InformationCard from "../components/cards/InformationCard.js";
 import DescriptionCard from "../components/cards/DescriptionCard.js";
 import InternalSlide from "../layout/InternalSlide.js";
-import {Card, Container, Grid, Header} from "semantic-ui-react";
+import { Container, Grid } from "semantic-ui-react";
 
 
 export default class Game extends React.Component {
@@ -25,10 +25,8 @@ export default class Game extends React.Component {
 
     loadGameFromServer () {
 
-        console.log(this.props);
         const id = this.props.match.params.id;
 
-        console.log(id);
         fetch(`/api/detail/${id}/`,
             {
                 "headers": new Headers({
@@ -58,8 +56,6 @@ export default class Game extends React.Component {
     }
 
     render () {
-
-        console.log(this.state.game.media_image);
 
         return (
             <Container>
