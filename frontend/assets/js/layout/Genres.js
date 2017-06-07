@@ -91,7 +91,7 @@ export default class Genres extends React.Component{
 
     render (){
         return(
-            <Dropdown text= 'Gêneros'>
+            <Dropdown text= 'Categorias'>
                         <Dropdown.Menu>
                             {this.mountGenreItems()}
                         </Dropdown.Menu>
