@@ -10,7 +10,7 @@ export default class GenreFilter extends React.Component{
         super(props);
         this.state = {
             "game":[]
-        }        
+        }
     }
 
     loadGameFromServer () {
@@ -43,9 +43,9 @@ export default class GenreFilter extends React.Component{
     }
 
     render(){
-
+        this.sortListByYear();
         const genre = this.props.match.params.genre;
-        const gameByGenreCards =  this.getGamesByGenre().map((game, index) =>
+        const gamesByGenreCard = this.state.game.map((game, index) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                 <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
                     <GameCard data={game} />
@@ -60,7 +60,7 @@ export default class GenreFilter extends React.Component{
                     </Segment>
 
                     <Grid doubling columns={5}>
-                        {gameByGenreCards}
+                         {gamesByGenreCard}
                     </Grid>
                 </Container>
 
@@ -83,5 +83,13 @@ export default class GenreFilter extends React.Component{
 
         return gamesFromTheGenre
 
+    }
+
+    sortListByYear(){
+        const listaTemp = this.getGamesByGenre();
+        listaTemp.sort(function(a,b){
+            return a.information.launch_year-b.information.launch_year;
+        });
+        this.setState({game: listaTemp});
     }
 }
