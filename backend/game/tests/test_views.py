@@ -4,6 +4,8 @@ from game.factory import GameFactory
 from game.models import Game
 import json
 import base64
+import os
+from core.settings import MEDIA_ROOT
 
 
 from game.views import GameViewSet
@@ -58,7 +60,6 @@ class TestViewGamePost:
     def image_str(self):
         image = GameFactory.build(name=None, official_repository=None,
                                   version=None).cover_image.file
-
         return base64.b64encode(image.read()).decode('utf-8')
 
     @pytest.fixture
@@ -67,7 +68,7 @@ class TestViewGamePost:
                 'version': '1.0',
                 'official_repository': 'https://www.martinez.com/',
                 'game_activated': True,
-                'image_name': 'example',
+                'image_name': 'serial',
                 'extension': 'jpg',
                 'image_data': image_str,
                 }
@@ -78,7 +79,6 @@ class TestViewGamePost:
                                      data=json.dumps(game_serial),
                                      content_type="application/json",
                                      format="multipart")
-        print(response.data)
         assert 200 <= response.status_code < 300
         assert Game.objects.count() == 1
 
@@ -91,6 +91,17 @@ class TestViewGamePost:
         assert response.status_code == 400
         assert response.data == {'non_field_errors': ['invalid image '
                                                       'extension']}
+
+    def test_remove_temp_file(self, admin_client, game_serial):
+        admin_client.post("/api/games/",
+                          data=json.dumps(game_serial),
+                          content_type="application/json",
+                          format="multipart")
+
+        path = "{}/images/{}.{}".format(MEDIA_ROOT,
+                                        game_serial['image_name'],
+                                        game_serial['extension'])
+        assert not os.path.exists(path)
 
     @pytest.mark.django_db
     def test_save_with_information(self, admin_client):

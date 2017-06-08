@@ -16,7 +16,6 @@ class GameViewSet(viewsets.ModelViewSet):
     serializer_class = GameSerializer
 
     def create(self, request):
-        print('TODO: delete old image')
         return super(GameViewSet, self).create(request)
 
     @detail_route(methods=["POST"])

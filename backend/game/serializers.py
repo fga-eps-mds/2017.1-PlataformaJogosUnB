@@ -9,6 +9,7 @@ from core.validators import IMAGE_ALLOWED_EXTENSIONS
 from core.settings import MEDIA_ROOT
 from PIL import Image
 import base64
+import os
 from django.core.files.images import ImageFile
 
 
@@ -62,8 +63,15 @@ class GameSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data['cover_image'] = self.__image_create__(validated_data)
-        print(validated_data)
-        return Game.objects.create(**validated_data)
+        game_saved = None
+        try:
+            game_saved = Game.objects.create(**validated_data)
+        finally:
+            # Always remove the temp file
+            validated_data['cover_image'].close()
+            os.remove(validated_data['cover_image'].name)
+
+        return game_saved
 
     def validate(self, data):
         if data.get('extension') not in IMAGE_ALLOWED_EXTENSIONS:
@@ -73,7 +81,7 @@ class GameSerializer(serializers.ModelSerializer):
     def __image_decode__(self, name, extension, data):
         raw_data = Image.io.BytesIO(base64.b64decode(data))
         float_image = Image.open(raw_data)
-        float_image.save("{}/temp_{}.{}".format(MEDIA_ROOT, name, extension))
+        float_image.save("{}/images/{}.{}".format(MEDIA_ROOT, name, extension))
         float_image.close()
 
     def __image_create__(self, validated_data):
@@ -81,5 +89,5 @@ class GameSerializer(serializers.ModelSerializer):
         extension = validated_data.pop('extension', 'jpg')
         data = validated_data.pop('image_data', b'0x00')
         self.__image_decode__(name, extension, data)
-        img = open('{}/temp_{}.{}'.format(MEDIA_ROOT, name, extension), 'rb')
+        img = open('{}/images/{}.{}'.format(MEDIA_ROOT, name, extension), 'rb')
         return ImageFile(img)
