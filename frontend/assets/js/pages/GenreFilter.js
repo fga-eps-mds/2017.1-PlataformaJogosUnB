@@ -57,6 +57,20 @@ export default class GenreFilter extends React.Component{
         this.setState({game: listaTemp});
     }
 
+    sortListByName(){
+        if(typeof this.state.game === "undefined"){
+            return false
+        }
+        const listGames = this.state.game;
+        listGames.sort(function(a,b){
+                if(a.name > b.name) return 1;
+                if(a.name < b.name) return -1;
+                return 0;
+            }
+        );
+        this.setState({game: listGames});
+    }
+
     render(){
         const genre = this.props.match.params.genre;
         const listCards = this.getGamesByGenre().map((game, index) =>
@@ -66,6 +80,36 @@ export default class GenreFilter extends React.Component{
                 </Link>
             </Grid.Column>
         );
+        const dropDownSelect = ({data}) => (
+            <Dropdown.Item onClick={(e) => this.sortListByName(e)}>
+                Nome
+            </Dropdown.Item>
+        )
+        const optionsSortBy = [
+            {
+                text: 'Nome',
+                key: 'Nome',
+                value: 'Nome',
+                content: 'Nome',
+                as : dropDownSelect,
+                data: {
+                    name: 'Nome',
+                    eventSortBy: '() => this.sortListByName.bind(this)',
+                }
+            },
+            {
+                text: 'Mais antigo',
+                key: 'Mais antigo',
+                value: 'Mais antigo',
+                content: 'Mais antigo',
+            },
+            {
+                text: 'Mais recente',
+                key: 'Mais recente',
+                value: 'Mais recente',
+                content: 'Mais recente',
+            },
+        ];
         return(
                 <Container>
                 <Grid>
@@ -74,11 +118,23 @@ export default class GenreFilter extends React.Component{
                             <h1>Jogos de {genre}</h1>
                         </Segment>
                     </Grid.Row>
+
+                        <span>
+                        Ordernar por
+                        {' '}
+                        <Dropdown
+                            inline options={optionsSortBy}
+                            defaultValue={optionsSortBy[1].text}
+                        />
+                        </span>
                     <div>
                         <Menu inverted>
                             <Menu.Item>
                             <Dropdown text='Ordernar por' pointing>
                                 <Dropdown.Menu>
+                                    <Dropdown.Item onClick={(e) => this.sortListByName(e)}>
+                                        Nome
+                                    </Dropdown.Item>
                                     <Dropdown.Item onClick={(e) => this.sortListByYear("older", e)}>
                                         Mais antigo
                                     </Dropdown.Item>
