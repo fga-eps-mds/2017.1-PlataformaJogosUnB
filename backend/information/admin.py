@@ -1,5 +1,5 @@
 from django.contrib import admin
-from information.models import Information, Developer, Award, Genre
+from information.models import Information, Developer, Artist, Award, Genre
 
 
 class AwardsInline(admin.TabularInline):
@@ -20,6 +20,15 @@ class DevelopmentAdmin(admin.ModelAdmin):
     search_fields = ['name', 'email', ]
 
 
+class ArtistsInline(admin.TabularInline):
+    model = Information.artists.through
+
+
+class ArtistAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', ]
+    search_fields = ['name', 'email', ]
+
+
 class GenresInline(admin.TabularInline):
     model = Information.genres.through
 
@@ -30,10 +39,11 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 class InformationAdmin(admin.ModelAdmin):
-    inlines = [AwardsInline, DevelopmentsInline, GenresInline, ]
-    exclude = ('developers', 'awards', 'genres')
+    inlines = [AwardsInline, DevelopmentsInline, ArtistsInline, GenresInline, ]
+    exclude = ('developers', 'artists', 'awards', 'genres')
 
 
 admin.site.register(Developer, DevelopmentAdmin)
+admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Award, AwardAdmin)
 admin.site.register(Genre, GenreAdmin)

@@ -187,6 +187,11 @@ class Information(models.Model):
         related_name='developers'
     )
 
+    artists = models.ManyToManyField(
+        Artist,
+        related_name='artist'
+    )
+
     genres = models.ManyToManyField(
         Genre,
         related_name='genres'
