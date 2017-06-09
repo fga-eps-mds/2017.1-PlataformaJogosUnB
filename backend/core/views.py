@@ -15,6 +15,7 @@ def index(request):
             many=False)
         game.fetch_package()
 
+    print("any route")
     return render(request, 'game/index.html', {'games': games})
 
 
