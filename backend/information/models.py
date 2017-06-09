@@ -89,6 +89,39 @@ class Developer(models.Model):
         return "{0} <{1}>".format(self.name, self.github_page)
 
 
+class Artist(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=100,
+        help_text=_('Name of the artist.')
+    )
+
+    avatar = models.ImageField(
+        _('Avatar'),
+        upload_to='public/avatar',
+        blank=True,
+        validators=[general_validators.image_extension_validator],
+        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
+    )
+
+    email = models.EmailField(
+        _('E-mail'),
+        validators=[EmailValidator()],
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text=_('Developer contact e-mail.')
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Artist, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}".format(self.name)
+
+
 class Genre(models.Model):
 
     name = models.CharField(
