@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
-import {Card, Grid, Container} from "semantic-ui-react";
+import {Grid, Container} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
 export default class GameList extends React.Component {
@@ -45,7 +44,7 @@ export default class GameList extends React.Component {
 
     render () {
 
-        const gameCards = this.state.games.map((game, index) =>
+        const gameCards = this.state.games.map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
                     <GameCard data={game} />

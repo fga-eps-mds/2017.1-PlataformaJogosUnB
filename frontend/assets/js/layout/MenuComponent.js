@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar} from "semantic-ui-react";
 import SearchBox from '../components/SearchBox'
 import bars from '../../../public/bundles/images/bars.png'
+import Genres from "./Genres";
+
 
 export default class MenuComponent extends React.Component {
 
@@ -14,6 +16,7 @@ export default class MenuComponent extends React.Component {
             "visible": false
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
+
 
     }
 
@@ -45,6 +48,9 @@ export default class MenuComponent extends React.Component {
                                     <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
                                     <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                     <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                    <Menu.Item>
+                                            <Genres />
+                                    </Menu.Item>
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
@@ -66,6 +72,7 @@ export default class MenuComponent extends React.Component {
                                         <Menu.Menu position='right'>
                                             <Menu.Item>
                                                 <SearchBox />
+                                                <Genres />
                                             </Menu.Item>
                                         </Menu.Menu>
                                     </Container>
