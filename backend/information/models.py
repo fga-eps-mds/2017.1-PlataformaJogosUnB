@@ -123,7 +123,8 @@ class Rating(models.Model):
 
     email_voter = models.EmailField(
         _('Email voter'),
-        help_text=_('Email that authentic users.')
+        help_text=_('Email that authentic users.'),
+        unique=True
     )
 
     information = models.ForeignKey(
@@ -136,7 +137,7 @@ class Rating(models.Model):
         super(Rating, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0}: {1}".format(self.email_authenticate,self.vote)
+        return "{0}: {1}".format(self.email_voter,self.vote)
 
 
 class Information(models.Model):

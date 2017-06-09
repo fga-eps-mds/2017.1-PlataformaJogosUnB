@@ -11,6 +11,8 @@ class VoteView(APIView):
 
     def post(self, request, pk=None):
         information = get_object_or_404(Information,pk=pk)
+        rating = get_object_or_404(Rating,email_voter=request.data['email_voter'])
+        rating.delete()
         rating = Rating(vote=request.data['vote'], email_voter=request.data['email_voter'], information=information)
         try:
             rating.save()
