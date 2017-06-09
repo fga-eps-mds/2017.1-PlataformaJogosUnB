@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Segment, Grid, Container, Button} from "semantic-ui-react";
+import {Segment, Grid, Container, Button, Menu, Dropdown} from "semantic-ui-react";
 import GameCard from "../components/cards/GameCard";
 
 export default class GenreFilter extends React.Component{
@@ -42,13 +42,17 @@ export default class GenreFilter extends React.Component{
 
     }
 
-    sortListByYear(){
+    sortListByYear(order){
         if(typeof this.state.game === "undefined"){
             return false
         }
         const listaTemp = this.state.game;
         listaTemp.sort(function(a,b){
-            return a.information.launch_year-b.information.launch_year;
+            if(order === "older"){
+                return a.information.launch_year-b.information.launch_year;
+            } else if(order === "mostRecent"){
+                return b.information.launch_year-a.information.launch_year;
+            }
         });
         this.setState({game: listaTemp});
     }
@@ -64,14 +68,34 @@ export default class GenreFilter extends React.Component{
         );
         return(
                 <Container>
-                    <Segment padded inverted color="brown">
-                        <h1>Jogos de {genre}</h1>
-                        <Button label='Test' onClick={(e) => this.sortListByYear(e)} />
-                    </Segment>
-
-                    <Grid doubling columns={5}>
-                         {listCards}
-                    </Grid>
+                <Grid>
+                    <Grid.Row>
+                        <Segment padded inverted color="brown">
+                            <h1>Jogos de {genre}</h1>
+                        </Segment>
+                    </Grid.Row>
+                    <div>
+                        <Menu inverted>
+                            <Menu.Item>
+                            <Dropdown text='Ordernar por' pointing>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={(e) => this.sortListByYear("older", e)}>
+                                        Mais antigo
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={(e) => this.sortListByYear("mostRecent", e)}>
+                                        Mais recente
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            </Menu.Item>
+                        </Menu>
+                    </div>
+                    <Grid.Row>
+                        <Grid doubling columns={5}>
+                            {listCards}
+                        </Grid>
+                    </Grid.Row>
+                </Grid>
                 </Container>
 
                 );
