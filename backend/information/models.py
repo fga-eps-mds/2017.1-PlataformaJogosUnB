@@ -124,7 +124,6 @@ class Rating(models.Model):
     email_voter = models.EmailField(
         _('Email voter'),
         help_text=_('Email that authentic users.'),
-        unique=True
     )
 
     information = models.ForeignKey(
@@ -139,6 +138,8 @@ class Rating(models.Model):
     def __str__(self):
         return "{0}: {1}".format(self.email_voter,self.vote)
 
+    class Meta:
+        unique_together = ("email_voter","information")
 
 class Information(models.Model):
 
