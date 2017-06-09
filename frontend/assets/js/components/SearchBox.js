@@ -62,11 +62,23 @@ export default class SearchBox extends Component {
                 isLoading: false,
                 results: _.filter(this.state.listGame, isMatch),
             })
+
+            const MAXLIMIT = 5;
+            var firstFiveGames = []; 
+            for (var i = 0; i < this.state.results.length; i++) {
+                if (i < MAXLIMIT) {
+                    firstFiveGames.push(this.state.results[i]);
+                } else {
+                    break;
+                }
+            }
+            this.setState({firstFiveGames})
+
         }, 500)
     }
 
     render() {
-        const { isLoading, value, results } = this.state
+        const { isLoading, value, results, firstFiveGames } = this.state
 
         return (
             <Grid>
@@ -77,7 +89,7 @@ export default class SearchBox extends Component {
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
-                        results={results}
+                        results={firstFiveGames}
                         value={value}
                         {...this.props}
                     />
