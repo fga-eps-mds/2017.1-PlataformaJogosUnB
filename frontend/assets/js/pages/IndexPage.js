@@ -4,6 +4,7 @@ import {Card, Container, Segment} from "semantic-ui-react";
 import IndexSlide from "../layout/IndexSlide";
 import GameCard from "../components/cards/GameCard";
 import GameList from "../components/GameList";
+import SegmentTitle from "../layout/SegmentTitle";
 
 export default class IndexPage extends React.Component {
 
@@ -13,9 +14,7 @@ export default class IndexPage extends React.Component {
             <div>
                 <Container>
                     <IndexSlide />
-                    <Segment padded inverted color="brown">
-                        <h1>Mais curtidos</h1>
-                    </Segment>
+                    <SegmentTitle title={'Mais curtidos'} />
                     <GameList />
                 </Container>
             </div>

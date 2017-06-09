@@ -5,6 +5,7 @@ import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import Comment from '../components/Comments';
+import SegmentTitle from "../layout/SegmentTitle";
 
 export default class GamePage extends React.Component{
      constructor (props) {
@@ -54,10 +55,7 @@ export default class GamePage extends React.Component{
 
     return (
         <Container>
-            <Segment padded inverted color="brown">
-                <h1>{this.state.game.name} </h1>
-            </Segment>
-            
+            <SegmentTitle title={this.state.game.name} />
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={10}>
@@ -68,7 +66,7 @@ export default class GamePage extends React.Component{
                     
                     <Grid.Column width={6}>
                         <GameInformationCard
-                            cover_image={this.state.game.cover_image0}
+                            cover_image={this.state.game.cover_image}
                             version={this.state.game.version}
                             official_repository={this.state.game.official_repository}
                             launch_year={this.state.game.information.launch_year}

@@ -14,22 +14,23 @@ export default class GameInformationCard extends React.Component {
 
         return (
             <Card fluid>
+                <Image src={this.props.cover_image} />
                 <Card.Content>
-                    <Card.Header>
-                        <Image src={this.props.cover_image} />
-                    </Card.Header>
-                    <Card.Description>
+                  <Card.Header>Daniel</Card.Header>
+                  <Card.Description>
                         { this.getVersion() }
                         <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
-                        <p><strong>Repositório Oficial: </strong>
-                            <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>
-                        </p>
                         <p><strong>Gêneros: </strong>
                             <Label as='a' color='teal'>
                                 {this.props.genres.map((genre) => genre.name).reduce((accu, elem) => accu === null ? [elem] : [...accu, ", ", elem], null)}
                             </Label>
                         </p>
                     </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <p><strong>Repositório Oficial: </strong>
+                        <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>
+                    </p>
                 </Card.Content>
             </Card>
         );

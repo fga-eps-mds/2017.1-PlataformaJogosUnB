@@ -12,7 +12,7 @@ export default class DevelopersCard extends React.Component {
 
         return (
             <Card fluid>
-                <Card.Content header="Creditos" />
+                <Card.Content header="Créditos" />
                 <Card.Content extra >
                     <ul style={withoutSymbol}>{this.props.developers.map((developer) =>
                         (<Popup trigger={<Link to="github" target="_blank" to={developer.github_page}><li>{ developer.name }</li></Link>} 

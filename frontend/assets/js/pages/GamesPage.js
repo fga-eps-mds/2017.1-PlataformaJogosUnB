@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Card, Container, Segment} from "semantic-ui-react";
 import GameList from "../components/GameList";
+import SegmentTitle from "../layout/SegmentTitle";
 
 export default class GamesPage extends React.Component {
 
@@ -9,9 +10,7 @@ export default class GamesPage extends React.Component {
 
         return (
             <Container>
-                <Segment padded inverted color="brown">
-                    <h1>Lista de jogos</h1>
-                </Segment>
+                <SegmentTitle title={'Lista de Jogos'} />
                 <GameList />
             </Container>
         );

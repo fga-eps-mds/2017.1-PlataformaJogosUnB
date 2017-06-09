@@ -3,3 +3,11 @@
 *******************************/
 
 
+@background: #292a2f;
+@solidBorderColor: #292a2f;
+@headerColor: #ffffff;
+@descriptionColor: #ffffff;
+@extraColor: #ffffff;
+
+@extraLinkColor: #159588;
+@extraLinkHoverColor: #f08422;
