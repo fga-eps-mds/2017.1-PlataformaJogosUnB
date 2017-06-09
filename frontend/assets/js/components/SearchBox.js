@@ -12,15 +12,18 @@ export default class SearchBox extends Component {
                 }),
                 "method": "GET"
             }).
-          then((response) => response.json()).
-          then((games) => {
-                var listGame = games.map((game) => ({
-                    title: game.name,
-                    image: game.cover_image,
-                    description: (game.information.semester+'/'+game.information.launch_year),
-                }));
-              this.setState({listGame});
-          });
+        then((response) => response.json()).
+        then((games) => {
+            var listGame = games.map((game) => ({
+                gamePk: game.pk,
+                title: game.name,
+                description: game.information.genres[0].name,
+                image: game.cover_image,
+                price: (game.information.semester+'/'+game.information.launch_year),
+                gameDescription: game.information.description
+            }));
+            this.setState({listGame});
+        });
     }
 
     constructor(props) {
@@ -41,7 +44,7 @@ export default class SearchBox extends Component {
 
     handleResultSelect(e, result) {
         this.setState({ value: result.title })
-        window.location = `/games/${result.pk}`;
+        window.location = `/games/${result.gamePk}`;
     }
 
     handleSearchChange(e, value) {
@@ -51,7 +54,9 @@ export default class SearchBox extends Component {
             if (this.state.value.length < 1) return this.resetComponent()
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = (result) => re.test(result.title)
+            const isMatch = (result) => {
+                return (re.test(result.title) || re.test(result.gameDescription))
+            }
 
             this.setState({
                 isLoading: false,
@@ -68,7 +73,7 @@ export default class SearchBox extends Component {
                 <Grid.Column width={8}>
                     <Search
                         size='small'
-                        placeholder='Pesquisa...'
+                        placeholder='Pesquisar...'
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
