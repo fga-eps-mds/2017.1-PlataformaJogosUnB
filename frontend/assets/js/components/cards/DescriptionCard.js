@@ -1,43 +1,23 @@
 import React from "react";
-import {Button, Card} from "semantic-ui-react";
+import {Card, Popup} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
 export default class DescriptionCard extends React.Component {
-    getVersion () {
-
-        if (this.props.version != null) {
-
-            return <p><strong>Versão: </strong>{this.props.version}</p>;
-
-        }
-
-        return null;
-
-
-    }
 
     render () {
 
         return (
             <Card fluid>
-                <Card.Content>
-                    <Card.Header>
-                        Sobre o jogo
-                     </Card.Header>
-                    <Card.Description>
-                        { this.getVersion() }
-                        <p><strong>Repositório Oficial: </strong>{this.props.official_repository}</p>
-                        <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
-                        <p><strong>Gêneros: </strong>{this.props.genres.map((genre) => genre.name).reduce((accu, elem) => accu === null ? [elem] : [...accu, ", ", elem], null)}</p>
-                    </Card.Description>
-                    <Card.Content extra>
-                        <Button animated="fade">
-                            <Button.Content visible>Linux</Button.Content>
-                            <Button.Content hidden>Baixe agora</Button.Content>
-                        </Button>
-                    </Card.Content>
+                <Card.Content header="Descrição" />
+                <Card.Content description={this.props.description} />
+                <Card.Content extra >
+                    <p><strong>Prêmios: </strong>{this.props.awards.map((award) =>
+                        <div>Nome do prêmio: { award.name } - Ano: { award.year } - Colocação: { award.place }</div>
+                    )}</p>
                 </Card.Content>
             </Card>
         );
 
     }
 }
+
