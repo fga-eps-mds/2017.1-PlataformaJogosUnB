@@ -4,6 +4,7 @@ import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
+import PackageCard from '../components/cards/PackageCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
 
@@ -63,7 +64,7 @@ export default class GamePage extends React.Component{
                             data={this.state.game}
                         />
                     </Grid.Column>
-                    
+
                     <Grid.Column width={6}>
                         <GameInformationCard
                             cover_image={this.state.game.cover_image}
@@ -82,19 +83,28 @@ export default class GamePage extends React.Component{
                             awards={this.state.game.information.awards}
                         />
                     </Grid.Column>
+
                     <Grid.Column width={6}>    
-                        <DevelopersCard
-                            developers={this.state.game.information.developers}
+                        <PackageCard
+                            
                         />
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Column width={10}>
-                    <Card fluid>
-                        <Card.Content>
-                            <Comment url={"unbgames.lappis.rocks/games/" + id} />
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>
+                
+                <Grid.Row>
+                    <Grid.Column width={10}>
+                        <Card fluid>
+                            <Card.Content>
+                                <Comment url={"unbgames.lappis.rocks/games/" + id} />
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+                    <Grid.Column width={6}>    
+                            <DevelopersCard
+                                developers={this.state.game.information.developers}
+                            />
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         </Container>
     );
