@@ -69,7 +69,7 @@ class Developer(models.Model):
     email = models.EmailField(
         _('E-mail'),
         validators=[EmailValidator()],
-        max_length=100,
+        max_lenkth=100,
         null=True,
         blank=True,
         help_text=_('Developer contact e-mail.')
@@ -102,7 +102,7 @@ class Artist(models.Model):
         upload_to='public/avatar',
         blank=True,
         validators=[general_validators.image_extension_validator],
-        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
+        help_text=_('Artist image. ' + HELP_TEXT_IMAGES)
     )
 
     email = models.EmailField(
@@ -111,12 +111,45 @@ class Artist(models.Model):
         max_length=100,
         null=True,
         blank=True,
-        help_text=_('Developer contact e-mail.')
+        help_text=_('Artist contact e-mail.')
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Artist, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}".format(self.name)
+
+
+class Musician(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=100,
+        help_text=_('Name of the musician.')
+    )
+
+    avatar = models.ImageField(
+        _('Avatar'),
+        upload_to='public/avatar',
+        blank=True,
+        validators=[general_validators.image_extension_validator],
+        help_text=_('Musician image. ' + HELP_TEXT_IMAGES)
+    )
+
+    email = models.EmailField(
+        _('E-mail'),
+        validators=[EmailValidator()],
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text=_('Musician contact e-mail.')
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Musician, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{0}".format(self.name)
