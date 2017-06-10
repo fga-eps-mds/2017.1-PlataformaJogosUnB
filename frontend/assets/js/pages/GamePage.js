@@ -6,6 +6,7 @@ import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import PackageCard from '../components/cards/PackageCard';
 import Comment from '../components/Comments';
+import ReportBugForm from '../components/forms/ReportBugForm.js';
 import SegmentTitle from "../layout/SegmentTitle";
 
 export default class GamePage extends React.Component{
@@ -33,7 +34,6 @@ export default class GamePage extends React.Component{
         return null;
     }
 
-
   loadGameFromServer(){
     const id = this.props.match.params.id;
 
@@ -54,11 +54,11 @@ export default class GamePage extends React.Component{
   }
 
   componentDidMount() {
-        this.loadGameFromServer();
+    this.loadGameFromServer();
   }
 
   render(){
-    const id = this.props.match.params.id;
+  const id = this.props.match.params.id;
 
     return (
         <Container>
@@ -85,6 +85,7 @@ export default class GamePage extends React.Component{
 
                 <Grid.Row>
                     <Grid.Column width={10}>
+                        <ReportBugForm />
                         <DescriptionCard
                             description={this.state.game.information.description}
                             awards={this.state.game.information.awards}
