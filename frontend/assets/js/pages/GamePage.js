@@ -23,6 +23,7 @@ export default class GamePage extends React.Component{
                 "information": {
                     "developers": [],                 
                     "artists": [],
+                    "musicians":[],
                     "awards": [],
                     "genres": [],
                     "packages": []
@@ -132,6 +133,7 @@ export default class GamePage extends React.Component{
                             <DevelopersCard
                                 developers={this.state.game.information.developers}
                                 artists={this.state.game.information.artists}
+                                musicians={this.state.game.information.musicians}
                                 awards={this.state.game.information.awards}
                             />
                     </Grid.Column>
