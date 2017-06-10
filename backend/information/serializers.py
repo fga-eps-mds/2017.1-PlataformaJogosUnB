@@ -1,5 +1,7 @@
-from information.models import Information, Award, Developer, Artist, Genre
 from rest_framework import serializers
+from information.models import (
+    Information, Award, Developer, Artist, Musician, Genre
+)
 
 
 class AwardSerializer(serializers.ModelSerializer):
@@ -23,6 +25,13 @@ class ArtistSerializer(serializers.ModelSerializer):
         fields = ['name', 'avatar', 'email']
 
 
+class MusicianSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Musician
+        fields = ['name', 'avatar', 'email']
+
+
 class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -37,6 +46,7 @@ class InformationSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True, required=False)
     game_id = serializers.IntegerField(write_only=True)
     artists = ArtistSerializer(many=True)
+    musicians = MusicianSerializer(many=True)
 
     class Meta:
         model = Information
@@ -45,6 +55,7 @@ class InformationSerializer(serializers.ModelSerializer):
                   'semester',
                   'developers',
                   'artists',
+                  'musicians',
                   'awards',
                   'genres',
                   'game_id',
