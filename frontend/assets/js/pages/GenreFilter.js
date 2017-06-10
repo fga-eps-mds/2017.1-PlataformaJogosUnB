@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Segment, Grid, Container, Button, Menu, Dropdown} from "semantic-ui-react";
+import {Segment, Grid, Container, Menu, Dropdown} from "semantic-ui-react";
 import GameCard from "../components/cards/GameCard";
 
 export default class GenreFilter extends React.Component{
@@ -9,7 +9,8 @@ export default class GenreFilter extends React.Component{
 
         super(props);
         this.state = {
-            "game":[]
+            "game":[],
+            "name": 'Ordernar por'
         }
     }
 
@@ -36,39 +37,31 @@ export default class GenreFilter extends React.Component{
         });
 
     }
-   componentDidMount () {
+    componentDidMount () {
 
         this.loadGameFromServer();
 
     }
 
-    sortListByYear(order){
-        if(typeof this.state.game === "undefined"){
+    sortList(data){
+         if(typeof this.state.game === "undefined"){
             return false
         }
-        const listaTemp = this.state.game;
-        listaTemp.sort(function(a,b){
-            if(order === "older"){
-                return a.information.launch_year-b.information.launch_year;
-            } else if(order === "mostRecent"){
-                return b.information.launch_year-a.information.launch_year;
-            }
-        });
-        this.setState({game: listaTemp});
-    }
-
-    sortListByName(){
-        if(typeof this.state.game === "undefined"){
-            return false
-        }
+        const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const listGames = this.state.game;
-        listGames.sort(function(a,b){
-                if(a.name > b.name) return 1;
-                if(a.name < b.name) return -1;
+        listGames.sort((a,b) => {
+                if(data.order === frontToBack){
+                    if(eval('a'+data.param) > eval('b'+data.param)) return 1;
+                    if(eval('a'+data.param) < eval('b'+data.param)) return -1;
+                } else if(data.order === backToFront){
+                    if(eval('b'+data.param) > eval('a'+data.param)) return 1;
+                    if(eval('b'+data.param) < eval('a'+data.param)) return -1;
+                }
                 return 0;
             }
         );
         this.setState({game: listGames});
+        this.setState({name: data.name});
     }
 
     render(){
@@ -80,36 +73,26 @@ export default class GenreFilter extends React.Component{
                 </Link>
             </Grid.Column>
         );
-        const dropDownSelect = ({data}) => (
-            <Dropdown.Item onClick={(e) => this.sortListByName(e)}>
-                Nome
-            </Dropdown.Item>
-        )
-        const optionsSortBy = [
-            {
-                text: 'Nome',
-                key: 'Nome',
-                value: 'Nome',
-                content: 'Nome',
-                as : dropDownSelect,
-                data: {
-                    name: 'Nome',
-                    eventSortBy: '() => this.sortListByName.bind(this)',
-                }
-            },
-            {
-                text: 'Mais antigo',
-                key: 'Mais antigo',
-                value: 'Mais antigo',
-                content: 'Mais antigo',
-            },
-            {
-                text: 'Mais recente',
-                key: 'Mais recente',
-                value: 'Mais recente',
-                content: 'Mais recente',
-            },
-        ];
+        const ruleOrderByNameAZ = {
+            name: 'Nome (A-Z)',
+            order: 'frontToBack',
+            param: '.name',
+        };
+        const ruleOrderByNameZA = {
+            name: 'Nome (Z-A)',
+            order: 'backToFront',
+            param: '.name',
+        };
+        const ruleOrderByYearOlder = {
+            name: 'Mais antigo',
+            order: 'frontToBack',
+            param: '.information.launch_year',
+        };
+        const ruleOrderByYearRecent = {
+            name: 'Mais recente',
+            order: 'backToFront',
+            param: '.information.launch_year',
+        };
         return(
                 <Container>
                 <Grid>
@@ -118,27 +101,21 @@ export default class GenreFilter extends React.Component{
                             <h1>Jogos de {genre}</h1>
                         </Segment>
                     </Grid.Row>
-
-                        <span>
-                        Ordernar por
-                        {' '}
-                        <Dropdown
-                            inline options={optionsSortBy}
-                            defaultValue={optionsSortBy[1].text}
-                        />
-                        </span>
                     <div>
                         <Menu inverted>
                             <Menu.Item>
-                            <Dropdown text='Ordernar por' pointing>
+                            <Dropdown text={this.state.name} defaultValue='Ordernar por' pointing>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={(e) => this.sortListByName(e)}>
-                                        Nome
+                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByNameAZ, e)}>
+                                        Nome (A-Z)
                                     </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.sortListByYear("older", e)}>
+                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByNameZA, e)}>
+                                        Nome (Z-A)
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByYearOlder, e)}>
                                         Mais antigo
                                     </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.sortListByYear("mostRecent", e)}>
+                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByYearRecent, e)}>
                                         Mais recente
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
