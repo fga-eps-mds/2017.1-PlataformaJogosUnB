@@ -5,14 +5,15 @@ from core.helper_test import (
     mount_error_dict,
     ErrorMessage
 )
-from information.models import Information, Award, Genre, Developer, Statistic
 from information.factory import (
     InformationFactory,
     AwardFactory,
     GenreFactory,
     DeveloperFactory
 )
-
+from information.models import (
+    Information, Award, Genre, Developer, Artist, Musician, Statistic
+)
 
 def now():
     from datetime import datetime
@@ -232,6 +233,54 @@ class TestDeveloper:
         name = developer_creation.name
         url = developer_creation.github_page
         assert str(developer_creation) == "{} <{}>".format(name, url)
+
+
+@pytest.fixture
+def artist_creation():
+    artist = Artist.objects.create(name="Artist", email="artist@gmail.com")
+    return artist
+
+
+class TestArtistAvatar:
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(('name, avatar, email' + ' errors_dict'), [
+        ('artist', 'artist.ppm',
+            'hehe@host.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
+        ('artist', 'avatar.c', 'hehe@host.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
+                                        ErrorMessage.NOT_IMAGE.value[1]]])),
+    ])
+    def test_avatar_valid_extension(self, name, avatar, email, errors_dict):
+        artist = Artist(
+            name=name,
+            avatar=avatar,
+            email=email,
+        )
+        validation_test(artist, errors_dict)
+
+    @pytest.mark.django_db
+    def test_avatar_invalid_extension(self):
+        artist = Artist(
+            name='name',
+            avatar='picture.jpg',
+            email='hoho@host.com',
+        )
+        artist.save()
+        assert Artist.objects.last() == artist
+
+
+class TestArtist:
+
+    @pytest.mark.django_db
+    def test_artist_save(self, artist_creation):
+        artist = Artist.objects.get(pk=artist_creation.pk)
+        assert artist == artist_creation
+
+    @pytest.mark.django_db
+    def test_str_artist(self, artist_creation):
+        assert str(artist_creation) == "Artist"
 
 
 class TestStatistic:
