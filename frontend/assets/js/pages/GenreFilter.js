@@ -73,26 +73,6 @@ export default class GenreFilter extends React.Component{
                 </Link>
             </Grid.Column>
         );
-        const ruleOrderByNameAZ = {
-            name: 'Nome (A-Z)',
-            order: 'frontToBack',
-            param: '.name',
-        };
-        const ruleOrderByNameZA = {
-            name: 'Nome (Z-A)',
-            order: 'backToFront',
-            param: '.name',
-        };
-        const ruleOrderByYearOlder = {
-            name: 'Mais antigo',
-            order: 'frontToBack',
-            param: '.information.launch_year',
-        };
-        const ruleOrderByYearRecent = {
-            name: 'Mais recente',
-            order: 'backToFront',
-            param: '.information.launch_year',
-        };
         return(
                 <Container>
                 <Grid>
@@ -106,18 +86,7 @@ export default class GenreFilter extends React.Component{
                             <Menu.Item>
                             <Dropdown text={this.state.name} defaultValue='Ordernar por' pointing>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByNameAZ, e)}>
-                                        Nome (A-Z)
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByNameZA, e)}>
-                                        Nome (Z-A)
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByYearOlder, e)}>
-                                        Mais antigo
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.sortList(ruleOrderByYearRecent, e)}>
-                                        Mais recente
-                                    </Dropdown.Item>
+                                    {this.listDropdownItens()}
                                 </Dropdown.Menu>
                             </Dropdown>
                             </Menu.Item>
@@ -132,6 +101,32 @@ export default class GenreFilter extends React.Component{
                 </Container>
 
                 );
+    }
+
+    listDropdownItens(listItens){
+        const rule = [{
+            name: 'Nome (A-Z)',
+            order: 'frontToBack',
+            param: '.name',
+        },{
+            name: 'Nome (Z-A)',
+            order: 'backToFront',
+            param: '.name',
+        },{
+            name: 'Mais antigo',
+            order: 'frontToBack',
+            param: '.information.launch_year',
+        },{
+            name: 'Mais recente',
+            order: 'backToFront',
+            param: '.information.launch_year',
+        }]
+        const listDropItens = rule.map((item) =>
+                <Dropdown.Item onClick={(e) => this.sortList(item, e)}>
+                    {item.name}
+                </Dropdown.Item>
+        );
+        return listDropItens;
     }
 
     getGamesByGenre(){
