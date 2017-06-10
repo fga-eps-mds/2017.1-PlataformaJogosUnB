@@ -69,7 +69,7 @@ class Developer(models.Model):
     email = models.EmailField(
         _('E-mail'),
         validators=[EmailValidator()],
-        max_lenkth=100,
+        max_length=100,
         null=True,
         blank=True,
         help_text=_('Developer contact e-mail.')
@@ -222,9 +222,14 @@ class Information(models.Model):
 
     artists = models.ManyToManyField(
         Artist,
-        related_name='artist'
+        related_name='artists'
     )
 
+    musicians = models.ManyToManyField(
+        Musician,
+        related_name='musicians'
+
+    )
     genres = models.ManyToManyField(
         Genre,
         related_name='genres'
