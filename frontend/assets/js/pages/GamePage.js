@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Grid, Container, Segment } from 'semantic-ui-react'
+import { Card, Grid, Container } from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';

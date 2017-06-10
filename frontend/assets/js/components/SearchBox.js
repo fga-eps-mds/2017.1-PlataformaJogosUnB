@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Header, Icon } from 'semantic-ui-react'
+import { Search, Grid } from 'semantic-ui-react'
 
 export default class SearchBox extends Component {
     loadGameFromServer () {
@@ -69,6 +69,7 @@ export default class SearchBox extends Component {
                 if (i < MAXLIMIT) {
                     firstFiveGames.push(this.state.results[i]);
                 } else {
+                    
                     break;
                 }
             }

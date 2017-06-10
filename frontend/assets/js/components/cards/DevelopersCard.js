@@ -2,10 +2,6 @@ import React from "react";
 import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
-const withoutSymbol = {
-    "list-style-type" : "none",
-}
-
 export default class DevelopersCard extends React.Component {
 
     render () {
