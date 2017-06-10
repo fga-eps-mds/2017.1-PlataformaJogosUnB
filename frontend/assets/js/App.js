@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import MainRoutes from "./routes/MainRoutes";
 import MenuComponent from "./layout/MenuComponent";
 import {BrowserRouter} from "react-router-dom";
-import {Container, Grid} from "semantic-ui-react";
 import "../../public/semantic/semantic";
 import "../../public/semantic/semantic.less";
 
