@@ -25,14 +25,12 @@ def developer_serial():
         'email': 'developer@gmail.com',
     }
 
-
 @pytest.fixture
 def genre_serial():
     return {
         'name': 'Race',
         'description': 'Games like fast and furious'
     }
-
 
 class TestGenreSerializer:
 
@@ -82,35 +80,18 @@ class TestInformationSerializer:
         }
 
     @pytest.mark.django_db
-    def test_nested_developer_save(self, information_serial, developer_serial):
-        developer_serial2 = developer_serial.copy()
-        developer_serial['name'] = 'Developer 2'
-        information_serial['developers'] = [developer_serial2,
-                                            developer_serial]
-
-        serial = InformationSerializer(data=information_serial)
-        assert serial.is_valid()
-        serial.save()
-        assert Information.objects.count() == 1
-        assert Information.objects.last().developers.count() == 2
-
-    @pytest.mark.django_db
-    def test_nested_award_save(self, information_serial, award_serial):
-        award_serial2 = award_serial.copy()
-        award_serial['name'] = 'Award 2'
-        information_serial['awards'] = [award_serial2, award_serial]
-
-        serial = InformationSerializer(data=information_serial)
-        assert serial.is_valid()
-        serial.save()
-        assert Information.objects.count() == 1
-        assert Information.objects.last().awards.count() == 2
-
-    @pytest.mark.django_db
-    def test_nested_genre_save(self, information_serial, genre_serial):
-        genre_serial2 = genre_serial.copy()
-        genre_serial['name'] = 'Genre 2'
-        information_serial['genres'] = [genre_serial2, genre_serial]
+    @pytest.mark.parametrize("serial_fixture, attr", [
+        (developer_serial, 'developers'),
+        (award_serial, 'awards'),
+        (genre_serial, 'genres'),
+    ])
+    def test_nested_developer_save(self, information_serial,
+                                   serial_fixture, attr):
+        nested_serial = serial_fixture()
+        nested_serial2 = nested_serial.copy()
+        nested_serial['name'] = 'Second'
+        information_serial[attr] = [nested_serial2,
+                                    nested_serial]
 
         serial = InformationSerializer(data=information_serial)
         assert serial.is_valid()
