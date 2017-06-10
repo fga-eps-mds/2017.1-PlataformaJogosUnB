@@ -19,21 +19,34 @@ export default class DevelopersCard extends React.Component {
                           <Table.HeaderCell>
                             <Header inverted>Artistas</Header>
                           </Table.HeaderCell>
+                           <Table.HeaderCell>
+                            <Header inverted>Musicos</Header>
+                          </Table.HeaderCell>
                         </Table.Row>
                       </Table.Header>
 
                       <Table.Body>
-                        {this.props.developers.map((developer) =>
-                            <Table.Row key={developer}>
+                            <Table.Row>
                               <Table.Cell>
-                                <Header.Content>
-                                    <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                                <Header.Content> {this.props.developers.map((developer) =>
+                                <Popup trigger={<Link to="github" target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
                                 content='Link para GitHub'/>
+                                )}
                                 </Header.Content>
                               </Table.Cell>
-                              <Table.Cell>Nao tem</Table.Cell>
+                              <Table.Cell>
+                                <Header.Content> {this.props.artists.map((artist) =>
+                                <div> {artist.name} </div>
+                                )}
+                                </Header.Content>
+                              </Table.Cell>
+                              <Table.Cell>
+                                <Header.Content> {this.props.musicians.map((musician) =>
+                                <div> {musician.name} </div>
+                                )}
+                                </Header.Content>
+                              </Table.Cell>
                             </Table.Row>
-                        )}
                       </Table.Body>
                     </Table>
                 </Card.Content>
