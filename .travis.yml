@@ -12,7 +12,6 @@ before_install:
   - sudo apt-get install libjpeg-dev
   - . $HOME/.nvm/nvm.sh
   - nvm install $NODE_VERSION
-  - nvm use stable
 install: 
   - pip3 install -r backend/requirements.txt
   - npm install npm -g
