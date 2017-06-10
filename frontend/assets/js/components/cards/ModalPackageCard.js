@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Modal, Header, Table} from "semantic-ui-react";
+import {Modal, Header, Table} from "semantic-ui-react";
 
 export default class ModalPackageCard extends React.Component {
 

@@ -1,6 +1,4 @@
-
 import React from "react";
-import ReactDOM from "react-dom";
 import ImageGallery from "react-image-gallery";
 require("style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss");
 // https://github.com/xiaolin/react-image-gallery

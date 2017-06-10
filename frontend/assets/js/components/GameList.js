@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {Link} from "react-router-dom";
-import {Card, Grid, Container} from "semantic-ui-react";
+import {Grid, Container} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
 export default class GameList extends React.Component {
