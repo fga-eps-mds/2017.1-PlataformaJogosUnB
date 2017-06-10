@@ -24,6 +24,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class InformationSerializer(serializers.ModelSerializer):
+
     developers = DeveloperSerializer(many=True, required=False)
     awards = AwardSerializer(many=True, required=False)
     genres = GenreSerializer(many=True, required=False)
@@ -41,22 +42,38 @@ class InformationSerializer(serializers.ModelSerializer):
                   ]
 
     def create(self, validated_data):
-        developers = validated_data.pop('developers', [])
-        awards =  validated_data.pop('awards', [])
-        genres =  validated_data.pop('genres', [])
-        information = Information.objects.create(**validated_data)
-
-
-        for developer in developers:
-            new_developer = Developer.objects.get_or_create(**developer)
-            information.developers.add(new_developer[0])
-
-        for award in awards:
-            new_award = Award.objects.get_or_create(**award)
-            information.awards.add(new_award[0])
-
-        for genre in genres:
-            new_genre = Genre.objects.get_or_create(**genre)
-            information.genres.add(new_genre[0])
+        '''
+        Overrode to be able to support nested classes.
+        '''
+        information = self.create_nested_relationships(
+            [Developer, Award, Genre],
+            ['developers', 'awards', 'genres'],
+        )
 
         return information
+
+    def create_nested_relationships(self, nested_classes, attrs):
+        ''' Create nested relashionships.
+
+        Keyword arguments:
+        nested_classes -- list of internal classes: [ClassA, ClassB]
+        attrs          -- list with names of attributes that establish
+                          the relationships: [classesA, classesB]
+
+        Returns model object with established attributes
+        '''
+        objects = []
+        for attrname in attrs:
+            objects.append(self.validated_data.pop(attrname, []))
+
+        model = self.Meta.model.objects.create(**self.validated_data)
+
+        for i in range(len(objects)):
+            for one_object in objects[i]:
+                new_object = nested_classes[i].objects.get_or_create(
+                    **one_object
+                )
+
+                getattr(model, attrs[i]).add(new_object[0])
+
+        return model

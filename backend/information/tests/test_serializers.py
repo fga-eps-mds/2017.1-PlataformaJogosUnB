@@ -25,12 +25,14 @@ def developer_serial():
         'email': 'developer@gmail.com',
     }
 
+
 @pytest.fixture
 def genre_serial():
     return {
         'name': 'Race',
         'description': 'Games like fast and furious'
     }
+
 
 class TestGenreSerializer:
 
@@ -85,8 +87,8 @@ class TestInformationSerializer:
         (award_serial, 'awards'),
         (genre_serial, 'genres'),
     ])
-    def test_nested_developer_save(self, information_serial,
-                                   serial_fixture, attr):
+    def test_information_nested__save(self, information_serial,
+                                      serial_fixture, attr):
         nested_serial = serial_fixture()
         nested_serial2 = nested_serial.copy()
         nested_serial['name'] = 'Second'
@@ -97,4 +99,5 @@ class TestInformationSerializer:
         assert serial.is_valid()
         serial.save()
         assert Information.objects.count() == 1
-        assert Information.objects.last().genres.count() == 2
+
+        assert getattr(Information.objects.last(), attr).count() == 2
