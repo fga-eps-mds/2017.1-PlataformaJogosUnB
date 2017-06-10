@@ -18,11 +18,14 @@ class VoteView(APIView):
             rating.delete()
         except:
             rating = None
+
         rating = Rating(vote=request.data['vote'],
                         email_voter=request.data['email_voter'],
                         information=information)
         try:
             rating.save()
-            return Response({'status': 'vote done'}, status.HTTP_201_CREATED)
+            return Response({'status': 'Vote successfully done.'},
+                            status.HTTP_201_CREATED)
         except:
-            return Response({'status': 'problem'}, status.HTTP_400_BAD_REQUEST)
+            return Response({'status': 'The vote could not be done.'},
+                            status.HTTP_400_BAD_REQUEST)

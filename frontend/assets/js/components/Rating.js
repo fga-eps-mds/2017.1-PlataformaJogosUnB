@@ -23,12 +23,16 @@ export default class Rating extends React.Component {
     }
 
     handleVote(vote, event_click){
+        const id = this.props.game;
+
         var json_parser = JSON.stringify({
             vote:  vote,
             email_voter: 'your@mail.com',
           });
+        
         var csrftoken = getCookie('csrftoken');
-        fetch('/api/vote/1/', {
+        
+        fetch(`/api/vote/${id}/`, {
           method: 'POST',
           credentials: 'same-origin',
           headers: {
