@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from "semantic-ui-react";
 
 /** Django method to get csrf token */
 function getCookie(name) {
@@ -18,7 +19,7 @@ function getCookie(name) {
 
 export default class Rating extends React.Component {
 
-    constructor(props){
+    constructor (props) {
         super(props);
     }
 
@@ -48,9 +49,21 @@ export default class Rating extends React.Component {
 
     render(){
         return (
-            <div>
-                <label onClick={this.handleVote.bind(this, true)}><h1>play</h1></label>
-                <label onClick={this.handleVote.bind(this, false)}><h1>unplay</h1></label>
+             <div>
+                <Button
+                  content='Like'
+                  icon='thumbs outline up'
+                  label={{ as: 'a', basic: true, content: '1,024' }}
+                  labelPosition='right'
+                  onClick={this.handleVote.bind(this, true)}
+                />
+                <Button
+                  content='Dislike'
+                  icon='thumbs outline down'
+                  label={{ as: 'a', basic: true, pointing: 'right', content: '2,048' }}
+                  labelPosition='left'
+                  onClick={this.handleVote.bind(this, false)}
+                />
             </div> 
         );
     }

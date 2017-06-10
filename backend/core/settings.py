@@ -206,7 +206,7 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("core.factory", ("UserFactory")),
 ]
 
-#Social Authentication
+# Social Authentication
 LOGIN_URL = 'admin:login'
-LOGOUT_URL = 'any'
+LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'any'

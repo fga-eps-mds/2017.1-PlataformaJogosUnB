@@ -4,12 +4,14 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 
 class VoteView(APIView):
 
     permission_classes = (permissions.AllowAny, )
 
+    # @login_required
     def post(self, request, pk=None):
         information = get_object_or_404(Information, pk=pk)
         try:

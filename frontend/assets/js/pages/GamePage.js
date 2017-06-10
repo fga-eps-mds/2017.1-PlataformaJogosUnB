@@ -58,15 +58,11 @@ export default class GamePage extends React.Component{
         <h1>{this.state.game.name} </h1>
         <Grid>
             <Grid.Row>
-                <Grid.Column width={16}>
-                    <Rating game={this.state.game.information.pk} />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
                 <Grid.Column width={10}>
                     <InternalSlide
                         data={this.state.game}
                     />
+                    <Rating game={this.state.game.information.pk} />
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <DescriptionCard
