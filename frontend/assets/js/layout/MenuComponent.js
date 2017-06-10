@@ -1,6 +1,6 @@
-import React, {Component} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar} from "semantic-ui-react";
+import {Container, Grid, Header, Menu, Segment, Sidebar} from "semantic-ui-react";
 import SearchBox from '../components/SearchBox'
 import bars from '../../../public/bundles/images/bars.png'
 import Genres from "./Genres";

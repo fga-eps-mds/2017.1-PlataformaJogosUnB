@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Header, Icon } from 'semantic-ui-react'
+import { Search, Grid } from 'semantic-ui-react'
 
 export default class SearchBox extends Component {
     loadGameFromServer () {
@@ -62,11 +62,24 @@ export default class SearchBox extends Component {
                 isLoading: false,
                 results: _.filter(this.state.listGame, isMatch),
             })
+
+            const MAXLIMIT = 5;
+            var firstFiveGames = []; 
+            for (var i = 0; i < this.state.results.length; i++) {
+                if (i < MAXLIMIT) {
+                    firstFiveGames.push(this.state.results[i]);
+                } else {
+                    
+                    break;
+                }
+            }
+            this.setState({firstFiveGames})
+
         }, 500)
     }
 
     render() {
-        const { isLoading, value, results } = this.state
+        const { isLoading, value, results, firstFiveGames } = this.state
 
         return (
             <Grid>
@@ -77,7 +90,7 @@ export default class SearchBox extends Component {
                         loading={isLoading}
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
-                        results={results}
+                        results={firstFiveGames}
                         value={value}
                         {...this.props}
                     />

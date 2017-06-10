@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Segment} from "semantic-ui-react";
+import {Container} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SegmentTitle from "../layout/SegmentTitle";
 

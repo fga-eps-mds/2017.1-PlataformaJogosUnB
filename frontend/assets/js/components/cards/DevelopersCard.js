@@ -1,10 +1,6 @@
 import React from "react";
-import {Card, Popup} from "semantic-ui-react";
+import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-
-const withoutSymbol = {
-    "list-style-type" : "none",
-}
 
 export default class DevelopersCard extends React.Component {
 
@@ -14,9 +10,32 @@ export default class DevelopersCard extends React.Component {
             <Card fluid>
                 <Card.Content header="Créditos" />
                 <Card.Content extra >
-                    <ul style={withoutSymbol}>{this.props.developers.map((developer) =>
-                        (<Popup trigger={<Link to="github" target="_blank" to={developer.github_page}><li>{ developer.name }</li></Link>} 
-                            content='Link para GitHub'/>))}</ul>
+                    <Table basic='very' celled collapsing>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>
+                            <Header inverted>Desenvolvedores</Header>
+                          </Table.HeaderCell>
+                          <Table.HeaderCell>
+                            <Header inverted>Artistas</Header>
+                          </Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+
+                      <Table.Body>
+                        {this.props.developers.map((developer) =>
+                            <Table.Row>
+                              <Table.Cell>
+                                <Header.Content>
+                                    <Popup trigger={<Link to="github" target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                                content='Link para GitHub'/>
+                                </Header.Content>
+                              </Table.Cell>
+                              <Table.Cell>Nao tem</Table.Cell>
+                            </Table.Row>
+                        )}
+                      </Table.Body>
+                    </Table>
                 </Card.Content>
             </Card>
         );

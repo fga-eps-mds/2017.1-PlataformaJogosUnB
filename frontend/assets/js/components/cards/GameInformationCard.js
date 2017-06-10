@@ -1,11 +1,12 @@
 import React from "react";
-import {Button, Card, Label, Image} from "semantic-ui-react";
+import {Card, Label, Image} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 
 export default class GameInformationCard extends React.Component {
-    getVersion () {
-        if (this.props.version != null) {
-            return <p><strong>Versão: </strong>{this.props.version}</p>;
+    
+    getFields (title,value) {
+        if (value != null) {
+            return <p><strong>{title}</strong>{value}</p>;
         }
         return null;
     }
@@ -16,10 +17,9 @@ export default class GameInformationCard extends React.Component {
             <Card fluid>
                 <Image src={this.props.cover_image} />
                 <Card.Content>
-                  <Card.Header>Daniel</Card.Header>
                   <Card.Description>
-                        { this.getVersion() }
-                        <p><strong>Ano de lançamento: </strong>{this.props.launch_year}</p>
+                        { this.getFields('Versão: ',this.props.version) }
+                        { this.getFields('Ano de lançamento: ',this.props.launch_year) }
                         <p><strong>Gêneros: </strong>
                             <Label as='a' color='teal'>
                                 {this.props.genres.map((genre) => genre.name).reduce((accu, elem) => accu === null ? [elem] : [...accu, ", ", elem], null)}
