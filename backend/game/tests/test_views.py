@@ -2,6 +2,7 @@ import pytest
 from game.serializers import GameSerializer
 from game.factory import GameFactory
 from game.models import Game
+from information.models import Information
 import json
 import base64
 import os
@@ -103,6 +104,23 @@ class TestViewGamePost:
                                         game_serial['extension'])
         assert not os.path.exists(path)
 
+    @pytest.fixture
+    def information_serial(self):
+        return {'description': 'game' * 13,
+                'launch_year': 2017,
+                'semester': 1,
+                'game_id': 0,
+                }
+
     @pytest.mark.django_db
-    def test_save_with_information(self, admin_client):
-        assert True
+    def test_save_with_information(self, admin_client, information_serial,
+                                   game_serial):
+        game_serial['information'] = information_serial
+        response = admin_client.post("/api/games/",
+                                     data=json.dumps(game_serial),
+                                     content_type="application/json",
+                                     format="multipart")
+        print(response.data)
+        assert 200 <= response.status_code < 300
+        last = Information.objects.last()
+        assert last is not None

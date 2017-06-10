@@ -24,9 +24,10 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class InformationSerializer(serializers.ModelSerializer):
-    developers = DeveloperSerializer(many=True)
-    awards = AwardSerializer(many=True)
-    genres = GenreSerializer(many=True)
+    developers = DeveloperSerializer(many=True, required=False)
+    awards = AwardSerializer(many=True, required=False)
+    genres = GenreSerializer(many=True, required=False)
+    game_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = Information
@@ -35,4 +36,6 @@ class InformationSerializer(serializers.ModelSerializer):
                   'semester',
                   'developers',
                   'awards',
-                  'genres']
+                  'genres',
+                  'game_id',
+                  ]

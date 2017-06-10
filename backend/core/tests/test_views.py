@@ -1,4 +1,4 @@
-# import pytest
+import pytest
 
 
 def test_index_route(client):

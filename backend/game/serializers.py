@@ -30,7 +30,7 @@ class PackageSerializer(serializers.ModelSerializer):
 
 class GameSerializer(serializers.ModelSerializer):
     cover_image = serializers.ImageField(read_only=True)
-    information = InformationSerializer(read_only=True)
+    information = InformationSerializer(required=False)
     packages = PackageSerializer(many=True, read_only=True)
     media_image = ImageSerializer(many=True, read_only=True)
     media_video = VideoSerializer(many=True, read_only=True)
@@ -65,7 +65,13 @@ class GameSerializer(serializers.ModelSerializer):
         validated_data['cover_image'] = self.__image_create__(validated_data)
         game_saved = None
         try:
+            information = validated_data.pop('information', {})
             game_saved = Game.objects.create(**validated_data)
+            information['game_id'] = game_saved.pk
+            information_serial = InformationSerializer(data=information)
+            if information_serial.is_valid():
+                information_serial.save()
+
         finally:
             # Always remove the temp file
             validated_data['cover_image'].close()

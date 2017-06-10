@@ -35,9 +35,7 @@ class TestSize:
         package_package = PackageFactory().package
         package = patch("game.validators._get_size", return_value=1 + 1024**3)
         package.start()
-        try:
+        with pytest.raises(ValidationError) as validation_error:
             validate_package_size(package_package)
-            assert False
-        except ValidationError as ve:
-            assert ve.message == error_message
+        assert validation_error.value.message == error_message
         package.stop()
