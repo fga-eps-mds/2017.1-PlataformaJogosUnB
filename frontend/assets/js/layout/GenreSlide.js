@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick'
+import GameCard from "../components/cards/GameCard";
 
 export default class GenreSlide extends React.Component {
   constructor (props) {
@@ -40,7 +41,7 @@ export default class GenreSlide extends React.Component {
       lazyLoad: true,
       infinite: true,
       speed: 500,
-      slidesToShow: 2,
+      slidesToShow: 3,
       slidesToScroll: 1,
       initialSlide: 3
     };
@@ -52,9 +53,6 @@ export default class GenreSlide extends React.Component {
         <h2>Center Mode</h2>
         <Slider {...settings}>
           {images}
-          {console.log('#######################')}
-          {console.log(this.state.games)}
-          {console.log('#######################')}
         </Slider>
       </div>
     );
@@ -63,11 +61,11 @@ export default class GenreSlide extends React.Component {
   }
   }
   mountImages(){
-   const images = [], imagesSlide = 10;
+   const images = [], imagesSlide = 6;
     for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
         const image =
                (<div>
-                        <img src={this.state.games[idx].slide_image} />
+                        <GameCard data={this.state.games[idx]} />
                 </div>)
        images.push(image);
     
