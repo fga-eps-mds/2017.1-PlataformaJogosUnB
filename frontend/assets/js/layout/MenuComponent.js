@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import Genres from "./Genres";
-import {Container, Grid, Header, Icon, Image, Menu, Segment, Sidebar} from "semantic-ui-react";
+import {Container, Grid, Header, Icon, Image, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
 
 export default class MenuComponent extends React.Component {
 
@@ -64,13 +64,17 @@ export default class MenuComponent extends React.Component {
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
+                                        <Menu.Item><Header inverted>
+                                        <Dropdown text="Jogos">
+                                            <Dropdown.Menu>
+                                                    <Dropdown.Item text="Lista de jogos" as={Link} to="/games/" ></Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    <Genres />
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                           </Dropdown> 
+                                               </Header> </Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
-                                        <Menu.Item>
-                                            <Header inverted>
-                                                <Genres />
-                                            </Header>
-                                        </Menu.Item>
                                     </Container>
                                 </Menu>
                             </Segment>
