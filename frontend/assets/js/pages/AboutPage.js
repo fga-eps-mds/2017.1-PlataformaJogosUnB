@@ -24,7 +24,7 @@ export default class AboutPage extends React.Component {
 
         return (
             <Grid padded="vertically">
-                <Grid.Row color="brown">
+                <Grid.Row color="blue">
                     <Container>
                         <Card.Group itemsPerRow={1}>
                             <AboutCard
