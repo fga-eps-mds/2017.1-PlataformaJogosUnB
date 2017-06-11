@@ -7,7 +7,7 @@ export default class ModalPackageCard extends React.Component {
 
         return (
             <Modal trigger={this.props.button}>
-                <Modal.Header>Plataformas disponíveis</Modal.Header>
+                <Modal.Header>Pacotes disponíveis</Modal.Header>
                 <Modal.Content image>
                   <Table celled padded>
                   <Table.Header>

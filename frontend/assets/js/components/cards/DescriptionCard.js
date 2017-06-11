@@ -13,11 +13,14 @@ export default class DescriptionCard extends React.Component {
 
         return (
             <Card fluid>
-                <Card.Content header="Descrição" description={this.props.description} />
+                <Card.Content header='Descrição' description={this.props.description} />
                 <Card fluid>
-                    <Card.Content header="Prêmios" description={this.props.awards.map((award) =>
-                        
-                        <div>{this.getFields("Nome do Prêmio: ", award.name)} - Ano: { award.year } - Colocação: { award.place }</div>
+                    <Card.Content header='Prêmios' description={this.props.awards.map((award) =>                        
+                        <div>
+                            {this.getFields("Nome do Prêmio: ", award.name)} 
+                            {this.getFields('Ano: ',award.year)}
+                            {this.getFields('Colocação:', award.place)}
+                        </div>
                     )} />
                 </Card>
             </Card>
