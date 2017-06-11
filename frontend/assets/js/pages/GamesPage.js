@@ -12,15 +12,10 @@ export default class GamesPage extends React.Component {
 
         return (
             <div>
-                <Container>
-                    {this.props.index && 
-                        <IndexSlide />
-                    }
-                    <Segment padded inverted color="brown">
-                        <h1>{this.props.title}</h1>
-                    </Segment>
-                    <GameList />
-                </Container>
+            <Container>
+                <SegmentTitle title={'Lista de Jogos'} />
+                <GameList />
+            </Container>
             </div>
         );
 
