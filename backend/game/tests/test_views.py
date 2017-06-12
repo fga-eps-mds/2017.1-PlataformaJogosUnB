@@ -1,6 +1,6 @@
 import pytest
 from game.serializers import GameSerializer
-from game.factory import GameFactory
+from game.factory import GameFactory, PlatformFactory
 from game.models import Game
 from information.models import Information
 import json
@@ -13,10 +13,13 @@ from game.views import GameViewSet
 
 
 @pytest.fixture
-def create_game():
+def game():
     GameFactory(game_activated=False)
     return GameFactory()
 
+@pytest.fixture
+def platform():
+    return PlatformFactory()
 
 class TestGameViewSet:
 
@@ -30,11 +33,11 @@ class TestGameViewSet:
         assert gameList.count() == GameViewSet.queryset.count()
 
     @pytest.mark.django_db
-    def test_game_list_json(self, client, create_game):
+    def test_game_list_json(self, client, game):
         response = client.get("/api/games.json")
         assert response.status_code == 200
         assert response.get("Content-Type") == 'application/json'
-        serializer = GameSerializer(create_game)
+        serializer = GameSerializer(game)
         data = serializer.data
         data['slide_image'] = 'http://testserver' + data['slide_image']
         data['cover_image'] = 'http://testserver' + data['cover_image']
@@ -44,11 +47,11 @@ class TestGameViewSet:
         assert dict(data_dir) == data
 
     @pytest.mark.django_db
-    def test_game_detail_json(self, client, create_game):
-        response = client.get("/api/games/{}.json".format(create_game.pk))
+    def test_game_detail_json(self, client, game):
+        response = client.get("/api/games/{}.json".format(game.pk))
         assert response.status_code == 200
         assert response.get("Content-Type") == 'application/json'
-        data = GameSerializer(create_game).data
+        data = GameSerializer(game).data
         data['cover_image'] = 'http://testserver' + data['cover_image']
         data['slide_image'] = 'http://testserver' + data['slide_image']
         data['card_image'] = 'http://testserver' + data['card_image']
@@ -124,3 +127,11 @@ class TestViewGamePost:
         assert 200 <= response.status_code < 300
         last = Information.objects.last()
         assert last is not None
+
+class TestPackageApiSave:
+
+    @pytest.mark.django_db
+    def test_package_save(self, admin_client, game):
+        admin_client.post('/api/packages', format='multipart')
+
+

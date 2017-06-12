@@ -21,7 +21,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
-    platforms = PlatformSerializer(many=True)
+    platforms = PlatformSerializer(many=True, required=False)
 
     class Meta:
         model = Package

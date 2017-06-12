@@ -1,6 +1,3 @@
-import pytest
-
-
 def test_index_route(client):
     response = client.get("/")
 
