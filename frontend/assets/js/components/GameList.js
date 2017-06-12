@@ -44,12 +44,23 @@ export default class GameList extends React.Component {
 
     }
 
-    sortList(){
+    componentWillReceiveProps(nextProps){
+        if(this.props.sortByOption != nextProps.sortByOption){
+            this.sortList(nextProps.sortByOption);
+        } else if(this.props.genreOption != nextProps.genreOption){
+            this.getGamesByGenre(nextProps.genreOption);
+        }else{
+            console.log(this.nextProps.sortByOption);
+            return false;
+        }
+    }
+
+    sortList(optionSelected){
          if(typeof this.state.games === "undefined"){
             return false;
         }
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
-        const data = this.props.sortByOption;
+        const data = optionSelected;
         const listGames = this.state.games;
         listGames.sort((a,b) => {
                 if(data.order === frontToBack){
@@ -62,12 +73,31 @@ export default class GameList extends React.Component {
                 return 0;
             }
         );
-        return listGames;
+        this.setState({ games: listGames });
     }
+
+    getGamesByGenre(optionSelected){
+        if(typeof this.state.games === "undefined"){
+            return false
+        }
+        const genre = optionSelected;
+        const gamesFromTheGenre = [];
+        for(var i = 0;i < this.state.games.length;i++){
+            var gameGenre = this.state.games[i].information.genres
+            for(var k = 0;k < gameGenre.length;k++){
+                if(genre === gameGenre[k].name){
+                    gamesFromTheGenre.push(this.state.games[i])
+                    break;
+                }
+            }
+        }
+        this.setState({ games: gamesFromTheGenre });
+    }
+
 
     render () {
 
-        const gameCards = this.sortList().map((game) =>
+        const gameCards = this.state.games.map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>

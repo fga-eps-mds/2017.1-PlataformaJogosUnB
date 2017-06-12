@@ -45,7 +45,7 @@ export default class GamesPage extends React.Component {
                         </Menu>
                     </div>
                     <Grid.Row>
-                        <GameList sortByOption={this.state.sortByOption}/>
+                        <GameList sortByOption={this.state.sortByOption} genreOption={this.state.genreOption}/>
                     </Grid.Row>
                 </Grid>
             </Container>
