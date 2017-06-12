@@ -10,9 +10,6 @@ class PytestRunner:
     def run_tests(self, test_labels):
         argv = []
 
-        argv.append('--cov')
-        argv.append('--cov-report html')
-
         if self.failfast:
             argv.append('-x')
 

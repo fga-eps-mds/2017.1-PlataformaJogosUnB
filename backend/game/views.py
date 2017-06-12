@@ -39,6 +39,6 @@ class GameViewSet(viewsets.ModelViewSet):
 
         return render(request, 'game/report_bug.html', {'form': form})
 
+
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
     serializer_class = PackageSerializer
-        

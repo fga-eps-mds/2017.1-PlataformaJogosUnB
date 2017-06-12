@@ -11,7 +11,7 @@ class Command(BaseCommand):
         path = os.path.realpath('.')
 
         os.system("pytest -q --cov-config {}/.coveragerc --cov-report "
-                  "term-missing --cov".format(BASE_DIR))
+                  "term-missing --cov-report html --cov".format(BASE_DIR))
         print("\nCode style check:")
         os.system("flake8 --exclude=settings.py,migrations --count "
                   "--statistics %s" % path)
