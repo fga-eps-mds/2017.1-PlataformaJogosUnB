@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Grid, Container} from "semantic-ui-react";
+import {Grid} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 
 export default class GameList extends React.Component {
@@ -8,7 +8,9 @@ export default class GameList extends React.Component {
     constructor (props) {
 
         super(props);
-        this.state = {"games": []};
+        this.state = {
+            "games": [],
+        };
 
     }
 
@@ -42,9 +44,30 @@ export default class GameList extends React.Component {
 
     }
 
+    sortList(){
+         if(typeof this.state.games === "undefined"){
+            return false;
+        }
+        const frontToBack = 'frontToBack', backToFront = 'backToFront';
+        const data = this.props.sortByOption;
+        const listGames = this.state.games;
+        listGames.sort((a,b) => {
+                if(data.order === frontToBack){
+                    if(eval('a'+data.param) > eval('b'+data.param)) return 1;
+                    if(eval('a'+data.param) < eval('b'+data.param)) return -1;
+                } else if(data.order === backToFront){
+                    if(eval('b'+data.param) > eval('a'+data.param)) return 1;
+                    if(eval('b'+data.param) < eval('a'+data.param)) return -1;
+                }
+                return 0;
+            }
+        );
+        return listGames;
+    }
+
     render () {
 
-        const gameCards = this.state.games.map((game) =>
+        const gameCards = this.sortList().map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
@@ -54,11 +77,9 @@ export default class GameList extends React.Component {
           );
 
         return (
-            <Container>
-                <Grid doubling columns={5}>
-                    {gameCards}
-                </Grid>
-            </Container>
+            <Grid doubling columns={5}>
+                {gameCards}
+            </Grid>
         );
 
     }
