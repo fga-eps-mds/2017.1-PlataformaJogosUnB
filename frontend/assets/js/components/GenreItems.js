@@ -6,7 +6,10 @@ export default class Genres extends React.Component{
 
     constructor (props) {
         super(props);
-        this.state = {"games":[]};
+        this.state = {
+            "games":[],
+            "selectedGenre":'Categoria'
+        };
     }
 
 
@@ -57,16 +60,22 @@ export default class Genres extends React.Component{
 
     }
 
+    handleClick(genreName){
+        const option = genreName;
+        this.setState({ selectedGenre: genreName });
+        this.props.callbackParent(option);
+    }
+
     mountGenreItems(){
         if(typeof this.state.games === "undefined"){
             return false
         }
         const genreNames = this.getGenres()
-        const gameGenresItems = [];
-        for(var i = 0;i < genreNames.length;i++){
-            const genreComponent = <Dropdown.Item text={genreNames[i]} as={Link} to={`/filter/${genreNames[i]}`} params={{"genre":genreNames[i]}}/>
-            gameGenresItems.push(genreComponent)
-        }
+        const gameGenresItems = genreNames.map((name) =>
+                <Dropdown.Item onClick={(e) => this.handleClick(name, e)}>
+                    {name}
+                </Dropdown.Item>
+        );
         return gameGenresItems
 
     }
@@ -80,18 +89,17 @@ export default class Genres extends React.Component{
             i++
         }
 
-    return true
+        return true
 
     }
 
     render (){
         return(
-            <Dropdown text= 'Categorias'>
+            <Dropdown text={this.state.selectedGenre}>
                         <Dropdown.Menu>
                             {this.mountGenreItems()}
                         </Dropdown.Menu>
             </Dropdown>
         );
     }
-
 }
