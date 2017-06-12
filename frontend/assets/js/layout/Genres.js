@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Dropdown} from "semantic-ui-react";
+import {gameListApi} from "../resource/GameApi";
 
 export default class Genres extends React.Component{
 
@@ -9,41 +10,9 @@ export default class Genres extends React.Component{
         this.state = {"games":[]};
     }
 
-
-    loadGameFromServer () {
-
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          }).
-          catch((error) => {
-
-              console.error(error);
-
-          });
-
-    }
-    
-
-    componentWillMount () {
-
-        this.loadGameFromServer();
-
-    }
-
     componentDidMount () {
 
-        this.loadGameFromServer();
+      gameListApi((games) => { this.setState({games}) });
 
     }
 

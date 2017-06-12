@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
 import {Segment, Grid, Container} from "semantic-ui-react";
 import GameCard from "../components/cards/GameCard";
+import {gameListApi} from "../resource/GameApi";
 
 export default class GenreFilter extends React.Component{
 
@@ -10,35 +11,12 @@ export default class GenreFilter extends React.Component{
         super(props);
         this.state = {
             "game":[]
-        }        
+        }
     }
 
-    loadGameFromServer () {
-
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-        then((response) => response.json()).
-        then((game) => {
-
-            this.setState({game});
-
-        }).
-        catch((error) => {
-
-            console.error(error);
-
-        });
-
-    }
    componentDidMount () {
 
-        this.loadGameFromServer();
+      gameListApi((game) => { this.setState({game}) });
 
     }
 

@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import {Card} from 'semantic-ui-react';
 import "style-loader!css-loader!sass-loader!slick-carousel/slick/slick.css"
 import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
+import {gameListApi} from '../resource/GameApi';
 
 const carouselImageStyle = {
     "background": "#000000",
@@ -22,30 +23,9 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-        this.loadGameFromServer();
+      gameListApi((game) => { this.setState({game}) });
 
     }
-
-    loadGameFromServer () {
-
-        fetch("/api/games/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          });
-
-    }
-
-
 
     render () {
         const images = this.mountImages();
@@ -63,11 +43,12 @@ export default class IndexSlider extends React.Component {
 
         if(images.length){
 
-            return (<div style={carouselImageStyle}>
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-                <Slider {...settings}>{images}
-                </Slider></div>
+            return (
+                <div style={carouselImageStyle}>
+                    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+                    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+                    <Slider {...settings}>{images}</Slider>
+                </div>
             );
         } else {
             return <img/>

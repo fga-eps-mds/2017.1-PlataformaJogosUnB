@@ -1,8 +1,10 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Search, Grid } from 'semantic-ui-react'
+import {gameListApi} from '../resource/GameApi';
 
 export default class SearchBox extends Component {
+
     loadGameFromServer () {
         fetch("/api/games/",
             {
@@ -14,6 +16,17 @@ export default class SearchBox extends Component {
             }).
         then((response) => response.json()).
         then((games) => {
+
+    constructor(props) {
+        super(props);
+        this.resetComponent = this.resetComponent.bind(this)
+        this.handleResultSelect = this.handleResultSelect.bind(this)
+        this.handleSearchChange = this.handleSearchChange.bind(this)
+    }
+
+    componentWillMount() {
+
+      gameListApi((games) => {
             var listGame = games.map((game) => ({
                 gamePk: game.pk,
                 title: game.name,
@@ -24,17 +37,6 @@ export default class SearchBox extends Component {
             }));
             this.setState({listGame});
         });
-    }
-
-    constructor(props) {
-        super(props);
-        this.resetComponent = this.resetComponent.bind(this)
-        this.handleResultSelect = this.handleResultSelect.bind(this)
-        this.handleSearchChange = this.handleSearchChange.bind(this)
-    }
-
-    componentWillMount() {
-        this.loadGameFromServer()
         this.resetComponent()
     }
 

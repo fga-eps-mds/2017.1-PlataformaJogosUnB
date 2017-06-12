@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Grid, Container} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
+import {gameListApi} from "../resource/GameApi";
 
 export default class GameList extends React.Component {
 
@@ -40,7 +41,7 @@ export default class GameList extends React.Component {
 
     componentDidMount () {
 
-        this.loadGameFromServer();
+      gameListApi((games) => { this.setState({games}) });
 
     }
 
