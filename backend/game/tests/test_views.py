@@ -1,7 +1,7 @@
 import pytest
 from game.serializers import GameSerializer
-from game.factory import GameFactory, PlatformFactory
-from game.models import Game
+from game.factory import GameFactory, PlatformFactory, PackageFactory
+from game.models import Game, Package
 from information.models import Information
 import json
 import base64
@@ -17,9 +17,11 @@ def game():
     GameFactory(game_activated=False)
     return GameFactory()
 
+
 @pytest.fixture
 def platform():
     return PlatformFactory()
+
 
 class TestGameViewSet:
 
@@ -123,15 +125,22 @@ class TestViewGamePost:
                                      data=json.dumps(game_serial),
                                      content_type="application/json",
                                      format="multipart")
-        print(response.data)
         assert 200 <= response.status_code < 300
         last = Information.objects.last()
         assert last is not None
 
+
 class TestPackageApiSave:
 
     @pytest.mark.django_db
-    def test_package_save(self, admin_client, game):
-        admin_client.post('/api/packages', format='multipart')
+    def test_package_save(self, admin_client, game, platform):
+        pack = PackageFactory.build().package
+        response = admin_client.post('/api/packages/', {
+            'package': pack.file,
+            'game_id': game.pk
+        }, format='multipart')
 
-
+        assert 200 <= response.status_code < 300
+        assert Package.objects.count() == 1
+        package = Package.objects.last()
+        assert package.game.pk == game.pk
