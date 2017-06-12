@@ -85,7 +85,7 @@ export default class GamePage extends React.Component{
 
                 <Grid.Row>
                     <Grid.Column width={10}>
-                        <ReportBugForm />
+                        <ReportBugForm game_pk={this.state.game.pk}/>
                         <DescriptionCard
                             description={this.state.game.information.description}
                             awards={this.state.game.information.awards}

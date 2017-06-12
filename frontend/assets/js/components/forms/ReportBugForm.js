@@ -26,22 +26,23 @@ export default class ReportBugForm extends React.Component {
   }
 
   submitBug(data, form){
-    const game_id = this.props.game
-    
+    const game_pk = this.props.game_pk
+
     var data_json = JSON.stringify(data)
-    console.log(data_json)
     var csrftoken = getCookie('csrftoken');
 
-    fetch(`/api/reportbug/${game_id}/`, {
+    fetch(`/api/reportbug/${game_pk}/`, {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken
+        'X-CSRFToken': csrftoken,
       },
       body: data_json
     });
+
+    console.log("PASSOUUU ATEH O FINALL")
   }
 
 
