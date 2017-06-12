@@ -29,7 +29,7 @@ export default class GameInformationCard extends React.Component {
                 </Card.Content>
                 <Card.Content extra>
                     <p><strong>Repositório Oficial: </strong>
-                        <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>
+                        <Link target="_blank" to={`${this.props.official_repository}`}>{ this.props.official_repository }</Link>
                     </p>
                 </Card.Content>
             </Card>
