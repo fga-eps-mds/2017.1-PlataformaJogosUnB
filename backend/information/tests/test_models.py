@@ -283,6 +283,55 @@ class TestArtist:
         assert str(artist_creation) == "Artist"
 
 
+@pytest.fixture
+def musician_creation():
+    musician = Musician.objects.create(name="Musician",
+                                       email="musician@gmail.com")
+    return musician
+
+
+class TestMusicianAvatar:
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(('name, avatar, email' + ' errors_dict'), [
+        ('musician', 'musician.ppm',
+            'iiii@host.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
+        ('artist', 'avatar.rb', 'iiii@host.com',
+         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
+                                        ErrorMessage.NOT_IMAGE.value[1]]])),
+    ])
+    def test_avatar_valid_extension(self, name, avatar, email, errors_dict):
+        musician = Musician(
+            name=name,
+            avatar=avatar,
+            email=email,
+        )
+        validation_test(musician, errors_dict)
+
+    @pytest.mark.django_db
+    def test_avatar_invalid_extension(self):
+        musician = Musician(
+            name='iiiiiii',
+            avatar='pic.jpg',
+            email='iiii@host.com',
+        )
+        musician.save()
+        assert Musician.objects.last() == musician
+
+
+class TestMusician:
+
+    @pytest.mark.django_db
+    def test_musician_save(self, musician_creation):
+        musician = Musician.objects.get(pk=musician_creation.pk)
+        assert musician == musician_creation
+
+    @pytest.mark.django_db
+    def test_str_musician(self, musician_creation):
+        assert str(musician_creation) == "Musician"
+
+
 class TestStatistic:
 
     def test_str(self):
