@@ -1,6 +1,7 @@
 import React from 'react';
-import Slider from 'react-slick'
+import Slider from 'react-slick';
 import GameCard from "../components/cards/GameCard";
+import {gameListApi} from '../resource/GameApi';
 
 export default class GenreSlide extends React.Component {
   constructor (props) {
@@ -11,28 +12,10 @@ export default class GenreSlide extends React.Component {
 
   componentWillMount () {
 
-      this.loadGameFromServer();
+      gameListApi((games) => { this.setState({games}) });
 
   }
 
-  loadGameFromServer () {
-
-      fetch("/api/list/",
-          {
-              "headers": new Headers({
-                  "Accept": "application/json",
-                  "Content-Type": "application/json",
-              }),
-              "method": "GET"
-          }).
-        then((response) => response.json()).
-        then((games) => {
-
-            this.setState({games});
-
-        });
-
-  }
   render() {
     const images = this.mountImages();
 

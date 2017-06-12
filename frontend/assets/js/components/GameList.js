@@ -39,7 +39,7 @@ export default class GameList extends React.Component {
 
     }
 
-    componentDidMount () {
+    componentWillMount () {
 
       gameListApi((games) => { this.setState({games}) });
 

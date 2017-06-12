@@ -14,7 +14,7 @@ export default class GenreFilter extends React.Component{
         }
     }
 
-   componentDidMount () {
+   componentWillMount () {
 
       gameListApi((game) => { this.setState({game}) });
 

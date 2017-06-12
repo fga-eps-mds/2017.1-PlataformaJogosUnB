@@ -10,7 +10,7 @@ export default class Genres extends React.Component{
         this.state = {"games":[]};
     }
 
-    componentDidMount () {
+    componentWillMount () {
 
       gameListApi((games) => { this.setState({games}) });
 

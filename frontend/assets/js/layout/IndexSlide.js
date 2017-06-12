@@ -23,7 +23,7 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-      gameListApi((game) => { this.setState({game}) });
+      gameListApi((games) => { this.setState({games}) });
 
     }
 
