@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
+import {gameListApi} from '../resource/GameApi';
 
 const imageStyle = {
     "height": "100%",
@@ -43,30 +44,9 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-        this.loadGameFromServer();
+      gameListApi((game) => { this.setState({game}) });
 
     }
-
-    loadGameFromServer () {
-
-        fetch("/api/games/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          });
-
-    }
-
-
 
     render () {
         const images = this.mountImages();
@@ -82,7 +62,6 @@ export default class IndexSlider extends React.Component {
 
 
         if(images.length){
-
             return (<div style={carouselImageStyle}>
                 <Slider {...settings}>{images}
                 </Slider></div>
