@@ -45,6 +45,27 @@ export default class Rating extends React.Component {
         }).then((r) => {console.log(r); return r.json()})
           .then((r) => {console.log(r)})
           .catch((e) => { console.log(e)});
+
+    }
+
+    getVoteCount() {
+        fetch(`/api/vote/${id}/`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((vote) => {
+            this.setState(vote)
+        })
+        console.log(this.state.like);
+    };
+
+    componentDidMount() {
+        this.loadGameFromServer();
     }
 
     render(){
@@ -53,14 +74,14 @@ export default class Rating extends React.Component {
                 <Button
                   content='Like'
                   icon='thumbs outline up'
-                  label={{ as: 'a', basic: true, content: '1,024' }}
+                  label={{ as: 'a', basic: true, content: "3" }}
                   labelPosition='right'
                   onClick={this.handleVote.bind(this, true)}
                 />
                 <Button
                   content='Dislike'
                   icon='thumbs outline down'
-                  label={{ as: 'a', basic: true, pointing: 'right', content: '2,048' }}
+                  label={{ as: 'a', basic: true, pointing: 'right', content: "21" }}
                   labelPosition='left'
                   onClick={this.handleVote.bind(this, false)}
                 />

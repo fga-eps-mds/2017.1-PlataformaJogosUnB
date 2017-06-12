@@ -31,3 +31,11 @@ class VoteView(APIView):
         except:
             return Response({'status': 'The vote could not be done.'},
                             status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk=None):
+        information = get_object_or_404(Information, pk=pk)
+        vote_count = {}
+        vote_count['like'] = information.likes
+        vote_count['dislike'] = information.dislikes
+
+        return Response(vote_count)
