@@ -7,13 +7,13 @@ import GameCard from "../components/cards/GameCard";
 import {Card,Icon} from 'semantic-ui-react';
 const imageStyle = {
     "height": 400,
-    "margin": "auto",
-    "display":"block",
-    "width":"100%"
+    "width":"100%",
+    "position":"relative",
 }, carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
+    "margin":10,
 };
 export default class IndexSlider extends React.Component {
 
@@ -67,7 +67,7 @@ export default class IndexSlider extends React.Component {
 
         if(images.length){
 
-            return (<div style={imageStyle}>
+            return (<div style={carouselImageStyle}>
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                 <Slider {...settings}>{images}
@@ -85,7 +85,7 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={{height:400}}>
+                (<div style={{position:"relative",height:400}}>
                             <img
                                src={this.state.games[idx].slide_image} style={{margin:"0 auto",float:"left",height:"100%",width:"70%"}}/>
        
