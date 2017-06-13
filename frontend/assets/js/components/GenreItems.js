@@ -96,9 +96,12 @@ export default class GenreItems extends React.Component{
     render (){
         return(
             <Dropdown text={this.state.selectedGenre}>
-                        <Dropdown.Menu>
-                            {this.mountGenreItems()}
-                        </Dropdown.Menu>
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={(e) => this.handleClick('Todas categorias', e)}>
+                        Todas categorias
+                    </Dropdown.Item>
+                    {this.mountGenreItems()}
+                </Dropdown.Menu>
             </Dropdown>
         );
     }

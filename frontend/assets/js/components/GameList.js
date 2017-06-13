@@ -10,6 +10,7 @@ export default class GameList extends React.Component {
         super(props);
         this.state = {
             "games": [],
+            "filteredGames": []
         };
 
     }
@@ -28,6 +29,7 @@ export default class GameList extends React.Component {
           then((games) => {
 
               this.setState({games});
+              this.setState({filteredGames: games})
 
           }).
           catch((error) => {
@@ -35,7 +37,6 @@ export default class GameList extends React.Component {
               console.error(error);
 
           });
-
     }
 
     componentDidMount () {
@@ -61,7 +62,7 @@ export default class GameList extends React.Component {
         }
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const data = optionSelected;
-        const listGames = this.state.games;
+        const listGames = this.state.filteredGames;
         listGames.sort((a,b) => {
                 if(data.order === frontToBack){
                     if(eval('a'+data.param) > eval('b'+data.param)) return 1;
@@ -73,7 +74,7 @@ export default class GameList extends React.Component {
                 return 0;
             }
         );
-        this.setState({ games: listGames });
+        this.setState({ filteredGames: listGames });
     }
 
     getGamesByGenre(optionSelected){
@@ -91,13 +92,13 @@ export default class GameList extends React.Component {
                 }
             }
         }
-        this.setState({ games: gamesFromTheGenre });
+        this.setState({ filteredGames: gamesFromTheGenre });
     }
 
 
     render () {
 
-        const gameCards = this.state.games.map((game) =>
+        const gameCards = this.state.filteredGames.map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
