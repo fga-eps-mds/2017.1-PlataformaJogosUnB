@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import { Card, Grid, Container, Button } from 'semantic-ui-react'
+import { Card, Grid, Container, Button, Icon } from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
@@ -86,7 +86,15 @@ export default class GamePage extends React.Component{
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <ReportBugForm
-                          button={<Button basic color='green'>Windows</Button>}
+                          button={
+                            <Button animated="vertical" color="red">
+                              <Button.Content hidden>Reportar bug</Button.Content>
+                              <Button.Content visible>
+                                <Icon name="shop" />
+                              </Button.Content>
+                            </Button>
+                          } 
+
                           game_pk={this.state.game.pk}
                         />
                         <DescriptionCard
