@@ -36,7 +36,7 @@ export default class GamePage extends React.Component{
               {
                 headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
                 method: "GET",
-            })
+              })
         .then((response) => {
              return response.json();
             })
@@ -64,7 +64,11 @@ export default class GamePage extends React.Component{
                         <InternalSlide
                             data={this.state.game}
                         />
-                        <Rating game={this.state.game.information.pk} />
+                        <Rating
+                            pk={this.state.game.pk}
+                            likes={this.state.game.information.likes}
+                            dislikes={this.state.game.information.dislikes}
+                        />
                     </Grid.Column>
 
                     <Grid.Column width={6}>

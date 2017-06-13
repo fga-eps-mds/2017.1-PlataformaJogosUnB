@@ -24,32 +24,33 @@ export default class Rating extends React.Component {
     }
 
     handleVote(vote, event_click){
-        const id = this.props.game;
+        const game_id = this.props.pk;
+        console.log(this.props.likes);
+        console.log(this.props.dislikes);
 
         var json_parser = JSON.stringify({
             vote:  vote,
             email_voter: 'your@mail.com',
-          });
+        });
         
         var csrftoken = getCookie('csrftoken');
         
-        fetch(`/api/vote/${id}/`, {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-          },
-          body: json_parser
+        fetch(`/api/vote/${game_id}/`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: json_parser
         }).then((r) => {console.log(r); return r.json()})
           .then((r) => {console.log(r)})
           .catch((e) => { console.log(e)});
-
     }
 
     getVoteCount() {
-        fetch(`/api/vote/${id}/`, {
+        fetch(`/api/vote/${game_id}/`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -64,27 +65,25 @@ export default class Rating extends React.Component {
         console.log(this.state.like);
     };
 
-    componentDidMount() {
-        this.loadGameFromServer();
-    }
-
     render(){
         return (
-             <div>
-                <Button
-                  content='Like'
-                  icon='thumbs outline up'
-                  label={{ as: 'a', basic: true, content: "3" }}
-                  labelPosition='right'
-                  onClick={this.handleVote.bind(this, true)}
-                />
-                <Button
-                  content='Dislike'
-                  icon='thumbs outline down'
-                  label={{ as: 'a', basic: true, pointing: 'right', content: "21" }}
-                  labelPosition='left'
-                  onClick={this.handleVote.bind(this, false)}
-                />
+            <div>
+                <Button.Group size='tiny' floated='right'>
+                    <Button
+                        color='green'
+                        icon='thumbs up'
+                        label={{ as: 'a', basic: true, color: 'green', content: "3" }}
+                        labelPosition='right'
+                        onClick={this.handleVote.bind(this, true)}
+                    />
+                    <Button
+                        color='red'
+                        icon='thumbs down'
+                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: "21" }}
+                        labelPosition='left'
+                        onClick={this.handleVote.bind(this, false)}
+                    />
+                </Button.Group>
             </div> 
         );
     }
