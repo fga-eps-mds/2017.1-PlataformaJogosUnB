@@ -4,6 +4,7 @@ import {Container, Grid, Menu} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SortByItems from "../components/SortByItems";
 import GenreItems from "../components/GenreItems";
+import PlatformItems from "../components/PlatformItems";
 
 export default class GamesPage extends React.Component {
 
@@ -11,7 +12,8 @@ export default class GamesPage extends React.Component {
         super();
         this.state = {
             "sortByOption": 'none',
-            "genreOption": ''
+            "genreOption": '',
+            "platformOption": ''
         }
     }
 
@@ -41,6 +43,9 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item>
                                 <GenreItems callbackParent={(option) => this.genreOptionChanged(option)} />
+                            </Menu.Item>
+                            <Menu.Item>
+                                <PlatformItems  />
                             </Menu.Item>
                         </Menu>
                     </div>

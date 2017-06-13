@@ -47,7 +47,7 @@ export default class GameList extends React.Component {
 
     componentWillReceiveProps(nextProps){
         if(this.props.sortByOption != nextProps.sortByOption){
-            this.sortList(nextProps.sortByOption);
+            this.sortList(nextProps.sortByOption, this.state.filteredGames);
         } else if(this.props.genreOption != nextProps.genreOption){
             this.getGamesByGenre(nextProps.genreOption);
         }else{
@@ -56,13 +56,13 @@ export default class GameList extends React.Component {
         }
     }
 
-    sortList(optionSelected){
+    sortList(optionSelected, list){
          if(typeof this.state.games === "undefined"){
             return false;
         }
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const data = optionSelected;
-        const listGames = this.state.filteredGames;
+        const listGames = list;
         listGames.sort((a,b) => {
                 if(data.order === frontToBack){
                     if(eval('a'+data.param) > eval('b'+data.param)) return 1;
@@ -92,7 +92,7 @@ export default class GameList extends React.Component {
                 }
             }
         }
-        this.setState({ filteredGames: gamesFromTheGenre });
+        this.sortList(this.props.sortByOption, gamesFromTheGenre);
     }
 
 
@@ -106,7 +106,6 @@ export default class GameList extends React.Component {
                 </Link>
               </Grid.Column>
           );
-
         return (
             <Grid doubling columns={5}>
                 {gameCards}
