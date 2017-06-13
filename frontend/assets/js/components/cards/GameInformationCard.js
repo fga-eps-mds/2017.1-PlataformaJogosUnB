@@ -12,7 +12,7 @@ export default class GameInformationCard extends React.Component {
     }
 
     getImages (img) {
-        if (img === null) {
+        if (img != null) {
             return <Image src={img} />;
         }
         return (

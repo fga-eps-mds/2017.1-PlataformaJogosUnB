@@ -10,16 +10,28 @@ export default class InternalSlide extends React.Component {
         console.log("Image loaded ", event.target);
 
     }
-    render () {
-
-        const images = this.props.data.media_image.map((slide) => ({
+    getImagesSlide(media_image){
+        const images = media_image.map((slide) => ({
             "original": slide.image,
             "thumbnail": slide.image
         }));
 
+        if (images!=[]) {
+            return images;
+        }
+
+        return ;
+    }
+
+
+    render () {
+        const images = this.props.data.media_image.map((slide) => ({
+            "original": slide.image,
+            "thumbnail": slide.image
+        }));
         return (
             <ImageGallery
-                items={images}
+                items={this.getImagesSlide(this.props.data.media_image)}
                 slideInterval={2000}
                 onImageLoad={this.handleImageLoad}
                 slideOnThumbnailHover
