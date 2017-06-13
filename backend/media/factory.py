@@ -22,7 +22,7 @@ class VideoFactory(factory.DjangoModelFactory):
     class Meta:
         model = Video
 
-    video = factory.django.FileField(filename='video.mp4')
+    video = factory.django.FileField(data=b'1' * 10, filename='video.mp4')
     game = factory.SubFactory(GameFactory)
 
 
@@ -31,5 +31,5 @@ class SoundtrackFactory(factory.DjangoModelFactory):
     class Meta:
         model = Soundtrack
 
-    soundtrack = factory.django.FileField(filename='soundtrack.mp3')
+    soundtrack = factory.django.FileField(data=b'1' * 10, filename='soundtrack.mp3')
     game = factory.SubFactory(GameFactory)
