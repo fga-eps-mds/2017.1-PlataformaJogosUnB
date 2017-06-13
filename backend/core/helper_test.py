@@ -9,10 +9,6 @@ from core.validators import (
 )
 from django.db import models
 
-IMAGE_ALLOWED_EXTENSIONS = ', '.join(IMAGE_ALLOWED_EXTENSIONS) + "'."
-VIDEO_ALLOWED_EXTENSIONS = ', '.join(VIDEO_ALLOWED_EXTENSIONS) + "'."
-SOUNDTRACK_ALLOWED_EXTENSIONS = ', '.join(SOUNDTRACK_ALLOWED_EXTENSIONS) + "'."
-
 
 def validation_test(model, errors_dict):
     """ This method is used to assist in the validation of the attributes of a
@@ -37,54 +33,73 @@ def mount_error_dict(keys, values):
     return dict(zip(keys, values))
 
 
+def get_file_extension_message(extension, allowed_extensions):
+    return (
+        "A extensão de arquivo '{}' não é permitida." +
+        " As extensões permitidas são: '{}"
+    ).format(extension, allowed_extensions)
+
+
+MEDIA_ALLOWED_EXTENSIONS = {
+    "image": IMAGE_ALLOWED_EXTENSIONS,
+    "video": VIDEO_ALLOWED_EXTENSIONS,
+    "soundtrack": SOUNDTRACK_ALLOWED_EXTENSIONS
+}
+
+for key in MEDIA_ALLOWED_EXTENSIONS.keys():
+    MEDIA_ALLOWED_EXTENSIONS[key] = ', '.join(
+        MEDIA_ALLOWED_EXTENSIONS[key]
+    ) + "'."
+
+
 class ErrorMessage(Enum):
 
-    def get_image_extension_message(extension):
-        return (
-            "A extensão de arquivo '{}' não é permitida." +
-            " As extensões permitidas são: '" +
-            IMAGE_ALLOWED_EXTENSIONS
-        ).format(extension)
+    def get_media_error_extensions():
+        media_kind_errors = {
+            'image': 'ppm',
+            'video': 'jpg',
+            'soundtrack': 'mp4'
+        }
 
-    def get_video_extension_message(extension):
-        return (
-            "A extensão de arquivo '{}' não é permitida." +
-            " As extensões permitidas são: '" +
-            VIDEO_ALLOWED_EXTENSIONS
-        ).format(extension)
+        media_extensions = {}
+        for kind_error in media_kind_errors.items():
+            media_extensions[
+                kind_error[0]
+            ] = get_file_extension_message(
+                    kind_error[1],
+                    MEDIA_ALLOWED_EXTENSIONS[kind_error[0]]
+                )
 
-    def get_soundtrack_extension_message(extension):
-        return (
-            "A extensão de arquivo '{}' não é permitida." +
-            " As extensões permitidas são: '" +
-            SOUNDTRACK_ALLOWED_EXTENSIONS
-        ).format(extension)
+        return media_extensions
+
+    def __eq__(self, other_object):
+        return self.value == other_object
 
     YEAR_PAST = 'Our University had not been built at this time!'
+
     NULL = 'Este campo não pode ser nulo.'
+
     BLANK = "Este campo não pode estar vazio."
+
     NOT_INTEGER = "'' valor deve ser um inteiro."
 
-    IMAGE_EXTENSION = get_image_extension_message('ppm')
-    VIDEO_EXTENSION = get_video_extension_message('jpg')
-    SOUNDTRACK_EXTENSION = get_soundtrack_extension_message('mp4')
+    IMAGE_EXTENSION = get_media_error_extensions()['image']
+
+    VIDEO_EXTENSION = get_media_error_extensions()['video']
+
+    SOUNDTRACK_EXTENSION = get_media_error_extensions()['soundtrack']
+
+    IMAGE_DEFAULT_ALLOWED_EXTENSIONS = ', '.join(
+        models.ImageField().validators[0].allowed_extensions
+    ) + "'."
 
     NOT_IMAGE = [
-        (
-            get_image_extension_message('py').replace(
-                IMAGE_ALLOWED_EXTENSIONS,
-                ', '.join(
-                    models.ImageField().validators[0].allowed_extensions
-                ) + "'."
-            )
-        ),  # Because ImageFields default validator
-        get_image_extension_message('py')
+        get_file_extension_message('py', IMAGE_DEFAULT_ALLOWED_EXTENSIONS),
+        get_file_extension_message('py', MEDIA_ALLOWED_EXTENSIONS['image'])
     ]
+
     INVALID_PACKAGE = (
         'Your package format doesn\'t match the platforms' +
         ' available. Please send a file that matchs the platforms' +
         ' or register the platform you need'
     )
-
-    def __eq__(self, other_object):
-        return self.value == other_object
