@@ -65,7 +65,7 @@ export default class MenuComponent extends React.Component {
                             <Segment inverted stackable container>
                                 <Menu inverted pointing secondary>
                                     <Container>
-                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
+                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
                                         <Menu.Item><Header inverted>
                                         <Dropdown text="Jogos">
                                             <Dropdown.Menu>
