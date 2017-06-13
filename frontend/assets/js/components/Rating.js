@@ -25,8 +25,6 @@ export default class Rating extends React.Component {
 
     handleVote(vote, event_click){
         const game_id = this.props.pk;
-        console.log(this.props.likes);
-        console.log(this.props.dislikes);
 
         var json_parser = JSON.stringify({
             vote:  vote,
@@ -61,10 +59,14 @@ export default class Rating extends React.Component {
         .then((response) => {
             return response.json();
         })
-        .then((vote) => {
-            this.setState(vote)
-        })
-        console.log(this.state.like);
+        .then(((vote) => {
+            this.setState({ vote: vote });
+        }).bind(this))
+        .catch((error) => {
+            console.error(error);
+        });
+
+        console.log(this.state.vote.like)
     };
 
     render(){
@@ -74,14 +76,14 @@ export default class Rating extends React.Component {
                     <Button
                         color='green'
                         icon='thumbs up'
-                        label={{ as: 'a', basic: true, color: 'green', content: "3" }}
+                        label={{ as: 'a', basic: true, color: 'green', content: `${this.props.likes}` }}
                         labelPosition='right'
                         onClick={this.handleVote.bind(this, true)}
                     />
                     <Button
                         color='red'
                         icon='thumbs down'
-                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: "21" }}
+                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.props.dislikes}` }}
                         labelPosition='left'
                         onClick={this.handleVote.bind(this, false)}
                     />
