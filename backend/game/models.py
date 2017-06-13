@@ -102,9 +102,14 @@ class Platform(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Platform, self).save(*args, **kwargs)
+        self.update_relationships()
 
     def __str__(self):
         return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
+
+    def update_relationships(self):
+        for package in Package.objects.all():
+            package.fill_platforms()
 
 
 class Package(models.Model):
@@ -114,7 +119,7 @@ class Package(models.Model):
         upload_to='packages/',
         validators=[validators.validate_package_size,
                     validators.package_extension_validator],
-        help_text=('Choose the game\'s package')
+        help_text=_('Choose the game\'s package')
     )
 
     game = models.ForeignKey(

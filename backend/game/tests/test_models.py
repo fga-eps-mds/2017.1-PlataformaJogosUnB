@@ -12,8 +12,13 @@ from unittest.mock import patch
 
 
 @pytest.fixture
-def game_created():
+def game():
     return GameFactory()
+
+
+@pytest.fixture
+def platform():
+    return PlatformFactory()
 
 
 class TestPackageModel:
@@ -32,6 +37,10 @@ class TestPackageModel:
 
 class TestGame:
 
+    @pytest.fixture
+    def package(self):
+        return PackageFactory()
+
     @pytest.mark.django_db
     @pytest.mark.parametrize(('name, cover_image, version, ' +
                               'official_repository, errors_dict'), [
@@ -48,9 +57,9 @@ class TestGame:
         validation_test(game, errors_dict)
 
     @pytest.mark.django_db
-    def test_create_game_with_valid_atributtes(self, game_created):
-        game = Game.objects.get(pk=game_created.pk)
-        assert game_created == game
+    def test_create_game_with_valid_atributtes(self, game):
+        game = Game.objects.get(pk=game.pk)
+        assert game == game
 
     @pytest.mark.django_db
     def test_str_game(self):
@@ -75,13 +84,27 @@ class TestPlatform:
 
     def test_str(self):
         platform = PlatformFactory.build()
-        assert str(platform) == "{} (.deb)".format(platform.name)
+        assert str(platform) == '{} (.deb)'.format(platform.name)
+
+    @pytest.mark.django_db
+    def test_update_relationships(self, platform):
+        platform.extensions = 'deb'
+        package = PackageFactory()
+        package.package.file = 'package.deb'
+
+        platform.save()
+        package.save()
+        assert package.platforms.last().pk == platform.pk 
+
+        platform2 = PlatformFactory(extensions='deb')
+        platform2.save()
+        assert package.platforms.last().pk == platform2.pk
+        assert package.platforms.count() == 2
 
 
 class TestPackage:
-    '''
-    Only package extensions which have platforms that
-    can play it are allowed
+    '''Only package extensions which have platforms that
+    can play it are allowed.
     '''
     @pytest.mark.django_db
     @pytest.mark.parametrize('package_file, message', [
@@ -90,9 +113,9 @@ class TestPackage:
         ('package.exe', PACKAGE_EXTENSION_ERROR)
     ])
     def test_invalid_package_extensions(self, package_file,
-                                        game_created, message):
+                                        game, message):
 
-        package = Package(package=package_file, game=game_created)
+        package = Package(package=package_file, game=game)
         with pytest.raises(ValidationError) as validation_error:
             package.save()
 
@@ -110,10 +133,6 @@ class TestPackage:
         package.package.name = package.package.name.replace('deb', extension)
         package.save()
         assert package == Package.objects.last()
-
-    @pytest.fixture
-    def platform(self):
-        return PlatformFactory()
 
     @pytest.mark.django_db
     def test_package_str(self, platform):
