@@ -50,6 +50,8 @@ export default class Rating extends React.Component {
     }
 
     getVoteCount() {
+        const game_id = this.props.pk;
+
         fetch(`/api/vote/${game_id}/`, {
             method: 'GET',
             headers: {
