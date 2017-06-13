@@ -17,7 +17,9 @@ export default class GenreSlide extends React.Component {
   }
 
   render() {
-    const gameCards = this.mountImages();
+    const gameCards = this.mountCards();
+
+    this.sortListByYear();
 
     const settings = {
       dots: true,
@@ -43,10 +45,9 @@ export default class GenreSlide extends React.Component {
       return <img/>
     }
   }
-  mountImages(){
-   const gameCards = [], imagesSlide = 6;
-    for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
-      {console.log(this.state.games[idx].pk)}
+  mountCards(){
+   const gameCards = [], cardsAmount = 6;
+    for(var idx=0; idx < cardsAmount && idx < this.state.games.length; idx+=1){
         const image =
                (<div>
                   <Link to={"games/" + this.state.games[idx].pk}>
@@ -54,8 +55,16 @@ export default class GenreSlide extends React.Component {
                   </Link>
                 </div>)
        gameCards.push(image);
-    
+
     }
     return gameCards;
+  }
+  sortListByYear(){
+    const gameList = this.state.games;
+    gameList = gameList.map((year) => {
+      return year.information.launch_year
+    })
+    gamelist.sort()
+    {console.log(gamelist)}
   }
 }
