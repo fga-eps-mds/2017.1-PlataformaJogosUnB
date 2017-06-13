@@ -17,51 +17,25 @@ def game():
     return GameFactory()
 
 
-class TestImageApiSave:
+class TestMediaApiSave:
 
     @pytest.mark.django_db
-    def test_image_save(self, admin_client, game):
-        image = ImageFactory.build().image
-        response = admin_client.post('/api/images/', {
-            'image': image.file,
+    @pytest.mark.parametrize("factory, route", [
+        (ImageFactory, "images/"),
+        (VideoFactory, "videos/"),
+        (SoundtrackFactory, "soundtracks/")
+    ])
+    def test_image_save(self, factory, route, admin_client, game):
+        object_model = factory.build()
+        attr = type(object_model).__name__.lower()
+        media = getattr(object_model, attr)
+
+        response = admin_client.post('/api/' + route, {
+            attr: media.file,
             'game_id': game.pk
         }, format='multipart')
 
         assert 200 <= response.status_code < 300
-        assert Image.objects.count() == 1
-        image = Image.objects.last()
-        assert image.game.pk == game.pk
-
-
-class TestVideoApiSave:
-
-    @pytest.mark.django_db
-    def test_video_save(self, admin_client, game):
-        video = VideoFactory.build().video
-        response = admin_client.post('/api/videos/', {
-            'video': video.file,
-            'game_id': game.pk
-        }, format='multipart')
-
-        print(response.request)
-
-        assert 200 <= response.status_code < 300
-        assert Video.objects.count() == 1
-        video = Video.objects.last()
-        assert video.game.pk == game.pk
-
-
-class TestSoundtrackApiSave:
-
-    @pytest.mark.django_db
-    def test_soundtrack_save(self, admin_client, game):
-        soundtrack = SoundtrackFactory.build().soundtrack
-        response = admin_client.post('/api/soundtracks/', {
-            'soundtrack': soundtrack.file,
-            'game_id': game.pk
-        }, format='multipart')
-
-        assert 200 <= response.status_code < 300
-        assert Soundtrack.objects.count() == 1
-        soundtrack = Soundtrack.objects.last()
-        assert soundtrack.game.pk == game.pk
+        assert object_model.__class__.objects.count() == 1
+        media = object_model.__class__.objects.last()
+        assert media.game.pk == game.pk
