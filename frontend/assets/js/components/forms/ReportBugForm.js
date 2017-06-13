@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Modal, Button, Form } from 'semantic-ui-react';
 
 //TODO generalize below method to be imported and used here and on Rating
 function getCookie(name) {
@@ -42,7 +42,6 @@ export default class ReportBugForm extends React.Component {
       body: data_json
     });
 
-    console.log("PASSOUUU ATEH O FINALL")
   }
 
 
@@ -84,11 +83,13 @@ export default class ReportBugForm extends React.Component {
 
   render() {
       return (
+        <Modal trigger={this.props.button}>
           <Form onSubmit={this.handleSubmit}>
             <Form.Input label="Title" name="title" type="text"/> 
             <Form.TextArea label="Description" name="description" type="text"/> 
             <Button size="medium" type="submit" primary>Reportar Bug</Button>
           </Form>
+        </Modal>
       );
   }
 }
