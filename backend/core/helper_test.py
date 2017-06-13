@@ -103,3 +103,9 @@ class ErrorMessage(Enum):
         ' available. Please send a file that matchs the platforms' +
         ' or register the platform you need'
     )
+
+    FILE_TOO_BIG = (
+        "Please keep filesize under 1,0" +
+        "\xa0GB. Current filesize 10\xa0"
+        "bytes"
+    )

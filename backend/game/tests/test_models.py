@@ -28,11 +28,10 @@ class TestPackageModel:
         PlatformFactory()
         package = PackageFactory.build(game=GameFactory())
         with patch("game.validators._get_size", return_value=1 + 1024**3):
-            validation_test(package,
-                            {"package": ["Please keep filesize under 1,0"
-                                         "\xa0GB. Current filesize 10\xa0"
-                                         "bytes"]
-                             })
+            validation_test(
+                package,
+                mount_error_dict(["package"], [[ErrorMessage.FILE_TOO_BIG]])
+            )
 
 
 class TestGame:
@@ -94,7 +93,7 @@ class TestPlatform:
 
         platform.save()
         package.save()
-        assert package.platforms.last().pk == platform.pk 
+        assert package.platforms.last().pk == platform.pk
 
         platform2 = PlatformFactory(extensions='deb')
         platform2.save()
@@ -138,3 +137,6 @@ class TestPackage:
     def test_package_str(self, platform):
         package = PackageFactory()
         assert str(package) == "{} (.deb)".format(package.game.name)
+        package.platforms.clear()
+        assert str(package) == ("Invalid package. There aren't registered" +
+            " platforms able to play .deb formats")

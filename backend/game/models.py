@@ -108,8 +108,8 @@ class Platform(models.Model):
         return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
 
     def update_relationships(self):
-        for package in Package.objects.all():
-            package.fill_platforms()
+        for package in Package.objects.filter(platforms__extensions=self.extensions):
+            package.platforms.add(self)
 
 
 class Package(models.Model):
@@ -149,9 +149,12 @@ class Package(models.Model):
         self.fill_platforms()
 
     def __str__(self):
-        text = ("Invalid package." +
-                " There aren't registered platforms" +
-                " able to play it")
+        text = (
+            "Invalid package. There aren't registered platforms" +
+            " able to play .{} formats".format(
+                os.path.splitext(self.package.name)[1][1:].lower()
+            )
+        )
 
         if self.platforms.count():
             text = '{0} (.{1})'.format(
