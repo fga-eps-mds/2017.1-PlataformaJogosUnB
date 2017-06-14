@@ -1,17 +1,11 @@
 import Slider from 'react-slick';
 import React from "react";
-import InfiniteCarousel from "react-leaf-carousel";
-import GameCard from "../components/cards/GameCard";
-import {Card,Icon} from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 
-const imageStyle = {
-    "height": 400,
-    "width":"100%",
-    "position":"relative",
-}, carouselImageStyle = {
+const carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
