@@ -66,9 +66,9 @@ class ErrorMessage(Enum):
             media_extensions[
                 kind_error[0]
             ] = get_file_extension_message(
-                    kind_error[1],
-                    MEDIA_ALLOWED_EXTENSIONS[kind_error[0]]
-                )
+                kind_error[1],
+                MEDIA_ALLOWED_EXTENSIONS[kind_error[0]]
+            )
 
         return media_extensions
 

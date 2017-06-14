@@ -108,7 +108,8 @@ class Platform(models.Model):
         return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
 
     def update_relationships(self):
-        for package in Package.objects.filter(platforms__extensions=self.extensions):
+        for package in Package.objects.filter(
+                platforms__extensions=self.extensions):
             package.platforms.add(self)
 
 

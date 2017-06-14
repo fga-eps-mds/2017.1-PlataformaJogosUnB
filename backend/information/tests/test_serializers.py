@@ -76,7 +76,7 @@ class TestInformationSerializer:
     @pytest.fixture
     def information_serial(self):
         return {
-            'description': 'a'*51,
+            'description': 'a' * 51,
             'launch_year': 1980,
             'game_id': GameFactory().pk
         }

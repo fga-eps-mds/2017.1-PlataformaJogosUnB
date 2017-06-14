@@ -139,4 +139,4 @@ class TestPackage:
         assert str(package) == "{} (.deb)".format(package.game.name)
         package.platforms.clear()
         assert str(package) == ("Invalid package. There aren't registered" +
-            " platforms able to play .deb formats")
+                                " platforms able to play .deb formats")

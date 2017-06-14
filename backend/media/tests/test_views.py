@@ -1,10 +1,5 @@
 import pytest
 from game.factory import GameFactory
-from media.models import (
-    Image,
-    Video,
-    Soundtrack
-)
 from media.factory import (
     ImageFactory,
     VideoFactory,

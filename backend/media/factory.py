@@ -31,5 +31,6 @@ class SoundtrackFactory(factory.DjangoModelFactory):
     class Meta:
         model = Soundtrack
 
-    soundtrack = factory.django.FileField(data=b'1' * 10, filename='soundtrack.mp3')
+    soundtrack = factory.django.FileField(
+        data=b'1' * 10, filename='soundtrack.mp3')
     game = factory.SubFactory(GameFactory)
