@@ -3,8 +3,20 @@ import Slider from 'react-slick'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 import GameCard from "../components/cards/GameCard";
-import {gameListApi} from '../resource/GameApi';
-import {Link} from 'react-router-dom'
+import { gameListApi } from '../resource/GameApi';
+import { Link } from 'react-router-dom'
+import { Container, Grid } from 'semantic-ui-react'
+
+const CardSlideStyle = {
+  "position":"relative",
+  "minHeight":"180px",
+}
+
+const slideHeight = {
+    "height": "28px",
+};
+
+
 export default class GenreSlide extends React.Component {
   constructor (props) {
 
@@ -21,8 +33,6 @@ export default class GenreSlide extends React.Component {
   render() {
     const gameCards = this.mountCards();
 
-    this.sortListByYear();
-
     const settings = {
       dots: true,
       lazyLoad: true,
@@ -34,11 +44,13 @@ export default class GenreSlide extends React.Component {
     };
     if(gameCards.length){
     return (
-      <div>
+      <div style={slideHeight}>
+        <Grid.Column>
         <h2>Center Mode</h2>
         <Slider {...settings}>
           {gameCards}
         </Slider>
+        </Grid.Column>
       </div>
     );
     }else{
@@ -57,14 +69,8 @@ export default class GenreSlide extends React.Component {
        gameCards.push(image);
 
     }
+
     return gameCards;
-  }
-  sortListByYear(){
-    const gameList = this.state.games;
-    gameList = gameList.map((year) => {
-      return year.information.launch_year
-    })
-    gamelist.sort()
-    {console.log(gamelist)}
+
   }
 }
