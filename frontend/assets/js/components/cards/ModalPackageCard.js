@@ -7,7 +7,7 @@ export default class ModalPackageCard extends React.Component {
 
         return (
             <Modal trigger={this.props.button}>
-                <Modal.Header>Plataformas disponíveis</Modal.Header>
+                <Modal.Header>Pacotes disponíveis para {this.props.platform}</Modal.Header>
                 <Modal.Content image>
                   <Table celled padded>
                   <Table.Header>
@@ -21,9 +21,11 @@ export default class ModalPackageCard extends React.Component {
                   <Table.Body>
                     <Table.Row>
                       <Table.Cell>
-                        <Header as='h2' textAlign='center'>{this.props.plataform}</Header>
+                        <Header textAlign='center'>{this.props.platform}</Header>
                       </Table.Cell>
-                      <Table.Cell singleLine>Power Output</Table.Cell>
+                      
+                      <Table.Cell singleLine>{this.props.platform}</Table.Cell>
+                      
                       <Table.Cell>Icone</Table.Cell>
                     </Table.Row>
                   </Table.Body>
