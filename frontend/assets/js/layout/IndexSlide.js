@@ -1,10 +1,17 @@
-import React from "react";
 import Slider from 'react-slick';
-import {Card} from 'semantic-ui-react';
-import "style-loader!css-loader!sass-loader!slick-carousel/slick/slick.css"
-import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
+import React from "react";
+import InfiniteCarousel from "react-leaf-carousel";
+import GameCard from "../components/cards/GameCard";
+import {Card,Icon} from 'semantic-ui-react';
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
+require("react-image-gallery/styles/scss/image-gallery.scss");
 
-const carouselImageStyle = {
+const imageStyle = {
+    "height": 400,
+    "width":"100%",
+    "position":"relative",
+}, carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
@@ -64,8 +71,6 @@ export default class IndexSlider extends React.Component {
         if(images.length){
 
             return (<div style={carouselImageStyle}>
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                 <Slider {...settings}>{images}
                 </Slider></div>
             );
