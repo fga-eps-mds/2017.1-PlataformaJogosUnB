@@ -12,8 +12,7 @@ before_install:
   - sudo apt-get install libjpeg-dev
   - . $HOME/.nvm/nvm.sh
   - nvm install $NODE_VERSION
-  - nvm use stable
-install: 
+install:
   - pip3 install -r backend/requirements.txt
   - npm install npm -g
   - pushd frontend && npm install && popd
@@ -21,7 +20,7 @@ before_script:
   - flake8 --exclude=settings.py,migrations backend/
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
-script: 
+script:
   - python3 backend/manage.py makemigrations
   - python3 backend/manage.py migrate
   - pushd backend

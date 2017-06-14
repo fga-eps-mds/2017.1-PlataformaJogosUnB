@@ -2,10 +2,10 @@
      User Global Variables
 *******************************/
 
-@pageBackground : #292a2f;
-@headerFont        : 'Orbitron', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-@pageFont          : 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-@googleFontName    : 'Orbitron';
+@pageBackground		: #2c2f36;
+@headerFont        	: 'Orbitron', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          	: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@googleFontName    	: 'Orbitron';
 
 
 /*-------------------
@@ -20,10 +20,9 @@
 @olive            : #B5CC18;
 @green            : #159588;
 @teal             : #00B5AD;
-@blue             : #313543;
+@blue             : #292a2f;
 @violet           : #6435C9;
 @purple           : #A333C8;
 @pink             : #E03997;
-@brown            : #292a2f;
 @grey             : #2c2f36;
 @black            : #1e1f24;

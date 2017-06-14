@@ -1,6 +1,8 @@
-import React, {Component} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Container, Grid, Header, Icon, Image, Input, Menu, Segment, Sidebar} from "semantic-ui-react";
+import {Container, Grid, Header, Menu, Segment, Sidebar} from "semantic-ui-react";
+import SearchBox from '../components/SearchBox'
+import bars from '../../../public/bundles/images/bars.png'
 
 export default class MenuComponent extends React.Component {
 
@@ -39,14 +41,14 @@ export default class MenuComponent extends React.Component {
                     <Grid.Row only="tablet mobile">
                         <Grid.Column>
                             <Sidebar.Pusher>
-                                <Sidebar as={Menu} animation="overlay" width="thin" visible={visible} vertical inverted onClick={this.showMenuMobile}>
-                                    <Menu.Item as={Link} to="/" active={activeItem === "/"}>Index</Menu.Item>
-                                    <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}>Jogos</Menu.Item>
-                                    <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}>Sobre</Menu.Item>
+                                <Sidebar as={Menu} animation="overlay" width="wide" visible={visible} vertical inverted onClick={this.showMenuMobile}>
+                                    <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
+                                    <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
+                                    <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
-                                        <Icon name="download" inverted onClick={this.showMenuMobile} />
+                                        <img src={bars} width="30" height="30" onClick={this.showMenuMobile} />
                                     </Menu>
                                 </Segment>
                             </Sidebar.Pusher>
@@ -58,9 +60,14 @@ export default class MenuComponent extends React.Component {
                             <Segment inverted stackable container>
                                 <Menu inverted pointing secondary>
                                     <Container>
-                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Index</Header></Menu.Item>
+                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                        <Menu.Menu position='right'>
+                                            <Menu.Item>
+                                                <SearchBox />
+                                            </Menu.Item>
+                                        </Menu.Menu>
                                     </Container>
                                 </Menu>
                             </Segment>
