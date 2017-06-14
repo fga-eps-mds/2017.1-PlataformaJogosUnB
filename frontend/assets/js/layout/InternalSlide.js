@@ -7,8 +7,6 @@ export default class InternalSlide extends React.Component {
 
     handleImageLoad (event) {
 
-        console.log("Image loaded ", event.target);
-
     }
     render () {
 
