@@ -14,7 +14,7 @@ export default class PackageCard extends React.Component {
         }
         return (platforms);
     }
-
+    
     getButtonsPlatforms(){
         const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=> 
                 <ModalPackageCard 
@@ -27,6 +27,7 @@ export default class PackageCard extends React.Component {
 
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
+    
     render () {
         
         return (

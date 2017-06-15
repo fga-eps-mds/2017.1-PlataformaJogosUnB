@@ -2,6 +2,12 @@ import React, {PropTypes} from "react";
 import {Card} from "semantic-ui-react";
 
 export default class DescriptionCard extends React.Component {
+    getFields (title,value) {
+        if (value != null) {
+            return <div><strong>{title}</strong>{value}</div>;
+        }
+        return null;
+    }
 
     render () {
 
