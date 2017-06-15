@@ -108,7 +108,7 @@ export default class GameList extends React.Component {
                         params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
-              </Grid.Column>
+            </Grid.Column>
           );
         return (
             <Grid doubling columns={5}>

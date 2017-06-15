@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
 import {Grid, Container, Menu, Dropdown} from "semantic-ui-react";
 import SegmentTitle from "../layout/SegmentTitle";
@@ -68,7 +68,7 @@ export default class GenreFilter extends React.Component{
     render(){
         const genre = this.props.match.params.genre;
         const listCards = this.getGamesByGenre().map((game, index) =>
-            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
+            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4} key={game.name}>
                 <Link to={`/games/${game.pk}/${game.name}`} params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
@@ -146,4 +146,11 @@ export default class GenreFilter extends React.Component{
         return gamesFromTheGenre;
     }
 
+}
+
+GenreFilter.propTypes = {
+    match: PropTypes.object.isRequired,
+    award: PropTypes.object.isRequired,
+    awards: PropTypes.array.isRequired,
+    getFields: PropTypes.func.isRequired,
 }

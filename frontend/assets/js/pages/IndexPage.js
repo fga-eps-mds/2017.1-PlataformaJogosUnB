@@ -1,7 +1,6 @@
 import React from "react";
 import {Container} from "semantic-ui-react";
 import IndexSlide from "../layout/IndexSlide";
-import GameList from "../components/GameList";
 import SegmentTitle from "../layout/SegmentTitle";
 import GenreSlide from "../layout/GenreSlide"
 
