@@ -1,6 +1,18 @@
 import React, { Component} from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 
+const formFieldsStyle = {
+    "width": "870px",
+    "marginLeft": "15px",
+    "marginTop": "15px",
+}
+const titleFieldStyle = {
+    "height": "45px",
+};
+const descriptionFieldStyle = {
+    "height": "150px",
+};
+
 //TODO generalize below method to be imported and used here and on Rating
 function getCookie(name) {
   var cookieValue = null;
@@ -31,7 +43,7 @@ export default class ReportBugForm extends React.Component {
     var data_json = JSON.stringify(data)
     var csrftoken = getCookie('csrftoken');
 
-    fetch(`/api/reportbug/${game_pk}/`, {
+    fetch(`/api/games/${game_pk}/report_bug/`, {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
@@ -41,7 +53,6 @@ export default class ReportBugForm extends React.Component {
       },
       body: data_json
     });
-
   }
 
 
@@ -84,11 +95,13 @@ export default class ReportBugForm extends React.Component {
   render() {
       return (
         <Modal trigger={this.props.button}>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Input label="Title" name="title" type="text"/> 
-            <Form.TextArea label="Description" name="description" type="text"/> 
-            <Button size="medium" type="submit" primary>Reportar Bug</Button>
-          </Form>
+          <div style={formFieldsStyle}>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Input label="Título" name="title" type="text" style={titleFieldStyle} /> 
+              <Form.TextArea label="Descrição" name="description" type="text" style={descriptionFieldStyle}/> 
+              <Button size="medium" type="submit" primary>Reportar Bug</Button>
+            </Form>
+          </div>
         </Modal>
       );
   }

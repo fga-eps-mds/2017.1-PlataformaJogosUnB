@@ -9,6 +9,10 @@ import Comment from '../components/Comments';
 import ReportBugForm from '../components/forms/ReportBugForm.js';
 import SegmentTitle from "../layout/SegmentTitle";
 
+const reportBugButtonStyle = {
+      "float": "right",
+};
+
 export default class GamePage extends React.Component{
     constructor (props) {
 
@@ -71,7 +75,7 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
 
-                    <Grid.Column width={6}>
+                    <Grid.Column width={6} class="right aligned">
                         <GameInformationCard
                             cover_image={this.state.game.cover_image}
                             version={this.state.game.version}
@@ -80,23 +84,27 @@ export default class GamePage extends React.Component{
                             genres={this.state.game.information.genres}
                             getFields={this.getFields}
                         />
+                      <div style={reportBugButtonStyle}>
+                         <ReportBugForm
+                           button={
+                             <Button animated="vertical" color="red">
+                               <Button.Content hidden>Reportar bug</Button.Content>
+                               <Button.Content visible>
+                                 <Icon name="shop" />
+                               </Button.Content>
+                             </Button>
+                           } 
+                           game_pk={this.state.game.pk}
+                         />
+                      </div>
                     </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
-                    <Grid.Column width={10}>
-                        <ReportBugForm
-                          button={
-                            <Button animated="vertical" color="red">
-                              <Button.Content hidden>Reportar bug</Button.Content>
-                              <Button.Content visible>
-                                <Icon name="shop" />
-                              </Button.Content>
-                            </Button>
-                          } 
+                </Grid.Row>
 
-                          game_pk={this.state.game.pk}
-                        />
+                <Grid.Row>
+                    <Grid.Column width={10}>
                         <DescriptionCard
                             description={this.state.game.information.description}
                             awards={this.state.game.information.awards}
