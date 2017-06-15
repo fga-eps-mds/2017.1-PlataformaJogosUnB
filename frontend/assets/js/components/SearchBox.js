@@ -5,18 +5,6 @@ import {gameListApi} from '../resource/GameApi';
 
 export default class SearchBox extends Component {
 
-    loadGameFromServer () {
-        fetch("/api/games/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                }),
-                "method": "GET"
-            }).
-        then((response) => response.json()).
-        then((games) => {
-
     constructor(props) {
         super(props);
         this.resetComponent = this.resetComponent.bind(this)

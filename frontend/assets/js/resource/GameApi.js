@@ -1,6 +1,6 @@
 export const gameListApi = (f) => {
 
-  fetch("/api/list/", {
+  fetch("/api/games/", {
     "headers": new Headers({
       "Accept": "application/json",
     }),
@@ -8,5 +8,4 @@ export const gameListApi = (f) => {
   }).then( (response) => response.json())
       .then(f)
     .catch( (error) => console.log(error) );
-
 }

@@ -15,30 +15,6 @@ export default class GameList extends React.Component {
 
     }
 
-    loadGameFromServer () {
-
-        fetch("/api/games/",
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          }).
-          catch((error) => {
-
-              console.error(error);
-
-          });
-
-    }
-
     componentWillMount () {
 
       gameListApi((games) => { this.setState({games}) });
