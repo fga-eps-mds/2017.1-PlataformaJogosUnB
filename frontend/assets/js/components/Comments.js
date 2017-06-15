@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import FacebookProvider, { Comments } from 'react-facebook';
 
-export default class lomments extends Component {
+export default class Comment extends Component {
   render() {
       return (
       <div>

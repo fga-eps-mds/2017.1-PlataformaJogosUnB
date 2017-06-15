@@ -9,6 +9,7 @@ import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
 
 export default class GamePage extends React.Component{
+
      constructor (props) {
 
         super(props);
@@ -25,6 +26,7 @@ export default class GamePage extends React.Component{
         };
 
     }
+
 
   loadGameFromServer(){
     const id = this.props.match.params.id;
@@ -81,14 +83,14 @@ export default class GamePage extends React.Component{
                             awards={this.state.game.information.awards}
                         />
                     </Grid.Column>
-
-                    <Grid.Column width={6}>    
-                        <PackageCard
-                            
+                    <Grid.Column width={6}>
+                        <DevelopersCard
+                            developers={this.state.game.information.developers}
                         />
+                        <PackageCard />
                     </Grid.Column>
                 </Grid.Row>
-                
+
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <Card fluid>
@@ -97,7 +99,7 @@ export default class GamePage extends React.Component{
                             </Card.Content>
                         </Card>
                     </Grid.Column>
-                    <Grid.Column width={6}>    
+                    <Grid.Column width={6}>
                             <DevelopersCard
                                 developers={this.state.game.information.developers}
                             />
