@@ -3,7 +3,8 @@ import Slider from 'react-slick';
 import GameCard from "../components/cards/GameCard";
 import { gameListApi } from '../resource/GameApi';
 import { Link } from 'react-router-dom'
-import { Container, Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
+
 
 const CardSlideStyle = {
   "position":"relative",
@@ -11,7 +12,7 @@ const CardSlideStyle = {
 }
 
 const slideHeight = {
-    "height": "28px",
+    "height": "280px",
 };
 
 
@@ -46,7 +47,6 @@ export default class GenreSlide extends React.Component {
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
         <Grid.Column>
-        <h2>Center Mode</h2>
         <Slider {...settings}>
           {gameCards}
         </Slider>

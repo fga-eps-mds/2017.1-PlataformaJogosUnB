@@ -34,7 +34,7 @@ export default class GameCard extends React.Component {
         return (
             <Card>
                 <div style={cardImageStyle}>
-                    <Image src={this.props.data.card_image} style={imageStyle} />
+                  <Image src={this.props.data.card_image} style={imageStyle} />
                 </div>
                 <Card.Content>
                     <Card.Header>
@@ -47,9 +47,7 @@ export default class GameCard extends React.Component {
                     }
                 </Card.Content>
             </Card>
-
         );
-
     }
 }
 
