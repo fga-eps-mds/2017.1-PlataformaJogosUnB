@@ -1,12 +1,12 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from game.models import Game, HELP_TEXT_IMAGES
+from game.models import Game
 from django.core.validators import (
     MinLengthValidator,
     EmailValidator,
     URLValidator,
 )
-import core.validators as general_validators
+
 from information.validators import min_max_validators, years_validator
 
 
@@ -49,7 +49,7 @@ class Credit(models.Model):
     ROLE_CHOICES = [
         ('desenvolvedor', _('Desenvolvedor')),
         ('design', _('Design')),
-        ('musico', _('Músico')),
+        ('musico', _('Musico')),
     ]
 
     specialty = models.CharField(

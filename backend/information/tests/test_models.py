@@ -12,7 +12,7 @@ from information.factory import (
     DeveloperFactory
 )
 from information.models import (
-    Information, Award, Genre, Developer, Artist, Musician, Statistic
+    Information, Award, Genre, Credit, Statistic
 )
 
 def now():
@@ -194,142 +194,24 @@ at least 20 characters!'
         validation_test(genre, errors_dict)
 
 
-class TestDeveloperAvatar:
-
-    @pytest.mark.django_db
-    @pytest.mark.parametrize(('avatar', 'errors_dict'), [
-        ('avatar.ppm',
-         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('avatar.py',
-         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                        ErrorMessage.NOT_IMAGE.value[1]]])),
-    ])
-    def test_avatar_valid_extension(self, avatar, errors_dict):
-        developer = DeveloperFactory.build(
-            avatar=avatar,
-        )
-        validation_test(developer, errors_dict)
-
-    @pytest.mark.django_db
-    def test_avatar_invalid_extension(self):
-        developer = DeveloperFactory()
-        assert Developer.objects.last() == developer
-
-
 @pytest.fixture
-def developer_creation():
-    return DeveloperFactory()
+def credit_creation():
+    credit = Credit.objects.create(specialty="desenvolvedor", name="Credit",
+                                   email="credit@gmail.com",
+                                   github_page="https://github.com/credit")
+    return credit
 
 
-class TestDeveloper:
-
-    @pytest.mark.django_db
-    def test_developer_save(self, developer_creation):
-        developer = Developer.objects.get(pk=developer_creation.pk)
-        assert developer == developer_creation
+class TestCredit:
 
     @pytest.mark.django_db
-    def test_str_developer(self, developer_creation):
-        name = developer_creation.name
-        url = developer_creation.github_page
-        assert str(developer_creation) == "{} <{}>".format(name, url)
-
-
-@pytest.fixture
-def artist_creation():
-    artist = Artist.objects.create(name="Artist", email="artist@gmail.com")
-    return artist
-
-
-class TestArtistAvatar:
+    def test_credit_save(self, credit_creation):
+        credit = Credit.objects.get(pk=credit_creation.pk)
+        assert credit == credit_creation
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize(('name, avatar, email' + ' errors_dict'), [
-        ('artist', 'artist.ppm',
-            'hehe@host.com',
-         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('artist', 'avatar.c', 'hehe@host.com',
-         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                        ErrorMessage.NOT_IMAGE.value[1]]])),
-    ])
-    def test_avatar_valid_extension(self, name, avatar, email, errors_dict):
-        artist = Artist(
-            name=name,
-            avatar=avatar,
-            email=email,
-        )
-        validation_test(artist, errors_dict)
-
-    @pytest.mark.django_db
-    def test_avatar_invalid_extension(self):
-        artist = Artist(
-            name='name',
-            avatar='picture.jpg',
-            email='hoho@host.com',
-        )
-        artist.save()
-        assert Artist.objects.last() == artist
-
-
-class TestArtist:
-
-    @pytest.mark.django_db
-    def test_artist_save(self, artist_creation):
-        artist = Artist.objects.get(pk=artist_creation.pk)
-        assert artist == artist_creation
-
-    @pytest.mark.django_db
-    def test_str_artist(self, artist_creation):
-        assert str(artist_creation) == "Artist"
-
-
-@pytest.fixture
-def musician_creation():
-    musician = Musician.objects.create(name="Musician",
-                                       email="musician@gmail.com")
-    return musician
-
-
-class TestMusicianAvatar:
-
-    @pytest.mark.django_db
-    @pytest.mark.parametrize(('name, avatar, email' + ' errors_dict'), [
-        ('musician', 'musician.ppm',
-            'iiii@host.com',
-         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('artist', 'avatar.rb', 'iiii@host.com',
-         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                        ErrorMessage.NOT_IMAGE.value[1]]])),
-    ])
-    def test_avatar_valid_extension(self, name, avatar, email, errors_dict):
-        musician = Musician(
-            name=name,
-            avatar=avatar,
-            email=email,
-        )
-        validation_test(musician, errors_dict)
-
-    @pytest.mark.django_db
-    def test_avatar_invalid_extension(self):
-        musician = Musician(
-            name='iiiiiii',
-            avatar='pic.jpg',
-            email='iiii@host.com',
-        )
-        musician.save()
-        assert Musician.objects.last() == musician
-
-
-class TestMusician:
-
-    @pytest.mark.django_db
-    def test_musician_save(self, musician_creation):
-        musician = Musician.objects.get(pk=musician_creation.pk)
-        assert musician == musician_creation
-
-    @pytest.mark.django_db
-    def test_str_musician(self, musician_creation):
-        assert str(musician_creation) == "Musician"
+    def test_str_credit(self, credit_creation):
+        assert str(credit_creation) == "Credit"
 
 
 class TestStatistic:

@@ -2,7 +2,7 @@ import factory
 from factory.fuzzy import FuzzyChoice
 from faker import Faker
 from information.models import (
-    Award, Developer, Genre, Artist, Information, Musician
+    Award, Genre, Credit, Information
 )
 from game.factory import GameFactory
 
@@ -20,36 +20,15 @@ class AwardFactory(factory.DjangoModelFactory):
     place = factory.LazyAttribute(lambda x: "First")
 
 
-class DeveloperFactory(factory.DjangoModelFactory):
+class CreditFactory(factory.DjangoModelFactory):
 
     class Meta:
-        model = Developer
+        model = Credit
 
+    specialty = factory.faker.Faker("word")
     name = factory.faker.Faker("word")
-    login = factory.faker.Faker("word")
-    avatar = factory.django.ImageField(width=15, height=30)
     email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
     github_page = factory.faker.Faker("url")
-
-
-class ArtistFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = Artist
-
-    name = factory.faker.Faker("word")
-    avatar = factory.django.ImageField(width=15, height=30)
-    email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
-
-
-class MusicianFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = Musician
-
-    name = factory.faker.Faker("word")
-    avatar = factory.django.ImageField(width=15, height=30)
-    email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
 
 
 class GenreFactory(factory.DjangoModelFactory):
@@ -81,31 +60,13 @@ class InformationFactory(factory.DjangoModelFactory):
                 self.awards.add(award)
 
     @factory.post_generation
-    def developers(self, create, extracted, **kwargs):
+    def credits(self, create, extracted, **kwargs):
         if not create:
             return
 
         if extracted:
-            for developer in extracted:
-                self.developers.add(developer)
-
-    @factory.post_generation
-    def artists(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for artist in extracted:
-                self.artists.add(artist)
-
-    @factory.post_generation
-    def musicians(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for musician in extracted:
-                self.musicians.add(musician)
+            for credit in extracted:
+                self.credits.add(credit)
 
     @factory.post_generation
     def genres(self, create, extracted, **kwargs):

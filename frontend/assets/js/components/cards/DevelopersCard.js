@@ -9,15 +9,7 @@ export default class DevelopersCard extends React.Component {
       this.DESIGN = "design";
       this.MUSICIAN = "musico";
     }
-    
-
-    getDeveloper(credit){
-        console.log(credit)
-        if (credit.specialty == "desenvolvedor") {
-          return credit.name;
-        }
-    };
-
+  
     getRoleCells(role){
       const credits = this.props.credits;
       return (<ul>{credits.filter((credit)=> credit.specialty === role)
@@ -45,7 +37,6 @@ export default class DevelopersCard extends React.Component {
     }
 
        render () {
-        var desenvolvedor = (this.props.credits).filter(this.getDeveloper);
 
         return (
             <Card fluid>
