@@ -3,8 +3,52 @@ import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
 export default class DevelopersCard extends React.Component {
+  
+    getDeveloper(credits){
+        var temp = []
+            console.log(credits);
+        if(credits!==undefined){
+            temp = (credits.map((credit) => credit.specialty ))
+            if(temp == "desenvolvedor"){
+                var developer = []
+                developer = (credits.map((credit) => credit.name ))
+                return developer;
+            }
+            else
+                return " ";
+        }
+    };
 
-    render () {
+    getDesign(credits){
+        var temp2 = []
+        if(credits!==undefined){
+            temp2 = (credits.map((credit) => credit.specialty ))
+            if(temp2 == "design"){
+                var design = [] 
+                design = (credits.map((credit) => credit.name ))
+                return design;
+            }
+        else
+            return " ";
+        }
+    };
+
+    getMusician(credits){
+        var temp3 = []
+        if(credits!==undefined){
+            temp3 = (credits.map((credit) => credit.specialty ))
+            if(temp3 == "musico"){
+                var musician = [] 
+                musician = (credits.map((credit) => credit.name ))
+                return musician;
+            }
+        else
+            return " ";
+        }
+    };
+        
+    
+       render () {
 
         return (
             <Card fluid>
@@ -17,36 +61,31 @@ export default class DevelopersCard extends React.Component {
                             <Header inverted>Desenvolvedores</Header>
                           </Table.HeaderCell>
                           <Table.HeaderCell>
-                            <Header inverted>Artistas</Header>
+                            <Header inverted>Design</Header>
                           </Table.HeaderCell>
                            <Table.HeaderCell>
                             <Header inverted>Musicos</Header>
                           </Table.HeaderCell>
                         </Table.Row>
                       </Table.Header>
-
                       <Table.Body>
                             <Table.Row>
                               <Table.Cell>
-                                <Header.Content> {this.props.developers.map((developer) =>
-                                <Popup trigger={<Link to="github" target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
-                                content='Link para GitHub'/>
-                                )}
+                                <Header.Content>
+                                    {this.getDeveloper(this.props.credits)}
                                 </Header.Content>
                               </Table.Cell>
                               <Table.Cell>
-                                <Header.Content> {this.props.artists.map((artist) =>
-                                <div> {artist.name} </div>
-                                )}
+                                 <Header.Content>
+                                    {this.getDesign(this.props.credits)}
                                 </Header.Content>
                               </Table.Cell>
                               <Table.Cell>
-                                <Header.Content> {this.props.musicians.map((musician) =>
-                                <div> {musician.name} </div>
-                                )}
+                                 <Header.Content>
+                                    {this.getMusician(this.props.credits)}
                                 </Header.Content>
                               </Table.Cell>
-                            </Table.Row>
+                             </Table.Row>
                       </Table.Body>
                     </Table>
                 </Card.Content>

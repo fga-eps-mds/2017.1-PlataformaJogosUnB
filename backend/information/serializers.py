@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from information.models import (
-    Information, Award, Developer, Artist, Musician, Genre
+    Information, Award, Credit, Genre
 )
 
 
@@ -11,25 +11,11 @@ class AwardSerializer(serializers.ModelSerializer):
         fields = ['name', 'year', 'place']
 
 
-class DeveloperSerializer(serializers.ModelSerializer):
+class CreditSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Developer
-        fields = ['name', 'avatar', 'login', 'email', 'github_page']
-
-
-class ArtistSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Artist
-        fields = ['name', 'avatar', 'email']
-
-
-class MusicianSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Musician
-        fields = ['name', 'avatar', 'email']
+        model = Credit
+        fields = ['specialty', 'name', 'email', 'github_page']
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -41,21 +27,17 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class InformationSerializer(serializers.ModelSerializer):
 
-    developers = DeveloperSerializer(many=True, required=False)
     awards = AwardSerializer(many=True, required=False)
     genres = GenreSerializer(many=True, required=False)
     game_id = serializers.IntegerField(write_only=True)
-    artists = ArtistSerializer(many=True)
-    musicians = MusicianSerializer(many=True)
+    credits = CreditSerializer(many=True)
 
     class Meta:
         model = Information
         fields = ['description',
                   'launch_year',
                   'semester',
-                  'developers',
-                  'artists',
-                  'musicians',
+                  'credits',
                   'awards',
                   'genres',
                   'game_id',
