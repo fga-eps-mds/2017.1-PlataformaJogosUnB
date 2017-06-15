@@ -1,5 +1,6 @@
 import React from "react";
 import {Dropdown} from "semantic-ui-react";
+import {dataListApi} from '../resource/DataListApi';
 
 export default class PlatformItems extends React.Component{
 
@@ -11,34 +12,13 @@ export default class PlatformItems extends React.Component{
         };
     }
 
+    componentWillMount () {
 
-    loadGameFromServer () {
-
-        fetch("/api/platforms/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((platforms) => {
+        dataListApi("/api/platforms/", (platforms) => {
 
               this.setState({platforms});
 
-          }).
-          catch((error) => {
-
-              console.error(error);
-
           });
-
-    }
-    
-
-    componentWillMount () {
-
-        this.loadGameFromServer();
 
     }
 

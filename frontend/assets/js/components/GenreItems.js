@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Dropdown} from "semantic-ui-react";
+import {dataListApi} from "../resource/DataListApi";
 
 export default class GenreItems extends React.Component{
 
@@ -13,33 +14,13 @@ export default class GenreItems extends React.Component{
     }
 
 
-    loadGameFromServer () {
-
-        fetch("/api/genres/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json"
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((genres) => {
-
-              this.setState({genres});
-
-          }).
-          catch((error) => {
-
-              console.error(error);
-
-          });
-
-    }
-    
-
     componentWillMount () {
 
-        this.loadGameFromServer();
+        dataListApi("/api/genres/", (genres) => {
+
+            this.setState({genres});
+
+        });
 
     }
 
