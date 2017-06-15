@@ -92,7 +92,11 @@ export default class GameList extends React.Component {
                 }
             }
         }
-        this.sortList(this.props.sortByOption, gamesFromTheGenre);
+        if(optionSelected != 'Todas as categorias'){
+            this.sortList(this.props.sortByOption, gamesFromTheGenre);
+        } else{
+            this.sortList(this.props.sortByOption, this.state.games);
+        }
     }
 
 
