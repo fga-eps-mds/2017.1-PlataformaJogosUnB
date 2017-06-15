@@ -27,10 +27,10 @@ export default class GameCard extends React.Component {
                 return platform.concat(platform_icons);
             }, []);
         }
-        return _.uniq(platforms.sort());
+        return _.uniq(platforms);
     }
     render () {
-        
+        console.log(this.reducePlatforms(this.props.data.packages))
         return (
             <Card>
                 <div style={cardImageStyle}>
@@ -42,8 +42,7 @@ export default class GameCard extends React.Component {
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                     {this.reducePlatforms(this.props.data.packages).map((icon) => 
-                        <img src={icon} width='25' height='25' /> )}
+                     {this.reducePlatforms(this.props.data.packages).map((icon) => <img src={icon} width='25' height='25' /> )}
                 </Card.Content>
             </Card>
 
