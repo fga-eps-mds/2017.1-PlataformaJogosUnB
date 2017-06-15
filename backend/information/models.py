@@ -44,26 +44,26 @@ class Award(models.Model):
         return "{0} ({1}): {2}".format(self.place, self.year, self.name)
 
 
-class Developer(models.Model):
+class Credit(models.Model):
+
+    ROLE_CHOICES = [
+        ('desenvolvedor', _('Desenvolvedor')),
+        ('design', _('Design')),
+        ('musico', _('Músico')),
+    ]
+
+    specialty = models.CharField(
+        _('Especialidade'),
+        max_length=14,
+        choices=ROLE_CHOICES,
+        default=ROLE_CHOICES[0][0],
+        help_text=_('Select the contributer'),
+    )
 
     name = models.CharField(
         _('Name'),
         max_length=100,
         help_text=_('Name of the developer.')
-    )
-
-    avatar = models.ImageField(
-        _('Avatar'),
-        upload_to='public/avatar',
-        blank=True,
-        validators=[general_validators.image_extension_validator],
-        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
-    )
-
-    login = models.CharField(
-        _('Login'),
-        max_length=50,
-        help_text=_('Developer login for github.')
     )
 
     email = models.EmailField(
@@ -77,82 +77,18 @@ class Developer(models.Model):
 
     github_page = models.URLField(
         _('Github Page'),
+        null=True,
+        blank=True,
         validators=[URLValidator()],
         help_text=_('Developer Github page.')
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
-        super(Developer, self).save(*args, **kwargs)
+        super(Credit, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{0} <{1}>".format(self.name, self.github_page)
-
-
-class Artist(models.Model):
-
-    name = models.CharField(
-        _('Name'),
-        max_length=100,
-        help_text=_('Name of the artist.')
-    )
-
-    avatar = models.ImageField(
-        _('Avatar'),
-        upload_to='public/avatar',
-        blank=True,
-        validators=[general_validators.image_extension_validator],
-        help_text=_('Artist image. ' + HELP_TEXT_IMAGES)
-    )
-
-    email = models.EmailField(
-        _('E-mail'),
-        validators=[EmailValidator()],
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text=_('Artist contact e-mail.')
-    )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Artist, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return "{0}".format(self.name)
-
-
-class Musician(models.Model):
-
-    name = models.CharField(
-        _('Name'),
-        max_length=100,
-        help_text=_('Name of the musician.')
-    )
-
-    avatar = models.ImageField(
-        _('Avatar'),
-        upload_to='public/avatar',
-        blank=True,
-        validators=[general_validators.image_extension_validator],
-        help_text=_('Musician image. ' + HELP_TEXT_IMAGES)
-    )
-
-    email = models.EmailField(
-        _('E-mail'),
-        validators=[EmailValidator()],
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text=_('Musician contact e-mail.')
-    )
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        super(Musician, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return "{0}".format(self.name)
 
 
 class Genre(models.Model):
@@ -215,21 +151,11 @@ class Information(models.Model):
         primary_key=True,
     )
 
-    developers = models.ManyToManyField(
-        Developer,
-        related_name='developers'
+    credits = models.ManyToManyField(
+        Credit,
+        related_name='credits'
     )
 
-    artists = models.ManyToManyField(
-        Artist,
-        related_name='artists'
-    )
-
-    musicians = models.ManyToManyField(
-        Musician,
-        related_name='musicians'
-
-    )
     genres = models.ManyToManyField(
         Genre,
         related_name='genres'

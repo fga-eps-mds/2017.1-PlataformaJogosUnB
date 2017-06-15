@@ -1,6 +1,6 @@
 from django.contrib import admin
 from information.models import (
-     Information, Developer, Artist, Musician, Award, Genre
+     Information, Credit, Award, Genre
 )
 
 
@@ -13,29 +13,11 @@ class AwardAdmin(admin.ModelAdmin):
     search_fields = ['name', 'year', 'place', ]
 
 
-class DevelopmentsInline(admin.TabularInline):
-    model = Information.developers.through
+class CreditsInline(admin.TabularInline):
+    model = Information.credits.through
 
 
-class DevelopmentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', ]
-    search_fields = ['name', 'email', ]
-
-
-class MusiciansInline(admin.TabularInline):
-    model = Information.musicians.through
-
-
-class MusicianAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'email', ]
-    list_display = ['name', 'email', ]
-
-
-class ArtistsInline(admin.TabularInline):
-    model = Information.artists.through
-
-
-class ArtistAdmin(admin.ModelAdmin):
+class CreditAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', ]
     search_fields = ['name', 'email', ]
 
@@ -50,13 +32,10 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 class InformationAdmin(admin.ModelAdmin):
-    inlines = [AwardsInline, DevelopmentsInline, ArtistsInline,
-               MusiciansInline, GenresInline, ]
-    exclude = ('developers', 'musicians', 'artists', 'awards', 'genres')
+    inlines = [AwardsInline, CreditsInline, GenresInline, ]
+    exclude = ('credits', 'awards', 'genres')
 
 
-admin.site.register(Developer, DevelopmentAdmin)
-admin.site.register(Artist, ArtistAdmin)
-admin.site.register(Musician, MusicianAdmin)
+admin.site.register(Credit, CreditAdmin)
 admin.site.register(Award, AwardAdmin)
 admin.site.register(Genre, GenreAdmin)
