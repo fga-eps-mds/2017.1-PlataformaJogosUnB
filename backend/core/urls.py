@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
     url(r'^api/', include('game.urls')),
+    url(r'^api/', include('information.urls')),
     url(r'^api/', include('media.urls'))
 
 ]

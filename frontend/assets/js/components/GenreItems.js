@@ -7,7 +7,7 @@ export default class GenreItems extends React.Component{
     constructor (props) {
         super(props);
         this.state = {
-            "games":[],
+            "genres":[],
             "selectedGenre":'Categoria'
         };
     }
@@ -15,18 +15,17 @@ export default class GenreItems extends React.Component{
 
     loadGameFromServer () {
 
-        fetch("/api/games/",
+        fetch("/api/genres/",
             {
                 "headers": new Headers({
-                    "Content-Type": "application/json",
                     "Accept": "application/json"
                 }),
                 "method": "GET"
             }).
           then((response) => response.json()).
-          then((games) => {
+          then((genres) => {
 
-              this.setState({games});
+              this.setState({genres});
 
           }).
           catch((error) => {
@@ -44,22 +43,6 @@ export default class GenreItems extends React.Component{
 
     }
 
-    getGenres(){
-
-        const gameGenres = [];
-        for(var i = 0;i < this.state.games.length;i++){
-            var genresList = this.state.games[i].information.genres
-            for(var k = 0;k < genresList.length;k++){
-                var genreName = this.state.games[i].information.genres[k].name
-                if(this.deleteEqualElements(genreName, gameGenres)){
-                    gameGenres.push(genreName)
-                }
-            }
-        }
-        return gameGenres
-
-    }
-
     handleClick(genreName){
         const option = genreName;
         this.setState({ selectedGenre: genreName });
@@ -67,29 +50,15 @@ export default class GenreItems extends React.Component{
     }
 
     mountGenreItems(){
-        if(typeof this.state.games === "undefined"){
+        if(typeof this.state.genres === "undefined"){
             return false
         }
-        const genreNames = this.getGenres()
-        const gameGenresItems = genreNames.map((name) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(name, e)}>
-                    {name}
+        const gameGenresItems = this.state.genres.map((genre) =>
+                <Dropdown.Item onClick={(e) => this.handleClick(genre.name, e)}>
+                    {genre.name}
                 </Dropdown.Item>
         );
         return gameGenresItems
-
-    }
-
-    deleteEqualElements(element, list){
-        var i = 0;
-        while(i < list.length){
-            if(element === list[i]){
-                return false
-            }
-            i++
-        }
-
-        return true
 
     }
 
