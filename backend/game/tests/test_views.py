@@ -1,7 +1,7 @@
 import pytest
-from game.serializers import GameSerializer
+from game.serializers import GameSerializer, PlatformSerializer
 from game.factory import GameFactory, PlatformFactory, PackageFactory
-from game.models import Game, Package
+from game.models import Game, Package, Platform
 from information.models import Information
 import json
 import base64
@@ -144,3 +144,27 @@ class TestPackageApiSave:
         assert Package.objects.count() == 1
         package = Package.objects.last()
         assert package.game.pk == game.pk
+
+
+class TestPlatformViewList:
+
+    @pytest.fixture
+    def platforms_list(self):
+        return PlatformFactory.create_batch(2)
+
+    @pytest.fixture
+    def response_list(self, client, platforms_list):
+        return client.get('/api/platforms')
+
+    @pytest.mark.django_db
+    def test_access_route(self, response_list):
+        assert 200 <= response_list.status_code < 300
+
+    @pytest.mark.django_db
+    def test_data_platforms(self, response_list):
+        platforms = PlatformSerializer(Platform.objects.all(), many=True).data
+        assert response_list.data is not None
+        base = "http://testserver"
+        for platform in platforms:
+            platform['icon'] = base + platform['icon']
+        assert platforms == response_list.data

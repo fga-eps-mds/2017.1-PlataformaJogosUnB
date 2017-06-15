@@ -1,9 +1,14 @@
-from game.models import Game
-from game.serializers import GameSerializer, PackageSerializer
+from game.models import Game, Platform
+from game.serializers import (
+    GameSerializer,
+    PackageSerializer,
+)
+from game.serializers import PlatformSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.decorators import detail_route
+from rest_framework.permissions import AllowAny
 
 from game.utils.issue_handler import IssueHandler
 from django.shortcuts import render
@@ -41,3 +46,9 @@ class GameViewSet(viewsets.ModelViewSet):
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
     serializer_class = PackageSerializer
+
+
+class PlatformViewList(generics.ListAPIView):
+    queryset = Platform.objects.all()
+    serializer_class = PlatformSerializer
+    permission_class = (AllowAny)

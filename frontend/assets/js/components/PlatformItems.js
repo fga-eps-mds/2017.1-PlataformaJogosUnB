@@ -6,7 +6,7 @@ export default class PlatformItems extends React.Component{
     constructor (props) {
         super(props);
         this.state = {
-            "games":[],
+            "platforms":[],
             "selectedPlatform":'Plataforma'
         };
     }
@@ -14,18 +14,17 @@ export default class PlatformItems extends React.Component{
 
     loadGameFromServer () {
 
-        fetch("/api/games/",
+        fetch("/api/platforms/",
             {
                 "headers": new Headers({
-                    "Content-Type": "application/json",
                     "Accept": "application/json"
                 }),
                 "method": "GET"
             }).
           then((response) => response.json()).
-          then((games) => {
+          then((platforms) => {
 
-              this.setState({games});
+              this.setState({platforms});
 
           }).
           catch((error) => {
@@ -43,24 +42,6 @@ export default class PlatformItems extends React.Component{
 
     }
 
-    getPlatforms(){
-
-        const gamePlatforms = [];
-        for(var i = 0;i < this.state.games.length;i++){
-            for(var j=0 ; j< this.state.games[i].packages.length; j++){
-                var platformsList = this.state.games[i].packages[j].platforms;
-                for(var k = 0;k < platformsList.length;k++){
-                    var platformName = this.state.games[i].packages[j].platforms[k].name
-                    if(this.deleteEqualElements(platformName, gamePlatforms)){
-                        gamePlatforms.push(platformName);
-                    }
-                }
-            }
-        }
-        return gamePlatforms;
-
-    }
-
     handleClick(genreName){
         const option = genreName;
         this.setState({ selectedGenre: genreName });
@@ -68,29 +49,15 @@ export default class PlatformItems extends React.Component{
     }
 
     mountGenreItems(){
-        if(typeof this.state.games === "undefined"){
+        if(typeof this.state.platforms === "undefined"){
             return false
         }
-        const platformNames = this.getPlatforms()
-        const gamePlatformsItems = platformNames.map((name) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(name, e)}>
-                    {name}
+        const gamePlatformsItems = this.state.platforms.map((platform) =>
+                <Dropdown.Item onClick={(e) => this.handleClick(platform.name, e)}>
+                    {platform.name}
                 </Dropdown.Item>
         );
         return gamePlatformsItems;
-
-    }
-
-    deleteEqualElements(element, list){
-        var i = 0;
-        while(i < list.length){
-            if(element === list[i]){
-                return false
-            }
-            i++
-        }
-
-        return true
 
     }
 

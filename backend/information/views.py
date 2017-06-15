@@ -7,4 +7,4 @@ from rest_framework.permissions import AllowAny
 class GenreViewList(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    permission_class  = (AllowAny)
+    permission_class = (AllowAny)
