@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Card, Button, Grid} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 
@@ -44,4 +44,8 @@ export default class PackageCard extends React.Component {
             </Card>
         );
     }
+}
+
+PackageCard.propTypes = {
+    packages: PropTypes.array.isRequired,
 }

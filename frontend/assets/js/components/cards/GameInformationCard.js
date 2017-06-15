@@ -15,17 +15,6 @@ export default class GameInformationCard extends React.Component {
         );
     }
 
-    getImages (img) {
-        if (img != null) {
-            return <Image src={img} />;
-        }
-        return (
-            <Segment inverted color='blue'>
-                <Header textAlign='center'>Não há imagem cadastrada!</Header>
-            </Segment>
-        );
-    }
-
     render () {
 
         return (

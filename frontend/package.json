@@ -56,12 +56,5 @@
     "toolbox-loader": "0.0.3",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1"
-  },
-  "eslintConfig": {
-        "env": {
-            "browser": true,
-            "node": true
-        },
-        "rules": {"no-console": "off"}
   }
 }

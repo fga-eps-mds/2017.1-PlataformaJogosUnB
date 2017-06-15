@@ -27,7 +27,7 @@ export default class DevelopersCard extends React.Component {
                             <Table.Row>
                               <Table.Cell>
                                 <Header.Content>
-                                    <Popup trigger={<Link to="github" target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                                    <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
                                 content='Link para GitHub'/>
                                 </Header.Content>
                               </Table.Cell>
@@ -43,9 +43,7 @@ export default class DevelopersCard extends React.Component {
     }
 }
 
-
 DevelopersCard.propTypes = {
     developer: PropTypes.string.isRequired,
     developers: PropTypes.array.isRequired,
 }
-

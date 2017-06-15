@@ -1,20 +1,16 @@
-import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
+import {Card,Icon} from 'semantic-ui-react';
 import Slider from 'react-slick';
 import React from "react";
-import InfiniteCarousel from "react-leaf-carousel";
 import "style-loader!css-loader!sass-loader!slick-carousel/slick/slick.css"
-import GameCard from "../components/cards/GameCard";
-import {Card,Icon} from 'semantic-ui-react';
-const imageStyle = {
-    "height": 400,
-    "width":"100%",
-    "position":"relative",
-}, carouselImageStyle = {
+import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
+
+const carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
     "margin":10,
 };
+
 export default class IndexSlider extends React.Component {
 
     constructor (props) {
@@ -73,7 +69,7 @@ export default class IndexSlider extends React.Component {
                 <Slider {...settings}>{images}
                 </Slider></div>
             );
-        }else{
+        } else {
             return <img/>
         }
     }
@@ -86,26 +82,23 @@ export default class IndexSlider extends React.Component {
 
             var image =
                 (<div style={{position:"relative",height:400}}>
-                            <img
-                               src={this.state.games[idx].slide_image} style={{margin:"0 auto",float:"left",height:"100%",width:"70%"}}/>
-       
-                             <div style={{verticalAlign:"top",float:"right",height:400,width:"30%"}}>
-                                <Card fluid style={{height:400}}>
-                                    <Card.Content>
-                                        <Card.Header>{this.state.games[idx].name}</Card.Header>
-                                            <Card.Description>Esse jogo é muito bolado</Card.Description>   
-                                    </Card.Content> 
-                                        <Card.Content extra>
-                                            <Icon name="linux" />Linux > Windows</Card.Content>
-                                </Card>
-                            </div> 
+                    <img
+                       src={this.state.games[idx].slide_image} style={{margin:"0 auto",float:"left",height:"100%",width:"70%"}}/>
 
-
+                     <div style={{verticalAlign:"top",float:"right",height:400,width:"30%"}}>
+                        <Card fluid style={{height:400}}>
+                            <Card.Content>
+                                <Card.Header>{this.state.games[idx].name}</Card.Header>
+                                    <Card.Description>Esse jogo é muito bolado</Card.Description>   
+                            </Card.Content> 
+                                <Card.Content extra>
+                                    <Icon name="linux" />Linux > Windows</Card.Content>
+                        </Card>
+                    </div> 
                 </div>)
-
            images.push(image);
-
         }
+
         return images;
     }
 
