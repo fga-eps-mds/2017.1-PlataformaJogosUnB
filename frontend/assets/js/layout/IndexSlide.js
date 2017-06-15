@@ -1,6 +1,6 @@
-import {Card,Icon} from 'semantic-ui-react';
-import Slider from 'react-slick';
 import React from "react";
+import Slider from 'react-slick';
+import {Card} from 'semantic-ui-react';
 import "style-loader!css-loader!sass-loader!slick-carousel/slick/slick.css"
 import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
 
@@ -92,7 +92,8 @@ export default class IndexSlider extends React.Component {
                                     <Card.Description>Esse jogo é muito bolado</Card.Description>   
                             </Card.Content> 
                                 <Card.Content extra>
-                                    <Icon name="linux" />Linux > Windows</Card.Content>
+                                    {"Linux > Windows"}
+                                </Card.Content>
                         </Card>
                     </div> 
                 </div>)

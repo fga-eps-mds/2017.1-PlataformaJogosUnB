@@ -9,6 +9,9 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-console": 0  
   },
+  "globals": {
+    "_": true
+  },
  "plugins": [
     "react"
   ],

@@ -28,7 +28,7 @@ export default class GamePage extends React.Component{
 
     getFields (title,value) {
         if (value != null) {
-            return <div><strong>{title}</strong>{value}</div>;
+            return <p><strong>{title}</strong>{value}</p>;
         }
         return null;
     }

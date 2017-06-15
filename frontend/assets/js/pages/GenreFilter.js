@@ -46,7 +46,7 @@ export default class GenreFilter extends React.Component{
 
         const genre = this.props.match.params.genre;
         const gameByGenreCards =  this.getGamesByGenre().map((game) =>
-            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
+            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4} key={game.name}>
                 <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>

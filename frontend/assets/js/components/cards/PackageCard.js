@@ -17,7 +17,7 @@ export default class PackageCard extends React.Component {
     
     getButtonsPlatforms(){
         const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=> 
-                <ModalPackageCard 
+                <ModalPackageCard key={value}
                     button={<Button basic color='green'>{value}</Button>}
                     platform={value}
                 />);

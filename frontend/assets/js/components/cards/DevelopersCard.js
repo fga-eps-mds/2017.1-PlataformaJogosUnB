@@ -24,7 +24,7 @@ export default class DevelopersCard extends React.Component {
 
                       <Table.Body>
                         {this.props.developers.map((developer) =>
-                            <Table.Row>
+                            <Table.Row key={developer}>
                               <Table.Cell>
                                 <Header.Content>
                                     <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
