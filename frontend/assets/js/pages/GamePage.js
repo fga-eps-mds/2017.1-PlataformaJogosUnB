@@ -24,6 +24,7 @@ export default class GamePage extends React.Component{
                 }
             }
         };
+        console.log("Props GamePage", this.props);
 
     }
 
@@ -65,9 +66,7 @@ export default class GamePage extends React.Component{
                             data={this.state.game}
                         />
                         <Rating
-                            pk={this.state.game.pk}
-                            likes={this.state.game.information.likes}
-                            dislikes={this.state.game.information.dislikes}
+                            pk={id}
                         />
                     </Grid.Column>
 

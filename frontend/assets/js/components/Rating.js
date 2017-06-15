@@ -21,30 +21,15 @@ export default class Rating extends React.Component {
 
     constructor (props) {
         super(props);
+        this.state = {
+            "like": 0,
+            "dislike": 0
+        }
+        this.getVoteCount = this.getVoteCount.bind(this);
     }
 
-    handleVote(vote, event_click){
-        const game_id = this.props.pk;
-
-        var json_parser = JSON.stringify({
-            vote:  vote,
-            email_voter: 'your@mail.com',
-        });
-        
-        var csrftoken = getCookie('csrftoken');
-        
-        fetch(`/api/vote/${game_id}/`, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: json_parser
-        }).then((r) => {console.log(r); return r.json()})
-          .then((r) => {console.log(r)})
-          .catch((e) => { console.log(e)});
+    componentWillReceiveProps() {
+        this.getVoteCount();
     }
 
     getVoteCount() {
@@ -60,14 +45,39 @@ export default class Rating extends React.Component {
             return response.json();
         })
         .then(((vote) => {
-            this.setState({ vote: vote });
+            this.setState(vote);
         }).bind(this))
         .catch((error) => {
             console.error(error);
         });
 
-        console.log(this.state.vote.like)
     };
+
+
+    handleVote(vote, event_click){
+        const game_id = this.props.pk;
+
+        var json_parser = JSON.stringify({
+            vote:  vote,
+            email_voter: 'youir@mail.com',
+        });
+        
+        var csrftoken = getCookie('csrftoken');
+        
+        fetch(`/api/vote/${game_id}/`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: json_parser
+        }).then((r) => {console.log(r); return r.json()})
+          .then(this.getVoteCount)
+          .catch((e) => { console.log(e)});
+
+    }
 
     render(){
         return (
@@ -76,14 +86,14 @@ export default class Rating extends React.Component {
                     <Button
                         color='green'
                         icon='thumbs up'
-                        label={{ as: 'a', basic: true, color: 'green', content: `${this.props.likes}` }}
+                        label={{ as: 'a', basic: true, color: 'green', content: `${this.state.like}` }}
                         labelPosition='right'
                         onClick={this.handleVote.bind(this, true)}
                     />
                     <Button
                         color='red'
                         icon='thumbs down'
-                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.props.dislikes}` }}
+                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.state.dislike}` }}
                         labelPosition='left'
                         onClick={this.handleVote.bind(this, false)}
                     />
