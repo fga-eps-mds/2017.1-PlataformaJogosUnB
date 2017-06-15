@@ -4,6 +4,7 @@ import IndexPage from "../pages/IndexPage";
 import AboutPage from "../pages/AboutPage";
 import GamesPage from "../pages/GamesPage";
 import GamePage from '../pages/GamePage';
+import GenreFilter from '../pages/GenreFilter';
 
 export default class MainRoutes extends React.Component {
 
@@ -16,6 +17,7 @@ export default class MainRoutes extends React.Component {
                   <Route exact path="/games/" component={GamesPage} />
                   <Route path="/games/:id" component={GamePage} />
                   <Route exact path="/about/" component={AboutPage} />
+                  <Route path="/filter/:genre" component={GenreFilter}/>
                 </Switch>
             </div>
         );
