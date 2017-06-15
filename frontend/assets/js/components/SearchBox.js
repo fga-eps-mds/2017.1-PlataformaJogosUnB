@@ -4,7 +4,7 @@ import { Search, Grid } from 'semantic-ui-react'
 
 export default class SearchBox extends Component {
     loadGameFromServer () {
-        fetch("/api/list/",
+        fetch("/api/games/",
             {
                 "headers": new Headers({
                     "Accept": "application/json",

@@ -6,7 +6,12 @@ from core.helper_test import (
     ErrorMessage
 )
 from information.models import Information, Award, Genre, Developer, Statistic
-from information.factory import InformationFactory
+from information.factory import (
+    InformationFactory,
+    AwardFactory,
+    GenreFactory,
+    DeveloperFactory
+)
 
 
 def now():
@@ -156,10 +161,6 @@ class TestGenre:
         assert str(genre_creation) == genre.name
 
 
-def genre_created(name="Corrida", description=""):
-    return Genre(name=name, description=description)
-
-
 class TestGenreValidation:
 
     error_message_min_value = 'A genre description must have \
@@ -170,76 +171,53 @@ at least 20 characters!'
         'máximo 100 caracteres (ele possui 101).'
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, description, errors_dict", [
-        ('Race', None,
-         mount_error_dict(["description"], [[ErrorMessage.NULL]])),
-        ("Race", "",
-         mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
-        ('Race', short_description,
+    @pytest.mark.parametrize("description, errors_dict", [
+        (None, mount_error_dict(["description"], [[ErrorMessage.NULL]])),
+        ("", mount_error_dict(["description"], [[ErrorMessage.BLANK]])),
+        (short_description,
          mount_error_dict(["description"], [[error_message_min_value]])),
     ])
-    def test_description_validation(self, name, description,
+    def test_description_validation(self, description,
                                     errors_dict):
-        genre = genre_created(name, description)
+        genre = GenreFactory.build(description=description)
         validation_test(genre, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, description, errors_dict", [
-        ('', 'description' * 4,
-         mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
-        (None, 'description' * 4,
-         mount_error_dict(["name"], [[ErrorMessage.NULL]])),
-        ('a' * 101, 'description' * 4,
-         mount_error_dict(["name"], [[error_message_max_length]])),
+    @pytest.mark.parametrize("name, errors_dict", [
+        ('', mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a' * 101, mount_error_dict(["name"], [[error_message_max_length]])),
     ])
-    def test_name_validation(self, name, description, errors_dict):
-        genre = Genre(name=name, description=description)
+    def test_name_validation(self, name, errors_dict):
+        genre = GenreFactory.build(name=name)
         validation_test(genre, errors_dict)
-
-
-@pytest.fixture
-def developer_creation():
-    developer = Developer.objects.create(name="Developer", login="login",
-                                         email="developer@gmail.com",
-                                         github_page="https://github.com/dev")
-    return developer
 
 
 class TestDeveloperAvatar:
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize(('name, avatar, login, email, github_page,' +
-                              ' errors_dict'), [
-        ('developer_name', 'avatar.ppm', 'developer_login',
-            'devel@host.com', 'https://devel.com',
+    @pytest.mark.parametrize(('avatar', 'errors_dict'), [
+        ('avatar.ppm',
          mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('developer_name', 'avatar.py', 'developer_login',
-         'devel@host.com', 'https://devel.com',
+        ('avatar.py',
          mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
                                         ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
-    def test_avatar_valid_extension(self, name, avatar, login,
-                                    email, github_page, errors_dict):
-        developer = Developer(
-            name=name,
+    def test_avatar_valid_extension(self, avatar, errors_dict):
+        developer = DeveloperFactory.build(
             avatar=avatar,
-            login=login,
-            email=email,
-            github_page=github_page
         )
         validation_test(developer, errors_dict)
 
     @pytest.mark.django_db
     def test_avatar_invalid_extension(self):
-        developer = Developer(
-            name='developer_name',
-            avatar='avatar.jpg',
-            login='developer',
-            email='devel@host.com',
-            github_page='https://devel.com'
-        )
-        developer.save()
+        developer = DeveloperFactory()
         assert Developer.objects.last() == developer
+
+
+@pytest.fixture
+def developer_creation():
+    return DeveloperFactory()
 
 
 class TestDeveloper:
@@ -251,7 +229,9 @@ class TestDeveloper:
 
     @pytest.mark.django_db
     def test_str_developer(self, developer_creation):
-        assert str(developer_creation) == "Developer <https://github.com/dev>"
+        name = developer_creation.name
+        url = developer_creation.github_page
+        assert str(developer_creation) == "{} <{}>".format(name, url)
 
 
 class TestStatistic:
@@ -259,3 +239,25 @@ class TestStatistic:
     def test_str(self):
         statistic = Statistic(downloads_amount=30, accesses_amount=10)
         assert str(statistic) == 'statistic: 10'
+
+
+class TestInformationRelations:
+
+    @pytest.fixture
+    def information_relations(self):
+        awards = AwardFactory.create_batch(3)
+        developers = DeveloperFactory.create_batch(3)
+        genres = GenreFactory.create_batch(3)
+
+        return InformationFactory(genres=genres,
+                                  developers=developers,
+                                  awards=awards)
+
+    @pytest.mark.parametrize("field, length", [
+        ("awards", 3),
+        ("developers", 3),
+        ("genres", 3)
+    ])
+    @pytest.mark.django_db
+    def test_informatino_award(self, field, length, information_relations):
+        assert getattr(information_relations, field).count() == length

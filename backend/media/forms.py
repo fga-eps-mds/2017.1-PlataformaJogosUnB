@@ -5,6 +5,7 @@ from django.apps import apps
 
 
 class MediaForm(ModelForm):
+
     class Meta:
         abstract = True
 
@@ -31,6 +32,7 @@ class MediaForm(ModelForm):
 
 
 class ImageForm(MediaForm):
+
     class Meta:
         fields = ('game', 'role', 'image')
         model = Image
@@ -43,6 +45,7 @@ class ImageForm(MediaForm):
 
 
 class VideoForm(MediaForm):
+
     class Meta:
         widgets = {
             "video": forms.FileInput(
@@ -55,6 +58,7 @@ class VideoForm(MediaForm):
 
 
 class SoundtrackForm(MediaForm):
+
     class Meta:
         model = Soundtrack
         fields = ('game', 'role', 'soundtrack')

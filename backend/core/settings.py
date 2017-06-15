@@ -32,6 +32,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Application definition
 
 DEFAULT_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,13 +55,16 @@ LOCAL_APPS = [
     'media',
 ]
 SITE_ID = 1
+SUIT_CONFIG = {
+    'ADMIN_NAME': "UnB Games",
+}
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.TemplateHTMLRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.TemplateHTMLRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework.renderers.JSONRenderer',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
@@ -80,6 +84,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
+TEST_RUNNER = 'core.tests.pytest_runner.PytestRunner'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -92,6 +98,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -160,6 +167,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, '../frontend/public'),
+    os.path.join(BASE_DIR, 'public/logo/'),
 )
 STATIC_ROOT = os.path.join(
     os.path.dirname(__file__),
@@ -190,4 +198,10 @@ SHELL_PLUS_PRE_IMPORTS = [
                              "DeveloperFactory", "GenreFactory")),
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),
+    ("game.serializers", ("GameSerializer", "PackageSerializer",
+                          "PlatformSerializer")),
+    ("information.serializers", ("AwardSerializer", "InformationSerializer",
+                                 "DeveloperSerializer", "GenreSerializer")),
+    ("media.serializers", ("ImageSerializer", "SoundtrackSerializer",
+                           "VideoSerializer")),
 ]

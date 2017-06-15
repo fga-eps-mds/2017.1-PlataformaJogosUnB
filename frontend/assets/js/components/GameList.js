@@ -14,7 +14,7 @@ export default class GameList extends React.Component {
 
     loadGameFromServer () {
 
-        fetch("/api/list/",
+        fetch("/api/games/",
             {
                 "headers": new Headers({
                     "Content-Type": "application/json",
@@ -46,7 +46,8 @@ export default class GameList extends React.Component {
 
         const gameCards = this.state.games.map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
-                  <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
+                  <Link to={`/games/${game.pk}/${game.name}`}
+                        params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
               </Grid.Column>

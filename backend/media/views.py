@@ -1,12 +1,18 @@
-from media.models import Media
-from media.serializers import MediaSerializer
-from rest_framework.response import Response
-from rest_framework.decorators import APIView
+from rest_framework import generics
+from media.serializers import (
+    VideoSerializer,
+    ImageSerializer,
+    SoundtrackSerializer
+)
 
 
-class MediaList(APIView):
+class ImageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
+    serializer_class = ImageSerializer
 
-    def get(self, request):
-        medias = Media.objects.all()
-        serializer = MediaSerializer(medias, many=True)
-        return Response(serializer.data)
+
+class VideoCreateView(generics.CreateAPIView, generics.UpdateAPIView):
+    serializer_class = VideoSerializer
+
+
+class SoundtrackCreateView(generics.CreateAPIView, generics.UpdateAPIView):
+    serializer_class = SoundtrackSerializer

@@ -127,6 +127,10 @@ yarn-error.log*
 000*.py
 
 #Public files
-/backend/public/
+/backend/public/images/
+/backend/public/packages/
+/backend/public/sounds/
+/backend/public/videos/
+/backend/public/public/
 /frontend/public/bundles/
 /frontend/webpack-stats.json
