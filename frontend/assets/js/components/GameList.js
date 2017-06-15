@@ -8,7 +8,9 @@ export default class GameList extends React.Component {
     constructor (props) {
 
         super(props);
-        this.state = {"games": []};
+        this.state = {
+            "games": []
+        };
 
     }
 
@@ -45,12 +47,12 @@ export default class GameList extends React.Component {
     render () {
 
         const gameCards = this.state.games.map((game) =>
-            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
+            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4} key={game.name}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
-              </Grid.Column>
+            </Grid.Column>
           );
 
         return (

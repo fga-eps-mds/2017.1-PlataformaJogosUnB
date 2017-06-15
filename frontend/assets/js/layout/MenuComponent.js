@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
-import bars from '../../../public/bundles/images/bars.png'
 import Genres from "./Genres";
-import {Container, Grid, Header, Icon, Image, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
+import {Container, Grid, Header, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
+import bars from '../../../public/bundles/images/icons/bars.png'
 
 export default class MenuComponent extends React.Component {
 

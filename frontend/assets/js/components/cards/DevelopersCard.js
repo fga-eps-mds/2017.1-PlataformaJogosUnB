@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
@@ -24,10 +24,10 @@ export default class DevelopersCard extends React.Component {
 
                       <Table.Body>
                         {this.props.developers.map((developer) =>
-                            <Table.Row>
+                            <Table.Row key={developer}>
                               <Table.Cell>
                                 <Header.Content>
-                                    <Popup trigger={<Link to="github" target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                                    <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
                                 content='Link para GitHub'/>
                                 </Header.Content>
                               </Table.Cell>
@@ -43,3 +43,7 @@ export default class DevelopersCard extends React.Component {
     }
 }
 
+DevelopersCard.propTypes = {
+    developer: PropTypes.string.isRequired,
+    developers: PropTypes.array.isRequired,
+}
