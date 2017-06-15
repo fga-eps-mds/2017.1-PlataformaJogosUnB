@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Card, Image, Icon} from "semantic-ui-react";
+import {Card, Image} from "semantic-ui-react";
 import _ from "lodash";
 
 const cardImageStyle = {

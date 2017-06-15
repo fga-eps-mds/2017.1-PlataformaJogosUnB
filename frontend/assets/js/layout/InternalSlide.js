@@ -1,12 +1,13 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import ImageGallery from "react-image-gallery";
+import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
 require("style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss");
 // https://github.com/xiaolin/react-image-gallery
 
 export default class InternalSlide extends React.Component {
 
     handleImageLoad (event) {
-
+        console.log("Image loaded ", event.target);
     }
     getImagesSlide(media_image){
         const images = media_image.map((slide) => ({
@@ -18,18 +19,14 @@ export default class InternalSlide extends React.Component {
             return images;
         }
 
-        return ;
+        return ["original": imageUnavailable];
     }
 
 
     render () {
-        const images = this.props.data.media_image.map((slide) => ({
-            "original": slide.image,
-            "thumbnail": slide.image
-        }));
         return (
             <ImageGallery
-                items={this.getImagesSlide(this.props.data.media_image)}
+                items={this.getImagesSlide(this.props.media_image)}
                 slideInterval={2000}
                 onImageLoad={this.handleImageLoad}
                 slideOnThumbnailHover
@@ -37,6 +34,9 @@ export default class InternalSlide extends React.Component {
                 showPlayButton={false}
             />
         );
-
     }
+}
+
+InternalSlide.propTypes = {
+    media_image: PropTypes.string.isRequired,
 }

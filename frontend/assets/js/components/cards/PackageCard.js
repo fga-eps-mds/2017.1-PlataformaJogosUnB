@@ -13,7 +13,7 @@ export default class PackageCard extends React.Component {
             }, []);
         }
         return (platforms);
-    };
+    }
 
     getButtonsPlatforms(){
         const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=> 

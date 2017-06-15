@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Modal, Header, Table} from "semantic-ui-react";
 
 export default class ModalPackageCard extends React.Component {
@@ -36,4 +36,8 @@ export default class ModalPackageCard extends React.Component {
     }
 }
 
+ModalPackageCard.propTypes = {
+    button: PropTypes.object.isRequired,
+    platform: PropTypes.string.isRequired,
+}
 

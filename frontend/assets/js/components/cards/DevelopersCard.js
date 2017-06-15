@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
@@ -41,5 +41,11 @@ export default class DevelopersCard extends React.Component {
         );
 
     }
+}
+
+
+DevelopersCard.propTypes = {
+    developer: PropTypes.string.isRequired,
+    developers: PropTypes.array.isRequired,
 }
 

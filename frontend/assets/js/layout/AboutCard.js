@@ -1,7 +1,7 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Card, Grid, Image} from "semantic-ui-react";
 
-export default class AboutCardComponent extends React.Component {
+export default class AboutCard extends React.Component {
 
     render () {
 
@@ -30,4 +30,11 @@ export default class AboutCardComponent extends React.Component {
         );
 
     }
+}
+
+AboutCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    sizeGrid: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
 }

@@ -1,13 +1,7 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Card} from "semantic-ui-react";
 
 export default class DescriptionCard extends React.Component {
-    getFields (title,value) {
-        if (value != null) {
-            return <div><strong>{title}</strong>{value}</div>;
-        }
-        return null;
-    }
 
     render () {
 
@@ -17,9 +11,9 @@ export default class DescriptionCard extends React.Component {
                 <Card fluid>
                     <Card.Content header='Prêmios' description={this.props.awards.map((award) =>                        
                         <div>
-                            {this.getFields("Nome do Prêmio: ", award.name)} 
-                            {this.getFields('Ano: ',award.year)}
-                            {this.getFields('Colocação:', award.place)}
+                            {this.props.getFields("Nome do Prêmio: ", award.name)} 
+                            {this.props.getFields('Ano: ',award.year)}
+                            {this.props.getFields('Colocação:', award.place)}
                         </div>
                     )} />
                 </Card>
@@ -28,3 +22,9 @@ export default class DescriptionCard extends React.Component {
     }
 }
 
+DescriptionCard.propTypes = {
+    description: PropTypes.string.isRequired,
+    award: PropTypes.object.isRequired,
+    awards: PropTypes.array.isRequired,
+    getFields: PropTypes.func.isRequired,
+}

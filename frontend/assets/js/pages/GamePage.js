@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from "react";
 import { Card, Grid, Container } from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
@@ -9,8 +9,7 @@ import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
 
 export default class GamePage extends React.Component{
-
-     constructor (props) {
+    constructor (props) {
 
         super(props);
         this.state = {
@@ -24,7 +23,14 @@ export default class GamePage extends React.Component{
                 }
             }
         };
+        this.getFields = this.getFields.bind()
+    }
 
+    getFields (title,value) {
+        if (value != null) {
+            return <div><strong>{title}</strong>{value}</div>;
+        }
+        return null;
     }
 
 
@@ -61,7 +67,7 @@ export default class GamePage extends React.Component{
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <InternalSlide
-                            data={this.state.game}
+                            media_image={this.state.game.media_image}
                         />
                     </Grid.Column>
 
@@ -72,6 +78,7 @@ export default class GamePage extends React.Component{
                             official_repository={this.state.game.official_repository}
                             launch_year={this.state.game.information.launch_year}
                             genres={this.state.game.information.genres}
+                            getFields={this.getFields}
                         />
                     </Grid.Column>
                 </Grid.Row>
@@ -81,11 +88,13 @@ export default class GamePage extends React.Component{
                         <DescriptionCard
                             description={this.state.game.information.description}
                             awards={this.state.game.information.awards}
+                            getFields={this.getFields}
                         />
                     </Grid.Column>
-                    <Grid.Column width={6}>
-                        <DevelopersCard
-                            developers={this.state.game.information.developers}
+
+                    <Grid.Column width={6}>    
+                        <PackageCard
+                            packages={this.state.game.packages}
                         />
                         <PackageCard />
                     </Grid.Column>
@@ -109,4 +118,8 @@ export default class GamePage extends React.Component{
         </Container>
     );
   }
+}
+
+GamePage.propTypes = {
+    match: PropTypes.object.isRequired,
 }

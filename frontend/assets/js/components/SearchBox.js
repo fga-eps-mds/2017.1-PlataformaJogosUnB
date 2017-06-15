@@ -79,7 +79,7 @@ export default class SearchBox extends Component {
     }
 
     render() {
-        const { isLoading, value, results, firstFiveGames } = this.state
+        const { isLoading, value, firstFiveGames } = this.state
 
         return (
             <Grid>
