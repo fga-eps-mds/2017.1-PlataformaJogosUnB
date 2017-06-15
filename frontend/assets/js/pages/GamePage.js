@@ -28,7 +28,7 @@ export default class GamePage extends React.Component{
 
     getFields (title,value) {
         if (value != null) {
-            return <p><strong>{title}</strong>{value}</p>;
+            return <Grid.Row><p><strong>{title}</strong>{value}</p></Grid.Row>;
         }
         return null;
     }
