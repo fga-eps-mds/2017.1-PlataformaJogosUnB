@@ -29,12 +29,9 @@ export default class GamesPage extends React.Component {
 
         return (
             <Container>
-                <SegmentTitle title={'Lista de Jogos'} />
                 <Grid>
                     <Grid.Row>
-                        <Segment padded inverted color="brown">
-                            <h1>Lista de jogos</h1>
-                        </Segment>
+                        <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
                     <div>
                         <Menu inverted>

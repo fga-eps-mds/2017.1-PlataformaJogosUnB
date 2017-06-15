@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Segment, Grid, Container, Menu, Dropdown} from "semantic-ui-react";
+import {Grid, Container, Menu, Dropdown} from "semantic-ui-react";
+import SegmentTitle from "../layout/SegmentTitle";
 import GameCard from "../components/cards/GameCard";
 
 export default class GenreFilter extends React.Component{
@@ -16,7 +17,7 @@ export default class GenreFilter extends React.Component{
 
     loadGameFromServer () {
 
-        fetch("/api/list/",
+        fetch("/api/games/",
             {
                 "headers": new Headers({
                     "Content-Type": "application/json",
@@ -68,7 +69,7 @@ export default class GenreFilter extends React.Component{
         const genre = this.props.match.params.genre;
         const listCards = this.getGamesByGenre().map((game, index) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
-                <Link to={`/games/${game.pk}`} params={{"id": game.pk}}>
+                <Link to={`/games/${game.pk}/${game.name}`} params={{"id": game.pk}}>
                     <GameCard data={game} />
                 </Link>
             </Grid.Column>
@@ -77,9 +78,7 @@ export default class GenreFilter extends React.Component{
                 <Container>
                 <Grid>
                     <Grid.Row>
-                        <Segment padded inverted color="brown">
-                            <h1>Jogos de {genre}</h1>
-                        </Segment>
+                        <SegmentTitle title={"Jogos de " + genre}/>
                     </Grid.Row>
                     <div>
                         <Menu inverted>

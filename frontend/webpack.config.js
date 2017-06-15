@@ -7,6 +7,7 @@ const extractLess = new ExtractTextPlugin('stylesheet/[name]_less.css');
 
 module.exports = {
     context: __dirname,
+    devtool: "#eval",
 
     entry: './assets/js/App', 
 
