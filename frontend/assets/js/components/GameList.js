@@ -23,7 +23,11 @@ export default class GameList extends React.Component {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
                 }),
-                "method": "GET"
+                "method": "GET",
+                "data": {
+                    platforms: [props.sortByOption],
+                    genres: [props.genreOptio]
+                },
             }).
           then((response) => response.json()).
           then((games) => {
