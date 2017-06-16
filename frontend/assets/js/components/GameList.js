@@ -16,18 +16,17 @@ export default class GameList extends React.Component {
     }
 
     loadGameFromServer () {
-
-        fetch("/api/games/",
+        const data = {
+            platforms: ["deb"],
+            genres: ['ab']
+        }
+        fetch("/api/games/1/filter/?platforms=" + data.platforms + "&genres=" + data.genres,
             {
                 "headers": new Headers({
                     "Content-Type": "application/json",
                     "Accept": "application/json"
                 }),
                 "method": "GET",
-                "data": {
-                    platforms: [props.sortByOption],
-                    genres: [props.genreOptio]
-                },
             }).
           then((response) => response.json()).
           then((games) => {
