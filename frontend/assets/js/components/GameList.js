@@ -15,11 +15,12 @@ export default class GameList extends React.Component {
 
     }
 
-    loadGameFromServer () {
+    loadGameFromServer (param) {
         const data = {
             platforms: ["deb"],
-            genres: ['ab']
+            genres: [param]
         }
+        console.log(param)
         fetch("/api/games/1/filter/?platforms=" + data.platforms + "&genres=" + data.genres,
             {
                 "headers": new Headers({
@@ -52,9 +53,8 @@ export default class GameList extends React.Component {
         if(this.props.sortByOption != nextProps.sortByOption){
             this.sortList(nextProps.sortByOption, this.state.filteredGames);
         } else if(this.props.genreOption != nextProps.genreOption){
-            this.getGamesByGenre(nextProps.genreOption);
+            this.loadGameFromServer(nextProps.genreOption);
         }else{
-            console.log(this.nextProps.sortByOption);
             return false;
         }
     }
@@ -65,7 +65,7 @@ export default class GameList extends React.Component {
         }
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const data = optionSelected;
-        const listGames = list;
+        const listGames = this.state.filteredGames;
         listGames.sort((a,b) => {
                 if(data.order === frontToBack){
                     if(eval('a'+data.param) > eval('b'+data.param)) return 1;
@@ -79,29 +79,6 @@ export default class GameList extends React.Component {
         );
         this.setState({ filteredGames: listGames });
     }
-
-    getGamesByGenre(optionSelected){
-        if(typeof this.state.games === "undefined"){
-            return false
-        }
-        const genre = optionSelected;
-        const gamesFromTheGenre = [];
-        for(var i = 0;i < this.state.games.length;i++){
-            var gameGenre = this.state.games[i].information.genres
-            for(var k = 0;k < gameGenre.length;k++){
-                if(genre === gameGenre[k].name){
-                    gamesFromTheGenre.push(this.state.games[i])
-                    break;
-                }
-            }
-        }
-        if(optionSelected != 'Todas as categorias'){
-            this.sortList(this.props.sortByOption, gamesFromTheGenre);
-        } else{
-            this.sortList(this.props.sortByOption, this.state.games);
-        }
-    }
-
 
     render () {
 

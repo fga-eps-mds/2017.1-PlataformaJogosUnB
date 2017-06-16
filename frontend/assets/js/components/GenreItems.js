@@ -26,6 +26,9 @@ export default class GenreItems extends React.Component{
 
     handleClick(genreName){
         const option = genreName;
+        if(genreName === ''){
+            genreName = "Todas as categorias"
+        }
         this.setState({ selectedGenre: genreName });
         this.props.callbackParent(option);
     }
@@ -47,7 +50,7 @@ export default class GenreItems extends React.Component{
         return(
             <Dropdown text={this.state.selectedGenre}>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={(e) => this.handleClick('Todas as categorias', e)}>
+                    <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas as categorias
                     </Dropdown.Item>
                     {this.mountGenreItems()}
