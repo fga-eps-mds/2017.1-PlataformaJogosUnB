@@ -13,7 +13,23 @@ export default class DevelopersCard extends React.Component {
     getRoleCells(role){
       const credits = this.props.credits;
       return (<ul>{credits.filter((credit)=> credit.specialty === role)
-                    .map((developer) => <Header.Content>{developer.name}</Header.Content>)}</ul>);
+                    .map((developer) => {
+                            if(developer.github_page !== null){
+                            return (<Header.Content>
+                            <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                                                            content='Link para GitHub'/>
+                            </Header.Content>);
+                            }
+                            else if(developer.email !== null){
+                            return(<Header.Content>
+                                 <Popup trigger={<div> {developer.name}</div> } content={developer.email}/>
+                            </Header.Content>);
+                            }
+                            else
+                                return (<Header.Content>{developer.name }</Header.Content>);
+
+                            })}
+      </ul>);
     }
 
     getTable(role, title){
@@ -55,4 +71,5 @@ export default class DevelopersCard extends React.Component {
 DevelopersCard.propTypes = {
     developer: PropTypes.string.isRequired,
     developers: PropTypes.array.isRequired,
+    credits: PropTypes.array.isRequired,
 }
