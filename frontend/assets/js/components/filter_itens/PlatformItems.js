@@ -1,6 +1,6 @@
 import React from "react";
 import {Dropdown} from "semantic-ui-react";
-import {dataListApi} from "../../resource/DataListApi";
+import {dataListApi} from "../../resources/DataListApi";
 
 export default class PlatformItems extends React.Component{
 

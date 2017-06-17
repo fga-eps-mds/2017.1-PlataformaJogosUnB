@@ -1,7 +1,6 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import {Dropdown} from "semantic-ui-react";
-import {dataListApi} from "../../resource/DataListApi";
+import {dataListApi} from "../../resources/DataListApi";
 
 export default class GenreItems extends React.Component{
 

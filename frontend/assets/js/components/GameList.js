@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Grid} from "semantic-ui-react";
-import {dataListApi} from "../resource/DataListApi";
+import {dataListApi} from "../resources/DataListApi";
 import GameCard from "./cards/GameCard";
 
 export default class GameList extends React.Component {

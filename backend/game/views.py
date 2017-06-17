@@ -12,7 +12,6 @@ from rest_framework.decorators import detail_route
 from rest_framework.permissions import AllowAny
 from game.utils.issue_handler import IssueHandler
 from django.http import HttpResponseRedirect
-from game.forms import ReportBugForm
 from django.db.models import Q
 
 
@@ -50,7 +49,6 @@ class GameViewSet(viewsets.ModelViewSet):
         for item in itens:
             filter_data |= Q((name, item))
         return filter_data
-
 
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
