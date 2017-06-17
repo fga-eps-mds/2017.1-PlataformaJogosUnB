@@ -13,7 +13,7 @@ export default class DescriptionCard extends React.Component {
 
         return (
             <Card fluid>
-                <Card.Content header='Descrição' description={this.props.description} />
+              <Card.Content header='Descrição' description={this.props.description} />
                 <Card fluid>
                 <Card.Content header='Prêmios' description={awards}/>
                 </Card>
