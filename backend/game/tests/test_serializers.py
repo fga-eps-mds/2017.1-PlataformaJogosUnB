@@ -2,7 +2,7 @@ import pytest
 from game.factory import PackageFactory, GameFactory
 from game.models import Platform  # Package
 from game.serializers import GameSerializer
-from information.models import Award, Developer, Information
+from information.models import Award, Credit, Information
 from media.models import Video, Soundtrack
 from media.factory import ImageFactory
 from game.choices import EXTENSION_CHOICES
@@ -17,7 +17,7 @@ class TestGameSerializer:
         video_game = Video()
         sound_game = Soundtrack()
         award_game = Award()
-        developer = Developer()
+        credit = Credit()
         information_game = Information()
 
         game = GameFactory()
@@ -47,10 +47,11 @@ class TestGameSerializer:
         award_game.place = 'Conference game'
         award_game.save()
 
-        developer.name = 'Developer 1'
-        developer.login = 'developer_1'
-        developer.github_page = 'https://github.com/PlataformaJogosUnb/'
-        developer.save()
+        credit.specialty = 'desenvolvedor'
+        credit.name = 'Credit 1'
+        credit.email = 'credito@gmail.com'
+        credit.github_page = 'http://github.com/credit'
+        credit.save()
 
         information_game.description = 'This is a test game used to test the\
         serializer of the model game.'
@@ -58,7 +59,7 @@ class TestGameSerializer:
         information_game.semester = 1
         information_game.game = game
         information_game.save()
-        information_game.developers.add(developer)
+        information_game.credits.add(credit)
         information_game.awards.add(award_game)
         return game
 
@@ -95,7 +96,7 @@ class TestGameSerializer:
     def test_serialization_information_object(self, game):
         serialized_game = GameSerializer(game).data
         information_serialized = serialized_game.get('information')
-        developer_serialized = information_serialized.get('developers')[0]
+        credit_serialized = information_serialized.get('credits')[0]
         award_serialized = information_serialized.get('awards')[0]
 
         assert information_serialized.get(
@@ -104,12 +105,11 @@ class TestGameSerializer:
         assert information_serialized.get(
             'launch_year') == game.information.launch_year
 
-        assert developer_serialized == {
-            'login': game.information.developers.first().login,
-            'github_page': game.information.developers.first().github_page,
-            'email': None,
-            'avatar': None,
-            'name': game.information.developers.first().name
+        assert credit_serialized == {
+            'github_page': game.information.credits.first().github_page,
+            'email': game.information.credits.first().email,
+            'name': game.information.credits.first().name,
+            'specialty': game.information.credits.first().specialty,
         }
 
         assert award_serialized == {

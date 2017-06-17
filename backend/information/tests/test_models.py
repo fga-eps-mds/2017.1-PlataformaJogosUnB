@@ -211,7 +211,7 @@ class TestCredit:
 
     @pytest.mark.django_db
     def test_str_credit(self, credit_creation):
-        assert str(credit_creation) == "Credit"
+        assert str(credit_creation) == "Credit <https://github.com/credit>"
 
 
 class TestStatistic:
