@@ -1,6 +1,6 @@
 import React from "react";
 import {Dropdown} from "semantic-ui-react";
-import {dataListApi} from '../resource/DataListApi';
+import {dataListApi} from "../../resource/DataListApi";
 
 export default class PlatformItems extends React.Component{
 
@@ -46,7 +46,7 @@ export default class PlatformItems extends React.Component{
 
     render (){
         return(
-            <Dropdown text={this.state.selectedPlatform}>
+            <Dropdown text={this.state.selectedPlatform} selection>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas plataformas

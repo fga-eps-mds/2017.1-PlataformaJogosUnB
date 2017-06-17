@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Dropdown} from "semantic-ui-react";
-import {dataListApi} from "../resource/DataListApi";
+import {dataListApi} from "../../resource/DataListApi";
 
 export default class GenreItems extends React.Component{
 
@@ -48,7 +48,7 @@ export default class GenreItems extends React.Component{
 
     render (){
         return(
-            <Dropdown text={this.state.selectedGenre}>
+            <Dropdown text={this.state.selectedGenre} selection>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas as categorias
