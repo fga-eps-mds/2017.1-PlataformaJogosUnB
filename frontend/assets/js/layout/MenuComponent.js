@@ -66,7 +66,6 @@ export default class MenuComponent extends React.Component {
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                        <Menu.Item><Header inverted>
                                         <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
                                         <Menu.Menu position='right'>

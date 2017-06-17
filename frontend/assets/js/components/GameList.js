@@ -83,7 +83,6 @@ export default class GameList extends React.Component {
                 </Link>
             </Grid.Column>
         );
-        console.log(gameCards);
         if(gameCards.length > 0){
             return gameCards;
         } else{
