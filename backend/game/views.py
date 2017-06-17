@@ -49,7 +49,7 @@ class GameViewSet(viewsets.ModelViewSet):
     def filter(self, request, pk=None):
         platforms = request.query_params['platforms'].split()
         genres = request.query_params['genres'].split()
-        ffilter = self.__mount_filter__("packages__platforms__extensions", platforms)
+        ffilter = self.__mount_filter__("packages__platforms__name", platforms)
         ffilter &= self.__mount_filter__("information__genres__name", genres)
         data = Game.objects.filter(ffilter)
         return Response(GameSerializer(data, many=True).data)

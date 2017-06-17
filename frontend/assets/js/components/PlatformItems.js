@@ -22,9 +22,12 @@ export default class PlatformItems extends React.Component{
 
     }
 
-    handleClick(genreName){
-        const option = genreName;
-        this.setState({ selectedGenre: genreName });
+    handleClick(platformName){
+        const option = platformName;
+        if(platformName == ''){
+            platformName = "Todas as plataformas";
+        }
+        this.setState({ selectedPlatform: platformName });
         this.props.callbackParent(option);
     }
 
@@ -45,7 +48,7 @@ export default class PlatformItems extends React.Component{
         return(
             <Dropdown text={this.state.selectedPlatform}>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={(e) => this.handleClick('Todas categorias', e)}>
+                    <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas plataformas
                     </Dropdown.Item>
                     {this.mountGenreItems()}

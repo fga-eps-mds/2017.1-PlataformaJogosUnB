@@ -22,7 +22,11 @@ export default class GamesPage extends React.Component {
     }
 
     genreOptionChanged(option){
-        this.setState({ genreOption: option })
+        this.setState({ genreOption: option });
+    }
+
+    platformOptionChanged(option){
+        this.setState({ platformOption: option });
     }
 
     render () {
@@ -42,12 +46,12 @@ export default class GamesPage extends React.Component {
                                 <GenreItems callbackParent={(option) => this.genreOptionChanged(option)} />
                             </Menu.Item>
                             <Menu.Item>
-                                <PlatformItems  />
+                                <PlatformItems callbackParent={(option) => this.platformOptionChanged(option)} />
                             </Menu.Item>
                         </Menu>
                     </div>
                     <Grid.Row>
-                        <GameList sortByOption={this.state.sortByOption} genreOption={this.state.genreOption}/>
+                        <GameList sortByOption={this.state.sortByOption} genreOption={this.state.genreOption} platformOption={this.state.platformOption}/>
                     </Grid.Row>
                 </Grid>
             </Container>

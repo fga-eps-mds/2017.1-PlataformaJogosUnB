@@ -17,10 +17,9 @@ export default class GameList extends React.Component {
 
     loadGameFromServer (param) {
         const data = {
-            platforms: ["deb"],
-            genres: [param]
+            platforms: param.platformOption,
+            genres: param.genreOption
         }
-        console.log(param)
         fetch("/api/games/1/filter/?platforms=" + data.platforms + "&genres=" + data.genres,
             {
                 "headers": new Headers({
@@ -45,21 +44,25 @@ export default class GameList extends React.Component {
 
     componentDidMount () {
 
-        this.loadGameFromServer();
+        this.loadGameFromServer(this.props);
 
     }
 
     componentWillReceiveProps(nextProps){
         if(this.props.sortByOption != nextProps.sortByOption){
-            this.sortList(nextProps.sortByOption, this.state.filteredGames);
+            this.sortList(nextProps.sortByOption);
         } else if(this.props.genreOption != nextProps.genreOption){
-            this.loadGameFromServer(nextProps.genreOption);
-        }else{
+            this.props = nextProps
+            this.loadGameFromServer(this.props);
+        } else if(this.props.platformOption != nextProps.platformOption){
+            this.props = nextProps
+            this.loadGameFromServer(this.props);
+        } else{
             return false;
         }
     }
 
-    sortList(optionSelected, list){
+    sortList(optionSelected){
          if(typeof this.state.games === "undefined"){
             return false;
         }
@@ -77,12 +80,12 @@ export default class GameList extends React.Component {
                 return 0;
             }
         );
-        this.setState({ filteredGames: listGames });
+        return listGames;
     }
 
     render () {
 
-        const gameCards = this.state.filteredGames.map((game) =>
+        const gameCards = this.sortList(this.props.sortByOption).map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
