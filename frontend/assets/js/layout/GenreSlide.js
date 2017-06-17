@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick'
-
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
 
 export default class GenreSlide extends React.Component {
   render() {
@@ -14,8 +15,6 @@ export default class GenreSlide extends React.Component {
     };
     return (
       <div>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
         <h2>Center Mode</h2>
         <Slider {...settings}>
           <div><h3>1</h3></div>
