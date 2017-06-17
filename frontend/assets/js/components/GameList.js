@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Grid} from "semantic-ui-react";
+import {dataListApi} from "../resource/DataListApi";
 import GameCard from "./cards/GameCard";
 
 export default class GameList extends React.Component {
@@ -10,7 +11,6 @@ export default class GameList extends React.Component {
         super(props);
         this.state = {
             "games": [],
-            "filteredGames": []
         };
 
     }
@@ -20,26 +20,17 @@ export default class GameList extends React.Component {
             platforms: param.platformOption,
             genres: param.genreOption
         }
-        fetch("/api/games/1/filter/?platforms=" + data.platforms + "&genres=" + data.genres,
-            {
-                "headers": new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }),
-                "method": "GET",
-            }).
-          then((response) => response.json()).
-          then((games) => {
+        const url = (
+            "/api/games/1/filter/?platforms=" + 
+            data.platforms + "&genres=" 
+            + data.genres
+        );
+        dataListApi(url, (games) => {
 
-              this.setState({games});
-              this.setState({filteredGames: games})
+            this.setState({games});
 
-          }).
-          catch((error) => {
+        })
 
-              console.error(error);
-
-          });
     }
 
     componentDidMount () {
@@ -68,7 +59,7 @@ export default class GameList extends React.Component {
         }
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const data = optionSelected;
-        const listGames = this.state.filteredGames;
+        const listGames = this.state.games;
         listGames.sort((a,b) => {
                 if(data.order === frontToBack){
                     if(eval('a'+data.param) > eval('b'+data.param)) return 1;
@@ -83,8 +74,7 @@ export default class GameList extends React.Component {
         return listGames;
     }
 
-    render () {
-
+    getGameCards(){
         const gameCards = this.sortList(this.props.sortByOption).map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
@@ -92,10 +82,19 @@ export default class GameList extends React.Component {
                     <GameCard data={game} />
                 </Link>
             </Grid.Column>
-          );
+        );
+        console.log(gameCards);
+        if(gameCards.length > 0){
+            return gameCards;
+        } else{
+            return <h1>Nenhum jogo encontrado</h1>
+        }
+    }
+
+    render () {
         return (
             <Grid doubling columns={5}>
-                {gameCards}
+                {this.getGameCards()}
             </Grid>
         );
 
