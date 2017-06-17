@@ -1,42 +1,60 @@
 import React, {PropTypes} from "react";
-import ImageGallery from "react-image-gallery";
+import Slider from 'react-slick';
 import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
-require("react-image-gallery/styles/scss/image-gallery.scss");
-// https://github.com/xiaolin/react-image-gallery
+import { Grid } from 'semantic-ui-react'
+
+
+const CardSlideStyle = {
+  "position":"relative",
+  "minHeight":"180px",
+}
+
+const slideHeight = {
+    "height": "280px",
+};
 
 export default class InternalSlide extends React.Component {
 
     handleImageLoad (event) {
         console.log("Image loaded ", event.target);
     }
+
     getImagesSlide(media_image){
         const images = media_image.map((slide) => ({
-            "original": slide.image,
-            "thumbnail": slide.image
+            slide.image
         }));
 
         if (images!=[]) {
             return images;
         }
 
-        return ["original": imageUnavailable];
+        return ['imageUnavailable'];
     }
-
 
     render () {
+      const settings = {
+       dots: true,
+       lazyLoad: true,
+       infinite: true,
+       speed: 500,
+       slidesToShow: 3,
+       slidesToScroll: 1,
+       initialSlide: 3
+     };
+     if(this.props.media_image){
         return (
-            <ImageGallery
-                items={this.getImagesSlide(this.props.media_image)}
-                slideInterval={2000}
-                onImageLoad={this.handleImageLoad}
-                slideOnThumbnailHover
-                autoplay
-                showPlayButton={false}
-            />
-        );
+          <div style={slideHeight}>
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+          <Grid.Column>
+          <Slider {...settings}>
+            {this.getImagesSlide(this.props.media_image)}
+            </Slider>
+            </Grid.Column>
+          </div>
+    );
+    }else{
+      return false;
     }
-}
-
-InternalSlide.propTypes = {
-    media_image: PropTypes.string.isRequired,
+  }
 }
