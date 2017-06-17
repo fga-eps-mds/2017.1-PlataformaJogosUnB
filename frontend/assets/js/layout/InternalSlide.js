@@ -1,16 +1,17 @@
 import Slider from 'react-slick';
 import React, {PropTypes} from "react";
-import {Card,Label} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
-var Carousel = require('react-responsive-carousel').Carousel;
-require("react-responsive-carousel/lib/styles/carousel.css");
-// https://github.com/leandrowd/react-responsive-carousel
+import Slider from 'react-slick';
+import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
+import { Grid } from 'semantic-ui-react'
 
+
+const CardSlideStyle = {
+  "position":"relative",
+  "minHeight":"180px",
+}
 
 const slideHeight = {
-  "height": "400px",
-  "margin": "5% 5%",
-  "width": "90%",
+    "height": "280px",
 };
 
 export default class InternalSlide extends React.Component {
@@ -24,35 +25,42 @@ export default class InternalSlide extends React.Component {
         )
         return videos
     }
+    getImagesSlide(media_image){
+        const images = media_image.map((slide) => ({
+            slide.image
+        }));
 
-    getImages(game_images){
-        var images = [];
-        images = game_images.map( (single_image) => 
-          <div>
-            <img src={single_image.slide} />
-          </div>
-        )
-        return images
-    }
+        if (images!=[]) {
+            return images;
+        }
 
-
-    componentDidMount(){
-        this.getVideos(this.props.media_video);
-        this.getImages(this.props.media_image);
+        return ['imageUnavailable'];
     }
 
     render () {
+      const settings = {
+       dots: true,
+       lazyLoad: true,
+       infinite: true,
+       speed: 500,
+       slidesToShow: 3,
+       slidesToScroll: 1,
+       initialSlide: 3
+     };
+     if(this.props.media_image){
         return (
-            <Carousel
-              infiniteLoop={true}
-              emulateTouch={true}
-              autoplay={true}
-              showStatus={false}
-            >
-                {this.getVideos(this.props.media_video)}
-                {this.getImages(this.props.media_image)}
-            </Carousel>
-        );
+          <div style={slideHeight}>
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+          <Grid.Column>
+          <Slider {...settings}>
+            {this.getImagesSlide(this.props.media_image)}
+            </Slider>
+            </Grid.Column>
+          </div>
+    );
+    }else{
+      return false;
     }
-
+  }
 }
