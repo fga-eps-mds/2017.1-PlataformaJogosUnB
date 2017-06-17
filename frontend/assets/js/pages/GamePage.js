@@ -75,7 +75,7 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
 
-                    <Grid.Column width={6} class="right aligned">
+                    <Grid.Column width={6}>
                         <GameInformationCard
                             cover_image={this.state.game.cover_image}
                             version={this.state.game.version}

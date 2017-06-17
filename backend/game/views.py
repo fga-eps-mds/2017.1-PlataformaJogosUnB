@@ -5,10 +5,7 @@ from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.decorators import detail_route
 from game.utils.issue_handler import IssueHandler
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_protect
-from .forms import ReportBugForm
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -30,6 +27,7 @@ class GameViewSet(viewsets.ModelViewSet):
                                        official_repository)
 
             return HttpResponseRedirect('/')
+
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
     serializer_class = PackageSerializer

@@ -1,34 +1,18 @@
-import React, { Component} from 'react';
+import React from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
+import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
 
 const formFieldsStyle = {
     "width": "870px",
     "marginLeft": "15px",
     "marginTop": "15px",
-}
+};
 const titleFieldStyle = {
     "height": "45px",
 };
 const descriptionFieldStyle = {
     "height": "150px",
 };
-
-//TODO generalize below method to be imported and used here and on Rating
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-}
-
 
 export default class ReportBugForm extends React.Component {
 
@@ -37,11 +21,11 @@ export default class ReportBugForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  submitBug(data, form){
+  submitBug(data){
     const game_pk = this.props.game_pk
 
     var data_json = JSON.stringify(data)
-    var csrftoken = getCookie('csrftoken');
+    var csrftoken = getDjangoCookie('csrftoken');
 
     fetch(`/api/games/${game_pk}/report_bug/`, {
       method: 'POST',
@@ -88,7 +72,7 @@ export default class ReportBugForm extends React.Component {
 
     if(this.validate(data)){
       alert('O bug foi reportado com sucesso');
-      this.submitBug(data, form);
+      this.submitBug(data);
     }
   }
 
