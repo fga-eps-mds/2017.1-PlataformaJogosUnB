@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import GamePage from '../pages/GamePage';
+import GamesPage from "../pages/GamesPage";
 import IndexPage from "../pages/IndexPage";
 import AboutPage from "../pages/AboutPage";
-import GamesPage from "../pages/GamesPage";
-import GamePage from '../pages/GamePage';
-import GenreFilter from '../pages/GenreFilter';
 
 export default class MainRoutes extends React.Component {
 
@@ -18,7 +17,6 @@ export default class MainRoutes extends React.Component {
                   <Route exact path="/games/:id/:name" component={GamePage} />
                   <Route exact path="/about/" component={AboutPage} />
                   <Route render={() => <div><h1>404</h1><h2>Page not found</h2></div>} />
-                  <Route path="/filter/:genre" component={GenreFilter}/>
                 </Switch>
             </div>
         );

@@ -18,6 +18,7 @@ const extractLess = new ExtractTextPlugin({
 
 module.exports = {
     context: __dirname,
+    devtool: "#eval",
 
     entry: './assets/js/App', 
 
