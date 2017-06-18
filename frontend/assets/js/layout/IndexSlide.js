@@ -1,15 +1,32 @@
 import Slider from 'react-slick';
 import React from "react";
-import { Card } from 'semantic-ui-react';
+import InfiniteCarousel from "react-leaf-carousel";
+import GameCard from "../components/cards/GameCard";
+import {Card,Label,Icon} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 
-const carouselImageStyle = {
+const imageStyle = {
+    "height": "100%",
+    "width":"70%",
+    "float":"left"
+}, carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
     "margin":10,
+}, cardStyle = {
+    "float":"right",
+    "height":400,
+    "width":"30%" 
+},
+sliderStyle = {
+    "position":"relative",
+    "height":400,
+    "width":1110
 };
 
 export default class IndexSlider extends React.Component {
@@ -54,7 +71,6 @@ export default class IndexSlider extends React.Component {
         var settings = {
             dots: true,
             infinite: true,
-            autoplay:true,
             autoPlaySpeed: 4200,
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -73,6 +89,14 @@ export default class IndexSlider extends React.Component {
         }
     }
 
+    getGenreByGame(id){
+        
+
+        return this.state.games[id].information.genres.map((genre) =>{
+                    return (<Label  as={Link} to={`/filter/${genre.name}`} params={{"genre":genre.name}} color='teal'>
+                               {genre.name}
+                            </Label>);})
+    }
 
     mountImages(){
        const images = [], imagesSlide = 9;
@@ -80,21 +104,29 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={{position:"relative",height:400}}>
-                    <img
-                       src={this.state.games[idx].slide_image} style={{margin:"0 auto",float:"left",height:"100%",width:"70%"}}/>
+                (<div style={sliderStyle}>  
+                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}                
+                         params={{"id": this.state.games[idx].pk}}
+                    >
 
-                     <div style={{verticalAlign:"top",float:"right",height:400,width:"30%"}}>
-                        <Card fluid style={{height:400}}>
-                            <Card.Content>
-                                <Card.Header>{this.state.games[idx].name}</Card.Header>
-                                    <Card.Description>Esse jogo é muito bolado</Card.Description>   
-                            </Card.Content> 
-                                <Card.Content extra>
-                                    {"Linux > Windows"}
+                        <img
+                           src={this.state.games[idx].slide_image} style={imageStyle}
+                        />
+       
+                        <div style={cardStyle}>
+                            <Card fluid style={{height:400}}>
+                                <Card.Content>
+                                    <Card.Header>{this.state.games[idx].name}</Card.Header>
+                                        <Card.Description>Esse jogo é muito bolado</Card.Description>   
                                 </Card.Content>
-                        </Card>
-                    </div> 
+                                <Card.Content extra>
+                                    {this.getGenreByGame(idx)}
+                                </Card.Content> 
+                                <Card.Content extra>
+                                    <Icon bordered className="linux" />Linux > Windows</Card.Content>
+                            </Card>
+                        </div> 
+                    </Link>
                 </div>)
            images.push(image);
         }
