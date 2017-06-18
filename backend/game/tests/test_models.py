@@ -137,6 +137,3 @@ class TestPackage:
     def test_package_str(self, platform):
         package = PackageFactory()
         assert str(package) == "{} (.deb)".format(package.game.name)
-        package.platforms.clear()
-        assert str(package) == ("Invalid package. There aren't registered" +
-                                " platforms able to play .deb formats")

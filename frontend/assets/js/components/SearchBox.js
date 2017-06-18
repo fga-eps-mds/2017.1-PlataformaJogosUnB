@@ -34,7 +34,7 @@ export default class SearchBox extends Component {
 
     handleResultSelect(e, result) {
         this.setState({ value: result.title })
-        window.location = `/games/${result.gamePk}`;
+        window.location = `/games/${result.gamePk}/${result.title}`;
     }
 
     handleSearchChange(e, value) {

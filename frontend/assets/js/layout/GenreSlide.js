@@ -1,16 +1,11 @@
 import React from 'react';
-import Slider from 'react-slick';
 import GameCard from "../components/cards/GameCard";
 import { gameListApi } from '../resource/GameApi';
 import { Link } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
-
-const slideHeight = {
-  "height": "280px",
-  "position":"relative",
-  "minHeight":"180px",
-};
-
+import Slider from 'react-slick'
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
 
 export default class GenreSlide extends React.Component {
   constructor (props) {
@@ -58,14 +53,11 @@ export default class GenreSlide extends React.Component {
     };
     if(gameCards.length){
     return (
-      <div style={slideHeight}>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-        <Grid.Column>
+      <div>
+        <h2>Center Mode</h2>
         <Slider {...settings}>
           {gameCards}
         </Slider>
-        </Grid.Column>
       </div>
     );
     }else{
@@ -77,7 +69,7 @@ export default class GenreSlide extends React.Component {
     for(var i=0; i < cardsAmount && i < this.state.games.length - 1; i++){
         const image =
                (<div>
-                  <Link to={"games/" + this.state.games[i].pk}>
+                  <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
                     <GameCard data={this.state.games[i]} />
                   </Link>
                 </div>)

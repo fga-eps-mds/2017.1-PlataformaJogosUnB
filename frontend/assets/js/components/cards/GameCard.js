@@ -30,7 +30,6 @@ export default class GameCard extends React.Component {
         return _.uniq(platforms);
     }
     render () {
-        console.log(this.reducePlatforms(this.props.data.packages))
         return (
             <Card>
                 <div style={cardImageStyle}>

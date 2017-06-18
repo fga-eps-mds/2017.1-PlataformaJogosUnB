@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
-import Genres from "./Genres";
 import {Container, Grid, Header, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
 import bars from '../../../public/bundles/images/icons/bars.png'
 
@@ -47,9 +46,6 @@ export default class MenuComponent extends React.Component {
                                     <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
                                     <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                     <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
-                                    <Menu.Item>
-                                            <Genres />
-                                    </Menu.Item>
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
@@ -66,16 +62,7 @@ export default class MenuComponent extends React.Component {
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                        <Menu.Item><Header inverted>
-                                        <Dropdown text="Jogos">
-                                            <Dropdown.Menu>
-                                                    <Dropdown.Item text="Lista de jogos" as={Link} to="/games/" ></Dropdown.Item>
-                                                <Dropdown.Item>
-                                                    <Genres />
-                                                </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                           </Dropdown> 
-                                               </Header> </Menu.Item>
+                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
                                         <Menu.Menu position='right'>
                                             <Menu.Item>

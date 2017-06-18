@@ -150,17 +150,7 @@ class Package(models.Model):
         self.fill_platforms()
 
     def __str__(self):
-        text = (
-            "Invalid package. There aren't registered platforms" +
-            " able to play .{} formats".format(
-                os.path.splitext(self.package.name)[1][1:].lower()
-            )
+        return '{0} ({1})'.format(
+            self.game.name,
+            os.path.splitext(self.package.name)[1]
         )
-
-        if self.platforms.count():
-            text = '{0} (.{1})'.format(
-                self.game.name,
-                self.platforms.first().extensions.title().lower()
-            )
-
-        return text

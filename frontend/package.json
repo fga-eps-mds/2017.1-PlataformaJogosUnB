@@ -30,6 +30,7 @@
     "less-loader": "^4.0.3",
     "node-sass": "^4.5.3",
     "react-cellblock": "^3.0.0",
+    "react-slick": "^0.14.11",
     "react-test-renderer": "^15.5.4",
     "semantic-ui-react": "^0.68.4",
     "webpack": "^2.6.0",
