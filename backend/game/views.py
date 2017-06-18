@@ -39,16 +39,23 @@ class GameViewSet(viewsets.ModelViewSet):
     def filter(self, request, pk=None):
         platforms = request.query_params['platforms'].split()
         genres = request.query_params['genres'].split()
-        ffilter = self.__mount_filter__("packages__platforms__name", platforms)
-        ffilter &= self.__mount_filter__("information__genres__name", genres)
+        sort_by = request.query_params['sort']
+        ffilter = self._mount_filter("packages__platforms__name", platforms)
+        ffilter &= self._mount_filter("information__genres__name", genres)
         data = Game.objects.filter(ffilter)
+        data = self._order_by(data, sort_by)
         return Response(GameSerializer(data, many=True).data)
 
-    def __mount_filter__(self, name, itens):
+    def _mount_filter(self, name, itens):
         filter_data = Q()
         for item in itens:
             filter_data |= Q((name, item))
         return filter_data
+
+    def _order_by(self, object_list, option):
+        if option != '':
+            return object_list.order_by(option)
+        return object_list.order_by()
 
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):

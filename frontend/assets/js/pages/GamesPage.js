@@ -11,7 +11,7 @@ export default class GamesPage extends React.Component {
     constructor (){
         super();
         this.state = {
-            "sortByOption": 'none',
+            "sortByOption": '',
             "genreOption": '',
             "platformOption": ''
         }
