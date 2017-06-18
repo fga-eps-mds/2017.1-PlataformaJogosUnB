@@ -6,6 +6,7 @@ from information.models import Information
 import json
 import base64
 import os
+from random import randint
 from core.settings import MEDIA_ROOT
 
 
@@ -64,6 +65,23 @@ class TestGameViewSet:
         client.get("/api/games/{}/".format(game.pk))
         updated_game = Game.objects.get(pk=game.pk)
         assert updated_game.visualization == game.visualization + 1
+
+    @pytest.mark.django_db
+    def test_game_order(self, client):
+
+        games = GameFactory.create_batch(6)
+        for game in games:
+            game.visualization = randint(0, 1 << 63)
+            game.save()
+        response = client.get('/api/games/?ordering=-visualization')
+        games.sort(key=lambda x: -x.visualization)
+        game_serial = GameSerializer(games, many=True)
+        for x in zip(game_serial.data, response.data):
+            x[0]['cover_image'] = 'http://testserver' + x[0]['cover_image']
+            x[0]['slide_image'] = 'http://testserver' + x[0]['slide_image']
+            x[0]['card_image'] = 'http://testserver' + x[0]['card_image']
+            assert x[0] == x[1]
+
 
 
 class TestViewGamePost:
