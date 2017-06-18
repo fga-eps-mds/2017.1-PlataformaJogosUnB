@@ -5,6 +5,7 @@ import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
+import Paginator from "../components/Paginator";
 
 export default class GamesPage extends React.Component {
 
@@ -54,6 +55,9 @@ export default class GamesPage extends React.Component {
 
                     <Grid.Row>
                         <GameList sortByOption={this.state.sortByOption} genreOption={this.state.genreOption} platformOption={this.state.platformOption}/>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Paginator />
                     </Grid.Row>
                 </Grid>
             </Container>
