@@ -145,6 +145,8 @@ class Package(models.Model):
         related_name='platforms'
     )
 
+    downloads = models.BigIntegerField(default=0)
+
     def fill_platforms(self):
         extension = os.path.splitext(self.package.name)[1][1:].lower()
         platforms = Platform.objects.filter(extensions=extension)

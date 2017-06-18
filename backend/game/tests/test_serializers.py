@@ -66,16 +66,22 @@ class TestGameSerializer:
     @pytest.mark.django_db
     def test_serialization_game_object(self, game):
         serialized_game = GameSerializer(game).data
-
-        assert serialized_game.get('name') == game.name
-
-        assert serialized_game.get('cover_image') == game.cover_image.url
-
-        assert serialized_game.get(
-            'official_repository') == game.official_repository
-
-        assert serialized_game.get('version') == game.version
-        assert serialized_game.get('visualization') == game.visualization
+        game = {'name': game.name,
+                'cover_image': game.cover_image.url,
+                'official_repository': game.official_repository,
+                'version': game.version,
+                'slide_image': game.slide_image.url,
+                'card_image': game.card_image.url,
+                'visualization': game.visualization,
+                'game_activated': game.game_activated,
+                'pk': game.pk,
+                }
+        serialized_game.pop('information')
+        serialized_game.pop('media_image')
+        serialized_game.pop('media_soundtrack')
+        serialized_game.pop('media_video')
+        serialized_game.pop('packages')
+        assert game == dict(serialized_game)
 
     @pytest.mark.django_db
     def test_serialization_medias_object(self, game):

@@ -1,19 +1,19 @@
-from game.models import Game, Platform
-from game.serializers import (
-    GameSerializer,
-    PackageSerializer,
-)
-from game.serializers import PlatformSerializer
-from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.decorators import detail_route
-from rest_framework.permissions import AllowAny
-from rest_framework.filters import OrderingFilter
-from game.utils.issue_handler import IssueHandler
-from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from game.models import Game, Package, Platform
+from game.serializers import (
+    GameSerializer, PackageSerializer, PlatformSerializer
+)
+from game.utils.issue_handler import IssueHandler
+from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import (
+    detail_route, api_view, permission_classes
+)
+from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -70,3 +70,12 @@ class PlatformViewList(generics.ListAPIView):
     queryset = Platform.objects.all()
     serializer_class = PlatformSerializer
     permission_class = (AllowAny)
+
+
+@api_view(["POST"])
+@permission_classes((AllowAny, ))
+def downloads(request, pk=None):
+    package = get_object_or_404(Package, pk=pk)
+    package.downloads += 1
+    package.save()
+    return Response({'update': 'downloads count increase'})

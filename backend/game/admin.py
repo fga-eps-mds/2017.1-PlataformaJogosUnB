@@ -46,7 +46,7 @@ class PlatformsInline(admin.StackedInline):
 
 
 class PackageAdmin(admin.ModelAdmin):
-    exclude = ['platforms']
+    exclude = ['platforms', 'downloads']
 
 
 class GameAdmin(admin.ModelAdmin):

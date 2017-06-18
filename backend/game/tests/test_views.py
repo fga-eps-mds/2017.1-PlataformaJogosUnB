@@ -83,7 +83,6 @@ class TestGameViewSet:
             assert x[0] == x[1]
 
 
-
 class TestViewGamePost:
 
     @pytest.fixture
@@ -154,7 +153,7 @@ class TestViewGamePost:
         assert last is not None
 
 
-class TestPackageApiSave:
+class TestPackageApi:
 
     @pytest.mark.django_db
     def test_package_save(self, admin_client, game, platform):
@@ -192,3 +191,12 @@ class TestPlatformViewList:
         for platform in platforms:
             platform['icon'] = base + platform['icon']
         assert platforms == response_list.data
+
+    @pytest.mark.django_db
+    def test_package_downloads(self, client, game, platform):
+        package = PackageFactory(game=game)
+        respons = client.post("/api/packages/{}/downloads/".format(package.pk))
+        assert 200 <= respons.status_code < 300
+        assert respons.data == {'update': 'downloads count increase'}
+        downloads = Package.objects.get(pk=package.pk).downloads
+        assert downloads == package.downloads + 1
