@@ -75,6 +75,7 @@ class TestGameSerializer:
             'official_repository') == game.official_repository
 
         assert serialized_game.get('version') == game.version
+        assert serialized_game.get('visualization') == game.visualization
 
     @pytest.mark.django_db
     def test_serialization_medias_object(self, game):

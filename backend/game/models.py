@@ -42,6 +42,8 @@ class Game(models.Model):
     slide_image = fields.ImageField(null=True, blank=True)
     card_image = fields.ImageField(null=True, blank=True)
 
+    visualization = models.BigIntegerField(default=0)
+
     version = models.CharField(
         _('Game Version'),
         max_length=20,

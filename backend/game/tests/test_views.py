@@ -59,6 +59,12 @@ class TestGameViewSet:
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
 
+    @pytest.mark.django_db
+    def test_game_visualization(self, client, game):
+        client.get("/api/games/{}/".format(game.pk))
+        updated_game = Game.objects.get(pk=game.pk)
+        assert updated_game.visualization == game.visualization + 1
+
 
 class TestViewGamePost:
 

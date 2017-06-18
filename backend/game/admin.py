@@ -52,7 +52,7 @@ class PackageAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
-    exclude = ['slide_image', 'card_image']
+    exclude = ['slide_image', 'card_image', 'visualization']
     list_display = ['name', 'version']
     search_fields = ['name']
 

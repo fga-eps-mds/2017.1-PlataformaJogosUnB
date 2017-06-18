@@ -46,6 +46,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = ['pk',
                   'name',
+                  'visualization',
                   'version',
                   'official_repository',
                   'game_activated',

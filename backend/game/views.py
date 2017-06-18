@@ -19,6 +19,13 @@ class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
 
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        response = super().retrieve(request, pk, *args, **kwargs)
+        game = self.queryset.last()
+        game.visualization += 1
+        game.save()
+        return response
+
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):
         game = get_object_or_404(self.queryset, pk=pk)
