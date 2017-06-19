@@ -33,7 +33,7 @@ export default class GameList extends React.Component {
 
     }
 
-    componentDidMount () {
+    componentWillMount () {
 
         this.loadGameFromServer(this.props);
 

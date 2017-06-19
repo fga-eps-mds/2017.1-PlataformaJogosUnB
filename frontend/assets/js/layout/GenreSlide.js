@@ -3,8 +3,17 @@ import GameCard from "../components/cards/GameCard";
 import { gameListApi } from '../resource/GameApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
+import { Grid } from 'semantic-ui-react'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
+
+
+const slideHeight = {
+  "height": "280px",
+  "position":"relative",
+  "minHeight":"180px",
+};
+
 
 export default class GenreSlide extends React.Component {
   constructor (props) {
@@ -52,11 +61,12 @@ export default class GenreSlide extends React.Component {
     };
     if(gameCards.length){
     return (
-      <div>
-        <h2>Center Mode</h2>
+      <div style={slideHeight}>
+        <Grid.Column>
         <Slider {...settings}>
           {gameCards}
         </Slider>
+        </Grid.Column>
       </div>
     );
     }else{
