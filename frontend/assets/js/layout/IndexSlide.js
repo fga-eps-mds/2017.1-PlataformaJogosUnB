@@ -96,7 +96,7 @@ export default class IndexSlider extends React.Component {
         
 
         return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Label  as={Link} to={`/filter/${genre.name}`} params={{"genre":genre.name}} color='teal'>
+                    return (<Label color='teal'>
                                {genre.name}
                             </Label>);})
     }
