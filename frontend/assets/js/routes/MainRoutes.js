@@ -4,7 +4,7 @@ import GamePage from '../pages/GamePage';
 import GamesPage from "../pages/GamesPage";
 import IndexPage from "../pages/IndexPage";
 import AboutPage from "../pages/AboutPage";
-
+import GenreFilter from "../pages/GenreFilter"
 export default class MainRoutes extends React.Component {
 
     render () {
