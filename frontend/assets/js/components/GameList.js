@@ -35,7 +35,7 @@ export default class GameList extends React.Component {
 
     componentWillMount () {
 
-      gameListApi((games) => { this.setState({games}) });
+        this.loadGameFromServer(this.props);
 
     }
 

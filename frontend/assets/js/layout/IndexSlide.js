@@ -54,6 +54,8 @@ export default class IndexSlider extends React.Component {
         var settings = {
             dots: true,
             infinite: true,
+            autoplay: true,
+            fade: true,
             autoPlaySpeed: 4200,
             slidesToShow: 1,
             slidesToScroll: 1,
