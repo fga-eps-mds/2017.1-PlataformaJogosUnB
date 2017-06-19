@@ -41,9 +41,11 @@ export default class GameCard extends React.Component {
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                    {this.reducePlatforms(this.props.data.packages).map((icon) => 
-                        <img key={icon} src={icon} width='20' height='20' /> )
-                    }
+                   <Image.Group>
+                       {this.reducePlatforms(this.props.data.packages).map((icon) =>
+                           <Image key={icon} src={icon} width='20' height='20' /> )
+                       }
+                   </Image.Group>
                 </Card.Content>
             </Card>
         );

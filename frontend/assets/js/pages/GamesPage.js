@@ -6,16 +6,62 @@ import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
 import Paginator from "../components/Paginator";
+import {dataListApi} from "../resources/DataListApi";
 
 export default class GamesPage extends React.Component {
 
     constructor (){
         super();
         this.state = {
+            "games": [],
             "sortByOption": '',
             "genreOption": '',
-            "platformOption": ''
+            "platformOption": '',
+            "pageOption": '1',
+            "infoPagination": ''
         }
+    }
+
+
+    loadGameFromServer (param) {
+        const data = {
+            platforms: param.platformOption,
+            genres: param.genreOption,
+            sort: param.sortByOption,
+            page: param.pageOption
+        }
+        const url = (
+            "/api/games/1/games_list/?"
+            + "platforms=" + data.platforms
+            + "&genres=" + data.genres
+            + "&sort=" + data.sort
+            + "&page=" + data.page
+        );
+        dataListApi(url, (list) => {
+
+            this.setState({games: list.games});
+            this.setState({infoPagination: list.info })
+
+        })
+
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.state.platformOption != nextState.platformOption){
+            this.loadGameFromServer(nextState);
+        } else if(this.state.genreOption != nextState.genreOption){
+            this.loadGameFromServer(nextState); 
+        } else if(this.state.sortByOption != nextState.sortByOption){
+            this.loadGameFromServer(nextState);
+        } else if(this.state.pageOption != nextState.pageOption){
+            this.loadGameFromServer(nextState);
+        } else{
+            return false;
+        }
+    }
+
+    componentDidMount () {
+        this.loadGameFromServer(this.state);
     }
 
     sortByOptionChanged(option){
@@ -28,6 +74,10 @@ export default class GamesPage extends React.Component {
 
     platformOptionChanged(option){
         this.setState({ platformOption: option });
+    }
+
+    pageOptionChanged(option){
+        this.setState({ pageOption: option });
     }
 
     render () {
@@ -54,10 +104,10 @@ export default class GamesPage extends React.Component {
                     </Grid.Row>
 
                     <Grid.Row>
-                        <GameList sortByOption={this.state.sortByOption} genreOption={this.state.genreOption} platformOption={this.state.platformOption}/>
+                        <GameList games={this.state.games}/>
                     </Grid.Row>
-                    <Grid.Row>
-                        <Paginator />
+                    <Grid.Row centered>
+                        <Paginator callbackParent={(option) => this.pageOptionChanged(option)} infoPagination = {this.state.infoPagination}/>
                     </Grid.Row>
                 </Grid>
             </Container>
