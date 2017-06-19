@@ -5,6 +5,7 @@ import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
+import PerPageItems from "../components/filter_itens/PerPageItems";
 import Paginator from "../components/Paginator";
 import {dataListApi} from "../resources/DataListApi";
 
@@ -18,7 +19,8 @@ export default class GamesPage extends React.Component {
             "genreOption": '',
             "platformOption": '',
             "pageOption": '1',
-            "infoPagination": ''
+            "infoPagination": '',
+            "perPageOption": 16
         }
     }
 
@@ -28,7 +30,8 @@ export default class GamesPage extends React.Component {
             platforms: param.platformOption,
             genres: param.genreOption,
             sort: param.sortByOption,
-            page: param.pageOption
+            page: param.pageOption,
+            perPage: param.perPageOption
         }
         const url = (
             "/api/games/1/games_list/?"
@@ -36,6 +39,7 @@ export default class GamesPage extends React.Component {
             + "&genres=" + data.genres
             + "&sort=" + data.sort
             + "&page=" + data.page
+            + "&perPage=" + data.perPage
         );
         dataListApi(url, (list) => {
 
@@ -54,6 +58,8 @@ export default class GamesPage extends React.Component {
         } else if(this.state.sortByOption != nextState.sortByOption){
             this.loadGameFromServer(nextState);
         } else if(this.state.pageOption != nextState.pageOption){
+            this.loadGameFromServer(nextState);
+        } else if(this.state.perPageOption != nextState.perPageOption){
             this.loadGameFromServer(nextState);
         } else{
             return false;
@@ -80,6 +86,10 @@ export default class GamesPage extends React.Component {
         this.setState({ pageOption: option });
     }
 
+    perPageOptionChanged(option){
+        this.setState({ perPageOption: option });
+    }
+
     render () {
 
         return (
@@ -99,6 +109,9 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item>
                                 <PlatformItems callbackParent={(option) => this.platformOptionChanged(option)} />
+                            </Menu.Item>
+                            <Menu.Item>
+                                <PerPageItems callbackParent={(option) => this.perPageOptionChanged(option)} />
                             </Menu.Item>
                         </Menu>
                     </Grid.Row>

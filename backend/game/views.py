@@ -16,7 +16,6 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
-GAMES_PER_PAGE = 16
 PAGINATOR_RANGE = 5
 
 
@@ -49,15 +48,17 @@ class GameViewSet(viewsets.ModelViewSet):
         sort_by = request.query_params['sort']
         try:
             page = int(request.query_params['page'])
+            per_page = int(request.query_params['perPage'])
         except ValueError:
             page = 1
+            per_page = 16
 
         self._filter(platforms, genres, sort_by)
-        return Response(self.paginate(page))
+        return Response(self.paginate(page, per_page))
 
-    def paginate(self, page):
+    def paginate(self, page, per_page):
         list_games = self.filtered_games
-        paginator = Paginator(list_games, GAMES_PER_PAGE)
+        paginator = Paginator(list_games, per_page)
 
         try:
             games = paginator.page(page)
