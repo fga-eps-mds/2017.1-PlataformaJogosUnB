@@ -2,7 +2,6 @@ import React from 'react';
 import GameCard from "../components/cards/GameCard";
 import { gameListApi } from '../resource/GameApi';
 import { Link } from 'react-router-dom'
-import { Grid } from 'semantic-ui-react'
 import Slider from 'react-slick'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
