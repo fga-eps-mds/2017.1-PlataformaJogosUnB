@@ -1,6 +1,15 @@
 import React, {PropTypes} from "react";
-import {Card, Button, Grid} from "semantic-ui-react";
+import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
+
+//TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
+//TODO adicionar arquitetura no pacote
+//TODO mudar atributo de Plataforma, de "extensions" para "extension"
+const extensionsByKernel = {
+  "linux": ["deb","rpm"],
+  "windows": ["exe"],
+  "mac": ["algumaaleatoria"],
+};
 
 export default class PackageCard extends React.Component {
 
@@ -27,6 +36,44 @@ export default class PackageCard extends React.Component {
 
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
+
+
+    getPlatforms(packageExtension,platforms){
+       var filteredPlatforms = _.filter(platforms,(platform) => {
+          return platform.extensions == packageExtension 
+       });
+       filteredPlatforms = _.map(filteredPlatforms, (platform) => platform.name);
+    
+       return filteredPlatforms
+    }
+
+    getPackageExtension(packagePath){
+      var index = packagePath.lastIndexOf('.');
+      var packageExtension = packagePath.slice(index + 1)
+      return packageExtension
+    }
+
+    packageIsRelatedToKernel(kernel,packageExtension){
+      var isRelated = _.includes(extensionsByKernel[kernel], packageExtension)
+      return isRelated
+    }
+
+    handlePackages(kernel){
+        const packages = this.props.packages
+        var packagesByKernel = {}
+
+        if(packages !== undefined){
+            packages.forEach((eachPackage) => {
+                var packageExtension = this.getPackageExtension(eachPackage['package'])
+                if(this.packageIsRelatedToKernel(kernel,packageExtension)){
+                    packagesByKernel[eachPackage] = []
+                    packagesByKernel[eachPackage].push(kernel)
+                    
+                    var platforms = this.getPlatforms(packageExtension,eachPackage.platforms) 
+                }
+            }); 
+        }
+    }
     
     render () {
         
@@ -36,7 +83,9 @@ export default class PackageCard extends React.Component {
                 <Card.Content>
                     <Grid centered size='large'>
                         <Button.Group>
-                            {this.getButtonsPlatforms()}
+                            <Button onClick={() => this.handlePackages("linux")}><Icon name="linux" /></Button>
+                            <Button onClick={() => this.handlePackages("windows")}><Icon name="windows" /></Button>
+                            <Button onClick={() => this.handlePackages("apple")}><Icon name="apple" /></Button>
                         </Button.Group>
                     </Grid>
                 </Card.Content>
