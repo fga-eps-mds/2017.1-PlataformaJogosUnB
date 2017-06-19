@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
 import {Container, Grid, Header, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
 import bars from '../../../public/bundles/images/icons/bars.png'
+import Genres from './Genres';
 
 export default class MenuComponent extends React.Component {
 

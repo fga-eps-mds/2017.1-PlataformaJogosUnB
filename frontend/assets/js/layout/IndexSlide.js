@@ -116,8 +116,7 @@ export default class IndexSlider extends React.Component {
                         <div style={cardStyle}>
                             <Card fluid style={{height:400}}>
                                 <Card.Content>
-                                    <Card.Header>{this.state.games[idx].name}</Card.Header>
-                                        <Card.Description>Esse jogo é muito bolado</Card.Description>   
+                                    <Card.Header style={{textAlign:'justify', top:"42%",position:"absolute",fontSize:"200%"}}>{this.state.games[idx].name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.getGenreByGame(idx)}
