@@ -13,11 +13,17 @@ from rest_framework.permissions import AllowAny
 from game.utils.issue_handler import IssueHandler
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
+GAMES_PER_PAGE = 16
+PAGINATOR_RANGE = 5
 
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
+    filtered_games = []
 
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):
@@ -35,16 +41,71 @@ class GameViewSet(viewsets.ModelViewSet):
 
             return HttpResponseRedirect('/')
 
+
     @detail_route(methods=["GET"])
-    def filter(self, request, pk=None):
+    def games_list(self, request, pk=None):
         platforms = request.query_params['platforms'].split()
         genres = request.query_params['genres'].split()
         sort_by = request.query_params['sort']
+        try:
+            page = int(request.query_params['page'])
+        except ValueError:
+            page = 1
+
+        self._filter(platforms, genres, sort_by)
+        return Response(self.paginate(page))
+
+    def paginate(self, page):
+        list_games = self.filtered_games
+        paginator = Paginator(list_games, GAMES_PER_PAGE)
+
+        try:
+            games = paginator.page(page)
+        except PageNotAnInteger:
+            games = paginator.page(1)
+        except EmptyPage:
+            games = paginator.page(1)
+            page = 1
+
+        interval_range = self.get_pagination_range(page, paginator)
+
+        list_games = GameSerializer(games.object_list, many=True).data
+        paginated = {
+            "games": list_games,
+            "info":{
+                "range_start": interval_range[0],
+                "range_end": interval_range[1],
+            }
+        }
+        return paginated
+
+    def get_pagination_range(self, page, paginator):
+        shift = PAGINATOR_RANGE // 2
+        range_start = page - shift
+        range_end = page + shift
+
+        if range_start < 1:
+            range_end += 1 - range_start
+            range_start = 1
+        elif range_end > paginator.num_pages:
+            range_start -= range_end - paginator.num_pages
+            range_end = paginator.num_pages
+
+        if range_end > paginator.num_pages:
+            range_end = paginator.num_pages
+
+        if range_start < 1:
+            range_start = 1
+
+        return (range_start, range_end)
+        
+    def _filter(self, platforms, genres, sort_by):
         ffilter = self._mount_filter("packages__platforms__name", platforms)
         ffilter &= self._mount_filter("information__genres__name", genres)
+
         data = Game.objects.filter(ffilter)
         data = self._order_by(data, sort_by)
-        return Response(GameSerializer(data, many=True).data)
+        self.filtered_games = data
 
     def _mount_filter(self, name, itens):
         filter_data = Q()
@@ -56,6 +117,7 @@ class GameViewSet(viewsets.ModelViewSet):
         if option != '':
             return object_list.order_by(option)
         return object_list.order_by()
+
 
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
