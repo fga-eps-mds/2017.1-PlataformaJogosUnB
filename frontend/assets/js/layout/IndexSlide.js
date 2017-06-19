@@ -1,10 +1,7 @@
 import Slider from 'react-slick';
 import React from "react";
-import InfiniteCarousel from "react-leaf-carousel";
-import GameCard from "../components/cards/GameCard";
 import {Card,Label,Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
@@ -27,6 +24,12 @@ sliderStyle = {
     "position":"relative",
     "height":400,
     "width":1110
+},
+textStyle = {
+    "textAlign":"justify",
+    "top":"42%",
+    "position":"absolute",
+    "fontSize":"200%"
 };
 
 export default class IndexSlider extends React.Component {
@@ -116,7 +119,7 @@ export default class IndexSlider extends React.Component {
                         <div style={cardStyle}>
                             <Card fluid style={{height:400}}>
                                 <Card.Content>
-                                    <Card.Header style={{textAlign:'justify', top:"42%",position:"absolute",fontSize:"200%"}}>{this.state.games[idx].name}</Card.Header>
+                                    <Card.Header style={textStyle}>{this.state.games[idx].name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.getGenreByGame(idx)}
