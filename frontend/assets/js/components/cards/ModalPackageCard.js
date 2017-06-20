@@ -1,20 +1,45 @@
 import React, {PropTypes} from "react";
 import {Modal, Header, Table, Icon} from "semantic-ui-react";
-
+import {dataListApi} from "../../resources/DataListApi";
 
 const cursorMouse = {
   "cursor": "pointer",
 };
-      
+
 export default class ModalPackageCard extends React.Component {
+      constructor (props) {
+          super(props);
+            this.state = {
+                "packages": []
+          }
+          this.downloadPackage = this.downloadPackage.bind(this)          
+      }
 
       downloadPackage() {
+        console.log(this.props.game)
         setTimeout(() => {
           const response = {
-            file: 'http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-alternate-amd64.iso',
+            file: this.state.packages[0].package,
           };
           window.location.href = response.file;
         }, 100);
+      }
+
+      loadGameFromServer () {
+        const game_pk = this.props.game_pk
+         const url = (
+             "/api/package/1/game/?"
+             + "id_game=" + game_pk
+         );
+         dataListApi(url, (list) => {
+            this.setState({packages: list});
+         })
+      }
+
+      componentDidMount () {
+
+          this.loadGameFromServer();
+
       }
 
       getPlatformsList(){
@@ -38,7 +63,7 @@ export default class ModalPackageCard extends React.Component {
     }
 
       render () {
-
+        
         return (
             <Modal trigger={this.props.button}>
                 <Modal.Header>Pacotes disponíveis</Modal.Header>

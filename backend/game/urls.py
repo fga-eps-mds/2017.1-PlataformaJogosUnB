@@ -1,5 +1,5 @@
 from game.views import (
-    GameViewSet, PackageCreateView, downloads, PlatformViewList
+    GameViewSet, PackageCreateView, downloads, PlatformViewList, PackageViewList
 )
 from rest_framework import routers
 from django.conf.urls import url, include
@@ -7,6 +7,7 @@ from django.conf.urls import url, include
 
 router = routers.SimpleRouter()
 router.register(r'games', GameViewSet, base_name='game')
+router.register(r'package', PackageViewList)
 
 urlpatterns = [
     url(r'^packages/$', PackageCreateView.as_view()),

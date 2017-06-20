@@ -97,6 +97,7 @@ export default class GamePage extends React.Component{
                     <Grid.Column width={6}>
                         <PackageCard
                             packages={this.state.game.packages}
+                            game_pk={this.state.game.pk}
                         />
                         <ReportBugCard
                             game_pk={this.state.game.pk}

@@ -34,7 +34,7 @@ export default class PackageCard extends React.Component {
     }
 
     getButtonsPlatforms(){
-        
+        const game_pk = this.props.game_pk
         const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value)=>
 
                 <ModalPackageCard key={value}
@@ -44,6 +44,7 @@ export default class PackageCard extends React.Component {
                         </Button>
                     }
                     platform={this.handlePackages(value)}
+                    game_pk={game_pk}
                 />);
 
         if (buttons_platforms!=[]) {
