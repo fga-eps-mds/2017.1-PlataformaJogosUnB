@@ -117,15 +117,6 @@ class Platform(models.Model):
         help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
     )
 
-    kernel = models.CharField(
-        _('Valid kernel'),
-        max_length=15,
-        choices=KERNEL_CHOICES,
-        default=KERNEL_CHOICES[0][0],
-        help_text=_(
-            'Select the correspondent kernel to created Platform'),
-    )
-
     @staticmethod
     def get_platform_extensions():
         return list(

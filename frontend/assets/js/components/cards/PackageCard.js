@@ -6,30 +6,46 @@ import ModalPackageCard from "./ModalPackageCard"
 //TODO adicionar arquitetura no pacote
 //TODO mudar atributo de Plataforma, de "extensions" para "extension"
 const extensionsByKernel = {
-  "linux": ["deb","rpm"],
-  "windows": ["exe"],
-  "mac": ["algumaaleatoria"],
+  "Linux": ["deb","rpm"],
+  "Windows": ["exe"],
+  "OSX": ["app"],
 };
 
 export default class PackageCard extends React.Component {
 
-    reducePlatforms(packages) {
+    reduceKernelPlatforms(packages) {
         let platforms = [];
         if (packages !== undefined) {
             platforms = _.reduce(packages, (platform, bpackage) => { 
-                const platform_names = _.map(bpackage.platforms, (platform_param) => platform_param.name);
-                return platform.concat(platform_names);
+                const platform_kernel = _.map(bpackage.platforms, (platform_param) => platform_param.kernel);
+                return platform.concat(platform_kernel);
             }, []);
         }
+        console.log(platforms)
         return (platforms);
     }
     
+    getIcon(platform_icon){
+        if (platform_icon==='OSX') {
+            platform_icon = 'apple'
+        }
+        platform_icon.toLowerCase()
+        return platform_icon;
+    }
+
     getButtonsPlatforms(){
-        const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=> 
+        
+        const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value)=>
+
                 <ModalPackageCard key={value}
-                    button={<Button basic color='green'>{value}</Button>}
-                    platform={value}
+                    button={
+                        <Button basic color='green'>
+                            <Icon name={this.getIcon(value)} />
+                        </Button>
+                    }
+                    platform={this.handlePackages(value)}
                 />);
+
         if (buttons_platforms!=[]) {
             return buttons_platforms;
         }
@@ -42,7 +58,6 @@ export default class PackageCard extends React.Component {
        var filteredPlatforms = _.filter(platforms,(platform) => {
           return platform.extensions == packageExtension 
        });
-       filteredPlatforms = _.map(filteredPlatforms, (platform) => platform.name);
     
        return filteredPlatforms
     }
@@ -61,6 +76,7 @@ export default class PackageCard extends React.Component {
     handlePackages(kernel){
         const packages = this.props.packages
         var packagesByKernel = {}
+        var plat = []
 
         if(packages !== undefined){
             packages.forEach((eachPackage) => {
@@ -69,10 +85,11 @@ export default class PackageCard extends React.Component {
                     packagesByKernel[eachPackage] = []
                     packagesByKernel[eachPackage].push(kernel)
                     
-                    var platforms = this.getPlatforms(packageExtension,eachPackage.platforms) 
+                    plat = this.getPlatforms(packageExtension,eachPackage.platforms)
                 }
             }); 
         }
+        return plat;
     }
     
     render () {
@@ -83,9 +100,7 @@ export default class PackageCard extends React.Component {
                 <Card.Content>
                     <Grid centered size='large'>
                         <Button.Group>
-                            <Button onClick={() => this.handlePackages("linux")}><Icon name="linux" /></Button>
-                            <Button onClick={() => this.handlePackages("windows")}><Icon name="windows" /></Button>
-                            <Button onClick={() => this.handlePackages("apple")}><Icon name="apple" /></Button>
+                            {this.getButtonsPlatforms()}
                         </Button.Group>
                     </Grid>
                 </Card.Content>
