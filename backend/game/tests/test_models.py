@@ -36,6 +36,11 @@ class TestPackageModel:
 
 class TestGame:
 
+    def test_game_sum_downloads(self):
+        assert Game.PACKAGE_SUM_QUERY == "SELECT SUM(game_package.downloads) "\
+                                         "FROM game_package WHERE game_packag"\
+                                         "e.game_id = game_game.id"
+
     @pytest.fixture
     def package(self):
         return PackageFactory()

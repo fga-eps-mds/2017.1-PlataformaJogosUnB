@@ -6,11 +6,7 @@ from information.models import Information
 import json
 import base64
 import os
-from random import randint
 from core.settings import MEDIA_ROOT
-
-
-from game.views import GameViewSet
 
 
 @pytest.fixture
@@ -32,8 +28,9 @@ class TestGameViewSet:
         GameFactory(game_activated=False)
 
         gameList = Game.objects.exclude(game_activated=False)
+        response = client.get('/api/games/')
 
-        assert gameList.count() == GameViewSet.queryset.count()
+        assert gameList.count() == len(response.data)
 
     @pytest.mark.django_db
     def test_game_list_json(self, client, game):
@@ -51,7 +48,7 @@ class TestGameViewSet:
 
     @pytest.mark.django_db
     def test_game_detail_json(self, client, game):
-        response = client.get("/api/games/{}.json".format(game.pk))
+        response = client.get("/api/games/{}/".format(game.pk))
         assert response.status_code == 200
         assert response.get("Content-Type") == 'application/json'
         data = GameSerializer(game).data
@@ -67,19 +64,24 @@ class TestGameViewSet:
         assert updated_game.visualization == game.visualization + 1
 
     @pytest.mark.django_db
-    def test_game_order(self, client):
-
-        games = GameFactory.create_batch(6)
-        for game in games:
-            game.visualization = randint(0, 1 << 63)
-            game.save()
-        response = client.get('/api/games/?ordering=-visualization')
-        games.sort(key=lambda x: -x.visualization)
+    @pytest.mark.parametrize('field, fantasy_field',
+                             [('visualization', 'visualization'),
+                              ('downloads', 'downloads_count')])
+    def test_game_order(self, client, platform, field, fantasy_field):
+        games = [pack.game for pack in PackageFactory.create_batch(6)]
+        response = client.get('/api/games/?ordering=-{}'.format(fantasy_field))
+        games.sort(key=lambda x: -getattr(x, field))
         game_serial = GameSerializer(games, many=True)
         for x in zip(game_serial.data, response.data):
             x[0]['cover_image'] = 'http://testserver' + x[0]['cover_image']
             x[0]['slide_image'] = 'http://testserver' + x[0]['slide_image']
             x[0]['card_image'] = 'http://testserver' + x[0]['card_image']
+            x[0]['packages'][0]['package'] = 'http://testserver' + \
+                x[0]['packages'][0]['package']
+            x[0]['packages'][0]['platforms'][0]['icon'] = 'http://testserve' \
+                'r' + x[0]['packages'][0]['platforms'][0]['icon']
+
+            print(x[0].get(field), x[1].get(field))
             assert x[0] == x[1]
 
 

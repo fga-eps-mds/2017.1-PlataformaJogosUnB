@@ -6,7 +6,7 @@ from django.conf.urls import url, include
 
 
 router = routers.SimpleRouter()
-router.register(r'games', GameViewSet)
+router.register(r'games', GameViewSet, base_name='game')
 
 urlpatterns = [
     url(r'^packages', PackageCreateView.as_view()),

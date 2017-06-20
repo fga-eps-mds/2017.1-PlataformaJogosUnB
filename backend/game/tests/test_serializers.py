@@ -75,6 +75,7 @@ class TestGameSerializer:
                 'visualization': game.visualization,
                 'game_activated': game.game_activated,
                 'pk': game.pk,
+                'downloads': game.downloads
                 }
         serialized_game.pop('information')
         serialized_game.pop('media_image')

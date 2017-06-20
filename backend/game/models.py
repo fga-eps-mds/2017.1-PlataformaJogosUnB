@@ -10,6 +10,7 @@ from core.validators import (
 from media.utils import image_attribute_resize
 import game.validators as validators
 import os
+import functools
 
 
 class GameManager(models.Manager):
@@ -21,6 +22,10 @@ class GameManager(models.Manager):
 
 
 class Game(models.Model):
+
+    PACKAGE_SUM_QUERY = "SELECT SUM(game_package.downloads) FROM "\
+                        "game_package WHERE game_package.game_id = "\
+                        "game_game.id"
 
     name = models.CharField(
         _('Game Name'),
@@ -67,6 +72,14 @@ class Game(models.Model):
     )
 
     objects = GameManager()
+
+    @property
+    def downloads(self):
+        packages = self.packages.all()
+        return functools.reduce(self.__count_packages__, packages, 0)
+
+    def __count_packages__(self, count, package):
+        return count + package.downloads
 
     def save(self, *args, **kwargs):
         self.clean_fields()

@@ -11,17 +11,13 @@ from rest_framework import viewsets
 from rest_framework.decorators import (
     detail_route, api_view, permission_classes
 )
-from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
-    filter_backends = (OrderingFilter,)
-    ordering_fields = ('visualization', 'name')
-    ordering = ('name')
+    ordering_fields = ('visualization', 'name', 'downloads_count')
 
     def retrieve(self, request, pk=None, *args, **kwargs):
         response = super().retrieve(request, pk, *args, **kwargs)
@@ -35,16 +31,28 @@ class GameViewSet(viewsets.ModelViewSet):
         game = get_object_or_404(self.queryset, pk=pk)
         form_data = request.data
 
-        if request.method == 'POST':
-            title = form_data['title']
-            description = form_data['description']
-            official_repository = game.official_repository
+        title = form_data['title']
+        description = form_data['description']
+        official_repository = game.official_repository
 
-            issue_handler = IssueHandler()
-            issue_handler.submit_issue(title, description,
-                                       official_repository)
+        issue_handler = IssueHandler()
+        issue_handler.submit_issue(title, description,
+                                   official_repository)
 
-            return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
+
+    def get_queryset(self):
+        queryset = Game.objects.filter(game_activated=True)
+        ordering = self.request.query_params.get('ordering', None)
+        self.ordering_fields += tuple(['-' + x for x in self.ordering_fields])
+        if ordering and ordering in self.ordering_fields:
+            print(ordering, self.ordering_fields)
+            queryset = queryset.extra(select={
+                'downloads_count': Game.PACKAGE_SUM_QUERY
+            }).order_by(ordering)
+
+        self.queryset = queryset
+        return queryset
 
     @detail_route(methods=["GET"])
     def filter(self, request, pk=None):
