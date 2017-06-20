@@ -16,16 +16,17 @@ export default class Paginator extends React.Component {
         this.props.callbackParent(parseInt(name))
     } 
 
-    componentWillRecieveProps(nextProps){
-        if(thi.pros.infoPagination != nextProps.infoPagination){
-            this.getListItems(nextProps.infoPagination);
-        } else{
-            return false;
-        }
-    }
 
     componentDidMount(){
         this.getListItems(this.props.infoPagination);
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.props.pageOption != nextProps.pageOption){
+            this.state.activeItem = nextProps.pageOption.toString();
+        } else{
+            return false;
+        }
     }
 
     getListItems(range){
@@ -41,20 +42,27 @@ export default class Paginator extends React.Component {
 
     render(){
         const { activeItem } = this.state;
-        var left_hand = '';
+        var left_arrow = '';
+        var right_arrow = '';
         if(this.state.activeItem > '1'){
-            left_hand = parseInt(this.state.activeItem) - 1;
-            left_hand = left_hand.toString();
+            left_arrow = parseInt(this.state.activeItem) - 1;
+            left_arrow = left_arrow.toString();
         } else{
-            left_hand = '1';
+            left_arrow = '1';
+        }
+        if(this.state.activeItem < this.props.infoPagination.range_end){
+            right_arrow = parseInt(this.state.activeItem) + 1;
+            right_arrow = right_arrow.toString();
+        } else{
+            right_arrow = this.state.activeItem.toString();
         }
         return (
             <Menu pagination borderless inverted >
-                <Menu.Item name='left' name={left_hand}  onClick={this.handleItemClick}>
+                <Menu.Item name={left_arrow}  onClick={this.handleItemClick}>
                     <Icon name='angle left' />
                 </Menu.Item>
                 {this.getListItems(this.props.infoPagination)}
-                <Menu.Item name='right'>
+                <Menu.Item name={right_arrow} onClick={this.handleItemClick}>
                     <Icon name='angle outline right' />
                 </Menu.Item>
             </Menu>

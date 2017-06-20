@@ -45,6 +45,7 @@ export default class GamesPage extends React.Component {
 
             this.setState({games: list.games});
             this.setState({infoPagination: list.info })
+            this.setState({pageOption: list.info.page })
 
         })
 
@@ -120,7 +121,9 @@ export default class GamesPage extends React.Component {
                         <GameList games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
-                        <Paginator callbackParent={(option) => this.pageOptionChanged(option)} infoPagination = {this.state.infoPagination}/>
+                        <Paginator callbackParent={(option) => this.pageOptionChanged(option)}
+                            infoPagination = {this.state.infoPagination}
+                            pageOption={this.state.pageOption}/>
                     </Grid.Row>
                 </Grid>
             </Container>

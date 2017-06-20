@@ -76,6 +76,8 @@ class GameViewSet(viewsets.ModelViewSet):
             "info":{
                 "range_start": interval_range[0],
                 "range_end": interval_range[1],
+                "num_pages": paginator.num_pages,
+                "page": page
             }
         }
         return paginated
