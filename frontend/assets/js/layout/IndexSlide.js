@@ -55,7 +55,6 @@ export default class IndexSlider extends React.Component {
             dots: true,
             infinite: true,
             autoplay: true,
-            fade: true,
             autoPlaySpeed: 4200,
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -90,7 +89,6 @@ export default class IndexSlider extends React.Component {
             var image =
                 (<div style={sliderStyle}>  
                     <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}                
-                         params={{"id": this.state.games[idx].pk}}
                     >
 
                         <img
