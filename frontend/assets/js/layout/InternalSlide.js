@@ -2,77 +2,38 @@ import Slider from 'react-slick';
 import React, {PropTypes} from "react";
 import {Card,Label} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-require("slick-carousel/slick/slick.css");
-require("slick-carousel/slick/slick-theme.css");
-require("react-image-gallery/styles/scss/image-gallery.scss");
-import {gameListApi} from '../resource/GameApi';
-
-const imageStyle = {
-    "height": "100%",
-    "width":"100%",
-    "float":"left"
-}, carouselImageStyle = {
-    "background": "#000000",
-    "minHeight": "400px",
-    "position": "relative",
-    "margin":10,
-    "margin-top":0,
-}, sliderStyle = {
-    "position":"relative",
-    "height":400,
-    "width":1110
-};
+var Carousel = require('react-responsive-carousel').Carousel;
+require("react-responsive-carousel/lib/styles/carousel.css");
+// https://github.com/leandrowd/react-responsive-carousel
 
 export default class InternalSlide extends React.Component {
 
-    constructor (props) {
-        super(props);
+    getImages(game_images){
+        var images = [];
+        images = game_images.map( (single_image) => 
+          <div>
+            <img src={single_image.slide} />
+            <p className="legend">Teste</p>
+          </div>
+        )
+        return images
+    }
 
+    componentDidMount(){
+        this.getImages(this.props.media_image); 
     }
 
     render () {
-        const images = this.mountImages();
-
-        var settings = {
-            dots: true,
-            infinite: true,
-            autoplay: true,
-            fade: true,
-            autoPlaySpeed: 4200,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide:1
-        };
-
-        if(images.length){
-            return (<div style={carouselImageStyle}>
-                <Slider {...settings}>{images}
-                </Slider></div>
-            );
-        } else {
-            return <img/>
-        }
+        return (
+            <Carousel
+              infiniteLoop={true}
+              emulateTouch={true}
+              autoplay={true}
+              showStatus={false}
+            >
+                {this.getImages(this.props.media_image)}
+            </Carousel>
+        );
     }
 
-    mountImages(){
-       const images = [], imagesSlide = 9;
-
-        for(var idx=0; idx < imagesSlide && idx < this.props.media_image.length; idx+=1){
-
-            var image =
-                (<div style={sliderStyle}>  
-                    <img
-                       src={this.props.media_image[idx].slide} style={imageStyle}
-                    />
-                </div>)
-           images.push(image);
-        }
-
-        return images;
-    }
-
-}
-
-InternalSlide.propTypes = {
-    media_image: PropTypes.string.isRequired,
 }
