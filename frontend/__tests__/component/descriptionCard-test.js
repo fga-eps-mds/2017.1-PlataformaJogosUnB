@@ -6,9 +6,9 @@ import renderer from 'react-test-renderer';
 test('Test render DescriptionCard', () => {
   const component = renderer.create(
 		<Card fluid>
-    	<Card.Content header='Descrição' description="Descrição"/>
+    	<Card.Content header='Descrição' description="content"/>
       <Card fluid>
-      	<Card.Content header='Prêmios' description="Bla"/>
+      	<Card.Content header='Prêmios' description="content"/>
       </Card>
     </Card>
 	);
