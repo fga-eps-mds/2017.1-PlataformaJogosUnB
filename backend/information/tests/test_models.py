@@ -9,7 +9,7 @@ from information.factory import (
     InformationFactory,
     AwardFactory,
     GenreFactory,
-    DeveloperFactory
+    CreditFactory
 )
 from information.models import (
     Information, Award, Genre, Credit, Statistic
@@ -203,6 +203,22 @@ def credit_creation():
     return credit
 
 
+class TestCreditValidation:
+
+    error_message_max_length = 'Certifique-se de que o valor tenha no '\
+        'máximo 100 caracteres (ele possui 101).'
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize("name, errors_dict", [
+        ('', mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a' * 101, mount_error_dict(["name"], [[error_message_max_length]])),
+    ])
+    def test_name_validation(self, name, errors_dict):
+        credit = CreditFactory.build(name=name)
+        validation_test(credit, errors_dict)
+
+
 class TestCredit:
 
     @pytest.mark.django_db
@@ -227,16 +243,16 @@ class TestInformationRelations:
     @pytest.fixture
     def information_relations(self):
         awards = AwardFactory.create_batch(3)
-        developers = DeveloperFactory.create_batch(3)
+        credits = CreditFactory.create_batch(3)
         genres = GenreFactory.create_batch(3)
 
         return InformationFactory(genres=genres,
-                                  developers=developers,
+                                  credits=credits,
                                   awards=awards)
 
     @pytest.mark.parametrize("field, length", [
         ("awards", 3),
-        ("developers", 3),
+        ("credits", 3),
         ("genres", 3)
     ])
     @pytest.mark.django_db

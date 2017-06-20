@@ -30,7 +30,7 @@ class InformationSerializer(serializers.ModelSerializer):
     awards = AwardSerializer(many=True, required=False)
     genres = GenreSerializer(many=True, required=False)
     game_id = serializers.IntegerField(write_only=True)
-    credits = CreditSerializer(many=True)
+    credits = CreditSerializer(many=True, required=False)
 
     class Meta:
         model = Information

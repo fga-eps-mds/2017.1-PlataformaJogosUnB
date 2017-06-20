@@ -25,7 +25,8 @@ class CreditFactory(factory.DjangoModelFactory):
     class Meta:
         model = Credit
 
-    specialty = factory.faker.Faker("word")
+    specialty = factory.Sequence(lambda x: ['desenvolvedor', 'musico',
+                                            'design'][x % 3])
     name = factory.faker.Faker("word")
     email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
     github_page = factory.faker.Faker("url")
