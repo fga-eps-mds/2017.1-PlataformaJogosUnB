@@ -134,3 +134,5 @@ yarn-error.log*
 /backend/public/public/
 /frontend/public/bundles/
 /frontend/webpack-stats.json
+# Jest temp folder.
+/frontend/__tests__/component/__snapshots__/

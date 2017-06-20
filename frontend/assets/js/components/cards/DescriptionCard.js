@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Card} from "semantic-ui-react";
 
 export default class DescriptionCard extends React.Component {
@@ -16,7 +17,7 @@ export default class DescriptionCard extends React.Component {
               <Card.Content header='Descrição' description={this.props.description} />
                 <Card fluid>
                 <Card.Content header='Prêmios' description={awards}/>
-                </Card>
+              </Card>
             </Card>
         );
     }
