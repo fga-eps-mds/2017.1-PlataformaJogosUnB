@@ -48,8 +48,8 @@ class InformationSerializer(serializers.ModelSerializer):
         Overrode to be able to support nested classes.
         '''
         information = self.create_nested_relationships(
-            [Developer, Award, Genre],
-            ['developers', 'awards', 'genres'],
+            [Credit, Award, Genre],
+            ['credits', 'awards', 'genres'],
         )
 
         return information

@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 # Helper methods to execute tests
 import pytest
 from enum import Enum

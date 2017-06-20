@@ -15,6 +15,7 @@ from information.models import (
     Information, Award, Genre, Credit, Statistic
 )
 
+
 def now():
     from datetime import datetime
     year = datetime.now().year
