@@ -13,7 +13,7 @@ export default class Paginator extends React.Component {
 
     handleItemClick(e, {name}) { 
         this.setState({ activeItem: name })
-        this.props.callbackParent(parseInt(name))
+        this.props.callbackParent('pageOption', parseInt(name))
     } 
 
 

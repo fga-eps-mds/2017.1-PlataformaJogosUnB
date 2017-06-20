@@ -73,24 +73,8 @@ export default class GamesPage extends React.Component {
         this.loadGameFromServer(this.state);
     }
 
-    sortByOptionChanged(option){
-        this.setState({ sortByOption: option });
-    }
-
-    genreOptionChanged(option){
-        this.setState({ genreOption: option });
-    }
-
-    platformOptionChanged(option){
-        this.setState({ platformOption: option });
-    }
-
-    pageOptionChanged(option){
-        this.setState({ pageOption: option });
-    }
-
-    perPageOptionChanged(option){
-        this.setState({ perPageOption: option });
+    optionChanged(stateName, option){
+        this.setState({ [stateName]: option });
     }
 
     selectViewMode () {
@@ -113,16 +97,16 @@ export default class GamesPage extends React.Component {
                     <Grid.Row>
                         <Menu fluid inverted>
                             <Menu.Item>
-                                <SortByItems callbackParent={(option) => this.sortByOptionChanged(option)}/>
+                                <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
                             </Menu.Item>
                             <Menu.Item>
-                                <GenreItems callbackParent={(option) => this.genreOptionChanged(option)} />
+                                <GenreItems callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                             </Menu.Item>
                             <Menu.Item>
-                                <PlatformItems callbackParent={(option) => this.platformOptionChanged(option)} />
+                                <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
                             </Menu.Item>
                             <Menu.Item>
-                                <PerPageItems callbackParent={(option) => this.perPageOptionChanged(option)} />
+                                <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
                             </Menu.Item>
                             <Menu.Item position='right'>
                                 <Button.Group>
@@ -137,7 +121,7 @@ export default class GamesPage extends React.Component {
                         <GameList modeView={this.state.visible}  games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
-                        <Paginator callbackParent={(option) => this.pageOptionChanged(option)}
+                        <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}
                             infoPagination = {this.state.infoPagination}
                             pageOption={this.state.pageOption}/>
                     </Grid.Row>

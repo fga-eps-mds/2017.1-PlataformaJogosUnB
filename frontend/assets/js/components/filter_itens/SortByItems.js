@@ -35,7 +35,7 @@ export default class SortByItems extends React.Component {
     handleClick(item){
         const option = item.param;
         this.setState({ name: item.name });
-        this.props.callbackParent(option);
+        this.props.callbackParent('sortByOption', option);
     }
 
     render () {

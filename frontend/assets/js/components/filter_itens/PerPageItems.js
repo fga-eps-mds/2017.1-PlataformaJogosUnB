@@ -40,7 +40,7 @@ export default class PerPageItems extends React.Component{
         const option = item.number;
         this.setState({ name: item.name })
         this.setState({ perPageNumber: item.number })
-        this.props.callbackParent(option)
+        this.props.callbackParent('perPageOption', option)
     }
 
     render(){
