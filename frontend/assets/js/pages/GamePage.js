@@ -6,6 +6,7 @@ import DescriptionCard from '../components/cards/DescriptionCard';
 import PackageCard from  '../components/cards/PackageCard';
 import InternalSlide from "../layout/InternalSlide";
 import Rating from '../components/Rating';
+import Share from '../components/Share';
 import SegmentTitle from "../layout/SegmentTitle";
 import Comment from '../components/Comment';
 
@@ -68,6 +69,7 @@ export default class GamePage extends React.Component{
                         <Rating
                             pk={id}
                         />
+                        <Share />
                     </Grid.Column>
 
                     <Grid.Column width={6}>
