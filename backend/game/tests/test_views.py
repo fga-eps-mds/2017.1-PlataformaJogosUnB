@@ -20,6 +20,11 @@ def platform():
     return PlatformFactory()
 
 
+@pytest.fixture
+def batch_games_packages(platform):
+    return [pack.game for pack in PackageFactory.create_batch(6)]
+
+
 class TestGameViewSet:
 
     @pytest.mark.django_db
@@ -67,11 +72,11 @@ class TestGameViewSet:
     @pytest.mark.parametrize('field, fantasy_field',
                              [('visualization', 'visualization'),
                               ('downloads', 'downloads_count')])
-    def test_game_order(self, client, platform, field, fantasy_field):
-        games = [pack.game for pack in PackageFactory.create_batch(6)]
+    def test_game_order(self, client, batch_games_packages, field,
+                        fantasy_field):
         response = client.get('/api/games/?ordering=-{}'.format(fantasy_field))
-        games.sort(key=lambda x: -getattr(x, field))
-        game_serial = GameSerializer(games, many=True)
+        batch_games_packages.sort(key=lambda x: -getattr(x, field))
+        game_serial = GameSerializer(batch_games_packages, many=True)
         for x in zip(game_serial.data, response.data):
             x[0]['cover_image'] = 'http://testserver' + x[0]['cover_image']
             x[0]['slide_image'] = 'http://testserver' + x[0]['slide_image']
@@ -81,7 +86,6 @@ class TestGameViewSet:
             x[0]['packages'][0]['platforms'][0]['icon'] = 'http://testserve' \
                 'r' + x[0]['packages'][0]['platforms'][0]['icon']
 
-            print(x[0].get(field), x[1].get(field))
             assert x[0] == x[1]
 
 
