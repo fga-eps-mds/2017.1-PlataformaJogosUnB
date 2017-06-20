@@ -15,6 +15,8 @@ module.exports = {
         filename: '[name].js',
     },
 
+    devtool:"#eval",
+
     plugins: [
         new BundleTracker({filename: './webpack-stats.json'}),
         new webpack.ProvidePlugin({

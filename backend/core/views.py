@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from game.models import Game
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):

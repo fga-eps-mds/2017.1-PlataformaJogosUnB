@@ -16,7 +16,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -111,7 +111,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
-
 )
 
 # Database
@@ -206,7 +205,6 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("core.factory", ("UserFactory")),
 ]
 
-# Social Authentication
-LOGIN_URL = 'admin:login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = '/oauth/login/facebook/'
+LOGOUT_URL = '/oauth/disconnect/facebook/'
 LOGIN_REDIRECT_URL = 'any'

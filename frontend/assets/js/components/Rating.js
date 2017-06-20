@@ -61,9 +61,9 @@ export default class Rating extends React.Component {
             vote:  vote,
             email_voter: 'youir@mail.com',
         });
-        
+
         var csrftoken = getCookie('csrftoken');
-        
+
         fetch(`/api/vote/${game_id}/`, {
             method: 'POST',
             credentials: 'same-origin',
@@ -72,7 +72,8 @@ export default class Rating extends React.Component {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken
             },
-            body: json_parser
+            body: json_parser,
+            redirect: 'follow'
         }).then((r) => {console.log(r); return r.json()})
           .then(this.getVoteCount)
           .catch((e) => { console.log(e)});

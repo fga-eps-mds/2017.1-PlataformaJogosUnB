@@ -5,14 +5,17 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.utils.decorators import method_decorator
 
 
 class VoteView(APIView):
 
     permission_classes = (permissions.AllowAny, )
 
-    # @login_required
+    @method_decorator(login_required)
     def post(self, request, pk=None):
+        print(request.user)
         information = get_object_or_404(Information, pk=pk)
         try:
             rating = Rating.objects.get(
@@ -26,8 +29,9 @@ class VoteView(APIView):
                         information=information)
         try:
             rating.save()
+#            logout(request)
             return Response({'status': 'Vote successfully done.'},
-                            status.HTTP_201_CREATED)
+                            status.HTTP_201_CREATED, template_name="game/index.html")
         except:
             return Response({'status': 'The vote could not be done.'},
                             status.HTTP_400_BAD_REQUEST)
@@ -38,4 +42,4 @@ class VoteView(APIView):
         vote_count['like'] = information.likes
         vote_count['dislike'] = information.dislikes
 
-        return Response(vote_count)
+        return Response(vote_count, template_name="game/index.html")
