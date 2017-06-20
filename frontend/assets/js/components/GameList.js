@@ -1,7 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Grid} from "semantic-ui-react";
+import {Grid, Container, Segment} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
+import GameItemList from "./cards/GameItemList";
 
 export default class GameList extends React.Component {
 
@@ -9,34 +10,73 @@ export default class GameList extends React.Component {
         if(this.props.games != nextProps.games){
             this.props = nextProps;
             this.getGameCards(this.props.games);
+            this.getGameList(this.props.games);
         }  else{
             return false;
         }
     }
 
     getGameCards(){
-        const gameCards = this.props.games.map((game) =>
+        const gamesCards = (this.props.games).map((game) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
-                    <GameCard data={game} />
+                    <GameCard game={game} reducePlatforms={this.reducePlatforms} />
                 </Link>
             </Grid.Column>
         );
-        if(gameCards.length > 0){
-            this.setState({ listCards: gameCards });
-        } else{
+        
+        return this.gamesIsEmpyt(gamesCards);
+    }
+
+    getGameList(){
+        const gamesList = (this.props.games).map((game) =>
+                <Segment inverted color='blue'>
+                    <Link to={`/games/${game.pk}/${game.name}`}
+                            params={{"id": game.pk}}>
+                        <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
+                    </Link>
+                </Segment>
+        );
+
+        return this.gamesIsEmpyt(gamesList);
+    }
+
+    reducePlatforms(packages){
+        let platforms = [];
+        if (packages !== undefined) {
+            platforms = _.reduce(packages, (platform, bpackage) => { 
+                const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
+                return platform.concat(platform_icons);
+            }, []);
+        }
+        return _.uniq(platforms);
+    }
+
+    gamesIsEmpyt(games){
+        if(games.length > 0){
+            return games;
+        } else {
             const info = <h1>Nenhum jogo encontrado</h1>;
-            this.setState({ listCards: info });
+            return info;
         }
     }
 
     render () {
-        return (
-            <Grid doubling columns={5}>
-                {this.state.listCards}
-            </Grid>
-        );
-
+        if(this.props.modeView) {
+            return (
+                <Container>
+                    <Grid doubling columns={4}>
+                        {this.getGameCards()}
+                    </Grid>
+                </Container>
+            );
+        } else { 
+            return (
+                <Container>
+                    {this.getGameList()}
+                </Container>
+            );
+        }
     }
 }
