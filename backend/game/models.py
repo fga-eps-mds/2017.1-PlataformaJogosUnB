@@ -10,6 +10,7 @@ from core.validators import (
 from media.utils import image_attribute_resize
 import game.validators as validators
 import os
+import functools
 
 
 class GameManager(models.Manager):
@@ -21,6 +22,10 @@ class GameManager(models.Manager):
 
 
 class Game(models.Model):
+
+    PACKAGE_SUM_QUERY = "SELECT SUM(game_package.downloads) FROM "\
+                        "game_package WHERE game_package.game_id = "\
+                        "game_game.id"
 
     name = models.CharField(
         _('Game Name'),
@@ -41,6 +46,8 @@ class Game(models.Model):
     )
     slide_image = fields.ImageField(null=True, blank=True)
     card_image = fields.ImageField(null=True, blank=True)
+
+    visualization = models.BigIntegerField(default=0)
 
     version = models.CharField(
         _('Game Version'),
@@ -65,6 +72,14 @@ class Game(models.Model):
     )
 
     objects = GameManager()
+
+    @property
+    def downloads(self):
+        packages = self.packages.all()
+        return functools.reduce(self.__count_packages__, packages, 0)
+
+    def __count_packages__(self, count, package):
+        return count + package.downloads
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -93,6 +108,13 @@ class Platform(models.Model):
         help_text=_(
             'Select the extension that will be accepted' +
             ' for the packages'),
+    )
+
+    kernel = models.CharField(
+        _('Kernel name'),
+        max_length=20,
+        help_text=_('Type the kernel of SO for this platform.' +
+                    ' Ex.: linux, unix, dos')
     )
 
     icon = fields.ImageField(
@@ -141,6 +163,16 @@ class Package(models.Model):
     platforms = models.ManyToManyField(
         Platform,
         related_name='platforms'
+    )
+
+    downloads = models.BigIntegerField(default=0)
+
+    architecture = models.CharField(
+        _('Architecture'),
+        max_length=40,
+        help_text=_('Indicate the name of architecture of package.' +
+                    ' Ex.: arm, x86, x32'
+                    ),
     )
 
     def fill_platforms(self):

@@ -15,6 +15,7 @@ class GameFactory(factory.DjangoModelFactory):
         width=204, height=234, color=faker.safe_color_name())
     version = factory.LazyAttribute(lambda x: "1.0")
     official_repository = factory.faker.Faker("url")
+    visualization = factory.faker.Faker('pyint')
     game_activated = True
 
 
@@ -27,6 +28,7 @@ class PlatformFactory(factory.DjangoModelFactory):
     name = factory.faker.Faker("word")
     extensions = factory.LazyAttribute(lambda x: "deb")
     icon = factory.django.ImageField(format="jpeg")
+    kernel = factory.faker.Faker("word")
 
 
 class PackageFactory(factory.DjangoModelFactory):
@@ -36,3 +38,5 @@ class PackageFactory(factory.DjangoModelFactory):
 
     package = factory.django.FileField(data=b'1' * 10, filename='package.deb')
     game = factory.SubFactory(GameFactory)
+    downloads = factory.faker.Faker('pyint')
+    architecture = factory.faker.Faker('word')

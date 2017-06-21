@@ -1,80 +1,53 @@
 import pytest
-from game.factory import PackageFactory, GameFactory
-from game.models import Platform  # Package
+from game.factory import PackageFactory, GameFactory, PlatformFactory
 from game.serializers import GameSerializer
-from information.models import Award, Credit, Information
-from media.models import Video, Soundtrack
-from media.factory import ImageFactory
-from game.choices import EXTENSION_CHOICES
-from media.choices import ROLE_CHOICES
+from information.factory import (
+    AwardFactory, CreditFactory, InformationFactory
+)
+from media.factory import ImageFactory, VideoFactory, SoundtrackFactory
 
 
 class TestGameSerializer:
 
     @pytest.fixture
     def game(self):
-        platform = Platform()
-        video_game = Video()
-        sound_game = Soundtrack()
-        award_game = Award()
-        credit = Credit()
-        information_game = Information()
+        credit = CreditFactory()
+        award_game = AwardFactory()
 
         game = GameFactory()
+        InformationFactory(
+            game=game, awards=[award_game], credits=[credit]
+        )
+
         ImageFactory(game=game)
-        package_game = PackageFactory.build(game=game)
+        PlatformFactory()
+        PackageFactory(game=game)
 
-        platform.name = 'Ubuntu'
-        platform.extensions = EXTENSION_CHOICES[0][0]
-        platform.icon = 'Platform/linux.png'
-        platform.save()
+        VideoFactory(game=game)
+        SoundtrackFactory(game=game)
 
-        package_game.save()
-        package_game.platforms.add(platform)
-
-        video_game.video = 'videos/exemplo.mp4'
-        video_game.role = ROLE_CHOICES[0][0]
-        video_game.game_id = game.id
-        video_game.save()
-
-        sound_game.soundtrack = 'soundtrack/exemplo.mp3'
-        sound_game.role = ROLE_CHOICES[0][0]
-        sound_game.game_id = game.id
-        sound_game.save()
-
-        award_game.name = 'Game of the year'
-        award_game.year = 2014
-        award_game.place = 'Conference game'
-        award_game.save()
-
-        credit.specialty = 'desenvolvedor'
-        credit.name = 'Credit 1'
-        credit.email = 'credito@gmail.com'
-        credit.github_page = 'http://github.com/credit'
-        credit.save()
-
-        information_game.description = 'This is a test game used to test the\
-        serializer of the model game.'
-        information_game.launch_year = 2013
-        information_game.semester = 1
-        information_game.game = game
-        information_game.save()
-        information_game.credits.add(credit)
-        information_game.awards.add(award_game)
         return game
 
     @pytest.mark.django_db
     def test_serialization_game_object(self, game):
         serialized_game = GameSerializer(game).data
-
-        assert serialized_game.get('name') == game.name
-
-        assert serialized_game.get('cover_image') == game.cover_image.url
-
-        assert serialized_game.get(
-            'official_repository') == game.official_repository
-
-        assert serialized_game.get('version') == game.version
+        game = {'name': game.name,
+                'cover_image': game.cover_image.url,
+                'official_repository': game.official_repository,
+                'version': game.version,
+                'slide_image': game.slide_image.url,
+                'card_image': game.card_image.url,
+                'visualization': game.visualization,
+                'game_activated': game.game_activated,
+                'pk': game.pk,
+                'downloads': game.downloads
+                }
+        serialized_game.pop('information')
+        serialized_game.pop('media_image')
+        serialized_game.pop('media_soundtrack')
+        serialized_game.pop('media_video')
+        serialized_game.pop('packages')
+        assert game == dict(serialized_game)
 
     @pytest.mark.django_db
     def test_serialization_medias_object(self, game):

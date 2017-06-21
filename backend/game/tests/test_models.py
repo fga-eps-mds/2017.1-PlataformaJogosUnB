@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from game.models import Game, Platform, Package
+from game.models import Game, Package
 from core.validators import PACKAGE_EXTENSION_ERROR
 from core.helper_test import (
     validation_test,
@@ -21,20 +21,12 @@ def platform():
     return PlatformFactory()
 
 
-class TestPackageModel:
-
-    @pytest.mark.django_db
-    def test_package(self):
-        PlatformFactory()
-        package = PackageFactory.build(game=GameFactory())
-        with patch("game.validators._get_size", return_value=1 + 1024**3):
-            validation_test(
-                package,
-                mount_error_dict(["package"], [[ErrorMessage.FILE_TOO_BIG]])
-            )
-
-
 class TestGame:
+
+    def test_game_sum_downloads(self):
+        assert Game.PACKAGE_SUM_QUERY == "SELECT SUM(game_package.downloads) "\
+                                         "FROM game_package WHERE game_packag"\
+                                         "e.game_id = game_game.id"
 
     @pytest.fixture
     def package(self):
@@ -71,14 +63,30 @@ class TestGame:
 class TestPlatform:
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize('name, icon, extensions, errors_dict', [
-        ('platform_name', 'test_image.ppm', 'deb',
+    @pytest.mark.parametrize('icon, errors_dict', [
+        ('test_image.ppm',
          mount_error_dict(['icon'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('platform_name', 'test_image.py', 'deb',
+        ('test_image.py',
          mount_error_dict(['icon'], [[ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
-    def test_icon_extension(self, name, icon, extensions, errors_dict):
-        platform = Platform(name=name, icon=icon, extensions=extensions)
+    def test_icon_extension(self, icon, errors_dict):
+        platform = PlatformFactory.build(icon=icon)
+        validation_test(platform, errors_dict)
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize('field, value, errors_dict', [
+        ('kernel', '',
+         mount_error_dict(['kernel'], [[ErrorMessage.BLANK]])),
+        ('kernel', None,
+         mount_error_dict(['kernel'], [[ErrorMessage.NULL]])),
+        ('name', '',
+         mount_error_dict(['name'], [[ErrorMessage.BLANK]])),
+        ('name', None,
+         mount_error_dict(['name'], [[ErrorMessage.NULL]])),
+    ])
+    def test_field_validation(self, field, value, errors_dict):
+        platform = PlatformFactory.build()
+        setattr(platform, field, value)
         validation_test(platform, errors_dict)
 
     def test_str(self):
@@ -137,3 +145,31 @@ class TestPackage:
     def test_package_str(self, platform):
         package = PackageFactory()
         assert str(package) == "{} (.deb)".format(package.game.name)
+
+    @pytest.mark.django_db
+    def test_package(self, platform):
+        package = PackageFactory.build(game=GameFactory())
+        with patch("game.validators._get_size", return_value=1 + 5 * 1024**3):
+            validation_test(
+                package,
+                mount_error_dict(["package"], [[ErrorMessage.FILE_TOO_BIG]])
+            )
+
+    ERROR_MESSAGE = 'Certifique-se de que o valor tenha no máximo 40 caract' \
+        'eres (ele possui 41).'
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize('architecture, errors_dict', [
+        ('', mount_error_dict(['architecture'], [[ErrorMessage.BLANK]])),
+        (None,
+         mount_error_dict(['architecture'],
+                          [[ErrorMessage.NULL]])),
+        ('a' * 41,
+         mount_error_dict(['architecture'],
+                          [[ERROR_MESSAGE]])),
+    ])
+    def test_architecture_validation(self, architecture,
+                                     errors_dict, platform):
+        package = PackageFactory.build(architecture=architecture,
+                                       game=GameFactory())
+        validation_test(package, errors_dict)

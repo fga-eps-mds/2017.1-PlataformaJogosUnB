@@ -1,5 +1,7 @@
 import pytest
-from game.serializers import GameSerializer, PlatformSerializer
+from game.serializers import (
+    GameSerializer, PlatformSerializer, PackageSerializer
+)
 from game.factory import GameFactory, PlatformFactory, PackageFactory
 from game.models import Game, Package, Platform
 from information.models import Information
@@ -7,9 +9,6 @@ import json
 import base64
 import os
 from core.settings import MEDIA_ROOT
-
-
-from game.views import GameViewSet
 
 
 @pytest.fixture
@@ -23,6 +22,11 @@ def platform():
     return PlatformFactory()
 
 
+@pytest.fixture
+def batch_games_packages(platform):
+    return [pack.game for pack in PackageFactory.create_batch(6)]
+
+
 class TestGameViewSet:
 
     @pytest.mark.django_db
@@ -31,8 +35,9 @@ class TestGameViewSet:
         GameFactory(game_activated=False)
 
         gameList = Game.objects.exclude(game_activated=False)
+        response = client.get('/api/games/')
 
-        assert gameList.count() == GameViewSet.queryset.count()
+        assert gameList.count() == len(response.data)
 
     @pytest.mark.django_db
     def test_game_list_json(self, client, game):
@@ -50,7 +55,7 @@ class TestGameViewSet:
 
     @pytest.mark.django_db
     def test_game_detail_json(self, client, game):
-        response = client.get("/api/games/{}.json".format(game.pk))
+        response = client.get("/api/games/{}/".format(game.pk))
         assert response.status_code == 200
         assert response.get("Content-Type") == 'application/json'
         data = GameSerializer(game).data
@@ -58,6 +63,42 @@ class TestGameViewSet:
         data['slide_image'] = 'http://testserver' + data['slide_image']
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
+
+    @pytest.mark.django_db
+    def test_game_visualization(self, client, game):
+        client.get("/api/games/{}/".format(game.pk))
+        updated_game = Game.objects.get(pk=game.pk)
+        assert updated_game.visualization == game.visualization + 1
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize('field, fantasy_field',
+                             [('visualization', 'visualization'),
+                              ('downloads', 'downloads_count')])
+    def test_game_order(self, client, batch_games_packages, field,
+                        fantasy_field):
+        response = client.get('/api/games/?ordering=-{}'.format(fantasy_field))
+        batch_games_packages.sort(key=lambda x: -getattr(x, field))
+        game_serial = GameSerializer(batch_games_packages, many=True)
+        for x in zip(game_serial.data, response.data):
+            x[0]['cover_image'] = 'http://testserver' + x[0]['cover_image']
+            x[0]['slide_image'] = 'http://testserver' + x[0]['slide_image']
+            x[0]['card_image'] = 'http://testserver' + x[0]['card_image']
+            x[0]['packages'][0]['package'] = 'http://testserver' + \
+                x[0]['packages'][0]['package']
+            x[0]['packages'][0]['platforms'][0]['icon'] = 'http://testserve' \
+                'r' + x[0]['packages'][0]['platforms'][0]['icon']
+
+            assert x[0] == x[1]
+
+    @pytest.mark.django_db
+    def test_game_platforms(self, client, game, platform):
+        packages = PackageFactory.create_batch(1, game=game)
+        response = client.get("/api/games/{}/platforms/".format(game.pk))
+        packages = PackageSerializer(packages, many=True).data
+        for pack in packages:
+            pack['platforms'] = ' / '.join(
+                [p.get('name') for p in pack['platforms']])
+        assert response.data == {platform.kernel: packages}
 
 
 class TestViewGamePost:
@@ -130,14 +171,15 @@ class TestViewGamePost:
         assert last is not None
 
 
-class TestPackageApiSave:
+class TestPackageApi:
 
     @pytest.mark.django_db
     def test_package_save(self, admin_client, game, platform):
         pack = PackageFactory.build().package
         response = admin_client.post('/api/packages/', {
             'package': pack.file,
-            'game_id': game.pk
+            'game_id': game.pk,
+            'architecture': 'x86'
         }, format='multipart')
 
         assert 200 <= response.status_code < 300
@@ -168,3 +210,13 @@ class TestPlatformViewList:
         for platform in platforms:
             platform['icon'] = base + platform['icon']
         assert platforms == response_list.data
+
+    @pytest.mark.django_db
+    def test_package_downloads(self, client, game, platform):
+        package = PackageFactory(game=game)
+        respons = client.post("/api/packages/{}/downloads/".format(package.pk))
+        print(respons.data)
+        assert 200 <= respons.status_code < 300
+        assert respons.data == {'update': 'downloads count increase'}
+        downloads = Package.objects.get(pk=package.pk).downloads
+        assert downloads == package.downloads + 1

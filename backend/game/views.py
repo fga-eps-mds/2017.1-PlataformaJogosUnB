@@ -1,39 +1,80 @@
-from game.models import Game, Platform
-from game.serializers import (
-    GameSerializer,
-    PackageSerializer,
-)
-from game.serializers import PlatformSerializer
-from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.decorators import detail_route
-from rest_framework.permissions import AllowAny
-from game.utils.issue_handler import IssueHandler
-from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from game.models import Game, Package, Platform
+from django.shortcuts import get_object_or_404
+from game.serializers import (
+    GameSerializer, PackageSerializer, PlatformSerializer
+)
+from game.utils.issue_handler import IssueHandler
+from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import (
+    detail_route, api_view, permission_classes
+)
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
+    ordering_fields = ('visualization', 'name', 'downloads_count')
+
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        response = super().retrieve(request, pk, *args, **kwargs)
+        game = self.queryset.last()
+        game.visualization += 1
+        game.save()
+        return response
 
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):
         game = get_object_or_404(self.queryset, pk=pk)
         form_data = request.data
 
-        if request.method == 'POST':
-            title = form_data['title']
-            description = form_data['description']
-            official_repository = game.official_repository
+        title = form_data['title']
+        description = form_data['description']
+        official_repository = game.official_repository
 
-            issue_handler = IssueHandler()
-            issue_handler.submit_issue(title, description,
-                                       official_repository)
+        issue_handler = IssueHandler()
+        issue_handler.submit_issue(title, description,
+                                   official_repository)
 
-            return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
+
+    @detail_route(methods=["GET"])
+    def platforms(self, request, pk=None):
+
+        platforms = Platform.objects.filter(
+            platforms__game_id=pk
+        ).values_list('kernel').distinct()
+
+        groups = {}
+
+        # Platform is a tuple of values by value_list (kernel, )
+
+        for key in platforms:
+            key = key[0]
+            pac = Package.objects.filter(game_id=pk, platforms__kernel=key)
+            groups[key] = PackageSerializer(pac, many=True).data
+            for package in groups[key]:
+                package['platforms'] = ' / '.join(
+                    [plat.get('name') for plat in package['platforms']]
+                )
+        return Response(groups)
+
+    def get_queryset(self):
+        queryset = Game.objects.filter(game_activated=True)
+        ordering = self.request.query_params.get('ordering', '?')
+        self.ordering_fields += tuple(['-' + x for x in self.ordering_fields])
+        if ordering in self.ordering_fields:
+            queryset = queryset.extra(select={
+                'downloads_count': Game.PACKAGE_SUM_QUERY
+            }).order_by(ordering)
+        else:
+            queryset = queryset.order_by(ordering)
+
+        self.queryset = queryset
+        return queryset
 
     @detail_route(methods=["GET"])
     def filter(self, request, pk=None):
@@ -59,3 +100,12 @@ class PlatformViewList(generics.ListAPIView):
     queryset = Platform.objects.all()
     serializer_class = PlatformSerializer
     permission_class = (AllowAny)
+
+
+@api_view(["POST"])
+@permission_classes((AllowAny, ))
+def downloads(request, pk=None):
+    package = get_object_or_404(Package, pk=pk)
+    package.downloads += 1
+    package.save()
+    return Response({'update': 'downloads count increase'})

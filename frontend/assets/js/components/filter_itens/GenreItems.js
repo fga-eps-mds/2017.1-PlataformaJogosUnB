@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 
@@ -36,8 +36,8 @@ export default class GenreItems extends React.Component{
         if(typeof this.state.genres === "undefined"){
             return false
         }
-        const gameGenresItems = this.state.genres.map((genre) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(genre.name, e)}>
+        const gameGenresItems = this.state.genres.map((genre, i) =>
+                <Dropdown.Item key={i} onClick={(e) => this.handleClick(genre.name, e)}>
                     {genre.name}
                 </Dropdown.Item>
         );
@@ -57,4 +57,8 @@ export default class GenreItems extends React.Component{
             </Dropdown>
         );
     }
+}
+
+GenreItems.propTypes = {
+  callbackParent: PropTypes.func.isRequired
 }
