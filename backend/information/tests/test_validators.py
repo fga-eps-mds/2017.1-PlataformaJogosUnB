@@ -9,6 +9,7 @@ import pytest
 
 
 class TimeMock(datetime):
+
     @classmethod
     def now(self):
         class Year:

@@ -1,17 +1,21 @@
-import React from 'react';
-import {Card, Container, Grid} from "semantic-ui-react";
-import GameInformationCard from '../components/cards/GameInformationCard';
-import DevelopersCard from '../components/cards/DevelopersCard';
-import DescriptionCard from '../components/cards/DescriptionCard';
-import PackageCard from  '../components/cards/PackageCard';
+import React, {PropTypes} from "react";
+import { Card, Grid, Container, Button, Icon } from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
-import Rating from '../components/Rating';
-import Share from '../components/Share';
-import SegmentTitle from "../layout/SegmentTitle";
+import GameInformationCard from '../components/cards/GameInformationCard';
+import DescriptionCard from '../components/cards/DescriptionCard';
+import DevelopersCard from '../components/cards/DevelopersCard';
+import PackageCard from '../components/cards/PackageCard';
 import Comment from '../components/Comment';
+import ReportBugForm from '../components/forms/ReportBugForm.js';
+import SegmentTitle from "../layout/SegmentTitle";
+import Rating from '../components/Rating';
+
+const reportBugButtonStyle = {
+      "float": "right",
+};
 
 export default class GamePage extends React.Component{
-     constructor (props) {
+    constructor (props) {
 
         super(props);
         this.state = {
@@ -25,20 +29,24 @@ export default class GamePage extends React.Component{
                 }
             }
         };
-        console.log("Props GamePage", this.props);
+        this.getFields = this.getFields.bind()
+    }
 
+    getFields (title,value) {
+        if (value != null) {
+            return <p><strong>{title}</strong>{value}</p>;
+        }
+        return null;
     }
 
   loadGameFromServer(){
-    console.log(this.props);
     const id = this.props.match.params.id;
 
-    console.log(id)
-        fetch("/api/detail/"+id+"/",
+        fetch("/api/games/"+id+"/",
               {
                 headers: new Headers({ "Content-Type": "application/json", "Accept": "application/json"}),
                 method: "GET",
-              })
+            })
         .then((response) => {
              return response.json();
             })
@@ -51,11 +59,11 @@ export default class GamePage extends React.Component{
   }
 
   componentDidMount() {
-        this.loadGameFromServer();
+    this.loadGameFromServer();
   }
 
   render(){
-    const id = this.props.match.params.id;
+  const id = this.props.match.params.id;
 
     return (
         <Container>
@@ -64,12 +72,8 @@ export default class GamePage extends React.Component{
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <InternalSlide
-                            data={this.state.game}
+                            media_image={this.state.game.media_image}
                         />
-                        <Rating
-                            pk={id}
-                        />
-                        <Share />
                     </Grid.Column>
 
                     <Grid.Column width={6}>
@@ -79,7 +83,27 @@ export default class GamePage extends React.Component{
                             official_repository={this.state.game.official_repository}
                             launch_year={this.state.game.information.launch_year}
                             genres={this.state.game.information.genres}
+                            getFields={this.getFields}
                         />
+                      <div style={reportBugButtonStyle}>
+                         <ReportBugForm
+                           button={
+                             <Button animated="vertical" color="red">
+                               <Button.Content hidden>Reportar bug</Button.Content>
+                               <Button.Content visible>
+                                 <Icon name="shop" />
+                               </Button.Content>
+                             </Button>
+                           } 
+                           game_pk={this.state.game.pk}
+                         />
+                      </div>
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Rating game={this.state.game.information.pk} />
                     </Grid.Column>
                 </Grid.Row>
 
@@ -88,16 +112,17 @@ export default class GamePage extends React.Component{
                         <DescriptionCard
                             description={this.state.game.information.description}
                             awards={this.state.game.information.awards}
+                            getFields={this.getFields}
                         />
                     </Grid.Column>
 
                     <Grid.Column width={6}>    
                         <PackageCard
-                            
+                            packages={this.state.game.packages}
                         />
                     </Grid.Column>
                 </Grid.Row>
-                
+
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <Card fluid>
@@ -106,7 +131,7 @@ export default class GamePage extends React.Component{
                             </Card.Content>
                         </Card>
                     </Grid.Column>
-                    <Grid.Column width={6}>    
+                    <Grid.Column width={6}>
                             <DevelopersCard
                                 developers={this.state.game.information.developers}
                             />
@@ -116,4 +141,8 @@ export default class GamePage extends React.Component{
         </Container>
     );
   }
+}
+
+GamePage.propTypes = {
+    match: PropTypes.object.isRequired,
 }

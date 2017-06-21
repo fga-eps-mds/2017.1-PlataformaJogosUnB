@@ -3,10 +3,22 @@ const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractLess = new ExtractTextPlugin('stylesheet/[name]_less.css');
+const extractCss = new ExtractTextPlugin({
+    filename: "stylesheet/[name].css",
+    disable: process.env.NODE_ENV === "development"
+});
+const extractSass = new ExtractTextPlugin({
+    filename: "stylesheet/[name]_sass.css",
+    disable: process.env.NODE_ENV === "development"
+});
+const extractLess = new ExtractTextPlugin({
+    filename: "stylesheet/[name]_less.css",
+    disable: process.env.NODE_ENV === "development"
+});
 
 module.exports = {
     context: __dirname,
+    devtool: "#eval",
 
     entry: './assets/js/App', 
 
@@ -30,7 +42,9 @@ module.exports = {
                   'appId': JSON.stringify('1850394608544081')
             }
         }),
-        extractLess
+        extractLess,
+        extractSass,
+        extractCss
     ],
 
     module: {
@@ -55,7 +69,25 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [
                         { loader: 'css-loader' },
-                        { loader: 'less-loader' }
+                        { loader: 'less-loader' },
+                    ]
+                }),
+            }, {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader' },
+                        { loader: 'sass-loader' }
+                    ]
+                }),
+            }, {
+                test: /\.css$/,
+                use: extractCss.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader' },
+                        { loader: 'sass-loader' }
                     ]
                 }),
             }, {
@@ -63,23 +95,18 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 10240,
-                        absolute: true,
                         name: 'images/[path][name]-[hash:7].[ext]'
                     }
                 },
-                include: [path.join(__dirname, 'public'), /[\/\\]node_modules[\/\\]semantic-ui-less[\/\\]/]
             }, {
                 test: /\.(woff|woff2|ttf|svg|eot)$/,
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 10240,
                         name: 'fonts/[name]-[hash:7].[ext]'
                     }
                 },
-                include: [path.join(__dirname, 'public'), /[\/\\]node_modules[\/\\]semantic-ui-less[\/\\]/]
-            }
+            },
         ],
     },
 };

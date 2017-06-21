@@ -1,7 +1,8 @@
 from django.conf.urls import url
-from rest_framework import routers
-from information.views import VoteView
+from information.views import VoteView, GenreViewList
+
 
 urlpatterns = [
+    url(r'^genres/$', GenreViewList.as_view()),
     url(r'^vote/(?P<pk>\d+)/$', VoteView.as_view())
 ]

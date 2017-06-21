@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component, PropTypes} from 'react';
 import FacebookProvider, { Comments } from 'react-facebook';
 
 export default class Comment extends Component {
@@ -11,4 +11,8 @@ export default class Comment extends Component {
       </div>
       );
     }
+}
+
+Comment.propTypes = {
+    url: PropTypes.string.isRequired,
 }

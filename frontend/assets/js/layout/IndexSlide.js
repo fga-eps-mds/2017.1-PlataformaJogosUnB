@@ -1,20 +1,36 @@
-import "style-loader!css-loader!sass-loader!react-image-gallery/styles/scss/image-gallery.scss";
-
+import Slider from 'react-slick';
 import React from "react";
-import InfiniteCarousel from "react-leaf-carousel";
+import {Card,Label,Icon} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
+require("react-image-gallery/styles/scss/image-gallery.scss");
+import {gameListApi} from '../resource/GameApi';
 
 const imageStyle = {
-    "bottom": 0,
     "height": "100%",
-    "left": 0,
-    "margin": "auto",
-    "position": "absolute",
-    "right": 0,
-    "top": 0,
+    "width":"70%",
+    "float":"left"
 }, carouselImageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
+    "margin":10,
+}, cardStyle = {
+    "float":"right",
+    "height":400,
+    "width":"30%" 
+},
+sliderStyle = {
+    "position":"relative",
+    "height":400,
+    "width":1110
+},
+textStyle = {
+    "textAlign":"justify",
+    "top":"42%",
+    "position":"absolute",
+    "fontSize":"200%"
 };
 
 export default class IndexSlider extends React.Component {
@@ -28,68 +44,74 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-        this.loadGameFromServer();
+      gameListApi((games) => { this.setState({games}) });
 
     }
-
-    loadGameFromServer () {
-
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                }),
-                "method": "GET"
-            }).
-          then((response) => response.json()).
-          then((games) => {
-
-              this.setState({games});
-
-          });
-
-    }
-
-    
 
     render () {
-		const images = this.mountImages();
-        if(images.length){
-        return (
+        const images = this.mountImages();
 
-                <InfiniteCarousel
-  
-                    autoCycle={true}
-                    cycleInterval={4200}
-                    showSides={false}
-                    sidesOpacity={.5}
-                    slidesToScroll={1}
-                    slidesToShow={1}
-                    scrollOnDevice={true}
-    
-                >	{images}
-                </InfiniteCarousel>
+        var settings = {
+            dots: true,
+            infinite: true,
+            autoplay: true,
+            autoPlaySpeed: 4200,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            initialSlide:1
+        };
+
+
+        if(images.length){
+            return (<div style={carouselImageStyle}>
+                <Slider {...settings}>{images}
+                </Slider></div>
             );
-        }else{
+        } else {
             return <img/>
         }
     }
-    
+
+    getGenreByGame(id){
+        
+
+        return this.state.games[id].information.genres.map((genre) =>{
+                    return (<Label color='teal'>
+                               {genre.name}
+                            </Label>);})
+    }
 
     mountImages(){
-       const images = [], imagesSlide = 4;
+       const images = [], imagesSlide = 9;
 
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
-            const image =
-                   (<div style={carouselImageStyle}>
-                            <img 
-                               src={this.state.games[idx].slide_image} 
-                               style={imageStyle} />
-                        </div>)
+
+            var image =
+                (<div style={sliderStyle}>  
+                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}                
+                    >
+
+                        <img
+                           src={this.state.games[idx].slide_image} style={imageStyle}
+                        />
+       
+                        <div style={cardStyle}>
+                            <Card fluid style={{height:400}}>
+                                <Card.Content>
+                                    <Card.Header style={textStyle}>{this.state.games[idx].name}</Card.Header>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    {this.getGenreByGame(idx)}
+                                </Card.Content> 
+                                <Card.Content extra>
+                                    <Icon bordered className="linux" />Linux > Windows</Card.Content>
+                            </Card>
+                        </div> 
+                    </Link>
+                </div>)
            images.push(image);
-        
         }
+
         return images;
     }
 

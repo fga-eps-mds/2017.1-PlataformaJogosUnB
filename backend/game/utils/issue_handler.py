@@ -5,9 +5,9 @@ import re
 
 class IssueHandler:
 
-    def submit_issue(self, title, description, label, official_repository):
+    def submit_issue(self, title, description, official_repository):
         session = self.get_session()
-        issue = self.create_issue(title, description, label)
+        issue = self.create_issue(title, description)
         url = self.create_url(official_repository)
 
         response = session.post(url, json.dumps(issue))
@@ -24,20 +24,18 @@ class IssueHandler:
         repo_owner = match_object.group(1)
         repo_name = match_object.group(2)
 
-        url = 'https://api.github.com/repos/{0}/{1}/issues', format(repo_owner,
+        url = 'https://api.github.com/repos/{0}/{1}/issues' .format(repo_owner,
                                                                     repo_name)
         return url
 
-    def create_issue(self, title, description, label):
+    def create_issue(self, title, description):
         issue = {'title': title,
-                 'body': description,
-                 'milestone': None,
-                 'labels': [label]}
+                 'body': description}
 
         return issue
 
     def get_repo_owner_and_repo_name(self, official_repository):
-        match_object = re.search('https://github.com/(.+)/(.+)',
+        match_object = re.search('https://github.com/(.+)/([^/]+)',
                                  official_repository)
         return match_object
 

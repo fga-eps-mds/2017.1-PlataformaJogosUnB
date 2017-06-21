@@ -127,8 +127,8 @@ class Rating(models.Model):
     )
 
     information = models.ForeignKey(
-	'Information',
-	on_delete=models.CASCADE,
+        'Information',
+        on_delete=models.CASCADE,
     )
 
     def save(self, *args, **kwargs):
@@ -136,10 +136,11 @@ class Rating(models.Model):
         super(Rating, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0}: {1}".format(self.email_voter,self.vote)
+        return "{0}: {1}".format(self.email_voter, self.vote)
 
     class Meta:
-        unique_together = ("email_voter","information")
+        unique_together = ("email_voter", "information")
+
 
 class Information(models.Model):
 
@@ -207,7 +208,6 @@ class Information(models.Model):
     def likes(self):
         return Rating.objects.filter(vote=True, information=self).count()
 
-
     @property
     def dislikes(self):
         return Rating.objects.filter(vote=False, information=self).count()
@@ -227,4 +227,3 @@ class Statistic(models.Model):
 
     def __str__(self):
         return "statistic: {0}".format(self.accesses_amount)
-

@@ -67,27 +67,6 @@ class Game(models.Model):
             return "{0} v{1}".format(self.name,
                                      self.version)
 
-    def fetch_media(self, media, role):
-        return getattr(self, 'media_' + media).filter(role=role)
-
-    def get_image_url(self, role, atribute, many):
-        images_game = self.fetch_media('image', role)
-        if many:
-            images_urls = []
-            for image in images_game.all():
-                url = image.image.url
-                images_urls.append(url)
-            setattr(self, atribute, images_urls)
-        elif len(images_game) > 0:
-            image = images_game.first().image
-            setattr(self, atribute, image.url)
-        else:
-            setattr(self, atribute, "")
-
-    def fetch_package(self):
-        packages_game = self.packages.all()
-        setattr(self, 'package', packages_game)
-
 
 class Platform(models.Model):
 
@@ -123,9 +102,15 @@ class Platform(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Platform, self).save(*args, **kwargs)
+        self.update_relationships()
 
     def __str__(self):
         return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
+
+    def update_relationships(self):
+        for package in Package.objects.filter(
+                platforms__extensions=self.extensions):
+            package.platforms.add(self)
 
 
 class Package(models.Model):
@@ -135,7 +120,7 @@ class Package(models.Model):
         upload_to='packages/',
         validators=[validators.validate_package_size,
                     validators.package_extension_validator],
-        help_text=('Choose the game\'s package')
+        help_text=_('Choose the game\'s package')
     )
 
     game = models.ForeignKey(
@@ -165,14 +150,7 @@ class Package(models.Model):
         self.fill_platforms()
 
     def __str__(self):
-        text = ("Invalid package." +
-                " There aren't registered platforms" +
-                " able to play it")
-
-        if self.platforms.count():
-            text = '{0} (.{1})'.format(
-                self.game.name,
-                self.platforms.first().extensions.title().lower()
-            )
-
-        return text
+        return '{0} ({1})'.format(
+            self.game.name,
+            os.path.splitext(self.package.name)[1]
+        )

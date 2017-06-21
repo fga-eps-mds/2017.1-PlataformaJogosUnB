@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Container, Grid, Header, Menu, Segment, Sidebar} from "semantic-ui-react";
 import SearchBox from '../components/SearchBox'
-import bars from '../../../public/bundles/images/bars.png'
+import {Container, Grid, Header, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
+import bars from '../../../public/bundles/images/icons/bars.png'
 
 export default class MenuComponent extends React.Component {
 
@@ -14,6 +14,7 @@ export default class MenuComponent extends React.Component {
             "visible": false
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
+
 
     }
 

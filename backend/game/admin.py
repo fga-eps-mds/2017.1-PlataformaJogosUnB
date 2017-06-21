@@ -36,7 +36,6 @@ class PackageInline(admin.StackedInline):
     exclude = ['platforms']
     extra = 0
     min_num = 1
-    max_num = len(EXTENSION_CHOICES)
 
 
 class PlatformsInline(admin.StackedInline):

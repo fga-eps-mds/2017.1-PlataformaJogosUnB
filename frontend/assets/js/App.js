@@ -6,8 +6,6 @@ import {BrowserRouter} from "react-router-dom";
 import "../../public/semantic/semantic";
 import "../../public/semantic/semantic.less";
 
-
-
 class App extends React.Component {
     render () {
 

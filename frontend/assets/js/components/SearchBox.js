@@ -1,19 +1,20 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Search, Grid } from 'semantic-ui-react'
+import {gameListApi} from '../resource/GameApi';
 
 export default class SearchBox extends Component {
-    loadGameFromServer () {
-        fetch("/api/list/",
-            {
-                "headers": new Headers({
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                }),
-                "method": "GET"
-            }).
-        then((response) => response.json()).
-        then((games) => {
+
+    constructor(props) {
+        super(props);
+        this.resetComponent = this.resetComponent.bind(this)
+        this.handleResultSelect = this.handleResultSelect.bind(this)
+        this.handleSearchChange = this.handleSearchChange.bind(this)
+    }
+
+    componentWillMount() {
+
+      gameListApi((games) => {
             var listGame = games.map((game) => ({
                 gamePk: game.pk,
                 title: game.name,
@@ -24,17 +25,6 @@ export default class SearchBox extends Component {
             }));
             this.setState({listGame});
         });
-    }
-
-    constructor(props) {
-        super(props);
-        this.resetComponent = this.resetComponent.bind(this)
-        this.handleResultSelect = this.handleResultSelect.bind(this)
-        this.handleSearchChange = this.handleSearchChange.bind(this)
-    }
-
-    componentWillMount() {
-        this.loadGameFromServer()
         this.resetComponent()
     }
 
@@ -44,7 +34,7 @@ export default class SearchBox extends Component {
 
     handleResultSelect(e, result) {
         this.setState({ value: result.title })
-        window.location = `/games/${result.gamePk}`;
+        window.location = `/games/${result.gamePk}/${result.title}`;
     }
 
     handleSearchChange(e, value) {
@@ -79,7 +69,7 @@ export default class SearchBox extends Component {
     }
 
     render() {
-        const { isLoading, value, results, firstFiveGames } = this.state
+        const { isLoading, value, firstFiveGames } = this.state
 
         return (
             <Grid>
