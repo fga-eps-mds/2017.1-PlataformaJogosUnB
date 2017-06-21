@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from game.choices import EXTENSION_CHOICES
+from game.choices import EXTENSION_CHOICES, ARCHITECTURE_CHOICES
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
@@ -170,6 +170,8 @@ class Package(models.Model):
     architecture = models.CharField(
         _('Architecture'),
         max_length=40,
+        choices=ARCHITECTURE_CHOICES,
+        default=ARCHITECTURE_CHOICES[0][0],
         help_text=_('Indicate the name of architecture of package.' +
                     ' Ex.: arm, x86, x32'
                     ),
