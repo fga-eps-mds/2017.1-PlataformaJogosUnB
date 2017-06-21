@@ -1,7 +1,8 @@
 import React from "react";
+import IndexSlide from "../layout/IndexSlide";
+import GameList from "../components/GameList";
 import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu} from "semantic-ui-react";
-import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
@@ -32,6 +33,7 @@ export default class GamesPage extends React.Component {
     render () {
 
         return (
+            <div>
             <Container>
                 <Grid>
                     <Grid.Row>
@@ -57,6 +59,7 @@ export default class GamesPage extends React.Component {
                     </Grid.Row>
                 </Grid>
             </Container>
+            </div>
         );
 
     }

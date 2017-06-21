@@ -125,6 +125,7 @@ class TestViewGamePost:
                                      data=json.dumps(game_serial),
                                      content_type="application/json",
                                      format="multipart")
+        print(response.data)
         assert 200 <= response.status_code < 300
         last = Information.objects.last()
         assert last is not None

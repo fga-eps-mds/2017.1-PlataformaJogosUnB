@@ -29,17 +29,21 @@ class InformationSerializer(serializers.ModelSerializer):
     awards = AwardSerializer(many=True, required=False)
     genres = GenreSerializer(many=True, required=False)
     game_id = serializers.IntegerField(write_only=True)
+    likes = serializers.ReadOnlyField()
+    dislikes = serializers.ReadOnlyField()
 
     class Meta:
         model = Information
-        fields = ['description',
-                  'launch_year',
-                  'semester',
-                  'developers',
-                  'awards',
-                  'genres',
-                  'game_id',
-                  ]
+        fields = [
+            'description',
+            'launch_year',
+            'semester',
+            'developers',
+            'awards',
+            'genres',
+            'game_id',
+            'likes',
+            'dislikes']
 
     def create(self, validated_data):
         '''

@@ -114,6 +114,34 @@ class Genre(models.Model):
         return self.name
 
 
+class Rating(models.Model):
+
+    vote = models.BooleanField(
+        _('Like or dislike some game.'),
+        help_text=_('Votes of the game.')
+    )
+
+    email_voter = models.EmailField(
+        _('Email voter'),
+        help_text=_('Email that authentic users.'),
+    )
+
+    information = models.ForeignKey(
+        'Information',
+        on_delete=models.CASCADE,
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Rating, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}: {1}".format(self.email_voter, self.vote)
+
+    class Meta:
+        unique_together = ("email_voter", "information")
+
+
 class Information(models.Model):
 
     description = models.TextField(
@@ -175,6 +203,14 @@ class Information(models.Model):
             self.game.name,
             self.description[0:min_value]
         )
+
+    @property
+    def likes(self):
+        return Rating.objects.filter(vote=True, information=self).count()
+
+    @property
+    def dislikes(self):
+        return Rating.objects.filter(vote=False, information=self).count()
 
 
 class Statistic(models.Model):

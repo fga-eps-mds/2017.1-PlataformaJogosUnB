@@ -5,9 +5,11 @@ import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import PackageCard from '../components/cards/PackageCard';
-import Comment from '../components/Comments';
+import Comment from '../components/Comment';
 import ReportBugForm from '../components/forms/ReportBugForm.js';
 import SegmentTitle from "../layout/SegmentTitle";
+import Rating from '../components/Rating';
+import Share from '../components/Share';
 
 const reportBugButtonStyle = {
       "float": "right",
@@ -101,6 +103,9 @@ export default class GamePage extends React.Component{
                 </Grid.Row>
 
                 <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Share />
+                    </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
