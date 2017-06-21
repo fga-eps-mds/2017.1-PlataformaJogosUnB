@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import GameCard from "../components/cards/GameCard";
 import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
@@ -24,7 +24,7 @@ export default class GenreSlide extends React.Component {
 
   componentWillMount () {
 
-      dataListApi("/api/games/", (games) => { this.setState({games}) });
+      dataListApi(this.props.url, (games) => { this.setState({games}) });
 
   }
 
@@ -89,4 +89,7 @@ export default class GenreSlide extends React.Component {
     return gameCards;
 
   }
+}
+GenreSlide.propTypes = {
+  url: PropTypes.string.isRequired
 }

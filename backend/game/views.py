@@ -64,13 +64,14 @@ class GameViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Game.objects.filter(game_activated=True)
-        ordering = self.request.query_params.get('ordering', None)
+        ordering = self.request.query_params.get('ordering', '?')
         self.ordering_fields += tuple(['-' + x for x in self.ordering_fields])
-        if ordering and ordering in self.ordering_fields:
-            print(ordering, self.ordering_fields)
+        if ordering in self.ordering_fields:
             queryset = queryset.extra(select={
                 'downloads_count': Game.PACKAGE_SUM_QUERY
             }).order_by(ordering)
+        else:
+            queryset = queryset.order_by(ordering)
 
         self.queryset = queryset
         return queryset
