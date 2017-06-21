@@ -40,7 +40,6 @@ class GameViewSet(viewsets.ModelViewSet):
 
             return HttpResponseRedirect('/')
 
-
     @detail_route(methods=["GET"])
     def games_list(self, request, pk=None):
         platforms = request.query_params['platforms'].split()
@@ -73,7 +72,7 @@ class GameViewSet(viewsets.ModelViewSet):
         list_games = GameSerializer(games.object_list, many=True).data
         paginated = {
             "games": list_games,
-            "info":{
+            "info": {
                 "range_start": interval_range[0],
                 "range_end": interval_range[1],
                 "num_pages": paginator.num_pages,
@@ -101,7 +100,7 @@ class GameViewSet(viewsets.ModelViewSet):
             range_start = 1
 
         return (range_start, range_end)
-        
+
     def _filter(self, platforms, genres, sort_by):
         ffilter = self._mount_filter("packages__platforms__name", platforms)
         ffilter &= self._mount_filter("information__genres__name", genres)
@@ -120,7 +119,6 @@ class GameViewSet(viewsets.ModelViewSet):
         if option != '':
             return object_list.order_by(option)
         return object_list.order_by()
-
 
 
 class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):

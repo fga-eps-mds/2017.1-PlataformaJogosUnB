@@ -59,6 +59,17 @@ class TestGameViewSet:
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
 
+    @pytest.fixture
+    def list_games(self, num_games=2):
+        return GameFactory.create_batch(num_games)
+
+    @pytest.mark.django_db
+    def test_order_by(self, list_games):
+        list_games.sort(key=lambda game: game.name)
+        data = Game.objects.all()
+        games = GameViewSet()._order_by(data, 'name')
+        assert list(games) == list_games
+
 
 class TestViewGamePost:
 
