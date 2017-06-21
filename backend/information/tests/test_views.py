@@ -14,7 +14,7 @@ class TestGenreList:
 
     @pytest.fixture
     def response_list(self, client, genres):
-        return client.get('/api/genres')
+        return client.get('/api/genres/')
 
     @pytest.mark.django_db
     def test_access_route(self, response_list):

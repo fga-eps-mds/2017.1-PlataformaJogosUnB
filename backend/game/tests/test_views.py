@@ -215,6 +215,7 @@ class TestPlatformViewList:
     def test_package_downloads(self, client, game, platform):
         package = PackageFactory(game=game)
         respons = client.post("/api/packages/{}/downloads/".format(package.pk))
+        print(respons.data)
         assert 200 <= respons.status_code < 300
         assert respons.data == {'update': 'downloads count increase'}
         downloads = Package.objects.get(pk=package.pk).downloads
