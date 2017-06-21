@@ -39,7 +39,6 @@ class Test22(unittest.TestCase):
         driver.find_element_by_link_text("Platforms").click()
         driver.find_element_by_link_text("Platforms").click()
         driver.find_element_by_link_text("Adicionar platform").click()
-        driver.find_element_by_link_text("Adicionar platform").click()
         driver.find_element_by_name("_save").click()
         driver.find_element_by_name("_save").click()
     
