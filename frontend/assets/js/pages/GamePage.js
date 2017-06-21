@@ -9,6 +9,7 @@ import Comment from '../components/Comment';
 import ReportBugForm from '../components/forms/ReportBugForm.js';
 import SegmentTitle from "../layout/SegmentTitle";
 import Rating from '../components/Rating';
+import Share from '../components/Share';
 
 const reportBugButtonStyle = {
       "float": "right",
@@ -103,7 +104,7 @@ export default class GamePage extends React.Component{
 
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <Rating game={this.state.game.information.pk} />
+                        <Share />
                     </Grid.Column>
                 </Grid.Row>
 
