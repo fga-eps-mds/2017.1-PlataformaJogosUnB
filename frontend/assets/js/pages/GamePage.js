@@ -21,7 +21,7 @@ export default class GamePage extends React.Component{
             "game": {
                 "media_image": [],
                 "information": {
-                    "developers": [],
+                    "credits": [],                 
                     "awards": [],
                     "genres": [],
                     "packages": []
@@ -129,7 +129,8 @@ export default class GamePage extends React.Component{
                     </Grid.Column>
                     <Grid.Column width={6}>
                             <DevelopersCard
-                                developers={this.state.game.information.developers}
+                                credits={this.state.game.information.credits}
+                                awards={this.state.game.information.awards}
                             />
                     </Grid.Column>
                 </Grid.Row>
