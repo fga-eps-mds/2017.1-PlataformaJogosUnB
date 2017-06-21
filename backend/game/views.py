@@ -22,7 +22,6 @@ PAGINATOR_RANGE = 5
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.exclude(game_activated=False)
     serializer_class = GameSerializer
-    filtered_games = []
 
     @detail_route(methods=["POST"])
     def report_bug(self, request, pk=None):
@@ -52,11 +51,12 @@ class GameViewSet(viewsets.ModelViewSet):
             page = 1
             per_page = 16
 
-        self._filter(platforms, genres, sort_by)
-        return Response(self.paginate(page, per_page))
+        games = self._filter(platforms, genres, sort_by)
+        games = self.paginate(page, per_page, games)
+        return Response(games)
 
-    def paginate(self, page, per_page):
-        list_games = self.filtered_games
+    def paginate(self, page, per_page, data):
+        list_games = data
         paginator = Paginator(list_games, per_page)
 
         try:
@@ -107,7 +107,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
         data = Game.objects.filter(ffilter)
         data = self._order_by(data, sort_by)
-        self.filtered_games = data
+        return data
 
     def _mount_filter(self, name, itens):
         filter_data = Q()

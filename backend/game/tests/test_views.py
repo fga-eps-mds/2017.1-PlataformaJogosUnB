@@ -8,7 +8,6 @@ import base64
 import os
 from core.settings import MEDIA_ROOT
 
-
 from game.views import GameViewSet
 
 
@@ -69,6 +68,15 @@ class TestGameViewSet:
         data = Game.objects.all()
         games = GameViewSet()._order_by(data, 'name')
         assert list(games) == list_games
+
+    @pytest.mark.django_db
+    def test_paginate(self, list_games):
+        list_serializer = GameSerializer(list_games, many=True).data
+        per_page = 2
+        page = 1
+        games_page = GameViewSet().paginate(page, per_page, list_games)
+        assert games_page['games'] == list_serializer
+        assert games_page['info']['page'] == page
 
 
 class TestViewGamePost:
