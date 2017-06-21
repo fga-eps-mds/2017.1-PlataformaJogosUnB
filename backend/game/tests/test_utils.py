@@ -52,15 +52,15 @@ class TestIssueHandler:
             status_code = 201
 
         with mock.patch('requests.Session.post', return_value=Response()) as r:
-            t_print = mock.patch('game.utils.issue_handler.print')
-            t_print.start()
+            m = mock.patch('builtins.print')
+            t_print = m.start()
             issue.submit_issue('title', 'description', repository)
             assert r.called_once_with('https://api.github.com/repos/dono' +
                                       '/repositorio/issues',
                                       json.dumps({
                                           'title': 'title',
                                           'description': 'description'}))
-            t_print.stop()
+            m.stop()
             assert t_print.called_once_with('Successfully created Issue title')
 
     def test_fail_submit_issue(self, issue, mock, repository):
@@ -70,14 +70,14 @@ class TestIssueHandler:
             content = "Problem in submit issue"
 
         with mock.patch('requests.Session.post', return_value=Response()) as r:
-            t_print = mock.patch('game.utils.issue_handler.print')
-            t_print.start()
+            m = mock.patch('builtins.print')
+            t_print = m.start()
             issue.submit_issue('title', 'description', repository)
             assert r.called_once_with('https://api.github.com/repos/dono' +
                                       '/repositorio/issues',
                                       json.dumps({
                                           'title': 'title',
                                           'description': 'description'}))
-            t_print.stop()
+            m.stop()
             assert t_print.called_with('Could not create Issue title')
             assert t_print.called_with('Response: Problem in submit issue')
