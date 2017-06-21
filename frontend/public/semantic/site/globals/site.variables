@@ -1,0 +1,28 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@pageBackground		: #2c2f36;
+@headerFont        	: 'Orbitron', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          	: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@googleFontName    	: 'Orbitron';
+
+
+/*-------------------
+      Site Colors
+--------------------*/
+
+/*---  Colors  ---*/
+@orange			  : #f08422;
+@red              : #DB2828;
+@orange           : #2c2f36;
+@yellow           : #FBBD08;
+@olive            : #B5CC18;
+@green            : #159588;
+@teal             : #00B5AD;
+@blue             : #292a2f;
+@violet           : #6435C9;
+@purple           : #A333C8;
+@pink             : #E03997;
+@grey             : #2c2f36;
+@black            : #1e1f24;

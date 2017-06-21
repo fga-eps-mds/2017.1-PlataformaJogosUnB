@@ -1,0 +1,29 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+      "browser": true,
+      "node": true
+  },
+  "rules": {
+    "strict": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": 0  
+  },
+  "globals": {
+    "_": true
+  },
+ "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "version": "15.0"
+    }
+  },
+  "parseOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
+}

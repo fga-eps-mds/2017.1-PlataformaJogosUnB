@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block title %}{{ title }} | UnB Games {% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">UnB Games</a>
+  </h1>
+{% endblock %}
+
+{% block footer_links %}
+  <a href="http://unb.br">
+    <img src="{% static "logo_unb.jpg" %}" height="100" width="250"/>
+  </a>
+{% endblock %}

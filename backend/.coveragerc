@@ -1,0 +1,6 @@
+[run]
+omit =
+    */management/
+    */site-packages/*
+    */dist-packages/*
+    */tests/*

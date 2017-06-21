@@ -2,20 +2,35 @@ language: python
 python:
   - 3.4
   - 3.5
-install: "pip3 install -r requirements.txt"
+  - 3.6
+node_js:
+  - 6
 env:
-  - DJANGO_VERSION=1.10
+  - NODE_VERSION=6
+  - NODE_VERSION=7
+before_install:
+  - sudo apt-get install libjpeg-dev
+  - . $HOME/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+install:
+  - pip3 install -r backend/requirements.txt
+  - npm install npm -g
+  - pushd frontend && npm install && popd
 before_script:
-  - flake8 --ignore=F401 --exclude=settings.py,migrations
+  - flake8 --exclude=settings.py,migrations backend/
   - psql -c "CREATE USER pjunb WITH createdb PASSWORD 'integration_build';" -U postgres
   - psql -c 'CREATE DATABASE funbox OWNER pjunb;' -U postgres
-  - sudo apt-get install libjpeg-dev
-script: 
-  - cd funbox
-  - python3 manage.py makemigrations
-  - python3 manage.py migrate
-  - cd ..
-  - pytest --cov-report term-missing --verbose --cov funbox/
+  - echo '{"status":"done","chunks":{"main":[]}}' > frontend/webpack-stats.json
+script:
+  - python3 backend/manage.py makemigrations
+  - python3 backend/manage.py migrate
+  - pushd backend
+  - pytest --cov-report term-missing --verbose --cov-config .coveragerc --cov
+  - mv .coverage ../
+  - popd && pushd frontend
+# - ./node_modules/eslint/bin/eslint.js
+  - npm test
+  - popd
 after_success: coveralls
 services:
   - postgresql
@@ -23,4 +38,3 @@ branch:
   only:
     - master
     - devel
-    - continuos_integration
