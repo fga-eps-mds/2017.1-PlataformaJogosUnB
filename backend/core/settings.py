@@ -195,7 +195,7 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("game.factory", ("GameFactory", "PackageFactory",
                       "PlatformFactory")),
     ("information.factory", ("AwardFactory", "InformationFactory",
-                             "CreditFactory", "GenreFactory",
+                             "DeveloperFactory", "GenreFactory",
                              "ArtistFactory", "MusicianFactory")),
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),

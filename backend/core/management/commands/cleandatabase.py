@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from media.factory import ImageFactory, VideoFactory
-from information.factory import AwardFactory, CreditFactory, \
+from information.factory import AwardFactory, DeveloperFactory, \
     GenreFactory, InformationFactory
 from core.factory import UserFactory
 from game.factory import PlatformFactory, PackageFactory
@@ -77,13 +77,13 @@ class Command(BaseCommand):
     def __multiple_data__(self, genre, award, *args, **kwargs):
         for i in range(1, kwargs['loop'] + 1):
             self.stdout.write("Game {}:".format(i))
-            credit = CreditFactory.create_batch(kwargs['non_loop'])
+            developer = DeveloperFactory.create_batch(kwargs['non_loop'])
             self.stdout.write("\tDeveloper: {}".format(
                 "." * kwargs['non_loop']))
 
             information = InformationFactory.create(
                 awards=[award[i % kwargs['non_loop']]],
-                credits=credit,
+                developers=developer,
                 genres=[genre[i % kwargs['non_loop']]])
             self.stdout.write("\tInformation: .")
             ImageFactory.create_batch(kwargs['media'], game=information.game)
