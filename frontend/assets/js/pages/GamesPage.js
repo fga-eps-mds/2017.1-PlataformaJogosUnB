@@ -5,7 +5,6 @@ import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
-import {genreParamExist} from "../resources/genreVerification"
 export default class GamesPage extends React.Component {
 
     constructor (){
@@ -14,7 +13,7 @@ export default class GamesPage extends React.Component {
             "sortByOption": 'none',
             "genreOption": '',
             "platformOption": '',
-            "limit":0
+            "getGenreInUrlLimit": 0
         }
     }
 
@@ -29,9 +28,24 @@ export default class GamesPage extends React.Component {
     platformOptionChanged(option){
         this.setState({ platformOption: option });
     }
-    
-    render () {
+   
+    genreOptionWillUpdate(){
+        const genre = this.props.match.params.genre;
+        const limit = this.state.getGenreInUrlLimit;
+        
+        if(genre !== undefined){
+            if(limit < 1){
+                this.state.genreOption = genre;
+                this.state.getGenreInUrlLimit += 1;
+                return genre;
+            }
+        }
+        return "Categorias";
 
+    }
+
+    render () {
+        const urlGenre = this.genreOptionWillUpdate(); 
         return (
             <Container>
                 <Grid>
@@ -45,7 +59,7 @@ export default class GamesPage extends React.Component {
                                 <SortByItems callbackParent={(option) => this.sortByOptionChanged(option)}/>
                             </Menu.Item>
                             <Menu.Item>
-                                <GenreItems genre={genreParamExist(this.state.limit, this.props.match.genre, this.state.genreOption)}  callbackParent={(option) => this.genreOptionChanged(option)} />
+                                <GenreItems genre = {urlGenre} callbackParent={(option) => this.genreOptionChanged(option)} />
                             </Menu.Item>
                             <Menu.Item>
                                 <PlatformItems callbackParent={(option) => this.platformOptionChanged(option)} />

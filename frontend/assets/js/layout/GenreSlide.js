@@ -1,6 +1,6 @@
 import React from 'react';
 import GameCard from "../components/cards/GameCard";
-import { gameListApi } from '../resource/GameApi';
+import { gameListApi } from '../resources/GameApi'
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import { Grid } from 'semantic-ui-react'

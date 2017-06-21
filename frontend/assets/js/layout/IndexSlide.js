@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
-import {gameListApi} from '../resource/GameApi';
+import {gameListApi} from '../resources/GameApi';
 
 const imageStyle = {
     "height": "100%",
@@ -15,7 +15,7 @@ const imageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
-    "margin":10,
+    "margin":20,
 }, cardStyle = {
     "float":"right",
     "height":400,
@@ -76,9 +76,10 @@ export default class IndexSlider extends React.Component {
         
 
         return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Label color='teal'>
+                    return (<Link to={`/games/${genre.name}`} >
+                            <Label color='teal'>
                                {genre.name}
-                            </Label>);})
+                            </Label></Link>);})
     }
 
     mountImages(){

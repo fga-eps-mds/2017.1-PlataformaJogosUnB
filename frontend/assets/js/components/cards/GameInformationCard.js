@@ -30,8 +30,11 @@ export default class GameInformationCard extends React.Component {
                         { this.props.getFields('Gêneros: ', 
                             <div>
                             {this.props.genres
-                                .map((genre) => { return (
-                                        <Label color='green'> {genre.name} </Label>
+                                .map((genre) => { return (<Link to={`/games/${genre.name}`} >
+                                                            <Label color='green'>
+                                                                {genre.name} 
+                                                            </Label>
+                                                          </Link>
                                     );
                                 })
                             }

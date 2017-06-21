@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Search, Grid } from 'semantic-ui-react'
-import {gameListApi} from '../resource/GameApi';
+import {gameListApi} from '../resources/GameApi';
 
 export default class SearchBox extends Component {
 
