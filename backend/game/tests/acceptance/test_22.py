@@ -11,7 +11,7 @@ class Test22(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "http://localhost:8000/"
+        self.base_url = "http://localhost:8000"
         self.verificationErrors = []
         self.accept_next_alert = True
     
