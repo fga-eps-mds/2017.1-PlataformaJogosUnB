@@ -1,5 +1,7 @@
 import pytest
-from game.serializers import GameSerializer, PlatformSerializer
+from game.serializers import (
+    GameSerializer, PlatformSerializer, PackageSerializer
+)
 from game.factory import GameFactory, PlatformFactory, PackageFactory
 from game.models import Game, Package, Platform
 from information.models import Information
@@ -88,6 +90,16 @@ class TestGameViewSet:
 
             assert x[0] == x[1]
 
+    @pytest.mark.django_db
+    def test_game_platforms(self, client, game, platform):
+        packages = PackageFactory.create_batch(1, game=game)
+        response = client.get("/api/games/{}/platforms/".format(game.pk))
+        packages = PackageSerializer(packages, many=True).data
+        for pack in packages:
+            pack['platforms'] = ' / '.join(
+                [p.get('name') for p in pack['platforms']])
+        assert response.data == {platform.kernel: packages}
+
 
 class TestViewGamePost:
 
@@ -166,7 +178,8 @@ class TestPackageApi:
         pack = PackageFactory.build().package
         response = admin_client.post('/api/packages/', {
             'package': pack.file,
-            'game_id': game.pk
+            'game_id': game.pk,
+            'architecture': 'x86'
         }, format='multipart')
 
         assert 200 <= response.status_code < 300

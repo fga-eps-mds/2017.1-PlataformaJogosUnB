@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from game.models import Game, Package, Platform
+from django.shortcuts import get_object_or_404
 from game.serializers import (
     GameSerializer, PackageSerializer, PlatformSerializer
 )
@@ -40,6 +40,27 @@ class GameViewSet(viewsets.ModelViewSet):
                                    official_repository)
 
         return HttpResponseRedirect('/')
+
+    @detail_route(methods=["GET"])
+    def platforms(self, request, pk=None):
+
+        platforms = Platform.objects.filter(
+            platforms__game_id=pk
+        ).values_list('kernel').distinct()
+
+        groups = {}
+
+        # Platform is a tuple of values by value_list (kernel, )
+
+        for key in platforms:
+            key = key[0]
+            pac = Package.objects.filter(game_id=pk, platforms__kernel=key)
+            groups[key] = PackageSerializer(pac, many=True).data
+            for package in groups[key]:
+                package['platforms'] = ' / '.join(
+                    [plat.get('name') for plat in package['platforms']]
+                )
+        return Response(groups)
 
     def get_queryset(self):
         queryset = Game.objects.filter(game_activated=True)

@@ -110,6 +110,13 @@ class Platform(models.Model):
             ' for the packages'),
     )
 
+    kernel = models.CharField(
+        _('Kernel name'),
+        max_length=20,
+        help_text=_('Type the kernel of SO for this platform.' +
+                    ' Ex.: linux, unix, dos')
+    )
+
     icon = fields.ImageField(
         _('Platform Icon'),
         validators=[image_extension_validator],
@@ -159,6 +166,14 @@ class Package(models.Model):
     )
 
     downloads = models.BigIntegerField(default=0)
+
+    architecture = models.CharField(
+        _('Architecture'),
+        max_length=40,
+        help_text=_('Indicate the name of architecture of package.' +
+                    ' Ex.: arm, x86, x32'
+                    ),
+    )
 
     def fill_platforms(self):
         extension = os.path.splitext(self.package.name)[1][1:].lower()

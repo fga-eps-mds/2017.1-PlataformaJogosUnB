@@ -17,7 +17,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
-        fields = ['name', 'extensions', 'icon']
+        fields = ['name', 'extensions', 'icon', 'kernel']
 
 
 class PackageSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class PackageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Package
-        fields = ['package', 'platforms', 'game_id']
+        fields = ['package', 'platforms', 'game_id', 'architecture']
 
 
 class GameSerializer(serializers.ModelSerializer):

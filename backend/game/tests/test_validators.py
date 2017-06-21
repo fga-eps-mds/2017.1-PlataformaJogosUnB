@@ -29,13 +29,13 @@ class TestSize:
 
     @pytest.mark.django_db
     def test_size_validation(self):
-        error_message = "Please keep filesize under 1,0 GB. " \
+        error_message = "Please keep filesize under 5,0 GB. " \
                         "Current filesize 10 bytes"
         PlatformFactory()
         package_package = PackageFactory().package
-        package = patch("game.validators._get_size", return_value=1 + 1024**3)
-        package.start()
+        pack = patch("game.validators._get_size", return_value=1 + 5 * 1024**3)
+        pack.start()
         with pytest.raises(ValidationError) as validation_error:
             validate_package_size(package_package)
         assert validation_error.value.message == error_message
-        package.stop()
+        pack.stop()

@@ -33,7 +33,7 @@ class SoundtrackInline(admin.StackedInline):
 
 class PackageInline(admin.StackedInline):
     model = Package
-    exclude = ['platforms']
+    exclude = ['platforms', 'downloads']
     extra = 0
     min_num = 1
 
@@ -46,7 +46,7 @@ class PlatformsInline(admin.StackedInline):
 
 
 class PackageAdmin(admin.ModelAdmin):
-    exclude = ['platforms', 'downloads']
+    exclude = ['platforms']
 
 
 class GameAdmin(admin.ModelAdmin):

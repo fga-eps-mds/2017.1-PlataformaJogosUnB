@@ -106,7 +106,7 @@ class ErrorMessage(Enum):
     )
 
     FILE_TOO_BIG = (
-        "Please keep filesize under 1,0" +
+        "Please keep filesize under 5,0" +
         "\xa0GB. Current filesize 10\xa0"
         "bytes"
     )
