@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
 import {Grid} from "semantic-ui-react";
 import {dataListApi} from "../resources/DataListApi";
@@ -21,7 +21,7 @@ export default class GameList extends React.Component {
             genres: param.genreOption
         }
         const url = (
-            "/api/games/1/filter/?platforms=" + 
+            "/api/games/1/filter/?platforms=" +
             data.platforms + "&genres=" 
             + data.genres
         );
@@ -60,7 +60,7 @@ export default class GameList extends React.Component {
         const frontToBack = 'frontToBack', backToFront = 'backToFront';
         const data = optionSelected;
         const listGames = this.state.games;
-        listGames.sort((a,b) => {
+        listGames.sort((a, b) => {
                 if(data.order === frontToBack){
                     if(eval('a'+data.param) > eval('b'+data.param)) return 1;
                     if(eval('a'+data.param) < eval('b'+data.param)) return -1;
@@ -75,8 +75,8 @@ export default class GameList extends React.Component {
     }
 
     getGameCards(){
-        const gameCards = this.sortList(this.props.sortByOption).map((game) =>
-            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
+        const gameCards = this.sortList(this.props.sortByOption).map((game, i) =>
+            <Grid.Column key={i} mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${game.pk}/${game.name}`}
                         params={{"id": game.pk}}>
                     <GameCard data={game} />
@@ -98,4 +98,10 @@ export default class GameList extends React.Component {
         );
 
     }
+}
+
+GameList.propTypes = {
+  sortByOption: PropTypes.object.isRequired,
+  genreOption: PropTypes.string.isRequired,
+  platformOption: PropTypes.string.isRequired
 }

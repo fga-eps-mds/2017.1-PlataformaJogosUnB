@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 
@@ -35,8 +35,8 @@ export default class PlatformItems extends React.Component{
         if(typeof this.state.platforms === "undefined"){
             return false
         }
-        const gamePlatformsItems = this.state.platforms.map((platform) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(platform.name, e)}>
+        const gamePlatformsItems = this.state.platforms.map((platform, i) =>
+                <Dropdown.Item key={i} onClick={(e) => this.handleClick(platform.name, e)}>
                     {platform.name}
                 </Dropdown.Item>
         );
@@ -56,4 +56,8 @@ export default class PlatformItems extends React.Component{
             </Dropdown>
         );
     }
+}
+
+PlatformItems.propTypes = {
+  callbackParent: PropTypes.func.isRequired
 }

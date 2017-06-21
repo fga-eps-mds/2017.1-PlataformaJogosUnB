@@ -19,7 +19,7 @@ const imageStyle = {
 }, cardStyle = {
     "float":"right",
     "height":400,
-    "width":"30%" 
+    "width":"30%"
 },
 sliderStyle = {
     "position":"relative",
@@ -74,10 +74,10 @@ export default class IndexSlider extends React.Component {
     }
 
     getGenreByGame(id){
-        
 
-        return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Label color='teal'>
+
+        return this.state.games[id].information.genres.map((genre, i) =>{
+                    return (<Label key={i} color='teal'>
                                {genre.name}
                             </Label>);})
     }
@@ -88,14 +88,13 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={sliderStyle}>  
-                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}                
-                    >
+                (<div style={sliderStyle}>
+                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}>
 
                         <img
                            src={this.state.games[idx].slide_image} style={imageStyle}
                         />
-       
+
                         <div style={cardStyle}>
                             <Card fluid style={{height:400}}>
                                 <Card.Content>
@@ -103,11 +102,11 @@ export default class IndexSlider extends React.Component {
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.getGenreByGame(idx)}
-                                </Card.Content> 
+                                </Card.Content>
                                 <Card.Content extra>
-                                    <Icon bordered className="linux" />Linux > Windows</Card.Content>
+                                    <Icon bordered className="linux" />Linux / Windows</Card.Content>
                             </Card>
-                        </div> 
+                        </div>
                     </Link>
                 </div>)
            images.push(image);
