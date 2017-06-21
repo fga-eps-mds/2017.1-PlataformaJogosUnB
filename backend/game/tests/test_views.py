@@ -78,6 +78,15 @@ class TestGameViewSet:
         assert games_page['games'] == list_serializer
         assert games_page['info']['page'] == page
 
+    def test_get_pagination_range(self):
+        page = 3
+        num_pages = 10
+        range_pages = GameViewSet().get_pagination_range(page, num_pages)
+        assert range_pages == (1, 5)
+        page = 4
+        range_pages = GameViewSet().get_pagination_range(page, num_pages)
+        assert range_pages == (2, 6)
+
 
 class TestViewGamePost:
 

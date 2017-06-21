@@ -67,7 +67,7 @@ class GameViewSet(viewsets.ModelViewSet):
             games = paginator.page(1)
             page = 1
 
-        interval_range = self.get_pagination_range(page, paginator)
+        interval_range = self.get_pagination_range(page, paginator.num_pages)
 
         list_games = GameSerializer(games.object_list, many=True).data
         paginated = {
@@ -81,7 +81,7 @@ class GameViewSet(viewsets.ModelViewSet):
         }
         return paginated
 
-    def get_pagination_range(self, page, paginator):
+    def get_pagination_range(self, page, num_pages):
         shift = PAGINATOR_RANGE // 2
         range_start = page - shift
         range_end = page + shift
@@ -89,12 +89,12 @@ class GameViewSet(viewsets.ModelViewSet):
         if range_start < 1:
             range_end += 1 - range_start
             range_start = 1
-        elif range_end > paginator.num_pages:
-            range_start -= range_end - paginator.num_pages
-            range_end = paginator.num_pages
+        elif range_end > num_pages:
+            range_start -= range_end - num_pages
+            range_end = num_pages
 
-        if range_end > paginator.num_pages:
-            range_end = paginator.num_pages
+        if range_end > num_pages:
+            range_end = num_pages
 
         if range_start < 1:
             range_start = 1
