@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class Test1(unittest.TestCase):
+class Test12(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -15,13 +15,18 @@ class Test1(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_1(self):
+    def test_12(self):
         driver = self.driver
         driver.get(self.base_url + "/admin/login/?next=/admin/")
         driver.find_element_by_id("id_username").clear()
-        driver.find_element_by_id("id_username").send_keys("admin")
+        driver.find_element_by_id("id_username").send_keys("usuarioNaoCadastrado")
+        driver.find_element_by_id("id_username").clear()
+        driver.find_element_by_id("id_username").send_keys("usuarioNaoCadastrado")
         driver.find_element_by_id("id_password").clear()
         driver.find_element_by_id("id_password").send_keys("qwer1234")
+        driver.find_element_by_id("id_password").clear()
+        driver.find_element_by_id("id_password").send_keys("qwer1234")
+        driver.find_element_by_css_selector("input.btn.btn-info").click()
         driver.find_element_by_css_selector("input.btn.btn-info").click()
     
     def is_element_present(self, how, what):
