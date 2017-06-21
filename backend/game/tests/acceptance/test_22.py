@@ -32,7 +32,6 @@ class Test22(unittest.TestCase):
         driver.find_element_by_link_text("Packages").click()
         driver.find_element_by_link_text("Packages").click()
         driver.find_element_by_link_text("Adicionar package").click()
-        driver.find_element_by_link_text("Adicionar package").click()
         Select(driver.find_element_by_id("id_game")).select_by_visible_text("totam v1.0")
         Select(driver.find_element_by_id("id_game")).select_by_visible_text("totam v1.0")
         driver.find_element_by_name("_save").click()
