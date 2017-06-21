@@ -12,6 +12,14 @@ import game.validators as validators
 import os
 
 
+class GameManager(models.Manager):
+
+    def search(self, query):
+        return self.get_queryset().filter(
+            models.Q(name__icontains=query)
+        )
+
+
 class Game(models.Model):
 
     name = models.CharField(
@@ -56,6 +64,8 @@ class Game(models.Model):
         default=True
     )
 
+    objects = GameManager()
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)
@@ -64,8 +74,7 @@ class Game(models.Model):
         if self.version is None:
             return self.name
         else:
-            return "{0} v{1}".format(self.name,
-                                     self.version)
+            return "{0} v{1}".format(self.name, self.version)
 
 
 class Platform(models.Model):

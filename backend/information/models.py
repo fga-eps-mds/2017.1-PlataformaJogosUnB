@@ -1,12 +1,12 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from game.models import Game, HELP_TEXT_IMAGES
+from game.models import Game
 from django.core.validators import (
     MinLengthValidator,
     EmailValidator,
     URLValidator,
 )
-import core.validators as general_validators
+
 from information.validators import min_max_validators, years_validator
 
 
@@ -44,26 +44,26 @@ class Award(models.Model):
         return "{0} ({1}): {2}".format(self.place, self.year, self.name)
 
 
-class Developer(models.Model):
+class Credit(models.Model):
+
+    ROLE_CHOICES = [
+        ('desenvolvedor', _('Desenvolvedor')),
+        ('design', _('Design')),
+        ('musico', _('Musico')),
+    ]
+
+    specialty = models.CharField(
+        _('Especialidade'),
+        max_length=14,
+        choices=ROLE_CHOICES,
+        default=ROLE_CHOICES[0][0],
+        help_text=_('Select the contributer'),
+    )
 
     name = models.CharField(
         _('Name'),
         max_length=100,
         help_text=_('Name of the developer.')
-    )
-
-    avatar = models.ImageField(
-        _('Avatar'),
-        upload_to='public/avatar',
-        blank=True,
-        validators=[general_validators.image_extension_validator],
-        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
-    )
-
-    login = models.CharField(
-        _('Login'),
-        max_length=50,
-        help_text=_('Developer login for github.')
     )
 
     email = models.EmailField(
@@ -77,13 +77,15 @@ class Developer(models.Model):
 
     github_page = models.URLField(
         _('Github Page'),
+        null=True,
+        blank=True,
         validators=[URLValidator()],
         help_text=_('Developer Github page.')
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
-        super(Developer, self).save(*args, **kwargs)
+        super(Credit, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{0} <{1}>".format(self.name, self.github_page)
@@ -149,9 +151,9 @@ class Information(models.Model):
         primary_key=True,
     )
 
-    developers = models.ManyToManyField(
-        Developer,
-        related_name='developers'
+    credits = models.ManyToManyField(
+        Credit,
+        related_name='credits'
     )
 
     genres = models.ManyToManyField(

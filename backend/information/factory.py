@@ -1,7 +1,9 @@
 import factory
 from factory.fuzzy import FuzzyChoice
 from faker import Faker
-from information.models import Award, Developer, Genre, Information
+from information.models import (
+    Award, Genre, Credit, Information
+)
 from game.factory import GameFactory
 
 
@@ -18,14 +20,14 @@ class AwardFactory(factory.DjangoModelFactory):
     place = factory.LazyAttribute(lambda x: "First")
 
 
-class DeveloperFactory(factory.DjangoModelFactory):
+class CreditFactory(factory.DjangoModelFactory):
 
     class Meta:
-        model = Developer
+        model = Credit
 
+    specialty = factory.Sequence(lambda x: ['desenvolvedor', 'musico',
+                                            'design'][x % 3])
     name = factory.faker.Faker("word")
-    login = factory.faker.Faker("word")
-    avatar = factory.django.ImageField(width=15, height=30)
     email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
     github_page = factory.faker.Faker("url")
 
@@ -59,13 +61,13 @@ class InformationFactory(factory.DjangoModelFactory):
                 self.awards.add(award)
 
     @factory.post_generation
-    def developers(self, create, extracted, **kwargs):
+    def credits(self, create, extracted, **kwargs):
         if not create:
             return
 
         if extracted:
-            for developer in extracted:
-                self.developers.add(developer)
+            for credit in extracted:
+                self.credits.add(credit)
 
     @factory.post_generation
     def genres(self, create, extracted, **kwargs):
