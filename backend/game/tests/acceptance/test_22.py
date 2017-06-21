@@ -27,7 +27,6 @@ class Test22(unittest.TestCase):
         driver.find_element_by_id("id_password").clear()
         driver.find_element_by_id("id_password").send_keys("qwer1234")
         driver.find_element_by_css_selector("input.btn.btn-info").click()
-        driver.find_element_by_css_selector("input.btn.btn-info").click()
         driver.find_element_by_xpath("(//a[contains(text(),'Game')])[3]").click()
         driver.find_element_by_xpath("(//a[contains(text(),'Game')])[3]").click()
         driver.find_element_by_link_text("Packages").click()
