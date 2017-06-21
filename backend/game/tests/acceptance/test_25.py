@@ -11,7 +11,7 @@ class Test25(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "http://localhost:8000/"
+        self.base_url = "http://localhost:8000"
         self.verificationErrors = []
         self.accept_next_alert = True
     
@@ -23,36 +23,22 @@ class Test25(unittest.TestCase):
         driver.find_element_by_id("id_password").clear()
         driver.find_element_by_id("id_password").send_keys("qwer1234")
         driver.find_element_by_css_selector("input.btn.btn-info").click()
-        driver.find_element_by_css_selector("input.btn.btn-info").click()
-        driver.find_element_by_xpath("(//a[contains(text(),'Game')])[3]").click()
         driver.find_element_by_xpath("(//a[contains(text(),'Game')])[3]").click()
         driver.find_element_by_link_text("Packages").click()
-        driver.find_element_by_link_text("Packages").click()
-        driver.find_element_by_link_text("Adicionar package").click()
         driver.find_element_by_link_text("Adicionar package").click()
         Select(driver.find_element_by_id("id_game")).select_by_visible_text("totam v1.0")
         driver.find_element_by_name("_save").click()
-        driver.find_element_by_name("_save").click()
-        driver.find_element_by_link_text("Platforms").click()
         driver.find_element_by_link_text("Platforms").click()
         driver.find_element_by_link_text("Adicionar platform").click()
-        driver.find_element_by_link_text("Adicionar platform").click()
-        driver.find_element_by_name("_save").click()
         driver.find_element_by_name("_save").click()
         driver.find_element_by_id("id_icon").clear()
         driver.find_element_by_id("id_icon").send_keys("/home/arthur/Pictures/hfs.png")
         driver.find_element_by_name("_save").click()
-        driver.find_element_by_name("_save").click()
-        driver.find_element_by_id("id_name").clear()
-        driver.find_element_by_id("id_name").send_keys("Ubuntu")
         driver.find_element_by_id("id_name").clear()
         driver.find_element_by_id("id_name").send_keys("Ubuntu")
         driver.find_element_by_name("_save").click()
         driver.find_element_by_id("id_icon").clear()
         driver.find_element_by_id("id_icon").send_keys("/home/arthur/Pictures/hfs.png")
-        driver.find_element_by_id("id_icon").clear()
-        driver.find_element_by_id("id_icon").send_keys("/home/arthur/Pictures/hfs.png")
-        driver.find_element_by_name("_addanother").click()
         driver.find_element_by_name("_addanother").click()
         driver.find_element_by_name("_save").click()
     
