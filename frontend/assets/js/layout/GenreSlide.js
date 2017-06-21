@@ -1,6 +1,6 @@
 import React from 'react';
 import GameCard from "../components/cards/GameCard";
-import { gameListApi } from '../resource/GameApi';
+import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import { Grid } from 'semantic-ui-react'
@@ -24,7 +24,7 @@ export default class GenreSlide extends React.Component {
 
   componentWillMount () {
 
-      gameListApi((games) => { this.setState({games}) });
+      dataListApi("/api/games/", (games) => { this.setState({games}) });
 
   }
 

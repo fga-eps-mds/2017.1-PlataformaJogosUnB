@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
-import {gameListApi} from '../resource/GameApi';
+import {dataListApi} from '../resources/DataListApi';
 
 const imageStyle = {
     "height": "100%",
@@ -44,7 +44,8 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-      gameListApi((games) => { this.setState({games}) });
+      dataListApi("/api/games/",
+          (games) => { this.setState({games}) });
 
     }
 
