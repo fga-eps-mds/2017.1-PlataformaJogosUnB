@@ -39,4 +39,4 @@ class PackageFactory(factory.DjangoModelFactory):
     package = factory.django.FileField(data=b'1' * 10, filename='package.deb')
     game = factory.SubFactory(GameFactory)
     downloads = factory.faker.Faker('pyint')
-    architecture = factory.faker.Faker('word')
+    architecture = factory.LazyAttribute(lambda x: "AMD64/64-bit")
