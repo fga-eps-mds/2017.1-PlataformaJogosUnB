@@ -23,10 +23,11 @@ class PlatformSerializer(serializers.ModelSerializer):
 class PackageSerializer(serializers.ModelSerializer):
     platforms = PlatformSerializer(many=True, read_only=True)
     game_id = serializers.IntegerField(write_only=True)
+    size = serializers.ReadOnlyField()
 
     class Meta:
         model = Package
-        fields = ['package', 'platforms', 'game_id', 'architecture']
+        fields = ['package', 'platforms', 'game_id', 'architecture', 'size']
 
 
 class GameSerializer(serializers.ModelSerializer):

@@ -12,6 +12,7 @@ from game.utils.objects_manager import GameManager
 import game.validators as validators
 import os
 import functools
+from django.template.defaultfilters import filesizeformat
 
 
 class Game(models.Model):
@@ -175,6 +176,10 @@ class Package(models.Model):
         platforms = Platform.objects.filter(extensions=extension)
         for platform in platforms:
             self.platforms.add(platform)
+
+    @property
+    def size(self):
+        return filesizeformat(self.package.size)
 
     def clean(self):
         validators.package_extension_validator(self.package)
