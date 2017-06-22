@@ -33,7 +33,7 @@ class SoundtrackInline(admin.StackedInline):
 
 class PackageInline(admin.StackedInline):
     model = Package
-    exclude = ['platforms']
+    exclude = ['platforms', 'downloads']
     extra = 0
     min_num = 1
 
@@ -52,7 +52,9 @@ class PackageAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
-    exclude = ['slide_image', 'card_image']
+    exclude = ['slide_image', 'card_image', 'visualization']
+    list_display = ['name', 'version']
+    search_fields = ['name']
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)

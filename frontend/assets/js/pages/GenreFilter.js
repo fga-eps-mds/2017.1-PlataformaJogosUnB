@@ -2,7 +2,7 @@ import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
 import {Segment, Grid, Container} from "semantic-ui-react";
 import GameCard from "../components/cards/GameCard";
-import {gameListApi} from "../resource/GameApi";
+import {dataListApi} from "../resources/DataListApi";
 
 export default class GenreFilter extends React.Component{
 
@@ -16,7 +16,7 @@ export default class GenreFilter extends React.Component{
 
    componentWillMount () {
 
-      gameListApi((game) => { this.setState({game}) });
+      dataListApi("/api/games/", (game) => { this.setState({game}) });
 
     }
 

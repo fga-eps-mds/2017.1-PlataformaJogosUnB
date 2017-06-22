@@ -69,7 +69,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
 }
 
 MIDDLEWARE = [
@@ -195,7 +195,8 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("game.factory", ("GameFactory", "PackageFactory",
                       "PlatformFactory")),
     ("information.factory", ("AwardFactory", "InformationFactory",
-                             "DeveloperFactory", "GenreFactory")),
+                             "CreditFactory", "GenreFactory",
+                             "ArtistFactory", "MusicianFactory")),
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),
     ("game.serializers", ("GameSerializer", "PackageSerializer",

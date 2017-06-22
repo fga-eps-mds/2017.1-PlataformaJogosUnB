@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
 
 export default class SortByItems extends React.Component {
@@ -10,7 +10,7 @@ export default class SortByItems extends React.Component {
         }
     }
 
-    listDropdownItens(listItens){
+    listDropdownItens(){
         const rule = [{
             name: 'Nome (A-Z)',
             param: 'name',
@@ -24,8 +24,8 @@ export default class SortByItems extends React.Component {
             name: 'Mais antigo',
             param: 'information__launch_year',
         }]
-        const listDropItens = rule.map((item) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(item, e)}>
+        const listDropItens = rule.map((item, i) =>
+                <Dropdown.Item key={i} onClick={(e) => this.handleClick(item, e)}>
                     {item.name}
                 </Dropdown.Item>
         );
@@ -48,4 +48,7 @@ export default class SortByItems extends React.Component {
         );
     }
 
+}
+SortByItems.propTypes = {
+  callbackParent: PropTypes.func.isRequired
 }

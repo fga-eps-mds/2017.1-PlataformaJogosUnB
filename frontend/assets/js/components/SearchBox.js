@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Search, Grid } from 'semantic-ui-react'
-import {gameListApi} from '../resource/GameApi';
+import {dataListApi} from '../resources/DataListApi';
 
 export default class SearchBox extends Component {
 
@@ -14,7 +14,7 @@ export default class SearchBox extends Component {
 
     componentWillMount() {
 
-      gameListApi((games) => {
+      dataListApi("/api/games/", (games) => {
             var listGame = games.map((game) => ({
                 gamePk: game.pk,
                 title: game.name,

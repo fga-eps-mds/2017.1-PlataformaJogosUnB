@@ -3,7 +3,7 @@ import {Card, Label, Image, Header, Segment} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 
 export default class GameInformationCard extends React.Component {
-    
+
     getImages (img) {
         if (img != null) {
             return <Image src={img} />;
@@ -19,10 +19,10 @@ export default class GameInformationCard extends React.Component {
 
         return (
             <Card fluid>
-                {this.getImages(this.props.cover_image)}            
+                {this.getImages(this.props.cover_image)}
 
                 <Card.Content>
-                
+
                   <Card.Description>
 
                         { this.props.getFields('Versão: ',this.props.version) }
@@ -30,8 +30,8 @@ export default class GameInformationCard extends React.Component {
                         { this.props.getFields('Gêneros: ', 
                             <div>
                             {this.props.genres
-                                .map((genre) => { return (
-                                        <Label color='green'> {genre.name} </Label>
+                                .map((genre, i) => { return (
+                                        <Label key={i} color='green'> {genre.name} </Label>
                                     );
                                 })
                             }

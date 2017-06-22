@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
 import {Grid, Container, Segment} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
@@ -76,4 +76,10 @@ export default class GameList extends React.Component {
             );
         }
     }
+}
+
+GameList.propTypes = {
+  sortByOption: PropTypes.object.isRequired,
+  genreOption: PropTypes.string.isRequired,
+  platformOption: PropTypes.string.isRequired
 }

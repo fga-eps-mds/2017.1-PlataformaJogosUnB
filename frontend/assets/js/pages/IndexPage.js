@@ -14,7 +14,9 @@ export default class IndexPage extends React.Component {
                 <Container>
                     <IndexSlide />
                     <SegmentTitle title={'Mais curtidos'} />
-                    <GenreSlide />
+                    <GenreSlide url="/api/games/" />
+                    <SegmentTitle title={'Mais baixados'} />
+                    <GenreSlide url="/api/games/?ordering=-downloads_count" />
                 </Container>
             </div>
         );
