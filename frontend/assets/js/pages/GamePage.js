@@ -109,6 +109,12 @@ export default class GamePage extends React.Component{
                 </Grid.Row>
 
                 <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Rating pk={id} />
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row>
                     <Grid.Column width={10}>
                         <DescriptionCard
                             description={this.state.game.information.description}

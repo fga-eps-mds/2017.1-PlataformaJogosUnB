@@ -22,8 +22,8 @@ export default class Rating extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            "like": 0,
-            "dislike": 0
+            "likes": 0,
+            "dislikes": 0
         }
         this.getVoteCount = this.getVoteCount.bind(this);
     }
@@ -87,14 +87,14 @@ export default class Rating extends React.Component {
                     <Button
                         color='green'
                         icon='thumbs up'
-                        label={{ as: 'a', basic: true, color: 'green', content: `${this.state.like}` }}
+                        label={{ as: 'a', basic: true, color: 'green', content: `${this.state.likes}` }}
                         labelPosition='right'
                         onClick={this.handleVote.bind(this, true)}
                     />
                     <Button
                         color='red'
                         icon='thumbs down'
-                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.state.dislike}` }}
+                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.state.dislikes}` }}
                         labelPosition='left'
                         onClick={this.handleVote.bind(this, false)}
                     />

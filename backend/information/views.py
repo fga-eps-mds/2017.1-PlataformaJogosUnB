@@ -14,7 +14,7 @@ class VoteView(APIView):
 
     permission_classes = (permissions.AllowAny, )
 
-    @method_decorator(login_required)
+#    @method_decorator(login_required)
     def post(self, request, pk=None):
         print(request.user)
         information = get_object_or_404(Information, pk=pk)
@@ -41,10 +41,10 @@ class VoteView(APIView):
     def get(self, request, pk=None):
         information = get_object_or_404(Information, pk=pk)
         vote_count = {}
-        vote_count['like'] = information.likes
-        vote_count['dislike'] = information.dislikes
+        vote_count['likes'] = information.likes
+        vote_count['dislikes'] = information.dislikes
 
-        return Response(vote_count, template_name="game/index.html")
+        return Response(vote_count)
 
 
 class GenreViewList(generics.ListAPIView):
