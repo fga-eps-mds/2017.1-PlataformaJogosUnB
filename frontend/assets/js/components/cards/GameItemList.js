@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {Card, Image, Item, Label, Button,Icon, Header} from "semantic-ui-react";
 import _ from "lodash";
 
@@ -21,15 +22,26 @@ const imageStyle = {
 
 export default class GameItemList extends React.Component {
 
+    getGameLink(element){
+        return (
+            <Link to={`/games/${this.props.game.pk}/${this.props.game.name}`}
+                params={{"id": this.props.game.pk}}>
+                {element}
+            </Link>
+        )
+    }
+
     render () {
         return (
             <Item.Group divided unstackable>
                 <Item>
                   <Item.Image size='tiny' style={cardImageStyle}>
-                    <Image src={this.props.game.card_image} style={imageStyle} />
+                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyle,cardImageStyle} />)}
                   </Item.Image>
                   <Item.Content verticalAlign='middle'>
-                    <Item.Header><Header inverted>{this.props.game.name}</Header></Item.Header>
+                    <Item.Header>
+                        {this.getGameLink(<Header inverted>{this.props.game.name}</Header>)}
+                    </Item.Header>
                     
                     <Item.Meta>
                         <Image.Group>
@@ -40,9 +52,8 @@ export default class GameItemList extends React.Component {
                     </Item.Meta>
                     
                     <Item.Extra>
-                        <Button basic color='green' floated='right'>
-                            Baixe agora!
-                        </Button>
+                        {this.getGameLink(<Button basic color='green' floated='right'>Baixe agora!</Button>)}
+                        
                         {(this.props.game.information.genres).map((genre) => 
                             { return (
                                         <Label color='green'> {genre.name} </Label>

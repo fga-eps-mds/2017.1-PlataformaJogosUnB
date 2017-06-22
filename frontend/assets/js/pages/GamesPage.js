@@ -95,7 +95,7 @@ export default class GamesPage extends React.Component {
                     </Grid.Row>
                     
                     <Grid.Row>
-                        <Menu fluid inverted>
+                        <Menu fluid inverted color='blue'>
                             <Menu.Item>
                                 <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
                             </Menu.Item>
@@ -110,8 +110,8 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item position='right'>
                                 <Button.Group>
-                                    <Button basic color='green' onClick={this.selectViewMode}><Icon name='list layout' width='40' heigth='40' /></Button>
-                                    <Button basic color='green' onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
+                                    <Button onClick={this.selectViewMode}><Icon name='list layout' width='40' heigth='40' /></Button>
+                                    <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
                                 </Button.Group>
                             </Menu.Item>
                         </Menu>

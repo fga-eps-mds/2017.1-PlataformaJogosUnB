@@ -32,10 +32,7 @@ export default class GameList extends React.Component {
     getGameList(){
         const gamesList = (this.props.games).map((game) =>
                 <Segment inverted color='blue'>
-                    <Link to={`/games/${game.pk}/${game.name}`}
-                            params={{"id": game.pk}}>
-                        <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
-                    </Link>
+                    <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
                 </Segment>
         );
 
