@@ -38,7 +38,7 @@ class GenreFactory(factory.DjangoModelFactory):
         model = Genre
 
     name = factory.faker.Faker("word")
-    description = factory.LazyAttribute(lambda x: "word " * 12)
+    description = factory.faker.Faker("sentence", nb_words=25)
 
 
 class InformationFactory(factory.DjangoModelFactory):
@@ -46,7 +46,7 @@ class InformationFactory(factory.DjangoModelFactory):
     class Meta:
         model = Information
 
-    description = factory.LazyAttribute(lambda x: "word " * 12)
+    description = factory.faker.Faker('sentence', nb_words=25)
     launch_year = factory.LazyAttribute(lambda x: 2000 + faker.pyint() % 17)
     semester = FuzzyChoice(['1', '2'])
     game = factory.SubFactory(GameFactory)
