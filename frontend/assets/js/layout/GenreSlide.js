@@ -28,6 +28,18 @@ export default class GenreSlide extends React.Component {
 
   }
 
+  reducePlatforms(packages){
+      let platforms = [];
+      if (packages !== undefined) {
+          platforms = _.reduce(packages, (platform, bpackage) => { 
+              const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
+              return platform.concat(platform_icons);
+          }, []);
+      }
+      return _.uniq(platforms);
+  }
+
+
   render() {
     const gameCards = this.mountCards();
 
@@ -79,7 +91,7 @@ export default class GenreSlide extends React.Component {
         const image =
                (<div>
                   <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
-                    <GameCard data={this.state.games[i]} />
+                    <GameCard game={this.state.games[i]} reducePlatforms={this.reducePlatforms} />
                   </Link>
                 </div>)
        gameCards.push(image);

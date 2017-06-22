@@ -29,7 +29,7 @@ export default class GenreItems extends React.Component{
             genreName = "Todas as categorias"
         }
         this.setState({ selectedGenre: genreName });
-        this.props.callbackParent(option);
+        this.props.callbackParent('genreOption', option);
     }
 
     mountGenreItems(){

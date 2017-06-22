@@ -39,7 +39,6 @@ class TestGenreStatistic:
 
     def __games__(self, genres, field, factor):
         PlatformFactory()
-        print(genres)
         info1 = self.__information__([genres[0], genres[1]])
         info2 = self.__information__([genres[2], genres[3]])
         info3 = self.__information__([genres[1], genres[2], genres[3]])

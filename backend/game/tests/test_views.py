@@ -9,6 +9,8 @@ import json
 import base64
 import os
 from core.settings import MEDIA_ROOT
+from django.db.models import Q
+from game.views import GameViewSet
 
 
 @pytest.fixture
@@ -20,6 +22,16 @@ def game():
 @pytest.fixture
 def platform():
     return PlatformFactory()
+
+
+@pytest.fixture
+def platforms_list():
+    return PlatformFactory.create_batch(2)
+
+
+@pytest.fixture
+def list_games(num_games=2):
+    return GameFactory.create_batch(num_games)
 
 
 @pytest.fixture
@@ -63,6 +75,51 @@ class TestGameViewSet:
         data['slide_image'] = 'http://testserver' + data['slide_image']
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
+
+    @pytest.mark.django_db
+    def test_order_by(self, list_games):
+        data = Game.objects.all()
+        games = GameViewSet()._order_by(data, '')
+        assert list(games) == list_games
+        games = GameViewSet()._order_by(data, 'name')
+        list_games.sort(key=lambda game: game.name)
+        assert list(games) == list_games
+
+    @pytest.mark.django_db
+    def test_paginate(self, list_games):
+        list_serializer = GameSerializer(list_games, many=True).data
+        per_page = 2
+        page = 1
+        games_page = GameViewSet().paginate(page, per_page, list_games)
+        assert games_page['games'] == list_serializer
+        assert games_page['info']['page'] == page
+
+    def test_get_pagination_range(self):
+        page = 3
+        num_pages = 10
+        range_pages = GameViewSet().get_pagination_range(page, num_pages)
+        assert range_pages == (1, 5)
+        page = 4
+        range_pages = GameViewSet().get_pagination_range(page, num_pages)
+        assert range_pages == (2, 6)
+
+    @pytest.mark.django_db
+    def test_mount_filter(self, platforms_list):
+        ffilter = Q()
+        attribute = 'packages__platforms__name'
+        for platform in platforms_list:
+            ffilter |= Q((attribute, platform.name))
+        list_options = (item.name for item in platforms_list)
+        ffilter_games = GameViewSet()._mount_filter(attribute, list_options)
+        assert ffilter_games.__doc__ == ffilter.__doc__
+
+    @pytest.mark.django_db
+    def test_filter(self, list_games):
+        games = Game.objects.all()
+        games = list(games)
+        games.sort(key=lambda game: game.name)
+        filtered_games = GameViewSet()._filter('', '', 'name')
+        assert list(filtered_games) == games
 
     @pytest.mark.django_db
     def test_game_visualization(self, client, game):
@@ -179,7 +236,7 @@ class TestPackageApi:
         response = admin_client.post('/api/packages/', {
             'package': pack.file,
             'game_id': game.pk,
-            'architecture': 'x86'
+            'architecture': 'X86/32-bit'
         }, format='multipart')
 
         assert 200 <= response.status_code < 300
@@ -189,10 +246,6 @@ class TestPackageApi:
 
 
 class TestPlatformViewList:
-
-    @pytest.fixture
-    def platforms_list(self):
-        return PlatformFactory.create_batch(2)
 
     @pytest.fixture
     def response_list(self, client, platforms_list):
@@ -215,7 +268,6 @@ class TestPlatformViewList:
     def test_package_downloads(self, client, game, platform):
         package = PackageFactory(game=game)
         respons = client.post("/api/packages/{}/downloads/".format(package.pk))
-        print(respons.data)
         assert 200 <= respons.status_code < 300
         assert respons.data == {'update': 'downloads count increase'}
         downloads = Package.objects.get(pk=package.pk).downloads

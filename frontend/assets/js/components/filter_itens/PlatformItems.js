@@ -28,7 +28,7 @@ export default class PlatformItems extends React.Component{
             platformName = "Todas as plataformas";
         }
         this.setState({ selectedPlatform: platformName });
-        this.props.callbackParent(option);
+        this.props.callbackParent('platformOption', option);
     }
 
     mountGenreItems(){
