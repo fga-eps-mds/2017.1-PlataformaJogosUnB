@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Popup, Table, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
@@ -9,14 +10,14 @@ export default class DevelopersCard extends React.Component {
       this.DESIGN = "design";
       this.MUSICIAN = "musico";
     }
-  
+
     getRoleCells(role){
       const credits = this.props.credits;
       return (<ul>{credits.filter((credit)=> credit.specialty === role)
                     .map((developer) => {
                             if(developer.github_page !== null){
                             return (<Header.Content>
-                            <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>} 
+                            <Popup trigger={<Link target="_blank" to={developer.github_page}>{ developer.name }</Link>}
                                                             content='Link para GitHub'/>
                             </Header.Content>);
                             }
@@ -59,7 +60,7 @@ export default class DevelopersCard extends React.Component {
                 <Card.Content header="Créditos" />
                 <Card.Content>
                   {this.getTable(this.DEVELOPER, "Desenvolvedores")}
-                  {this.getTable(this.DESIGN, "Design")}  
+                  {this.getTable(this.DESIGN, "Design")}
                   {this.getTable(this.MUSICIAN, "Musico")}
                 </Card.Content>
             </Card>

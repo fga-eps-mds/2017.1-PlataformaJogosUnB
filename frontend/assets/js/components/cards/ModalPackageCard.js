@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Modal, Header, Table} from "semantic-ui-react";
 
 export default class ModalPackageCard extends React.Component {
@@ -23,9 +24,9 @@ export default class ModalPackageCard extends React.Component {
                       <Table.Cell>
                         <Header textAlign='center'>{this.props.platform}</Header>
                       </Table.Cell>
-                      
+
                       <Table.Cell singleLine>{this.props.platform}</Table.Cell>
-                      
+
                       <Table.Cell>Icone</Table.Cell>
                     </Table.Row>
                   </Table.Body>
@@ -40,4 +41,3 @@ ModalPackageCard.propTypes = {
     button: PropTypes.object.isRequired,
     platform: PropTypes.string.isRequired,
 }
-

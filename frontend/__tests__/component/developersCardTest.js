@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import DevelopersCard from '../../assets/js/components/cards/DevelopersCard';
 import {Card, Popup, Table, Header} from "semantic-ui-react";
 import renderer from 'react-test-renderer';

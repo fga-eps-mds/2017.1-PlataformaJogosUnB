@@ -13,6 +13,6 @@ test('Test render DescriptionCard', () => {
     </Card>
 	);
 
-  let tree = component.toJSON();		
+  let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

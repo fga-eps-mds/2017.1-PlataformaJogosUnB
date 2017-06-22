@@ -3,7 +3,7 @@ import PackageCard from '../../assets/js/components/cards/PackageCard';
 import {Card, Button, Grid} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
-test('Test render DescriptionCard', () => {
+test('Test render PackageCard', () => {
   const component = renderer.create(
       <Card fluid>
           <Card.Content header="Download"/>

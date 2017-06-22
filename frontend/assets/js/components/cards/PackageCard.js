@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Button, Grid} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 
@@ -7,16 +8,16 @@ export default class PackageCard extends React.Component {
     reducePlatforms(packages) {
         let platforms = [];
         if (packages !== undefined) {
-            platforms = _.reduce(packages, (platform, bpackage) => { 
+            platforms = _.reduce(packages, (platform, bpackage) => {
                 const platform_names = _.map(bpackage.platforms, (platform_param) => platform_param.name);
                 return platform.concat(platform_names);
             }, []);
         }
         return (platforms);
     }
-    
+
     getButtonsPlatforms(){
-        const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=> 
+        const buttons_platforms =(this.reducePlatforms(this.props.packages)).map((value)=>
                 <ModalPackageCard key={value}
                     button={<Button basic color='green'>{value}</Button>}
                     platform={value}
@@ -27,9 +28,9 @@ export default class PackageCard extends React.Component {
 
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
-    
+
     render () {
-        
+
         return (
             <Card fluid>
                 <Card.Content header="Download"/>

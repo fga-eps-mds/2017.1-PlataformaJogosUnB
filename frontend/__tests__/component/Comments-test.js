@@ -3,7 +3,7 @@ import DescriptionCard from '../../assets/js/components/Comments';
 import FacebookProvider, { Comments } from 'react-facebook';
 import renderer from 'react-test-renderer';
 
-test('Test render DescriptionCard', () => {
+test('Test render Comments', () => {
   const component = renderer.create(
 		<div>
       <FacebookProvider appId="1850394608544081">
@@ -12,6 +12,6 @@ test('Test render DescriptionCard', () => {
     </div>
 	);
 
-  let tree = component.toJSON();		
+  let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

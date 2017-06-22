@@ -1,9 +1,10 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Label, Image, Header, Segment} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 
 export default class GameInformationCard extends React.Component {
-    
+
     getImages (img) {
         if (img != null) {
             return <Image src={img} />;
@@ -19,15 +20,15 @@ export default class GameInformationCard extends React.Component {
 
         return (
             <Card fluid>
-                {this.getImages(this.props.cover_image)}            
+                {this.getImages(this.props.cover_image)}
 
                 <Card.Content>
-                
+
                   <Card.Description>
 
                         { this.props.getFields('Versão: ',this.props.version) }
                         { this.props.getFields('Ano de lançamento: ',this.props.launch_year) }
-                        { this.props.getFields('Gêneros: ', 
+                        { this.props.getFields('Gêneros: ',
                             <div>
                             {this.props.genres
                                 .map((genre) => { return (
@@ -42,7 +43,7 @@ export default class GameInformationCard extends React.Component {
                 </Card.Content>
 
                 <Card.Content extra>
-                    {this.props.getFields('Repositório Oficial: ', 
+                    {this.props.getFields('Repositório Oficial: ',
                         <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>)}
                 </Card.Content>
             </Card>
