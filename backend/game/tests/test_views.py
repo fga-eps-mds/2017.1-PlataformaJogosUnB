@@ -7,6 +7,7 @@ import json
 import base64
 import os
 from core.settings import MEDIA_ROOT
+from django.db.models import Q
 
 from game.views import GameViewSet
 
@@ -20,6 +21,16 @@ def game():
 @pytest.fixture
 def platform():
     return PlatformFactory()
+
+
+@pytest.fixture
+def platforms_list():
+    return PlatformFactory.create_batch(2)
+
+
+@pytest.fixture
+def list_games(num_games=2):
+    return GameFactory.create_batch(num_games)
 
 
 class TestGameViewSet:
@@ -58,15 +69,13 @@ class TestGameViewSet:
         data['card_image'] = 'http://testserver' + data['card_image']
         assert response.data == data
 
-    @pytest.fixture
-    def list_games(self, num_games=2):
-        return GameFactory.create_batch(num_games)
-
     @pytest.mark.django_db
     def test_order_by(self, list_games):
-        list_games.sort(key=lambda game: game.name)
         data = Game.objects.all()
+        games = GameViewSet()._order_by(data, '')
+        assert list(games) == list_games
         games = GameViewSet()._order_by(data, 'name')
+        list_games.sort(key=lambda game: game.name)
         assert list(games) == list_games
 
     @pytest.mark.django_db
@@ -86,6 +95,24 @@ class TestGameViewSet:
         page = 4
         range_pages = GameViewSet().get_pagination_range(page, num_pages)
         assert range_pages == (2, 6)
+
+    @pytest.mark.django_db
+    def test_mount_filter(self, platforms_list):
+        ffilter = Q()
+        attribute = 'packages__platforms__name'
+        for platform in platforms_list:
+            ffilter |= Q((attribute, platform.name))
+        list_options = (item.name for item in platforms_list)
+        ffilter_games = GameViewSet()._mount_filter(attribute, list_options)
+        assert ffilter_games.__doc__ == ffilter.__doc__
+
+    @pytest.mark.django_db
+    def test_filter(self, list_games):
+        games = Game.objects.all()
+        games = list(games)
+        games.sort(key=lambda game: game.name)
+        filtered_games = GameViewSet()._filter('', '', 'name')
+        assert list(filtered_games) == games
 
 
 class TestViewGamePost:
@@ -175,10 +202,6 @@ class TestPackageApiSave:
 
 
 class TestPlatformViewList:
-
-    @pytest.fixture
-    def platforms_list(self):
-        return PlatformFactory.create_batch(2)
 
     @pytest.fixture
     def response_list(self, client, platforms_list):
