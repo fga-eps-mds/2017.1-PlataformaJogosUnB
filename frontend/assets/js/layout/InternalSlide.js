@@ -6,21 +6,39 @@ var Carousel = require('react-responsive-carousel').Carousel;
 require("react-responsive-carousel/lib/styles/carousel.css");
 // https://github.com/leandrowd/react-responsive-carousel
 
+
+const slideHeight = {
+  "height": "400px",
+  "margin": "5% 5%",
+  "width": "90%",
+};
+
 export default class InternalSlide extends React.Component {
+
+    getVideos(game_videos){
+        var videos = [];
+        videos = game_videos.map( (single_video) =>
+          <div>
+            <video style={slideHeight} src={single_video.video} controls/>
+          </div>
+        )
+        return videos
+    }
 
     getImages(game_images){
         var images = [];
         images = game_images.map( (single_image) => 
           <div>
             <img src={single_image.slide} />
-            <p className="legend">Teste</p>
           </div>
         )
         return images
     }
 
+
     componentDidMount(){
-        this.getImages(this.props.media_image); 
+        this.getVideos(this.props.media_video);
+        this.getImages(this.props.media_image);
     }
 
     render () {
@@ -31,6 +49,7 @@ export default class InternalSlide extends React.Component {
               autoplay={true}
               showStatus={false}
             >
+                {this.getVideos(this.props.media_video)}
                 {this.getImages(this.props.media_image)}
             </Carousel>
         );
