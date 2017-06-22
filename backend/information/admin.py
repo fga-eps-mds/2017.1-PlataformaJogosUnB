@@ -1,6 +1,6 @@
 from django.contrib import admin
 from information.models import (
-     Information, Credit, Award, Genre
+    Information, Credit, Award, Genre
 )
 
 

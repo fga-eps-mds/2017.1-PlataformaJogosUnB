@@ -155,8 +155,8 @@ class TestPackage:
                 mount_error_dict(["package"], [[ErrorMessage.FILE_TOO_BIG]])
             )
 
-    ERROR_MESSAGE = 'Certifique-se de que o valor tenha no máximo 40 caract' \
-        'eres (ele possui 41).'
+    ERROR_MESSAGE = "Valor 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' " \
+        "não é uma opção válida."
 
     @pytest.mark.django_db
     @pytest.mark.parametrize('architecture, errors_dict', [

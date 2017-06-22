@@ -10,6 +10,8 @@ import base64
 import os
 from core.settings import MEDIA_ROOT
 from django.db.models import Q
+from game.views import GameViewSet
+
 
 @pytest.fixture
 def game():
@@ -31,6 +33,8 @@ def platforms_list():
 def list_games(num_games=2):
     return GameFactory.create_batch(num_games)
 
+
+@pytest.fixture
 def batch_games_packages(platform):
     return [pack.game for pack in PackageFactory.create_batch(6)]
 
@@ -117,6 +121,7 @@ class TestGameViewSet:
         filtered_games = GameViewSet()._filter('', '', 'name')
         assert list(filtered_games) == games
 
+    @pytest.mark.django_db
     def test_game_visualization(self, client, game):
         client.get("/api/games/{}/".format(game.pk))
         updated_game = Game.objects.get(pk=game.pk)
@@ -231,7 +236,7 @@ class TestPackageApi:
         response = admin_client.post('/api/packages/', {
             'package': pack.file,
             'game_id': game.pk,
-            'architecture': 'x86'
+            'architecture': 'X86/32-bit'
         }, format='multipart')
 
         assert 200 <= response.status_code < 300
@@ -263,7 +268,6 @@ class TestPlatformViewList:
     def test_package_downloads(self, client, game, platform):
         package = PackageFactory(game=game)
         respons = client.post("/api/packages/{}/downloads/".format(package.pk))
-        print(respons.data)
         assert 200 <= respons.status_code < 300
         assert respons.data == {'update': 'downloads count increase'}
         downloads = Package.objects.get(pk=package.pk).downloads

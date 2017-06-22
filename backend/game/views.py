@@ -12,9 +12,6 @@ from rest_framework.decorators import (
     detail_route, api_view, permission_classes
 )
 from rest_framework.permissions import AllowAny
-from game.utils.issue_handler import IssueHandler
-from django.http import HttpResponseRedirect
-from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework.response import Response
 

@@ -1,8 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
-import {Container, Grid, Header, Menu, Segment, Sidebar} from "semantic-ui-react";
-import bars from '../../../public/bundles/images/icons/bars.png'
+import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 
 export default class MenuComponent extends React.Component {
 
@@ -49,7 +48,7 @@ export default class MenuComponent extends React.Component {
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
-                                        <img src={bars} width="30" height="30" onClick={this.showMenuMobile} />
+                                        <Icon name='bars' size='big' onClick={this.showMenuMobile} />
                                     </Menu>
                                 </Segment>
                             </Sidebar.Pusher>
