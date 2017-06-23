@@ -37,6 +37,7 @@
     "semantic-ui-react": "^0.68.4",
     "webpack-bundle-tracker": "^0.2.0"
   },
+  
   "dependencies": {
     "co": "^4.6.0",
     "core-util-is": "^1.0.2",
@@ -77,5 +78,10 @@
     "url-loader": "^0.5.8",
     "util-deprecate": "^1.0.2",
     "webpack": "^2.6.1"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test-setup.js"
+    ]
   }
 }
