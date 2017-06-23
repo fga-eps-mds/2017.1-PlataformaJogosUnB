@@ -1,6 +1,6 @@
 import React from "react";
 import SegmentTitle from "../layout/SegmentTitle";
-import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
+import {Container, Grid, Menu, Button, Icon, Dimmer, Loader} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
@@ -22,7 +22,8 @@ export default class GamesPage extends React.Component {
             "pageOption": '1',
             "infoPagination": '',
             "perPageOption": 16,
-            "visible": true
+            "visible": true,
+            "hasLoading": true
         }
         this.selectViewMode = this.selectViewMode.bind(this);
     }
@@ -45,11 +46,13 @@ export default class GamesPage extends React.Component {
             + "&perPage=" + data.perPage
         );
         dataListApi(url, (list) => {
-
             this.setState({games: list.games});
             this.setState({infoPagination: list.info })
             this.setState({pageOption: list.info.page })
-
+            console.log(list.games.length)
+            if ((list.games).length > 0) {
+                this.setState({hasLoading: false})
+            }
         })
 
     }
@@ -79,9 +82,7 @@ export default class GamesPage extends React.Component {
     }
 
     selectViewMode () {
-        console.log('oi')
         this.setState({"visible": !this.state.visible})
-        console.log(this.state.visible)
     }
    
     genreOptionWillUpdate(){
@@ -132,9 +133,13 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                         </Menu>
                     </Grid.Row>
+                    
+                    <Dimmer active={this.state.hasLoading}>
+                        <Loader size='massive'>Loading</Loader>
+                    </Dimmer>
 
                     <Grid.Row>
-                        <GameList modeView={this.state.visible}  games={this.state.games}/>
+                    <GameList modeView={this.state.visible}  games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
                         <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}

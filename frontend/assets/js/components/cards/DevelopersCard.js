@@ -69,8 +69,8 @@ export default class DevelopersCard extends React.Component {
                 <Card.Content><Header as='h2'>Créditos</Header></Card.Content>
                 <Card.Content>
                   {this.getTable(this.DEVELOPER, "Desenvolvedores")}
-                  {this.getTable(this.DESIGN, "Design")}  
-                  {this.getTable(this.MUSICIAN, "Musico")}
+                  {this.getTable(this.DESIGN, "Designers")}  
+                  {this.getTable(this.MUSICIAN, "Músicos")}
                 </Card.Content>
             </Card>
         );

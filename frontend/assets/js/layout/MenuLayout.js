@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 
-export default class MenuComponent extends React.Component {
+export default class MenuLayout extends React.Component {
 
     constructor (props) {
 

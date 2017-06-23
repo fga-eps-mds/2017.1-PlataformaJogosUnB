@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
 import React from "react";
-import {Card,Label,Icon} from 'semantic-ui-react';
+import {Card, Label, Icon, Dimmer, Loader} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
@@ -38,14 +38,22 @@ export default class IndexSlider extends React.Component {
     constructor (props) {
 
         super(props);
-        this.state = {"games": []};
+        this.state = {
+            "games": [],
+            "hasLoading": true
+        };
 
     }
 
     componentWillMount () {
 
-      dataListApi("/api/games/",
-          (games) => { this.setState({games}) });
+        dataListApi("/api/games/", (games) => { 
+            this.setState({games})
+            console.log(games) 
+            if ((games).length > 0) {
+                this.setState({hasLoading: false})
+            }
+        });
 
     }
 
@@ -64,9 +72,16 @@ export default class IndexSlider extends React.Component {
 
 
         if(images.length){
-            return (<div style={carouselImageStyle}>
-                <Slider {...settings}>{images}
-                </Slider></div>
+            return (
+                <div style={carouselImageStyle}>
+                    <Dimmer active={this.state.hasLoading}>
+                        <Loader size='massive'>Loading</Loader>
+                    </Dimmer>
+
+                    <Slider {...settings}>
+                        {images}
+                    </Slider>
+                </div>
             );
         } else {
             return <img/>
