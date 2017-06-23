@@ -18,7 +18,7 @@ export default class GamesPage extends React.Component {
             "sortByOption": '',
             "genreOption": '',
             "platformOption": '',
-            "getGenreInUrlLimit": 0
+            "getGenreInUrlLimit": 0,
             "pageOption": '1',
             "infoPagination": '',
             "perPageOption": 16,
