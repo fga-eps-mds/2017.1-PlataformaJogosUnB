@@ -37,7 +37,6 @@
     "semantic-ui-react": "^0.68.4",
     "webpack-bundle-tracker": "^0.2.0"
   },
-  
   "dependencies": {
     "co": "^4.6.0",
     "core-util-is": "^1.0.2",
@@ -46,6 +45,7 @@
     "css-selector-tokenizer": "^0.7.0",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "jest-fetch-mock": "^1.1.1",
     "lodash.camelcase": "^4.3.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
@@ -80,6 +80,7 @@
     "webpack": "^2.6.1"
   },
   "jest": {
+    "automock": false,
     "setupFiles": [
       "./test-setup.js"
     ]

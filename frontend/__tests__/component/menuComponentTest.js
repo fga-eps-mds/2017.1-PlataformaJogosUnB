@@ -1,10 +1,11 @@
 import React from 'react';
 import MenuComponent from '../../assets/js/layout/MenuComponent';
+import SearchBox from '../../assets/js/components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
 test('Test render MenuComponent', () => { 
-    const ActiveItem = null;
+    const activeItem = null;
   const component = renderer.create(
 
       <div>
