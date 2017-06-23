@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 import GameCard from "../components/cards/GameCard";
 import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
@@ -31,7 +32,7 @@ export default class GenreSlide extends React.Component {
   reducePlatforms(packages){
       let platforms = [];
       if (packages !== undefined) {
-          platforms = _.reduce(packages, (platform, bpackage) => { 
+          platforms = _.reduce(packages, (platform, bpackage) => {
               const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
               return platform.concat(platform_icons);
           }, []);
