@@ -14,7 +14,6 @@ export default class MenuLayout extends React.Component {
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
 
-
     }
 
     showMenuMobile () {

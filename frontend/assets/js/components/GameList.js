@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
-import {Grid, Container, Segment} from "semantic-ui-react";
+import {Grid, Container, Segment, Header, Icon} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 import GameItemList from "./cards/GameItemList";
 
@@ -54,8 +54,12 @@ export default class GameList extends React.Component {
         if(games.length > 0){
             return games;
         } else {
-            const info = <h1>Nenhum jogo encontrado</h1>;
-            return info;
+            return (
+            <Grid centered columns={2}>
+                <Header centered as='h1' inverted>Nenhum jogo encontrado</Header>
+                <Icon name='frown' size='massive' color='red'/>
+            </Grid>
+            );
         }
     }
 

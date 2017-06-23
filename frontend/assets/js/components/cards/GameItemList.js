@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Card, Image, Item, Label, Button,Icon, Header} from "semantic-ui-react";
-import _ from "lodash";
 
 const cardImageStyle = {
     "background": "#000000",
     "position": "relative",
-    "minHeight": "180px",
-    "minWidth": "180px",
+    "minHeight": "200px",
+    "minWidth": "200px",
 };
 const imageStyle = {
     "position": "absolute",
@@ -52,7 +51,7 @@ export default class GameItemList extends React.Component {
                     </Item.Meta>
                     
                     <Item.Extra>
-                        {this.getGameLink(<Button basic color='green' floated='right'>Baixe agora!</Button>)}
+                        {this.getGameLink(<Button basic color='green' floated='right'>Conheça mais...</Button>)}
                         
                         {(this.props.game.information.genres).map((genre) => 
                             { return (
