@@ -15,7 +15,7 @@ const imageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
-    "margin":10,
+    "margin":20,
 }, cardStyle = {
     "float":"right",
     "height":400,
@@ -75,11 +75,11 @@ export default class IndexSlider extends React.Component {
 
     getGenreByGame(id){
 
-
-        return this.state.games[id].information.genres.map((genre, i) =>{
-                    return (<Label key={i} color='teal'>
+        return this.state.games[id].information.genres.map((genre) =>{
+                    return (<Link to={`/games/${genre.name}`} >
+                            <Label color='teal'>
                                {genre.name}
-                            </Label>);})
+                            </Label></Link>);})
     }
 
     mountImages(){

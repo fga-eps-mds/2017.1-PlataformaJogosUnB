@@ -8,7 +8,7 @@ export default class GenreItems extends React.Component{
         super(props);
         this.state = {
             "genres":[],
-            "selectedGenre":'Categoria'
+            "selectedGenre":this.props.genre
         };
     }
 
@@ -31,7 +31,7 @@ export default class GenreItems extends React.Component{
         this.setState({ selectedGenre: genreName });
         this.props.callbackParent('genreOption', option);
     }
-
+    
     mountGenreItems(){
         if(typeof this.state.genres === "undefined"){
             return false
@@ -44,7 +44,7 @@ export default class GenreItems extends React.Component{
         return gameGenresItems
 
     }
-
+        
     render (){
         return(
             <Dropdown text={this.state.selectedGenre} selection>

@@ -18,6 +18,7 @@ export default class GamesPage extends React.Component {
             "sortByOption": '',
             "genreOption": '',
             "platformOption": '',
+            "getGenreInUrlLimit": 0,
             "pageOption": '1',
             "infoPagination": '',
             "perPageOption": 16,
@@ -82,9 +83,24 @@ export default class GamesPage extends React.Component {
         this.setState({"visible": !this.state.visible})
         console.log(this.state.visible)
     }
+   
+    genreOptionWillUpdate(){
+        const genre = this.props.match.params.genre;
+        const limit = this.state.getGenreInUrlLimit;
+        
+        if(genre !== undefined){
+            if(limit < 1){
+                this.state.genreOption = genre;
+                this.state.getGenreInUrlLimit += 1;
+                return genre;
+            }
+        }
+        return "Categorias";
+
+    }
 
     render () {
-
+        const urlGenre = this.genreOptionWillUpdate(); 
         const {visible} = this.state;
 
         return (
@@ -100,7 +116,7 @@ export default class GamesPage extends React.Component {
                                 <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
                             </Menu.Item>
                             <Menu.Item>
-                                <GenreItems callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                                <GenreItems genre = {urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                             </Menu.Item>
                             <Menu.Item>
                                 <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
