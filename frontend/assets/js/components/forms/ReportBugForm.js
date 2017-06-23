@@ -1,6 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
+import PropTypes from 'prop-types';
 
 const formFieldsStyle = {
     "width": "870px",
