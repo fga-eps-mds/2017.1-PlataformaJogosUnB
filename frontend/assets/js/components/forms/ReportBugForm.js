@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
 
@@ -89,4 +89,9 @@ export default class ReportBugForm extends React.Component {
         </Modal>
       );
   }
+}
+
+ReportBugForm.propTypes = {
+  game_pk: PropTypes.number.isRequired,
+  button: PropTypes.element.isRequired
 }
