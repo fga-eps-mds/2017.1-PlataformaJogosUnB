@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Card, Image, Item, Label, Button,Icon, Header} from "semantic-ui-react";
+import {Image, Item, Label, Button, Header} from "semantic-ui-react";
 
 const cardImageStyle = {
     "background": "#000000",
@@ -55,7 +55,7 @@ export default class GameItemList extends React.Component {
                         
                         {(this.props.game.information.genres).map((genre) => 
                             { return (
-                                        <Label color='green'> {genre.name} </Label>
+                                        <Label key={genre} color='green'> {genre.name} </Label>
                                     );
                             })
                         }
@@ -71,4 +71,5 @@ export default class GameItemList extends React.Component {
 
 GameItemList.propTypes = {
     game: PropTypes.object.isRequired,
+    reducePlatforms: PropTypes.func.isRequired,
 }

@@ -17,11 +17,11 @@ export default class GameList extends React.Component {
     }
 
     getGameCards(){
-        const gamesCards = (this.props.games).map((game) =>
+        const gamesCards = (this.props.games).map((gameItemsCard) =>
             <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
-                  <Link to={`/games/${game.pk}/${game.name}`}
-                        params={{"id": game.pk}}>
-                    <GameCard game={game} reducePlatforms={this.reducePlatforms} />
+                  <Link to={`/games/${gameItemsCard.pk}/${gameItemsCard.name}`}
+                        params={{"id": gameItemsCard.pk}}>
+                    <GameCard game={gameItemsCard} reducePlatforms={this.reducePlatforms} />
                 </Link>
             </Grid.Column>
         );
@@ -85,5 +85,7 @@ export default class GameList extends React.Component {
 GameList.propTypes = {
   sortByOption: PropTypes.object.isRequired,
   genreOption: PropTypes.string.isRequired,
-  platformOption: PropTypes.string.isRequired
+  platformOption: PropTypes.string.isRequired,
+  games: PropTypes.object.isRequired,
+  modeView: PropTypes.bool.isRequired,
 }
