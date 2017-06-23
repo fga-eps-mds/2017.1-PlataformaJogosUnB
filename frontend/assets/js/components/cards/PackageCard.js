@@ -45,6 +45,8 @@ export default class PackageCard extends React.Component {
                     }
                     platform={this.handlePackages(value)}
                     game_pk={game_pk}
+                    kernel={value}
+                    gameName={this.props.gameName}
                 />);
 
         if (buttons_platforms!=[]) {

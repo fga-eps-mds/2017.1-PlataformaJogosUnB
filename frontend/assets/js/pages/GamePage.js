@@ -98,6 +98,7 @@ export default class GamePage extends React.Component{
                         <PackageCard
                             packages={this.state.game.packages}
                             game_pk={this.state.game.pk}
+                            gameName={this.state.game.name}
                         />
                         <ReportBugCard
                             game_pk={this.state.game.pk}

@@ -6,20 +6,23 @@ const cursorMouse = {
   "cursor": "pointer",
 };
 
+//TODO remove camel case from variables
+
 export default class ModalPackageCard extends React.Component {
       constructor (props) {
           super(props);
             this.state = {
-                "packages": []
+                "packages": {}
           }
-          this.downloadPackage = this.downloadPackage.bind(this)          
+          this.downloadPackage = this.downloadPackage.bind(this)
+          this.getPackagesByKernel = this.getPackagesByKernel.bind(this)
       }
 
-      downloadPackage() {
-        console.log(this.props.game)
+      downloadPackage(packagePath) {
+        console.log(packagePath)
         setTimeout(() => {
           const response = {
-            file: this.state.packages[0].package,
+            file: packagePath,
           };
           window.location.href = response.file;
         }, 100);
@@ -28,8 +31,7 @@ export default class ModalPackageCard extends React.Component {
       loadGameFromServer () {
         const game_pk = this.props.game_pk
          const url = (
-             "/api/package/1/game/?"
-             + "id_game=" + game_pk
+             "/api/games/" + game_pk + "/platforms/?"
          );
          dataListApi(url, (list) => {
             this.setState({packages: list});
@@ -37,42 +39,54 @@ export default class ModalPackageCard extends React.Component {
       }
 
       componentDidMount () {
-
           this.loadGameFromServer();
+      }
 
+      getPackagesByKernel(kernel) {
+        if(this.state.packages[kernel] != undefined){
+          let packagesByKernel = this.state.packages[kernel]
+          return packagesByKernel
+        }else{
+          return []
+        }
       }
 
       getPlatformsList(){
-        
-        const packages_rows = (this.props.platform).map((value)=>
-                    <Table.Row>
-                      <Table.Cell>
-                        <Header textAlign='center'>{value.name}</Header>
-                      </Table.Cell>
-                      
-                      <Table.Cell singleLine>{}</Table.Cell>                      
-                      <Table.Cell><Icon name='download' style={cursorMouse} onClick={this.downloadPackage}/></Table.Cell>
-                    </Table.Row>
-                  );
-        
+
+        console.log("ASFASFSADAS")
+        console.log(this.state.packages)
+        console.log("ASFASFSADAS")
+
+        const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage)=>
+            <Table.Row>
+              <Table.Cell>
+                <Header textAlign='center'>{eachPackage.platforms}</Header>
+              </Table.Cell>
+              <Table.Cell>
+                <Header textAlign='center'>{eachPackage.architecture}</Header>
+              </Table.Cell>
+
+              <Table.Cell><Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package)}/> {eachPackage.size}</Table.Cell>
+            </Table.Row>
+        );
+      
         if (packages_rows!=[]) {
             return packages_rows;
         }
 
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
-
       render () {
         
         return (
             <Modal trigger={this.props.button}>
-                <Modal.Header>Pacotes disponíveis</Modal.Header>
+                <Modal.Header>{this.props.gameName} - instaladores disponíveis para {this.props.kernel}</Modal.Header>
                 <Modal.Content image>
                   <Table celled padded>
                   <Table.Header>
                     <Table.Row>
-                      <Table.HeaderCell singleLine>Distribuição</Table.HeaderCell>
-                      <Table.HeaderCell>Tamanho do pacote</Table.HeaderCell>
+                      <Table.HeaderCell singleLine>Plataformas</Table.HeaderCell>
+                      <Table.HeaderCell singleLine>Arquitetura</Table.HeaderCell>
                       <Table.HeaderCell>Download</Table.HeaderCell>
                     </Table.Row>
                   </Table.Header>
