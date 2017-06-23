@@ -1,24 +1,17 @@
 import React, {PropTypes} from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import {Modal, Button, Form, Message, Segment } from 'semantic-ui-react';
 import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
-
-const formFieldsStyle = {
-    "width": "870px",
-    "marginLeft": "15px",
-    "marginTop": "15px",
-};
-const titleFieldStyle = {
-    "height": "45px",
-};
-const descriptionFieldStyle = {
-    "height": "150px",
-};
 
 export default class ReportBugForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      'heard_text': ['Reporte Bug'],
+      'info_text': ['Insira as informaçoes nos campos abaixo.'],
+      'message_color': true,
+    }
   }
 
   submitBug(data){
@@ -39,12 +32,23 @@ export default class ReportBugForm extends React.Component {
     });
   }
 
+  changeStates(header,info,color){
+    this.setState({
+        heard_text: [header],
+        info_text: [info],
+        message_color: color
+      })
+  }
 
   validateTitle(title){
     if(title.length > 0 && title.length < 120){
       return true
     }else{
-      alert('O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.')
+      this.changeStates(
+        ['Erro de submissao'],
+        ['O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.'],
+        false
+      )
       return false
     }
   }
@@ -53,7 +57,12 @@ export default class ReportBugForm extends React.Component {
     if(description.length > 0 && description.length < 250){
       return true
     }else{
-      alert('A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.')
+      this.changeStates(
+        ['Erro de submissao'],
+        ['A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.'],
+        false
+      )
+
       return false
     }
   }
@@ -71,7 +80,11 @@ export default class ReportBugForm extends React.Component {
     };
 
     if(this.validate(data)){
-      alert('O bug foi reportado com sucesso');
+      this.changeStates(
+        ['Sucesso ao reportar bug'],
+        ['O bug foi reportado com sucesso'],
+        true
+      )
       this.submitBug(data);
     }
   }
@@ -79,13 +92,19 @@ export default class ReportBugForm extends React.Component {
   render() {
       return (
         <Modal trigger={this.props.button}>
-          <div style={formFieldsStyle}>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Input label="Título" name="title" type="text" style={titleFieldStyle} /> 
-              <Form.TextArea label="Descrição" name="description" type="text" style={descriptionFieldStyle}/> 
-              <Button size="medium" type="submit" primary>Reportar Bug</Button>
-            </Form>
-          </div>
+            <Segment>
+              <Message
+                error = {!this.state.message_color}
+                info = {this.state.message_color}
+                header={this.state.heard_text}
+                list={this.state.info_text}
+              />
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Input label="Título do Bug" name="title" type="text" placeholder='Ex: Jogo esta sem som'/>
+                <Form.TextArea label="Descrição" name="description" type="text" placeholder='Ex: Na fase 3 o jogo nao apresenta som.'/>
+                <Button size="medium" type="submit" primary>Reportar Bug</Button>
+              </Form>
+            </Segment>
         </Modal>
       );
   }
