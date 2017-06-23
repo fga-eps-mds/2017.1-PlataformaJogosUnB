@@ -9,7 +9,7 @@ export default class ReportBugForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       'heard_text': ['Reporte Bug'],
-      'info_text': ['Insira as informaçoes nos campos abaixo.'],
+      'info_text': ['Insira as informações nos campos abaixo.'],
       'message_color': true,
     }
   }
@@ -45,7 +45,7 @@ export default class ReportBugForm extends React.Component {
       return true
     }else{
       this.changeStates(
-        ['Erro de submissao'],
+        ['Erro de submissão'],
         ['O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.'],
         false
       )
@@ -58,7 +58,7 @@ export default class ReportBugForm extends React.Component {
       return true
     }else{
       this.changeStates(
-        ['Erro de submissao'],
+        ['Erro de submissão'],
         ['A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.'],
         false
       )
@@ -82,7 +82,7 @@ export default class ReportBugForm extends React.Component {
     if(this.validate(data)){
       this.changeStates(
         ['Sucesso ao reportar bug'],
-        ['O bug foi reportado com sucesso'],
+        ['O bug foi reportado com sucesso.'],
         true
       )
       this.submitBug(data);
@@ -100,8 +100,8 @@ export default class ReportBugForm extends React.Component {
                 list={this.state.info_text}
               />
               <Form onSubmit={this.handleSubmit}>
-                <Form.Input label="Título do Bug" name="title" type="text" placeholder='Ex: Jogo esta sem som'/>
-                <Form.TextArea label="Descrição" name="description" type="text" placeholder='Ex: Na fase 3 o jogo nao apresenta som.'/>
+                <Form.Input label="Título do Bug" name="title" type="text" placeholder='Ex: Jogo sem som'/>
+                <Form.TextArea label="Descrição" name="description" type="text" placeholder='Ex: Na fase 3 o jogo não apresenta sons.'/>
                 <Button size="medium" type="submit" primary>Reportar Bug</Button>
               </Form>
             </Segment>
