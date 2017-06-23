@@ -15,44 +15,45 @@ const slideHeight = {
 
 export default class InternalSlide extends React.Component {
 
-    getVideos(game_videos){
+    getMedias(game_videos,game_images){
+        if(typeof game_videos !== undefined){
         var videos = [];
         videos = game_videos.map( (single_video) =>
           <div>
-            <video style={slideHeight} src={single_video.video} controls/>
-          </div>
-        )
-        return videos
-    }
-
-    getImages(game_images){
+            <video controls style={slideHeight} src={single_video.video} />
+          </div>)
+        }
+        if(typeof game_images !== undefined){
         var images = [];
-        images = game_images.map( (single_image) => 
-          <div>
-            <img src={single_image.slide} />
-          </div>
-        )
-        return images
+         images = game_images.map( (single_image) =>
+           <div>
+             <img src={single_image.slide} />
+           </div>
+         )
+        }
+        return videos.concat(images)
     }
 
 
+    componentWillMount(){
+        this.getMedias(this.props.media_video,this.props.media_image);
+    }
     componentDidMount(){
-        this.getVideos(this.props.media_video);
-        this.getImages(this.props.media_image);
+        this.getMedias(this.props.media_video,this.props.media_image);
     }
 
     render () {
+    const mediaList = this.getMedias(this.props.media_video,this.props.media_image)
+        if(mediaList){
         return (
             <Carousel
-              infiniteLoop={true}
               emulateTouch={true}
-              autoplay={true}
               showStatus={false}
             >
-                {this.getVideos(this.props.media_video)}
-                {this.getImages(this.props.media_image)}
+            {mediaList}
             </Carousel>
         );
-    }
-
+        }
+        return false
+   }
 }
