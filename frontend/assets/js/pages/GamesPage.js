@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu, Button, Icon, Dimmer, Loader} from "semantic-ui-react";
 import GameList from "../components/GameList";
@@ -91,8 +91,8 @@ export default class GamesPage extends React.Component {
         
         if(genre !== undefined){
             if(limit < 1){
-                this.state.genreOption = genre;
-                this.state.getGenreInUrlLimit += 1;
+                this.Setstate({genreOption: genre});
+                this.Setstate({getGenreInUrlLimit: this.getGenreInUrlLimit += 1});
                 return genre;
             }
         }
@@ -102,7 +102,6 @@ export default class GamesPage extends React.Component {
 
     render () {
         const urlGenre = this.genreOptionWillUpdate(); 
-        const {visible} = this.state;
 
         return (
             <Container>
@@ -127,7 +126,7 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item position='right'>
                                 <Button.Group>
-                                    <Button onClick={this.selectViewMode}><Icon name='list layout' width='40' heigth='40' /></Button>
+                                    <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
                                     <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
                                 </Button.Group>
                             </Menu.Item>
@@ -151,4 +150,8 @@ export default class GamesPage extends React.Component {
         );
 
     }
+}
+
+GamesPage.propTypes = {
+    match: PropTypes.object.isRequired,
 }

@@ -15,7 +15,7 @@ const slideHeight = {
 };
 
 
-export default class GenreSlide extends React.Component {
+export default class CardsSlide extends React.Component {
   constructor (props) {
 
       super(props);
@@ -114,6 +114,6 @@ export default class GenreSlide extends React.Component {
   }
 }
 
-GenreSlide.propTypes = {
+CardsSlide.propTypes = {
   url: PropTypes.string.isRequired
 }

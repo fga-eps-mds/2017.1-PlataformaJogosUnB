@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import { Card, Grid, Container, Button, Icon } from 'semantic-ui-react'
+import { Card, Grid, Container} from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
@@ -8,10 +8,6 @@ import PackageCard from '../components/cards/PackageCard';
 import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
-
-const reportBugButtonStyle = {
-      "float": "right",
-};
 
 export default class GamePage extends React.Component{
     constructor (props) {
@@ -106,8 +102,7 @@ export default class GamePage extends React.Component{
                         <ReportBugCard
                             game_pk={this.state.game.pk}
                         />
-                  </Grid.Column>
-
+                    </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
