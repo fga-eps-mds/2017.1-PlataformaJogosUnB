@@ -5,8 +5,8 @@ import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import PackageCard from '../components/cards/PackageCard';
+import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
-import ReportBugForm from '../components/forms/ReportBugForm.js';
 import SegmentTitle from "../layout/SegmentTitle";
 
 const reportBugButtonStyle = {
@@ -84,19 +84,6 @@ export default class GamePage extends React.Component{
                             genres={this.state.game.information.genres}
                             getFields={this.getFields}
                         />
-                      <div style={reportBugButtonStyle}>
-                         <ReportBugForm
-                           button={
-                             <Button animated="vertical" color="red">
-                               <Button.Content hidden>Reportar bug</Button.Content>
-                               <Button.Content visible>
-                                 <Icon name="shop" />
-                               </Button.Content>
-                             </Button>
-                           } 
-                           game_pk={this.state.game.pk}
-                         />
-                      </div>
                     </Grid.Column>
                 </Grid.Row>
 
@@ -116,7 +103,11 @@ export default class GamePage extends React.Component{
                         <PackageCard
                             packages={this.state.game.packages}
                         />
-                    </Grid.Column>
+                        <ReportBugCard
+                            game_pk={this.state.game.pk}
+                        />
+                  </Grid.Column>
+
                 </Grid.Row>
 
                 <Grid.Row>
