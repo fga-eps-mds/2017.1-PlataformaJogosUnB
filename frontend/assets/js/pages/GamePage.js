@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Card, Grid, Container, Button, Icon } from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
@@ -21,7 +22,7 @@ export default class GamePage extends React.Component{
             "game": {
                 "media_image": [],
                 "information": {
-                    "credits": [],                 
+                    "credits": [],
                     "awards": [],
                     "genres": [],
                     "packages": []
@@ -93,7 +94,7 @@ export default class GamePage extends React.Component{
                                  <Icon name="shop" />
                                </Button.Content>
                              </Button>
-                           } 
+                           }
                            game_pk={this.state.game.pk}
                          />
                       </div>
@@ -112,7 +113,7 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
 
-                    <Grid.Column width={6}>    
+                    <Grid.Column width={6}>
                         <PackageCard
                             packages={this.state.game.packages}
                         />
