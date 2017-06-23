@@ -13,7 +13,7 @@ export default class PackageCard extends React.Component {
                     <Grid centered size='large'>
                       <ReportBugForm
                         button={
-                           <Button basic color="red">
+                           <Button basic color="red" icon>
                              <Button.Content visible>
                                <Icon name="bug" />
                              </Button.Content>

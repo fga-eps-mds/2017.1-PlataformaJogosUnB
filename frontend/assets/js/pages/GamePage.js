@@ -31,9 +31,9 @@ export default class GamePage extends React.Component{
         this.getFields = this.getFields.bind()
     }
 
-    getFields (title,value) {
+    getFields (title,value,divider) {
         if (value != null) {
-            return <p><strong>{title}</strong>{value}</p>;
+            return <h7><strong>{title}</strong>{value}{divider}</h7>;
         }
         return null;
     }
