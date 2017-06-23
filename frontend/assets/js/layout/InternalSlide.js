@@ -1,7 +1,8 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import ImageGallery from "react-image-gallery";
-import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
-require("react-image-gallery/styles/scss/image-gallery.scss");
+//import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
+//require("react-image-gallery/styles/scss/image-gallery.scss");
 // https://github.com/xiaolin/react-image-gallery
 
 export default class InternalSlide extends React.Component {

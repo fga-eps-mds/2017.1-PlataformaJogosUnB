@@ -4,7 +4,7 @@ import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
-import PlatformItems from "../components/filter_itens/PlatformItems";
+import PlataformItems from "../components/filter_itens/PlataformItems";
 import PerPageItems from "../components/filter_itens/PerPageItems";
 import Paginator from "../components/Paginator";
 import {dataListApi} from "../resources/DataListApi";
@@ -57,7 +57,7 @@ export default class GamesPage extends React.Component {
         if(this.state.platformOption != nextState.platformOption){
             this.loadGameFromServer(nextState);
         } else if(this.state.genreOption != nextState.genreOption){
-            this.loadGameFromServer(nextState); 
+            this.loadGameFromServer(nextState);
         } else if(this.state.sortByOption != nextState.sortByOption){
             this.loadGameFromServer(nextState);
         } else if(this.state.pageOption != nextState.pageOption){
@@ -93,7 +93,7 @@ export default class GamesPage extends React.Component {
                     <Grid.Row>
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
-                    
+
                     <Grid.Row>
                         <Menu fluid inverted color='blue'>
                             <Menu.Item>
