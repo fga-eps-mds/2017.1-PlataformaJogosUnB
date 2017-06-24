@@ -1,6 +1,7 @@
 import React, {PropTypes} from "react";
 import {Modal, Header, Table, Icon} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
+import {downloadsPackageApi} from "../../resources/packageApi"; 
 
 const cursorMouse = {
   "cursor": "pointer",
@@ -16,16 +17,25 @@ export default class ModalPackageCard extends React.Component {
           }
           this.downloadPackage = this.downloadPackage.bind(this)
           this.getPackagesByKernel = this.getPackagesByKernel.bind(this)
+          this.increasePackageDownloadsCount = this.increasePackageDownloadsCount.bind(this)
       }
 
-      downloadPackage(packagePath) {
-        console.log(packagePath)
-        setTimeout(() => {
+      increasePackageDownloadsCount(packagePk){
+          console.log(packagePk)
+          downloadsPackageApi(packagePk);
+      }
+
+      downloadPackage(packagePath,packagePk) {
+    
+        this.increasePackageDownloadsCount(packagePk)
+
+        /*setTimeout(() => {
           const response = {
             file: packagePath,
           };
           window.location.href = response.file;
         }, 100);
+        */
       }
 
       loadGameFromServer () {
@@ -52,10 +62,11 @@ export default class ModalPackageCard extends React.Component {
       }
 
       getPlatformsList(){
-
         console.log("ASFASFSADAS")
         console.log(this.state.packages)
+        console.log(this.props.downloads)
         console.log("ASFASFSADAS")
+
 
         const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage)=>
             <Table.Row>
@@ -66,7 +77,7 @@ export default class ModalPackageCard extends React.Component {
                 <Header textAlign='center'>{eachPackage.architecture}</Header>
               </Table.Cell>
 
-              <Table.Cell><Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package)}/> {eachPackage.size}</Table.Cell>
+              <Table.Cell><Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package,eachPackage.pk)}/> {eachPackage.size}</Table.Cell>
             </Table.Row>
         );
       
