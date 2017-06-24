@@ -4,7 +4,7 @@ import {Container, Grid, Menu, Button, Icon, Dimmer, Loader} from "semantic-ui-r
 import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
-import PlataformItems from "../components/filter_itens/PlataformItems";
+import PlatformItems from "../components/filter_itens/PlatformItems";
 import PerPageItems from "../components/filter_itens/PerPageItems";
 import Paginator from "../components/Paginator";
 import {dataListApi} from "../resources/DataListApi";

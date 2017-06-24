@@ -3,7 +3,7 @@ import GamesPage from '../../assets/js/pages/GamesPage';
 import SegmentTitle from '../../assets/js/layout/SegmentTitle';
 import SortByItems from '../../assets/js/components/filter_itens/SortByItems';
 import GenreItems from '../../assets/js/components/filter_itens/GenreItems';
-import PlataformItems from '../../assets/js/components/filter_itens/PlataformItems';
+import PlatformItems from '../../assets/js/components/filter_itens/PlatformItems';
 import PerPageItems from '../../assets/js/components/filter_itens/PerPageItems';
 import Paginator from '../../assets/js/components/Paginator';
 import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
@@ -26,7 +26,7 @@ test('Test render GamesPage', () => {
                           <GenreItems callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                       </Menu.Item>
                       <Menu.Item>
-                          <PlataformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                          <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
                       </Menu.Item>
                       <Menu.Item>
                           <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />

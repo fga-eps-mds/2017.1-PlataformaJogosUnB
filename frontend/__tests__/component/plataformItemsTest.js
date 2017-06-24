@@ -1,9 +1,9 @@
 import React from 'react';
-import PlataformItems from '../../assets/js/components/filter_itens/PlataformItems';
+import PlatformItems from '../../assets/js/components/filter_itens/PlatformItems';
 import {Dropdown} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
-test('Test render PlataformItems', () => {
+test('Test render PlatformItems', () => {
   const component = renderer.create(
       <Dropdown text="Windows" selection>
           <Dropdown.Menu>
