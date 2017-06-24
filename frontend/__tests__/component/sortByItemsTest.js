@@ -7,7 +7,7 @@ test('Test render SortByItems', () => {
   const component = renderer.create(
       <Dropdown text="nome" defaultValue='Ordernar por' selection>
           <Dropdown.Menu>
-              "nome do item"
+              {"nome do item"}
           </Dropdown.Menu>
       </Dropdown>
 	);

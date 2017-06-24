@@ -8,7 +8,7 @@ test('Test render AboutCard', () => {
       <Card>
           <Card.Content>
               <Card.Header>
-                  "Titulo"
+                  {"Titulo"}
               </Card.Header>
           </Card.Content>
           <Card.Content>
@@ -16,7 +16,7 @@ test('Test render AboutCard', () => {
                   <Grid centered columns={5} divided>
                       <Grid.Row>
                           <Grid.Column>
-                              "description"
+                              {"description"}
                           </Grid.Column>
                           <Grid.Column>
                               <Image centered size="medium" src="./image1.jpg" />

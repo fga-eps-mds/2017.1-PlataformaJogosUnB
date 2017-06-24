@@ -7,7 +7,7 @@ test('Test render Genres', () => {
   const component = renderer.create(
       <Dropdown text= 'Categorias'>
                   <Dropdown.Menu>
-                      ['acao', 'aventura', 'terror']
+                      [{'acao'}, {'aventura'}, {'terror'}]
                   </Dropdown.Menu>
       </Dropdown>
      );

@@ -6,7 +6,7 @@ var expect = required('expect');
 test('Test render SegmentTitle', () => {
   const component = renderer.create(
       <Segment padded inverted color="grey">
-          <h1>"Titulo"</h1>
+          <h1>{"Titulo"}</h1>
       </Segment>
 	);
 

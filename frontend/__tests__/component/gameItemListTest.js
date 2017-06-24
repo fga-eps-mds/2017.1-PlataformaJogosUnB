@@ -12,7 +12,7 @@ test('Test render GameItemList', () => {
             </Item.Image>
             <Item.Content verticalAlign='middle'>
               <Item.Header>
-                  "name"
+                  {"name"}
               </Item.Header>
 
               <Item.Meta>
@@ -26,7 +26,7 @@ test('Test render GameItemList', () => {
               <Item.Extra>
                  <Button basic color='green' floated='right'>Baixe agora!</Button>)
 
-                 <Label color='green'> "acao" </Label>
+                 <Label color='green'>{"acao"}</Label>
 
               </Item.Extra>
 

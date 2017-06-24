@@ -11,14 +11,14 @@ test('Test render GameInformationCard', () => {
           <Card.Content>
 
             <Card.Description>
-                  "1.0",
-                  "2016",
-                  "nome"
+                  {"1.0"},
+                  {"2016"},
+                  {"nome"}
               </Card.Description>
           </Card.Content>
 
           <Card.Content extra>
-              "https://google.com"
+              {"https://google.com"}
           </Card.Content>
       </Card>
 	);

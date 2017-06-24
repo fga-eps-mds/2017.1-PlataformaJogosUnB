@@ -10,7 +10,7 @@ test('Test render PackageCard', () => {
           <Card.Content>
               <Grid centered size='large'>
                   <Button.Group>
-                     ['button1','button2','button3']
+                     [{'button1'},{'button2'},{'button3'}]
                   </Button.Group>
               </Grid>
           </Card.Content>

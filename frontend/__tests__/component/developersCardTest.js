@@ -8,7 +8,7 @@ test('Test render DevelopersCard', () => {
       <Card fluid>
           <Card.Content header="Créditos" />
             <Card.Content>
-                "DEVELOPER"
+                {"DEVELOPER"}
             </Card.Content>
       </Card>
   );

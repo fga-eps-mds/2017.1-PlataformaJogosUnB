@@ -10,7 +10,7 @@ test('Test render GenreItems', () => {
               <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                   Todas as categorias
               </Dropdown.Item>
-              "acao"
+              {"acao"}
           </Dropdown.Menu>
       </Dropdown>
 	);

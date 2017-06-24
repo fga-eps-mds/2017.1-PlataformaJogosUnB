@@ -6,7 +6,7 @@ var expect = required('expect');
 test('Test render GameList', () => {
   const component = renderer.create(
       <Grid doubling columns={5}>
-          ['game1','game2','game3']
+          [{'game1'},{'game2'},{'game3'}]
       </Grid>
      );
 

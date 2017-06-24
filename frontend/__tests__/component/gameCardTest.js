@@ -11,7 +11,7 @@ test('Test render GameCard', () => {
           </div>
           <Card.Content>
               <Card.Header>
-                  "nome"
+                  {"nome"}
               </Card.Header>
           </Card.Content>
           <Card.Content extra>

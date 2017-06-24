@@ -10,7 +10,7 @@ test('Test render PlatformItems', () => {
               <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                   Todas plataformas
               </Dropdown.Item>
-              "Windows"
+              {"Windows"}
           </Dropdown.Menu>
       </Dropdown>
 	);

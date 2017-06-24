@@ -7,7 +7,7 @@ test('Test render PerPageItems', () => {
   const component = renderer.create(
       <Dropdown text="name" selection>
           <Dropdown.Menu>
-              ['Drop1', 'Drop2', 'Drop3']
+              [{'Drop1'}, {'Drop2'}, {'Drop3'}]
           </Dropdown.Menu>
       </Dropdown>
 	);

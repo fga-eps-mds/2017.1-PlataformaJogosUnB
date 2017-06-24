@@ -8,7 +8,7 @@ test('Test render DescriptionCard', () => {
       <Card fluid>
         <Card.Content header='Descrição' description="content"/>
         <Card fluid>
-      	 <Card.Content header='Prêmios' description="content"/>
+            <Card.Content header='Prêmios' description="content"/>
         </Card>
       </Card>
 	);
