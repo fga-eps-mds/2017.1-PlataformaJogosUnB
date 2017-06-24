@@ -6,32 +6,7 @@ require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 import {dataListApi} from '../resources/DataListApi';
-
-const imageStyle = {
-    "height": "100%",
-    "width":"70%",
-    "float":"left"
-}, carouselImageStyle = {
-    "background": "#000000",
-    "minHeight": "400px",
-    "position": "relative",
-    "margin":20,
-}, cardStyle = {
-    "float":"right",
-    "height":400,
-    "width":"30%"
-},
-sliderStyle = {
-    "position":"relative",
-    "height":400,
-    "width":1110
-},
-textStyle = {
-    "textAlign":"justify",
-    "top":"42%",
-    "position":"absolute",
-    "fontSize":"200%"
-};
+import {settingsIndexSlide, imageStyleIndexSlide, carouselImageStyleIndexSlide, cardStyleIndexSlide, sliderStyleIndexSlide, textStyleIndexSlide} from "../resources/styleSheetConstants";
 
 export default class IndexSlider extends React.Component {
 
@@ -47,9 +22,9 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-        dataListApi("/api/games/", (games) => { 
+        dataListApi("/api/games/", (games) => {
             this.setState({games})
-            console.log(games) 
+            console.log(games)
             if ((games).length > 0) {
                 this.setState({hasLoading: false})
             }
@@ -59,26 +34,14 @@ export default class IndexSlider extends React.Component {
 
     render () {
         const images = this.mountImages();
-
-        var settings = {
-            dots: true,
-            infinite: true,
-            autoplay: true,
-            autoPlaySpeed: 4200,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide:1
-        };
-
-
         if(images.length){
             return (
-                <div style={carouselImageStyle}>
+                <div style={carouselImageStyleIndexSlide}>
                     <Dimmer active={this.state.hasLoading}>
                         <Loader size='massive'>Loading</Loader>
                     </Dimmer>
 
-                    <Slider {...settings}>
+                    <Slider {...settingsIndexSlide}>
                         {images}
                     </Slider>
                 </div>
@@ -103,17 +66,17 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={sliderStyle}>
+                (<div style={sliderStyleIndexSlide}>
                     <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}>
 
                         <img
-                           src={this.state.games[idx].slide_image} style={imageStyle}
+                           src={this.state.games[idx].slide_image} style={imageStyleIndexSlide}
                         />
 
-                        <div style={cardStyle}>
+                        <div style={cardStyleIndexSlide}>
                             <Card fluid style={{height:400}}>
                                 <Card.Content>
-                                    <Card.Header style={textStyle}>{this.state.games[idx].name}</Card.Header>
+                                    <Card.Header style={textStyleIndexSlide}>{this.state.games[idx].name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.getGenreByGame(idx)}

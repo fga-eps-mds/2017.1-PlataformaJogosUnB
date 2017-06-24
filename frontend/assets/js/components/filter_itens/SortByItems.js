@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
+import {ruleSortByItems} from "../../resources/styleSheetConstants";
 
 export default class SortByItems extends React.Component {
 
@@ -11,20 +12,7 @@ export default class SortByItems extends React.Component {
     }
 
     listDropdownItens(){
-        const rule = [{
-            name: 'Nome (A-Z)',
-            param: 'name',
-        },{
-            name: 'Nome (Z-A)',
-            param: '-name',
-        },{
-            name: 'Mais recente',
-            param: '-information__launch_year',
-        },{
-            name: 'Mais antigo',
-            param: 'information__launch_year',
-        }]
-        const listDropItens = rule.map((item, i) =>
+        const listDropItens = ruleSortByItems.map((item, i) =>
                 <Dropdown.Item key={i} onClick={(e) => this.handleClick(item, e)}>
                     {item.name}
                 </Dropdown.Item>
