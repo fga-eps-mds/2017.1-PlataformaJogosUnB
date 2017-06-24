@@ -17,8 +17,8 @@ export default class GameList extends React.Component {
     }
 
     getGameCards(){
-        const gamesCards = (this.props.games).map((gameItemsCard) =>
-            <Grid.Column mobile={16} tablet={8} computer={4} largeScreen={4}>
+        const gamesCards = (this.props.games).map((gameItemsCard, index) =>
+            <Grid.Column key={index} mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${gameItemsCard.pk}/${gameItemsCard.name}`}
                         params={{"id": gameItemsCard.pk}}>
                     <GameCard game={gameItemsCard} reducePlatforms={this.reducePlatforms} />
@@ -30,8 +30,8 @@ export default class GameList extends React.Component {
     }
 
     getGameList(){
-        const gamesList = (this.props.games).map((game) =>
-                <Segment inverted color='blue'>
+        const gamesList = (this.props.games).map((game,index) =>
+                <Segment key={index} inverted color='blue'>
                     <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
                 </Segment>
         );

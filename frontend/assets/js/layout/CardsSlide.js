@@ -54,7 +54,7 @@ export default class CardsSlide extends React.Component {
       dots: true,
       centerMode: true,
       infinite: true,
-      speed: 500,
+      speed: 300,
       slidesToShow: 3,
       slidesToScroll: 1,
       responsive: [

@@ -90,11 +90,15 @@ export default class IndexSlider extends React.Component {
 
     getGenreByGame(id){
 
-        return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Link to={`/games/${genre.name}`} >
+        return this.state.games[id].information.genres.map((genre, index) =>{
+                    return (
+                        <Link key={index} to={`/games/${genre.name}`} >
                             <Label color='teal'>
                                {genre.name}
-                            </Label></Link>);})
+                            </Label>
+                        </Link>
+                        )}
+                    )
     }
 
     mountImages(){
