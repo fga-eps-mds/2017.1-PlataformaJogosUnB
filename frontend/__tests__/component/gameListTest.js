@@ -2,6 +2,7 @@ import React from 'react';
 import GameList from '../../assets/js/components/GameList';
 import {Card, Grid} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render GameList', () => {
   const component = renderer.create(

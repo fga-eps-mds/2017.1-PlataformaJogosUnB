@@ -2,6 +2,7 @@ import React from 'react';
 import PackageCard from '../../assets/js/components/cards/PackageCard';
 import {Card, Button, Grid} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render PackageCard', () => {
   const component = renderer.create(

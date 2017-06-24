@@ -3,6 +3,7 @@ import ReportBugForm from '../../assets/js/components/forms/ReportBugForm';
 import {Button, Icon} from 'semantic-ui-react';
 import renderer from 'react-test-renderer';
 import {mount, shallow} from 'enzyme';
+var expect = required('expect');
 
 describe('Test render ReportBugFormTest', () => {
 

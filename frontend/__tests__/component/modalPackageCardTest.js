@@ -3,6 +3,7 @@ import ModalPackageCard from '../../assets/js/components/cards/ModalPackageCard'
 import renderer from 'react-test-renderer';
 import {Button} from "semantic-ui-react";
 import {mount, shallow} from 'enzyme';
+var expect = required('expect');
 
 
 describe('Test render ModelPackageCard', () => {

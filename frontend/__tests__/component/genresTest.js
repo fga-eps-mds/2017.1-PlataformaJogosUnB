@@ -2,6 +2,7 @@ import React from 'react';
 import Genres from '../../assets/js/layout/Genres';
 import {Dropdown} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render Genres', () => {
   const component = renderer.create(

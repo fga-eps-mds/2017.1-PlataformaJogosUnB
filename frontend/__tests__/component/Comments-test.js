@@ -2,6 +2,7 @@ import React from 'react';
 import DescriptionCard from '../../assets/js/components/Comments';
 import FacebookProvider, { Comments } from 'react-facebook';
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render Comments', () => {
   const component = renderer.create(

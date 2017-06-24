@@ -2,6 +2,7 @@ import React from 'react';
 import GameInformationCard from '../../assets/js/components/cards/GameInformationCard';
 import {Card, Image} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render GameInformationCard', () => {
   const component = renderer.create(

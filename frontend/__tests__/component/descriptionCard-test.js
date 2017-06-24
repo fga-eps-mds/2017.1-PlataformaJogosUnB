@@ -2,6 +2,7 @@ import React from 'react';
 import DescriptionCard from '../../assets/js/components/cards/DescriptionCard';
 import {Card} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render DescriptionCard', () => {
   const component = renderer.create(

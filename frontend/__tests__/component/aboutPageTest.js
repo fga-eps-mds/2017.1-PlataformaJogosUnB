@@ -3,6 +3,7 @@ import AboutPage from '../../assets/js/pages/AboutPage';
 import AboutCard from '../../assets/js/layout/AboutCard';
 import {Grid, Card, Container} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render AboutPage', () => {
   const component = renderer.create(

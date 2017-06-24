@@ -2,6 +2,7 @@ import React from 'react';
 import AboutCard from '../../assets/js/layout/AboutCard';
 import {Card, Grid, Image} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
+var expect = required('expect');
 
 test('Test render AboutCard', () => {
   const component = renderer.create(

@@ -27,8 +27,8 @@ export default class CardsSlide extends React.Component {
   }
 
   componentWillMount () {
-      dataListApi(this.props.url, (games) => { 
-        this.setState({games}) 
+      dataListApi(this.props.url, (games) => {
+        this.setState({games})
         if ((games).length > 0) {
             this.setState({hasLoading: false})
         }
