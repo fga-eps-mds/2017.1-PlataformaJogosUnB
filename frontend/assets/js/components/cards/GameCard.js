@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Card, Image} from "semantic-ui-react";
-import _ from "lodash";
 
 const cardImageStyle = {
     "background": "#000000",
@@ -45,4 +44,5 @@ export default class GameCard extends React.Component {
 
 GameCard.propTypes = {
     game: PropTypes.object.isRequired,
+    reducePlatforms: PropTypes.func.isRequired,
 }

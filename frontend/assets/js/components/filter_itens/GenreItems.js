@@ -9,7 +9,7 @@ export default class GenreItems extends React.Component{
         super(props);
         this.state = {
             "genres":[],
-            "selectedGenre":'Categoria'
+            "selectedGenre":this.props.genre
         };
     }
 
@@ -32,7 +32,7 @@ export default class GenreItems extends React.Component{
         this.setState({ selectedGenre: genreName });
         this.props.callbackParent('genreOption', option);
     }
-
+    
     mountGenreItems(){
         if(typeof this.state.genres === "undefined"){
             return false
@@ -45,10 +45,10 @@ export default class GenreItems extends React.Component{
         return gameGenresItems
 
     }
-
+        
     render (){
         return(
-            <Dropdown text={this.state.selectedGenre} selection>
+            <Dropdown text={this.state.selectedGenre}>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas as categorias
@@ -61,5 +61,6 @@ export default class GenreItems extends React.Component{
 }
 
 GenreItems.propTypes = {
-  callbackParent: PropTypes.func.isRequired
+  callbackParent: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired
 }

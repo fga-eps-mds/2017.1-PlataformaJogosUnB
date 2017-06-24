@@ -1,7 +1,8 @@
 import React from "react";
 import {Container} from "semantic-ui-react";
+import IndexSlide from "../layout/IndexSlide";
 import SegmentTitle from "../layout/SegmentTitle";
-import GenreSlide from "../layout/GenreSlide"
+import CardsSlide from "../layout/CardsSlide"
 
 
 export default class IndexPage extends React.Component {
@@ -11,10 +12,11 @@ export default class IndexPage extends React.Component {
         return (
             <div>
                 <Container>
-                    <SegmentTitle title="Mais curtidos" />
-                    <GenreSlide url="/api/games/" />
-                    <SegmentTitle title="Mais baixados" />
-                    <GenreSlide url="/api/games/?ordering=-downloads_count" />
+                    <IndexSlide />
+                    <SegmentTitle title={'Mais curtidos'} />
+                    <CardsSlide url="/api/games/" />
+                    <SegmentTitle title={'Mais baixados'} />
+                    <CardsSlide url="/api/games/?ordering=-downloads_count" />
                 </Container>
             </div>
         );

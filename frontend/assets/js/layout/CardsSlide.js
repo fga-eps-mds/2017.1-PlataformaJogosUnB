@@ -4,7 +4,7 @@ import GameCard from "../components/cards/GameCard";
 import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader } from 'semantic-ui-react'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 
@@ -16,17 +16,23 @@ const slideHeight = {
 };
 
 
-export default class GenreSlide extends React.Component {
+export default class CardsSlide extends React.Component {
   constructor (props) {
 
       super(props);
-      this.state = {"games": []};
+      this.state = {
+        "games": [],
+        "hasLoading": true
+      };
   }
 
   componentWillMount () {
-
-      dataListApi(this.props.url, (games) => { this.setState({games}) });
-
+      dataListApi(this.props.url, (games) => { 
+        this.setState({games}) 
+        if ((games).length > 0) {
+            this.setState({hasLoading: false})
+        }
+      });
   }
 
   reducePlatforms(packages){
@@ -48,7 +54,7 @@ export default class GenreSlide extends React.Component {
       dots: true,
       centerMode: true,
       infinite: true,
-      speed: 500,
+      speed: 300,
       slidesToShow: 3,
       slidesToScroll: 1,
       responsive: [
@@ -75,6 +81,10 @@ export default class GenreSlide extends React.Component {
     if(gameCards.length){
     return (
       <div style={slideHeight}>
+        <Dimmer active={this.state.hasLoading}>
+            <Loader size='massive'>Loading</Loader>
+        </Dimmer>
+
         <Grid.Column>
         <Slider {...settings}>
           {gameCards}
@@ -90,7 +100,7 @@ export default class GenreSlide extends React.Component {
    const gameCards = [], cardsAmount = 6;
     for(var i=0; i < cardsAmount && i < this.state.games.length - 1; i++){
         const image =
-               (<div>
+               (<div key={this.state.games[i].pk}>
                   <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
                     <GameCard game={this.state.games[i]} reducePlatforms={this.reducePlatforms} />
                   </Link>
@@ -103,6 +113,7 @@ export default class GenreSlide extends React.Component {
 
   }
 }
-GenreSlide.propTypes = {
+
+CardsSlide.propTypes = {
   url: PropTypes.string.isRequired
 }

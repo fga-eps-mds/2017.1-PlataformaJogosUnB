@@ -47,7 +47,7 @@ export default class PlatformItems extends React.Component{
 
     render (){
         return(
-            <Dropdown text={this.state.selectedPlatform} selection>
+            <Dropdown text={this.state.selectedPlatform}>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas plataformas

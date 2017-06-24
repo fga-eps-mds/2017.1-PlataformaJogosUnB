@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
 
 export default class PerPageItems extends React.Component{
@@ -28,8 +28,8 @@ export default class PerPageItems extends React.Component{
             name: "Games per page: 20",
             number : 20
         }]
-        const listDropItems = items.map((item) =>
-            <Dropdown.Item onClick={(e) => this.handleClick(item, e)}>
+        const listDropItems = items.map((item,index) =>
+            <Dropdown.Item key={index} onClick={(e) => this.handleClick(item, e)}>
                 {item.name}
             </Dropdown.Item>
         );
@@ -45,11 +45,15 @@ export default class PerPageItems extends React.Component{
 
     render(){
         return(
-            <Dropdown text={this.state.name} selection>
+            <Dropdown text={this.state.name}>
                 <Dropdown.Menu>
                     {this.listDropdownItems()}
                 </Dropdown.Menu>
             </Dropdown>
         );
     }
+}
+
+PerPageItems.propTypes = {
+    callbackParent: PropTypes.func.isRequired
 }

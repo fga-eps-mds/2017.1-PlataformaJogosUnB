@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 
-export default class MenuComponent extends React.Component {
+export default class MenuLayout extends React.Component {
 
     constructor (props) {
 
@@ -13,7 +13,6 @@ export default class MenuComponent extends React.Component {
             "visible": false
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
-
 
     }
 
@@ -33,7 +32,6 @@ export default class MenuComponent extends React.Component {
 
         const {activeItem} = this.state;
         const {visible} = this.state;
-
 
         return (
             <div>
@@ -55,9 +53,9 @@ export default class MenuComponent extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
 
-                    <Grid.Row only="computer large">
+                    <Grid.Row only="computer">
                         <Grid.Column>
-                            <Segment inverted stackable container>
+                            <Segment inverted>
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>

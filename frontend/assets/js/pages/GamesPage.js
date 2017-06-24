@@ -1,6 +1,6 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import SegmentTitle from "../layout/SegmentTitle";
-import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
+import {Container, Grid, Menu, Button, Icon, Dimmer, Loader} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
@@ -18,10 +18,12 @@ export default class GamesPage extends React.Component {
             "sortByOption": '',
             "genreOption": '',
             "platformOption": '',
+            "getGenreInUrlLimit": 0,
             "pageOption": '1',
             "infoPagination": '',
             "perPageOption": 16,
-            "visible": true
+            "visible": true,
+            "hasLoading": true
         }
         this.selectViewMode = this.selectViewMode.bind(this);
     }
@@ -44,11 +46,13 @@ export default class GamesPage extends React.Component {
             + "&perPage=" + data.perPage
         );
         dataListApi(url, (list) => {
-
             this.setState({games: list.games});
             this.setState({infoPagination: list.info })
             this.setState({pageOption: list.info.page })
-
+            
+            if ((list.games).length > 0) {
+                this.setState({hasLoading: false})
+            }
         })
 
     }
@@ -78,14 +82,26 @@ export default class GamesPage extends React.Component {
     }
 
     selectViewMode () {
-        console.log('oi')
         this.setState({"visible": !this.state.visible})
-        console.log(this.state.visible)
+    }
+   
+    genreOptionWillUpdate(){
+        const genre = this.props.match.params.genre;
+        const limit = this.state.getGenreInUrlLimit;
+        
+        if(genre !== undefined){
+            if(limit < 1){
+                this.Setstate({genreOption: genre});
+                this.Setstate({getGenreInUrlLimit: this.getGenreInUrlLimit += 1});
+                return genre;
+            }
+        }
+        return "Categorias";
+
     }
 
     render () {
-
-        const {visible} = this.state;
+        const urlGenre = this.genreOptionWillUpdate(); 
 
         return (
             <Container>
@@ -100,7 +116,7 @@ export default class GamesPage extends React.Component {
                                 <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
                             </Menu.Item>
                             <Menu.Item>
-                                <GenreItems callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                                <GenreItems genre = {urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                             </Menu.Item>
                             <Menu.Item>
                                 <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
@@ -110,15 +126,19 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item position='right'>
                                 <Button.Group>
-                                    <Button onClick={this.selectViewMode}><Icon name='list layout' width='40' heigth='40' /></Button>
+                                    <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
                                     <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
                                 </Button.Group>
                             </Menu.Item>
                         </Menu>
                     </Grid.Row>
+                    
+                    <Dimmer active={this.state.hasLoading}>
+                        <Loader size='massive'>Loading</Loader>
+                    </Dimmer>
 
                     <Grid.Row>
-                        <GameList modeView={this.state.visible}  games={this.state.games}/>
+                    <GameList modeView={this.state.visible}  games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
                         <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}
@@ -130,4 +150,8 @@ export default class GamesPage extends React.Component {
         );
 
     }
+}
+
+GamesPage.propTypes = {
+    match: PropTypes.object.isRequired,
 }
