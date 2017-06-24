@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Card, Image,Icon} from "semantic-ui-react";
-import _ from "lodash";
 import {getKernel} from "../../resources/getKernel"
 import {kernelValidation} from "../../resources/kernelValidation"
 

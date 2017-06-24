@@ -103,7 +103,7 @@ export default class IndexSlider extends React.Component {
     
     mountIcons(kernels){
         return kernels.map((kernel) => {
-             return (<Icon size={kernelValidation(kernel)} className={kernel} />)
+             return (<Icon inverted size={kernelValidation(kernel)} className={kernel} />)
                      
         })
     }   
