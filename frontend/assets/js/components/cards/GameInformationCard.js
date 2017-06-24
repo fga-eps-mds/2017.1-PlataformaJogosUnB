@@ -25,22 +25,22 @@ export default class GameInformationCard extends React.Component {
 
                   <Card.Description>
 
-                        { this.props.getFields('Versão: ',this.props.version) }
-                        { this.props.getFields('Ano de lançamento: ',this.props.launch_year) }
-                        { this.props.getFields('Gêneros: ', 
+                        <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
+                        <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
+                        <p>{ this.props.getFields('Gêneros: ', 
                             <div>
                             {this.props.genres
-                                .map((genre) => { return (<Link to={`/games/${genre.name}`} >
-                                                            <Label color='green'>
-                                                                {genre.name} 
-                                                            </Label>
-                                                          </Link>
-                                    );
+                                .map((genre) => { 
+                                    return (<Link key={genre} to={`/games/${genre.name}`} >
+                                        <Label color='green'>
+                                            {genre.name} 
+                                        </Label>
+                                      </Link>
+                                    )
                                 })
                             }
-                            </div>
-                            )
-                        }
+                            </div>,'')
+                        }</p>
                     </Card.Description>
                 </Card.Content>
 

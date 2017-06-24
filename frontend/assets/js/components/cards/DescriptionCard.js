@@ -4,11 +4,11 @@ import {Card} from "semantic-ui-react";
 export default class DescriptionCard extends React.Component {
     render () {
         const awards = (this.props.awards.map((award, i) =>
-                        <div key={i}>
-                            {this.props.getFields("Nome do Prêmio: ", award.name)}
-                            {this.props.getFields('Ano: ', award.year)}
-                            {this.props.getFields('Colocação:', award.place)}
-                        </div>
+                        <p key={i}>
+                            {this.props.getFields('Nome do Prêmio: ', award.name, ' - ')}
+                            {this.props.getFields('Ano: ', award.year, ' - ')}
+                            {this.props.getFields('Colocação: ', award.place, '')}
+                        </p>
                     ));
 
         return (

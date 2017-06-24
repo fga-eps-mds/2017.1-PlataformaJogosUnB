@@ -60,5 +60,6 @@ export default class GenreItems extends React.Component{
 }
 
 GenreItems.propTypes = {
-  callbackParent: PropTypes.func.isRequired
+  callbackParent: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired
 }

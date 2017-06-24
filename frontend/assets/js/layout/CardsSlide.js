@@ -3,7 +3,7 @@ import GameCard from "../components/cards/GameCard";
 import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader } from 'semantic-ui-react'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 
@@ -15,16 +15,23 @@ const slideHeight = {
 };
 
 
-export default class GenreSlide extends React.Component {
+export default class CardsSlide extends React.Component {
   constructor (props) {
 
       super(props);
-      this.state = {"games": []};
+      this.state = {
+        "games": [],
+        "hasLoading": true
+      };
   }
 
   componentWillMount () {
-
-      dataListApi(this.props.url, (games) => { this.setState({games}) });
+      dataListApi(this.props.url, (games) => { 
+        this.setState({games}) 
+        if ((games).length > 0) {
+            this.setState({hasLoading: false})
+        }
+      });
 
   }
 
@@ -74,6 +81,10 @@ export default class GenreSlide extends React.Component {
     if(gameCards.length){
     return (
       <div style={slideHeight}>
+        <Dimmer active={this.state.hasLoading}>
+            <Loader size='massive'>Loading</Loader>
+        </Dimmer>
+
         <Grid.Column>
         <Slider {...settings}>
           {gameCards}
@@ -102,6 +113,7 @@ export default class GenreSlide extends React.Component {
 
   }
 }
-GenreSlide.propTypes = {
+
+CardsSlide.propTypes = {
   url: PropTypes.string.isRequired
 }

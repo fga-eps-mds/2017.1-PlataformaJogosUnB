@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import { Menu, Icon } from "semantic-ui-react";
 
 export default class Paginator extends React.Component {
@@ -23,7 +23,8 @@ export default class Paginator extends React.Component {
 
     componentWillUpdate(nextProps, nextState){
         if(this.props.pageOption != nextProps.pageOption){
-            this.state.activeItem = nextProps.pageOption.toString();
+            const selectedPage = nextProps.pageOption.toString();
+            this.setState({ activeItem: selectedPage});
         } else{
             return false;
         }
@@ -69,3 +70,9 @@ export default class Paginator extends React.Component {
       );
     }
   }
+
+Paginator.propTypes = {
+    callbackParent: PropTypes.func.isRequired,
+    infoPagination: PropTypes.object.isRequired,
+    pageOption: PropTypes.number.isRequired,
+}
