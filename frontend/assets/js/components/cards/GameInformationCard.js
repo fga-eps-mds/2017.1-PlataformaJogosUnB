@@ -57,7 +57,7 @@ export default class GameInformationCard extends React.Component {
 GameInformationCard.propTypes = {
     cover_image: PropTypes.string.isRequired,
     version: PropTypes.string.isRequired,
-    launch_year: PropTypes.string.isRequired,
+    launch_year: PropTypes.number.isRequired,
     genres: PropTypes.array.isRequired,
     official_repository: PropTypes.string.isRequired,
     getFields: PropTypes.func.isRequired,

@@ -18,35 +18,16 @@ const maxHeightImage = {
 
 export default class InternalSlide extends React.Component {
 
-    getMedia(game_videos,game_images){
-        if(typeof game_videos !== undefined){
-        var videos = [];
-        videos = game_videos.map( (single_video,index) =>
-          <div key={index}>
-            <video controls style={slideHeight} src={single_video.video} />
-          </div>)
-        }
-        if(typeof game_images !== undefined){
-        var images = [];
-         images = game_images.map( (single_image, index) =>
-           <div key={index}>
-             <img src={single_image.slide} />
-           </div>
-         )
-        }
-        return videos.concat(images)
-    }
-
     getImageOrVideo(media,option){
         if (option==='image') {
             return (
-                <div>
+                <div key={media.slide}>
                      <img src={media.slide} />
                 </div>
             )
         } else  if (option==='video'){
             return (
-                <div>
+                <div key={media.video}>
                     <video controls style={slideHeight} src={media.video} />
                 </div>
             )  
@@ -59,15 +40,12 @@ export default class InternalSlide extends React.Component {
             medias = medias_game.map( (single_media) => 
                 this.getImageOrVideo(single_media, option))
         }
-        console.log(medias)
         return medias
     }
 
     getMedias(videos_game, images_game){
         var videos = this.makeElementForSlide(videos_game,'video');
         var images = this.makeElementForSlide(images_game,'image');
-
-        console.log(images.concat(videos))
 
         return images.concat(videos)
     }

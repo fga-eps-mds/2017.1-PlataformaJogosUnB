@@ -47,7 +47,7 @@ export default class GenreItems extends React.Component{
         
     render (){
         return(
-            <Dropdown text={this.state.selectedGenre} selection>
+            <Dropdown text={this.state.selectedGenre}>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas as categorias

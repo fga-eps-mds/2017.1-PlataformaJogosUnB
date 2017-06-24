@@ -12,10 +12,10 @@ export default class DevelopersCard extends React.Component {
   
     getRoleCells(role, credits){
           return (<h7>{credits.filter((credit)=> credit.specialty === role)
-                        .map((developer) => {
+                        .map((developer,index) => {
                             if(developer.github_page !== null){
                               return (
-                                <Header.Content>
+                                <Header.Content key={index}>
                                   <Popup trigger={<Link to={developer.github_page}>{ developer.name }</Link>} 
                                       content='Link para GitHub'/>
                                 </Header.Content>
@@ -23,13 +23,13 @@ export default class DevelopersCard extends React.Component {
                             }
                             else if(developer.email !== null){
                               return(
-                                <Header.Content>
+                                <Header.Content key={index}>
                                      <Popup trigger={<h7>{developer.name}</h7>} content={developer.email}/>
                                 </Header.Content>
                               )
                             }
                             else
-                                return (<Header.Content>{developer.name}</Header.Content>);
+                                return (<Header.Content key={index}>{developer.name}</Header.Content>);
                             })}
                   </h7>) 
     }

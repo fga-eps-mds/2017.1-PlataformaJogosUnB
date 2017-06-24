@@ -16,7 +16,7 @@ export default class ReportBugForm extends React.Component {
 
   submitBug(data){
     const game_pk = this.props.game_pk
-
+    console.log(game_pk)
     var data_json = JSON.stringify(data)
     var csrftoken = getDjangoCookie('csrftoken');
 
@@ -30,6 +30,14 @@ export default class ReportBugForm extends React.Component {
       },
       body: data_json
     });
+  }
+
+  changeStates(header,info,color){
+    this.setState({
+        heard_text: header,
+        info_text: info,
+        message_color: color
+      })
   }
 
   validateText(text,maxNumber,helper_text){
