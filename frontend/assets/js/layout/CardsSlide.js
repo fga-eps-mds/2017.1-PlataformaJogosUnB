@@ -32,7 +32,6 @@ export default class CardsSlide extends React.Component {
             this.setState({hasLoading: false})
         }
       });
-
   }
 
   reducePlatforms(packages){
@@ -54,7 +53,7 @@ export default class CardsSlide extends React.Component {
       dots: true,
       centerMode: true,
       infinite: true,
-      speed: 500,
+      speed: 300,
       slidesToShow: 3,
       slidesToScroll: 1,
       responsive: [
@@ -100,7 +99,7 @@ export default class CardsSlide extends React.Component {
    const gameCards = [], cardsAmount = 6;
     for(var i=0; i < cardsAmount && i < this.state.games.length - 1; i++){
         const image =
-               (<div>
+               (<div key={this.state.games[i].pk}>
                   <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
                     <GameCard game={this.state.games[i]} reducePlatforms={this.reducePlatforms} />
                   </Link>

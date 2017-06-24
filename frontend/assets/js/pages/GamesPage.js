@@ -49,7 +49,7 @@ export default class GamesPage extends React.Component {
             this.setState({games: list.games});
             this.setState({infoPagination: list.info })
             this.setState({pageOption: list.info.page })
-            console.log(list.games.length)
+            
             if ((list.games).length > 0) {
                 this.setState({hasLoading: false})
             }

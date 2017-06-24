@@ -33,7 +33,6 @@ export default class MenuLayout extends React.Component {
         const {activeItem} = this.state;
         const {visible} = this.state;
 
-
         return (
             <div>
                 <Grid>
@@ -54,9 +53,9 @@ export default class MenuLayout extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
 
-                    <Grid.Row only="computer large">
+                    <Grid.Row only="computer">
                         <Grid.Column>
-                            <Segment inverted stackable container>
+                            <Segment inverted>
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>

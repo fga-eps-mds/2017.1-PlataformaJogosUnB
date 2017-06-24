@@ -15,7 +15,8 @@ export default class GamePage extends React.Component{
         super(props);
         this.state = {
             "game": {
-                "media_image": [],
+                "media_image":[],
+                "media_video": [],
                 "information": {
                     "credits": [],                 
                     "awards": [],
@@ -68,6 +69,7 @@ export default class GamePage extends React.Component{
                     <Grid.Column width={10}>
                         <InternalSlide
                             media_image={this.state.game.media_image}
+                            media_video={this.state.game.media_video}
                         />
                     </Grid.Column>
 
@@ -84,9 +86,6 @@ export default class GamePage extends React.Component{
                 </Grid.Row>
 
                 <Grid.Row>
-                </Grid.Row>
-
-                <Grid.Row>
                     <Grid.Column width={10}>
                         <DescriptionCard
                             description={this.state.game.information.description}
@@ -95,7 +94,7 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
 
-                    <Grid.Column width={6}>    
+                    <Grid.Column width={6}>
                         <PackageCard
                             packages={this.state.game.packages}
                         />

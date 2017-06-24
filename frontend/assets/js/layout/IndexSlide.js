@@ -49,7 +49,6 @@ export default class IndexSlider extends React.Component {
 
         dataListApi("/api/games/", (games) => { 
             this.setState({games})
-            console.log(games) 
             if ((games).length > 0) {
                 this.setState({hasLoading: false})
             }
@@ -90,11 +89,15 @@ export default class IndexSlider extends React.Component {
 
     getGenreByGame(id){
 
-        return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Link to={`/games/${genre.name}`} >
+        return this.state.games[id].information.genres.map((genre, index) =>{
+                    return (
+                        <Link key={index} to={`/games/${genre.name}`} >
                             <Label color='teal'>
                                {genre.name}
-                            </Label></Link>);})
+                            </Label>
+                        </Link>
+                        )}
+                    )
     }
 
     mountImages(){
@@ -103,9 +106,8 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={sliderStyle}>
+                (<div style={sliderStyle} key={this.state.games[idx].pk}>
                     <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}>
-
                         <img
                            src={this.state.games[idx].slide_image} style={imageStyle}
                         />

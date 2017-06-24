@@ -21,7 +21,7 @@ export default class Paginator extends React.Component {
         this.getListItems(this.props.infoPagination);
     }
 
-    componentWillUpdate(nextProps, nextState){
+    componentWillUpdate(nextProps){
         if(this.props.pageOption != nextProps.pageOption){
             const selectedPage = nextProps.pageOption.toString();
             this.setState({ activeItem: selectedPage});
@@ -35,14 +35,13 @@ export default class Paginator extends React.Component {
         var listItems = []
         for(var i = range.range_start; i <= range.range_end; i++){
             listItems.push(
-                <Menu.Item  name={i.toString()} active={activeItem === i.toString()} onClick={this.handleItemClick} />
+                <Menu.Item key={i} name={i.toString()} active={activeItem === i.toString()} onClick={this.handleItemClick} />
             );
         }
         return listItems
     }
 
     render(){
-        const { activeItem } = this.state;
         var left_arrow = '';
         var right_arrow = '';
         if(this.state.activeItem > '1'){
@@ -64,7 +63,7 @@ export default class Paginator extends React.Component {
                 </Menu.Item>
                 {this.getListItems(this.props.infoPagination)}
                 <Menu.Item name={right_arrow} onClick={this.handleItemClick}>
-                    <Icon name='angle outline right' />
+                    <Icon name='angle right' />
                 </Menu.Item>
             </Menu>
       );

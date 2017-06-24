@@ -40,7 +40,7 @@ export default class SortByItems extends React.Component {
 
     render () {
         return (
-            <Dropdown text={this.state.name} defaultValue='Ordernar por' selection>
+            <Dropdown text={this.state.name} defaultValue='Ordernar por'>
                 <Dropdown.Menu>
                     {this.listDropdownItens()}
                 </Dropdown.Menu>
