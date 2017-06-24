@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Modal, Header, Table, Icon} from "semantic-ui-react";
+import {Modal, Header, Table, Icon, Segment, Message} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 import {downloadsPackageApi} from "../../resources/packageApi"; 
 
@@ -83,6 +83,12 @@ export default class ModalPackageCard extends React.Component {
         return (
             <Modal trigger={this.props.button}>
                 <Modal.Header>{this.props.gameName} - instaladores disponíveis para {this.props.kernel}</Modal.Header>
+                <Segment>
+                   <Message info>
+                        <Message.Header>Was this what you wanted?</Message.Header>
+                        <p>Did you know it's been a while?</p>
+                    </Message> 
+                </Segment>
                 <Modal.Content image>
                   <Table celled padded>
                   <Table.Header>

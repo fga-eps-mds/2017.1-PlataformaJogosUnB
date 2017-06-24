@@ -2,7 +2,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from game.choices import EXTENSION_CHOICES, ARCHITECTURE_CHOICES
+from game.choices import (
+    EXTENSION_CHOICES,
+    ARCHITECTURE_CHOICES,
+    KERNEL_CHOICES
+)
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
@@ -107,8 +111,10 @@ class Platform(models.Model):
     kernel = models.CharField(
         _('Kernel name'),
         max_length=20,
-        help_text=_('Type the kernel of SO for this platform.' +
-                    ' Ex.: linux, unix, dos')
+        choices=KERNEL_CHOICES,
+        default=KERNEL_CHOICES[0][0],
+        help_text=_('Type of the kernel for this platform.' +
+                    ' Ex.: Linux, Windows, macOS')
     )
 
     @staticmethod
