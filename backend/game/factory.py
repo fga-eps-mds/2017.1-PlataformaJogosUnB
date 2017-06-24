@@ -27,8 +27,7 @@ class PlatformFactory(factory.DjangoModelFactory):
 
     name = factory.faker.Faker("word")
     extensions = factory.LazyAttribute(lambda x: "deb")
-    icon = factory.django.ImageField(format="jpeg")
-    kernel = factory.faker.Faker("word")
+    kernel = factory.LazyAttribute(lambda x: "Linux")
 
 
 class PackageFactory(factory.DjangoModelFactory):
