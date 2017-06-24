@@ -31,12 +31,13 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     "node-sass": "^4.5.3",
+    "pseudomap": "^1.0.2",
     "react-cellblock": "^3.0.0",
     "react-css-modules": "^4.3.0",
-    "react-slick": "^0.14.11",
     "react-test-renderer": "^15.6.1",
     "semantic-ui-react": "^0.68.4",
-    "webpack-bundle-tracker": "^0.2.0"
+    "webpack-bundle-tracker": "^0.2.0",
+    "yallist": "^3.0.2"
   },
   "dependencies": {
     "co": "^4.6.0",
@@ -86,10 +87,10 @@
     "automock": false,
     "setupFiles": [
       "./test-setup.js"
-  ],
-      "moduleNameMapper": {
-          "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-          "\\.(css|less)$": "identity-obj-proxy"
-        }
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   }
 }

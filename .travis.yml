@@ -38,3 +38,5 @@ branch:
   only:
     - master
     - devel
+ignore:
+- "frontend/__tests__/*"
