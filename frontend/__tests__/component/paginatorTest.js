@@ -1,5 +1,4 @@
 import React from 'react';
-import Paginator from '../../assets/js/components/Paginator';
 import { Menu, Icon } from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');

@@ -1,5 +1,4 @@
 import React from 'react';
-import SortByItems from '../../assets/js/components/filter_itens/SortByItems';
 import {Dropdown} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');

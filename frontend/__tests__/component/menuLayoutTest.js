@@ -1,5 +1,4 @@
 import React from 'react';
-import MenuLayout from '../../assets/js/layout/MenuLayout';
 import SearchBox from '../../assets/js/components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 import renderer from 'react-test-renderer';

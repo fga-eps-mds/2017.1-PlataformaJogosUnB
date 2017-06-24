@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchBox from '../../assets/js/components/SearchBox';
 import {Search, Grid} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');
