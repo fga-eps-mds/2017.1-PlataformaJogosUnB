@@ -1,5 +1,4 @@
 import React from 'react';
-import GameCard from '../../assets/js/components/cards/GameCard';
 import {Card, Image} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');

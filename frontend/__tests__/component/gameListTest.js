@@ -1,6 +1,5 @@
 import React from 'react';
-import GameList from '../../assets/js/components/GameList';
-import {Card, Grid} from "semantic-ui-react";
+import {Grid} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');
 

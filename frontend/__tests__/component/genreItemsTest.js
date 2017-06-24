@@ -1,6 +1,5 @@
 import React from 'react';
-import GenreItems from '../../assets/js/components/filter_itens/GenreItems';
-import {Card, Image, Dropdown} from "semantic-ui-react";
+import {Dropdown} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');
 

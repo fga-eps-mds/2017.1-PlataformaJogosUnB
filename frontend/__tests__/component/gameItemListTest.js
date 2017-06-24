@@ -1,7 +1,5 @@
 import React from 'react';
-import GameItemList from '../../assets/js/components/cards/GameItemList';
-import {Card, Image, Item, Label, Button,Icon, Header} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import { Image, Item, Label, Button} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 var expect = required('expect');
 
