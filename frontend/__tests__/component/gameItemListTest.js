@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Item, Label, Button} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
-var expect = required('expect');
+
 
 test('Test render GameItemList', () => {
   const component = renderer.create(

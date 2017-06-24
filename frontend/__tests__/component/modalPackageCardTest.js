@@ -2,7 +2,7 @@ import React from 'react';
 import ModalPackageCard from '../../assets/js/components/cards/ModalPackageCard';
 import {Button} from "semantic-ui-react";
 import {mount} from 'enzyme';
-var expect = required('expect');
+
 
 
 describe('Test render ModelPackageCard', () => {

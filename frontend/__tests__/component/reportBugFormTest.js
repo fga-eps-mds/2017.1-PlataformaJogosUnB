@@ -2,7 +2,7 @@ import React from 'react';
 import ReportBugForm from '../../assets/js/components/forms/ReportBugForm';
 import {Button, Icon} from 'semantic-ui-react';
 import {mount} from 'enzyme';
-var expect = required('expect');
+
 
 describe('Test render ReportBugFormTest', () => {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBox from '../../assets/js/components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
-var expect = required('expect');
+
 
 test('Test render MenuLayout', () => {
     const activeItem = null;

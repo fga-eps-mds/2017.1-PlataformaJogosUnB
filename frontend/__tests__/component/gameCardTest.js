@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Image} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
-var expect = required('expect');
+
 
 test('Test render GameCard', () => {
   const component = renderer.create(
