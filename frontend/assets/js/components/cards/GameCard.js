@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Card, Image} from "semantic-ui-react";
+import {Card, Image,Icon} from "semantic-ui-react";
+import _ from "lodash";
+import {getKernel} from "../../resources/getKernel"
+import {kernelValidation} from "../../resources/kernelValidation"
 
 const cardImageStyle = {
     "background": "#000000",
@@ -18,7 +21,13 @@ const imageStyle = {
 };
 
 export default class GameCard extends React.Component {
-    
+
+    mountIcons(kernels){
+        return kernels.map((kernel) => {
+             return (<Icon size={kernelValidation(kernel)} className={kernel} />)
+
+        })
+    }
     render () {
         return (
             <Card>
@@ -31,12 +40,8 @@ export default class GameCard extends React.Component {
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                   <Image.Group>
-                       {this.props.reducePlatforms(this.props.game.packages).map((icon) =>
-                           <Image key={icon} src={icon} width='20' height='20' /> )
-                       }
-                   </Image.Group>
-               </Card.Content>
+                    {this.mountIcons(getKernel(this.props.game.packages))} 
+                </Card.Content>
             </Card>
         );
     }
