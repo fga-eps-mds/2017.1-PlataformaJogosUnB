@@ -5,6 +5,8 @@ import { Grid } from 'semantic-ui-react';
 import Slider from 'react-slick'
 import renderer from 'react-test-renderer';
 
+
+
 test('Test render GenreSlide', () => {
   const component = renderer.create(
 
@@ -16,7 +18,6 @@ test('Test render GenreSlide', () => {
           </Grid.Column>
         </div>
       );
-
 
 
   let tree = component.toJSON();
