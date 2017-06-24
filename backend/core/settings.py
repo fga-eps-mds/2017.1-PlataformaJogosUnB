@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'webpack_loader',
     'social_django',
+    'corsheaders',
 ]
 
 LOCAL_APPS = [
@@ -84,7 +85,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'core.urls'
 

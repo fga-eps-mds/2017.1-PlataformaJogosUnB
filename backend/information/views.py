@@ -14,7 +14,7 @@ class VoteView(APIView):
 
     permission_classes = (permissions.AllowAny, )
 
-#    @method_decorator(login_required)
+    @method_decorator(login_required)
     def post(self, request, pk=None):
         print(request.user)
         information = get_object_or_404(Information, pk=pk)
