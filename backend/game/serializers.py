@@ -27,7 +27,8 @@ class PackageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Package
-        fields = ['pk','package', 'platforms', 'game_id', 'architecture', 'size']
+        fields = ['pk', 'package', 'platforms', 'game_id',
+                  'architecture', 'size']
 
 
 class GameSerializer(serializers.ModelSerializer):

@@ -257,7 +257,6 @@ class TestPlatformViewList:
     def test_data_platforms(self, response_list):
         platforms = PlatformSerializer(Platform.objects.all(), many=True).data
         assert response_list.data is not None
-        base = "http://testserver"
         assert platforms == response_list.data
 
     @pytest.mark.django_db

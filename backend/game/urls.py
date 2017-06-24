@@ -1,5 +1,9 @@
 from game.views import (
-    GameViewSet, PackageCreateView, downloads, PlatformViewList, PackageViewList
+    GameViewSet,
+    PackageCreateView,
+    downloads,
+    PlatformViewList,
+    PackageViewList
 )
 from rest_framework import routers
 from django.conf.urls import url, include

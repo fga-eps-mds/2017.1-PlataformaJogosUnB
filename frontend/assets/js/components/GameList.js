@@ -29,7 +29,7 @@ export default class GameList extends React.Component {
     }
 
     getGameList(){
-        const gamesList = (this.props.games).map((game,index) =>
+        const gamesList = (this.props.games).map((game, index) =>
                 <Segment key={index} inverted color='blue'>
                     <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
                 </Segment>

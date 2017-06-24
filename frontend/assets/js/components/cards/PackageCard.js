@@ -116,4 +116,7 @@ export default class PackageCard extends React.Component {
 
 PackageCard.propTypes = {
     packages: PropTypes.array.isRequired,
+    game_pk: PropTypes.number.isRequired,
+    gameName: PropTypes.string.isRequired,
+    downloads: PropTypes.number.isRelated
 }

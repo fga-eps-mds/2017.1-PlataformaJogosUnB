@@ -178,7 +178,7 @@ class PackageViewList(viewsets.ModelViewSet):
         serializer_package = PackageSerializer(packages, many=True).data
 
         return Response(serializer_package)
-        
+
 
 class PlatformViewList(generics.ListAPIView):
     queryset = Platform.objects.all()

@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Modal, Header, Table, Icon, Segment, Message} from "semantic-ui-react";
+import {Modal, Header, Table, Icon, Segment, Message, Button} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 import {downloadsPackageApi} from "../../resources/packageApi"; 
 
@@ -59,8 +59,8 @@ export default class ModalPackageCard extends React.Component {
 
       getPlatformsList(){
 
-        const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage)=>
-            <Table.Row>
+        const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage, index)=>
+            <Table.Row key={index}>
               <Table.Cell>
                 <Header textAlign='center'>{eachPackage.platforms}</Header>
               </Table.Cell>
@@ -85,8 +85,8 @@ export default class ModalPackageCard extends React.Component {
                 <Modal.Header>{this.props.gameName} - instaladores disponíveis para {this.props.kernel}</Modal.Header>
                 <Segment>
                    <Message info>
-                        <Message.Header>Was this what you wanted?</Message.Header>
-                        <p>Did you know it's been a while?</p>
+                        <Message.Header>Termo de uso</Message.Header>
+                        <p>Ao realizar o download o senhor/(a) concorda que a platforma de jogos da UnB (UnB games) nao ser responsabiliza por possiveis danos</p>
                     </Message> 
                 </Segment>
                 <Modal.Content image>
@@ -112,5 +112,8 @@ export default class ModalPackageCard extends React.Component {
 ModalPackageCard.propTypes = {
     button: PropTypes.object.isRequired,
     platform: PropTypes.array.isRequired,
+    game_pk: PropTypes.number.isRequired,
+    kernel: PropTypes.string.isRequired,
+    gameName: PropTypes.string.isRequired,
 }
 
