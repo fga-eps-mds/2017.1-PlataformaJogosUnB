@@ -4,15 +4,12 @@ import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import { Grid, Dimmer, Loader } from 'semantic-ui-react'
+import {slideHeightCardsSlide, settingsCardsSlide} from "../resources/styleConstants";
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 
 
-const slideHeight = {
-  "height": "280px",
-  "position":"relative",
-  "minHeight":"180px",
-};
+
 
 
 export default class CardsSlide extends React.Component {
@@ -26,8 +23,8 @@ export default class CardsSlide extends React.Component {
   }
 
   componentWillMount () {
-      dataListApi(this.props.url, (games) => { 
-        this.setState({games}) 
+      dataListApi(this.props.url, (games) => {
+        this.setState({games})
         if ((games).length > 0) {
             this.setState({hasLoading: false})
         }
@@ -38,7 +35,7 @@ export default class CardsSlide extends React.Component {
   reducePlatforms(packages){
       let platforms = [];
       if (packages !== undefined) {
-          platforms = _.reduce(packages, (platform, bpackage) => { 
+          platforms = _.reduce(packages, (platform, bpackage) => {
               const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
               return platform.concat(platform_icons);
           }, []);
@@ -49,44 +46,15 @@ export default class CardsSlide extends React.Component {
 
   render() {
     const gameCards = this.mountCards();
-
-    const settings = {
-      dots: true,
-      centerMode: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      responsive: [
-      {
-        breakpoint: 980,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px',
-          slidesToShow: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px',
-          slidesToShow: 1
-        }
-      }
-    ]
-    };
     if(gameCards.length){
     return (
-      <div style={slideHeight}>
+      <div style={slideHeightCardsSlide}>
         <Dimmer active={this.state.hasLoading}>
             <Loader size='massive'>Loading</Loader>
         </Dimmer>
 
         <Grid.Column>
-        <Slider {...settings}>
+        <Slider {...settingsCardsSlide}>
           {gameCards}
         </Slider>
         </Grid.Column>

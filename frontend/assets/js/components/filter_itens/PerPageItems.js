@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
-
+import {itemsPerPageItems} from "../../resources/styleConstants";
 export default class PerPageItems extends React.Component{
 
     constructor (props){
@@ -12,23 +12,7 @@ export default class PerPageItems extends React.Component{
     }
 
     listDropdownItems(){
-        const items = [{
-            name: "Games per page: 4",
-            number: 4
-        },{
-            name: "Games per page: 8",
-            number: 8
-        },{
-            name: "Games per page: 12",
-            number: 12
-        },{
-            name: "Games per page: 16",
-            number: 16
-        },{
-            name: "Games per page: 20",
-            number : 20
-        }]
-        const listDropItems = items.map((item) =>
+        const listDropItems = itemsPerPageItems.map((item) =>
             <Dropdown.Item onClick={(e) => this.handleClick(item, e)}>
                 {item.name}
             </Dropdown.Item>
