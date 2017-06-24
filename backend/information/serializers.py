@@ -1,5 +1,7 @@
-from information.models import Information, Award, Developer, Genre
 from rest_framework import serializers
+from information.models import (
+    Information, Award, Credit, Genre
+)
 
 
 class AwardSerializer(serializers.ModelSerializer):
@@ -9,11 +11,11 @@ class AwardSerializer(serializers.ModelSerializer):
         fields = ['name', 'year', 'place']
 
 
-class DeveloperSerializer(serializers.ModelSerializer):
+class CreditSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Developer
-        fields = ['name', 'avatar', 'login', 'email', 'github_page']
+        model = Credit
+        fields = ['specialty', 'name', 'email', 'github_page']
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -25,10 +27,10 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class InformationSerializer(serializers.ModelSerializer):
 
-    developers = DeveloperSerializer(many=True, required=False)
     awards = AwardSerializer(many=True, required=False)
     genres = GenreSerializer(many=True, required=False)
     game_id = serializers.IntegerField(write_only=True)
+
     likes = serializers.ReadOnlyField()
     dislikes = serializers.ReadOnlyField()
 
@@ -38,20 +40,23 @@ class InformationSerializer(serializers.ModelSerializer):
             'description',
             'launch_year',
             'semester',
-            'developers',
+            'credits',
             'awards',
             'genres',
             'game_id',
             'likes',
             'dislikes']
 
+    credits = CreditSerializer(many=True, required=False)
+
+
     def create(self, validated_data):
         '''
         Overrode to be able to support nested classes.
         '''
         information = self.create_nested_relationships(
-            [Developer, Award, Genre],
-            ['developers', 'awards', 'genres'],
+            [Credit, Award, Genre],
+            ['credits', 'awards', 'genres'],
         )
 
         return information

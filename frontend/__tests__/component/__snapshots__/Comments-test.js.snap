@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render Comments 1`] = `
+<div>
+  <div
+    className={undefined}
+  >
+    <div
+      className="fb-comments"
+      data-colorscheme="dark"
+      data-href="unbgames.lappis.rocks/games/1"
+      data-numposts={10}
+      data-order-by="social"
+      data-skin="dark"
+      data-width="100%"
+    />
+  </div>
+</div>
+`;

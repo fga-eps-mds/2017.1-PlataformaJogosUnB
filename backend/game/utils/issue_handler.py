@@ -6,9 +6,9 @@ import re
 class IssueHandler:
 
     def submit_issue(self, title, description, official_repository):
-        session = self.get_session()
-        issue = self.create_issue(title, description)
-        url = self.create_url(official_repository)
+        session = self.__get_session__()
+        issue = self.__create_issue__(title, description)
+        url = self.__create_url__(official_repository)
 
         response = session.post(url, json.dumps(issue))
         SUCCESS_STATUS = 201
@@ -19,8 +19,8 @@ class IssueHandler:
             print('Could not create Issue {0}' .format(title))
             print('Response: ', response.content)
 
-    def create_url(self, official_repository):
-        match_object = self.get_repo_owner_and_repo_name(official_repository)
+    def __create_url__(self, official_repository):
+        match_object = self.__get_repo_information__(official_repository)
         repo_owner = match_object.group(1)
         repo_name = match_object.group(2)
 
@@ -28,18 +28,18 @@ class IssueHandler:
                                                                     repo_name)
         return url
 
-    def create_issue(self, title, description):
+    def __create_issue__(self, title, description):
         issue = {'title': title,
                  'body': description}
 
         return issue
 
-    def get_repo_owner_and_repo_name(self, official_repository):
+    def __get_repo_information__(self, official_repository):
         match_object = re.search('https://github.com/(.+)/([^/]+)',
                                  official_repository)
         return match_object
 
-    def get_session(self):
+    def __get_session__(self):
         session = requests.Session()
         session.auth = ('username', 'password')
         return session

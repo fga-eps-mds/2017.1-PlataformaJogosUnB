@@ -50,7 +50,6 @@ export default class Rating extends React.Component {
         .catch((error) => {
             console.error(error);
         });
-
     };
 
 

@@ -3,7 +3,7 @@ import {Card, Label, Image, Header, Segment} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 
 export default class GameInformationCard extends React.Component {
-    
+
     getImages (img) {
         if (img != null) {
             return <Image src={img} />;
@@ -19,25 +19,28 @@ export default class GameInformationCard extends React.Component {
 
         return (
             <Card fluid>
-                {this.getImages(this.props.cover_image)}            
+                {this.getImages(this.props.cover_image)}
 
                 <Card.Content>
-                
+
                   <Card.Description>
 
-                        { this.props.getFields('Versão: ',this.props.version) }
-                        { this.props.getFields('Ano de lançamento: ',this.props.launch_year) }
-                        { this.props.getFields('Gêneros: ', 
+                        <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
+                        <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
+                        <p>{ this.props.getFields('Gêneros: ', 
                             <div>
                             {this.props.genres
-                                .map((genre) => { return (
-                                        <Label color='green'> {genre.name} </Label>
-                                    );
+                                .map((genre) => { 
+                                    return (<Link key={genre} to={`/games/${genre.name}`} >
+                                        <Label color='green'>
+                                            {genre.name} 
+                                        </Label>
+                                      </Link>
+                                    )
                                 })
                             }
-                            </div>
-                            )
-                        }
+                            </div>,'')
+                        }</p>
                     </Card.Description>
                 </Card.Content>
 
@@ -54,7 +57,7 @@ export default class GameInformationCard extends React.Component {
 GameInformationCard.propTypes = {
     cover_image: PropTypes.string.isRequired,
     version: PropTypes.string.isRequired,
-    launch_year: PropTypes.string.isRequired,
+    launch_year: PropTypes.number.isRequired,
     genres: PropTypes.array.isRequired,
     official_repository: PropTypes.string.isRequired,
     getFields: PropTypes.func.isRequired,

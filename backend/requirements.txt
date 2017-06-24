@@ -8,7 +8,6 @@ coveralls==1.1
 Django==1.11.1
 django-suit==0.2.25
 django-extensions==1.7.9
-django-filter==1.0.2
 django-smartfields==1.0.9
 django-webpack-loader==0.4.1
 djangorestframework==3.6.3

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render SegmentTitle 1`] = `
+<div
+  className="ui grey inverted padded segment"
+>
+  <h1>
+    Titulo
+  </h1>
+</div>
+`;

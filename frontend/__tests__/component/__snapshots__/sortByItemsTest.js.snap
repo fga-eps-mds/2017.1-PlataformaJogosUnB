@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render SortByItems 1`] = `
+<div
+  aria-busy={undefined}
+  aria-disabled={undefined}
+  aria-expanded={false}
+  aria-multiselectable={undefined}
+  className="ui selection dropdown"
+  onBlur={[Function]}
+  onChange={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onMouseDown={[Function]}
+  role="listbox"
+  tabIndex={0}
+>
+  <select
+    aria-hidden="true"
+    multiple={undefined}
+    name={undefined}
+    type="hidden"
+    value="Ordernar por"
+  >
+    <option
+      value=""
+    />
+  </select>
+  <div
+    className="text"
+  >
+    nome
+  </div>
+  <i
+    aria-hidden="true"
+    className="dropdown icon"
+  />
+  <div
+    className="menu transition"
+  >
+    "nome do item"
+  </div>
+</div>
+`;

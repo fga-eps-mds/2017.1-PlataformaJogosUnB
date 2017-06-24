@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render AboutCard 1`] = `
+<div
+  className="ui card"
+  href={undefined}
+  onClick={[Function]}
+>
+  <div
+    className="content"
+  >
+    <div
+      className="header"
+    >
+      Titulo
+    </div>
+  </div>
+  <div
+    className="content"
+  >
+    <div
+      className="description"
+    >
+      <div
+        className="ui centered divided five column grid"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="column"
+          >
+            description
+          </div>
+          <div
+            className="column"
+          >
+            <img
+              alt={undefined}
+              className="ui medium centered image"
+              height={undefined}
+              src="./image1.jpg"
+              width={undefined}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

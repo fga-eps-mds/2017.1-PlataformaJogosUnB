@@ -18,7 +18,8 @@ const extractLess = new ExtractTextPlugin({
 
 module.exports = {
     context: __dirname,
-    devtool: "#eval",
+
+    devtool: '#eval',
 
     entry: './assets/js/App', 
 
@@ -26,8 +27,6 @@ module.exports = {
         path: path.resolve('./public/bundles/'),
         filename: '[name].js',
     },
-
-    devtool:"#eval",
 
     plugins: [
         new BundleTracker({filename: './webpack-stats.json'}),

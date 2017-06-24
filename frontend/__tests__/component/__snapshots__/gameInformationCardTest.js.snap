@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render GameInformationCard 1`] = `
+<div
+  className="ui fluid card"
+  href={undefined}
+  onClick={[Function]}
+>
+  <img
+    alt={undefined}
+    className="ui image"
+    height={undefined}
+    src="./image.jpg"
+    width={undefined}
+  />
+  <div
+    className="content"
+  >
+    <div
+      className="description"
+    >
+      1.0
+      ,
+      2016
+      ,
+      nome
+    </div>
+  </div>
+  <div
+    className="extra content"
+  >
+    https://google.com
+  </div>
+</div>
+`;

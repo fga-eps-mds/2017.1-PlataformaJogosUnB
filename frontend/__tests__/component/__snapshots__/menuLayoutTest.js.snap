@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render MenuLayout 1`] = `
+<div>
+  <div
+    className="ui grid"
+  >
+    <div
+      className="tablet only mobile only row"
+    >
+      <div
+        className="column"
+      >
+        <div
+          className="pusher"
+        >
+          <div
+            className="ui inverted vertical ui overlay left wide visible sidebar menu"
+            onClick="active"
+          >
+            <link
+              className="item"
+              onClick={[Function]}
+              to="/"
+            >
+              <div
+                className="ui inverted header"
+              >
+                Home
+              </div>
+            </link>
+            <link
+              className="item"
+              onClick={[Function]}
+              to="/games/"
+            >
+              <div
+                className="ui inverted header"
+              >
+                Jogos
+              </div>
+            </link>
+            <link
+              className="item"
+              onClick={[Function]}
+              to="/about/"
+            >
+              <div
+                className="ui inverted header"
+              >
+                Sobre
+              </div>
+            </link>
+          </div>
+          <div
+            className="ui inverted segment"
+          >
+            <div
+              className="ui inverted pointing secondary menu"
+            >
+              <i
+                aria-hidden="true"
+                className="bars big icon"
+                onClick="active"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="computer only large only row"
+    >
+      <div
+        className="column"
+      >
+        <div
+          className="ui inverted segment"
+          container={true}
+          stackable={true}
+        >
+          <div
+            className="ui inverted pointing secondary menu"
+          >
+            <div
+              className="ui container"
+            >
+              <link
+                className="item"
+                onClick={[Function]}
+                to="/"
+              >
+                <div
+                  className="ui inverted header"
+                >
+                  Home
+                </div>
+              </link>
+              <link
+                className="item"
+                onClick={[Function]}
+                to="/games/"
+              >
+                <div
+                  className="ui inverted header"
+                >
+                  Jogos
+                </div>
+              </link>
+              <link
+                className="item"
+                onClick={[Function]}
+                to="/about/"
+              >
+                <div
+                  className="ui inverted header"
+                >
+                  Sobre
+                </div>
+              </link>
+              <div
+                className="right menu"
+              >
+                <div
+                  className="item"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="ui grid"
+                  >
+                    <div
+                      className="eight wide column"
+                    >
+                      <div
+                        className="ui small search"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                        onMouseDown={[Function]}
+                      >
+                        <div
+                          className="ui icon input"
+                        >
+                          <input
+                            autoComplete="off"
+                            className="prompt"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            placeholder="Pesquisar..."
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <i
+                            aria-hidden="true"
+                            className="search icon"
+                          />
+                        </div>
+                        <div
+                          className="results transition"
+                        >
+                          <div
+                            className="message empty"
+                          >
+                            <div
+                              className="header"
+                            >
+                              No results found.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

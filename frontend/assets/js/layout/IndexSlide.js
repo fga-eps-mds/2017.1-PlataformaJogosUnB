@@ -1,11 +1,11 @@
 import Slider from 'react-slick';
 import React from "react";
-import {Card,Label,Icon} from 'semantic-ui-react';
+import {Card, Label, Icon, Dimmer, Loader} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
-import {gameListApi} from '../resource/GameApi';
+import {dataListApi} from '../resources/DataListApi';
 
 const imageStyle = {
     "height": "100%",
@@ -15,11 +15,11 @@ const imageStyle = {
     "background": "#000000",
     "minHeight": "400px",
     "position": "relative",
-    "margin":10,
+    "margin":20,
 }, cardStyle = {
     "float":"right",
     "height":400,
-    "width":"30%" 
+    "width":"30%"
 },
 sliderStyle = {
     "position":"relative",
@@ -38,13 +38,21 @@ export default class IndexSlider extends React.Component {
     constructor (props) {
 
         super(props);
-        this.state = {"games": []};
+        this.state = {
+            "games": [],
+            "hasLoading": true
+        };
 
     }
 
     componentWillMount () {
 
-      gameListApi((games) => { this.setState({games}) });
+        dataListApi("/api/games/", (games) => { 
+            this.setState({games})
+            if ((games).length > 0) {
+                this.setState({hasLoading: false})
+            }
+        });
 
     }
 
@@ -63,9 +71,16 @@ export default class IndexSlider extends React.Component {
 
 
         if(images.length){
-            return (<div style={carouselImageStyle}>
-                <Slider {...settings}>{images}
-                </Slider></div>
+            return (
+                <div style={carouselImageStyle}>
+                    <Dimmer active={this.state.hasLoading}>
+                        <Loader size='massive'>Loading</Loader>
+                    </Dimmer>
+
+                    <Slider {...settings}>
+                        {images}
+                    </Slider>
+                </div>
             );
         } else {
             return <img/>
@@ -73,12 +88,16 @@ export default class IndexSlider extends React.Component {
     }
 
     getGenreByGame(id){
-        
 
-        return this.state.games[id].information.genres.map((genre) =>{
-                    return (<Label color='teal'>
+        return this.state.games[id].information.genres.map((genre, index) =>{
+                    return (
+                        <Link key={index} to={`/games/${genre.name}`} >
+                            <Label color='teal'>
                                {genre.name}
-                            </Label>);})
+                            </Label>
+                        </Link>
+                        )}
+                    )
     }
 
     mountImages(){
@@ -87,14 +106,12 @@ export default class IndexSlider extends React.Component {
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
 
             var image =
-                (<div style={sliderStyle}>  
-                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}                
-                    >
-
+                (<div style={sliderStyle} key={this.state.games[idx].pk}>
+                    <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}>
                         <img
                            src={this.state.games[idx].slide_image} style={imageStyle}
                         />
-       
+
                         <div style={cardStyle}>
                             <Card fluid style={{height:400}}>
                                 <Card.Content>
@@ -102,11 +119,11 @@ export default class IndexSlider extends React.Component {
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.getGenreByGame(idx)}
-                                </Card.Content> 
+                                </Card.Content>
                                 <Card.Content extra>
-                                    <Icon bordered className="linux" />Linux > Windows</Card.Content>
+                                    <Icon bordered className="linux" />Linux / Windows</Card.Content>
                             </Card>
-                        </div> 
+                        </div>
                     </Link>
                 </div>)
            images.push(image);

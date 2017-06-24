@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test render SearchBox 1`] = `
+<div
+  className="ui grid"
+>
+  <div
+    className="eight wide column"
+  >
+    <div
+      className="ui small loading search"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onMouseDown={[Function]}
+    >
+      <div
+        className="ui icon input"
+      >
+        <input
+          autoComplete="off"
+          className="prompt"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          placeholder="Pesquisar..."
+          tabIndex="0"
+          type="text"
+          value=""
+        />
+        <i
+          aria-hidden="true"
+          className="search icon"
+        />
+      </div>
+      <div
+        className="results transition"
+      >
+        <div
+          0="g"
+          1="a"
+          2="m"
+          3="e"
+          4="1"
+          className="result"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          />
+        </div>
+        <div
+          0="g"
+          1="a"
+          2="m"
+          3="e"
+          4="2"
+          className="result"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          />
+        </div>
+        <div
+          0="g"
+          1="a"
+          2="m"
+          3="e"
+          4="3"
+          className="result"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          />
+        </div>
+        <div
+          0="g"
+          1="a"
+          2="m"
+          3="e"
+          4="4"
+          className="result"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          />
+        </div>
+        <div
+          0="g"
+          1="a"
+          2="m"
+          3="e"
+          4="5"
+          className="result"
+          onClick={[Function]}
+        >
+          <div
+            className="content"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

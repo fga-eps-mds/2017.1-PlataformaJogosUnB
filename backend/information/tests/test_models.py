@@ -5,12 +5,14 @@ from core.helper_test import (
     mount_error_dict,
     ErrorMessage
 )
-from information.models import Information, Award, Genre, Developer, Statistic
 from information.factory import (
     InformationFactory,
     AwardFactory,
     GenreFactory,
-    DeveloperFactory
+    CreditFactory
+)
+from information.models import (
+    Information, Award, Genre, Credit, Statistic
 )
 
 
@@ -193,45 +195,40 @@ at least 20 characters!'
         validation_test(genre, errors_dict)
 
 
-class TestDeveloperAvatar:
-
-    @pytest.mark.django_db
-    @pytest.mark.parametrize(('avatar', 'errors_dict'), [
-        ('avatar.ppm',
-         mount_error_dict(['avatar'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('avatar.py',
-         mount_error_dict(['avatar'], [[ErrorMessage.NOT_IMAGE.value[0],
-                                        ErrorMessage.NOT_IMAGE.value[1]]])),
-    ])
-    def test_avatar_valid_extension(self, avatar, errors_dict):
-        developer = DeveloperFactory.build(
-            avatar=avatar,
-        )
-        validation_test(developer, errors_dict)
-
-    @pytest.mark.django_db
-    def test_avatar_invalid_extension(self):
-        developer = DeveloperFactory()
-        assert Developer.objects.last() == developer
-
-
 @pytest.fixture
-def developer_creation():
-    return DeveloperFactory()
+def credit_creation():
+    credit = Credit.objects.create(specialty="desenvolvedor", name="Credit",
+                                   email="credit@gmail.com",
+                                   github_page="https://github.com/credit")
+    return credit
 
 
-class TestDeveloper:
+class TestCreditValidation:
+
+    error_message_max_length = 'Certifique-se de que o valor tenha no '\
+        'máximo 100 caracteres (ele possui 101).'
 
     @pytest.mark.django_db
-    def test_developer_save(self, developer_creation):
-        developer = Developer.objects.get(pk=developer_creation.pk)
-        assert developer == developer_creation
+    @pytest.mark.parametrize("name, errors_dict", [
+        ('', mount_error_dict(["name"], [[ErrorMessage.BLANK]])),
+        (None, mount_error_dict(["name"], [[ErrorMessage.NULL]])),
+        ('a' * 101, mount_error_dict(["name"], [[error_message_max_length]])),
+    ])
+    def test_name_validation(self, name, errors_dict):
+        credit = CreditFactory.build(name=name)
+        validation_test(credit, errors_dict)
+
+
+class TestCredit:
 
     @pytest.mark.django_db
-    def test_str_developer(self, developer_creation):
-        name = developer_creation.name
-        url = developer_creation.github_page
-        assert str(developer_creation) == "{} <{}>".format(name, url)
+    def test_credit_save(self, credit_creation):
+        credit = Credit.objects.get(pk=credit_creation.pk)
+        assert credit == credit_creation
+
+    @pytest.mark.django_db
+    def test_str_credit(self, credit_creation):
+        assert str(credit_creation) == "Credit <https://github.com/credit>"
 
 
 class TestStatistic:
@@ -246,16 +243,16 @@ class TestInformationRelations:
     @pytest.fixture
     def information_relations(self):
         awards = AwardFactory.create_batch(3)
-        developers = DeveloperFactory.create_batch(3)
+        credits = CreditFactory.create_batch(3)
         genres = GenreFactory.create_batch(3)
 
         return InformationFactory(genres=genres,
-                                  developers=developers,
+                                  credits=credits,
                                   awards=awards)
 
     @pytest.mark.parametrize("field, length", [
         ("awards", 3),
-        ("developers", 3),
+        ("credits", 3),
         ("genres", 3)
     ])
     @pytest.mark.django_db
