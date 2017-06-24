@@ -26,7 +26,7 @@ test('Test render GamesPage', () => {
                           <GenreItems callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                       </Menu.Item>
                       <Menu.Item>
-                          <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                          <PlataformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
                       </Menu.Item>
                       <Menu.Item>
                           <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import Paginator from '../../assets/js/components/Paginator';
-import { Menu, Icon } from 'react-facebook';
+import { Menu, Icon } from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
 test('Test render Paginator', () => {

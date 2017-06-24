@@ -1,6 +1,6 @@
 import React from 'react';
 import PerPageItems from '../../assets/js/components/filter_itens/PerPageItems';
-import {Dropdown} from 'react-facebook';
+import {Dropdown} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
 test('Test render PerPageItems', () => {
