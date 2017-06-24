@@ -80,7 +80,6 @@
     "webpack": "^2.6.1"
   },
   "jest": {
-    "automock": false,
     "setupFiles": [
       "./test-setup.js"
     ]
