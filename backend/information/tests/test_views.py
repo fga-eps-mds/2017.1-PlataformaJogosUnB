@@ -20,18 +20,19 @@ class TestGenreList:
         assert response_list.data is not None
         assert response_list.data == GenreSerializer(genres, many=True).data
 
+
 class TestVoteView:
 
     @pytest.fixture
     def information(self):
         information = InformationFactory()
-        rating = Rating(vote=True,user_voter="test",information=information)
+        rating = Rating(vote=True, user_voter="test", information=information)
         rating.save()
         return information
 
     @pytest.fixture
     def rating(self, information):
-        rating = Rating(vote=True,user_voter="test2",information=information)
+        rating = Rating(vote=True, user_voter="test2", information=information)
         rating.save()
         return rating
 
@@ -46,7 +47,7 @@ class TestVoteView:
 
     @pytest.mark.django_db
     def test_data_vote(self, response_vote):
-        vote = {'likes': 1,'dislikes': 0}
+        vote = {'likes': 1, 'dislikes': 0}
         assert response_vote is not None
         assert response_vote.data == vote
 
@@ -59,4 +60,3 @@ class TestVoteView:
         print(information.likes)
         assert 200 <= response.status_code < 300
         assert information.likes == 2
-   
