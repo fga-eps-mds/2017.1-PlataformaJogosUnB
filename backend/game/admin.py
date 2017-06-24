@@ -64,6 +64,8 @@ class GameAdmin(admin.ModelAdmin):
         for instance in instances:
             if not self.__save_media__(request, instance, formset, change):
                 instance.save()
+            if formset.total_form_count() > 1:
+                break
         formset.save_m2m()
 
     def __save_media__(self, request, instance, formset, change):
@@ -75,6 +77,8 @@ class GameAdmin(admin.ModelAdmin):
                 obj = forms.cleaned_data['id']
                 if len(list_files) > 0:
                     forms.save_instances(list_files, obj, change, model)
+                if count + 1 == formset.total_form_count():
+                    break
             return True
         return False
 

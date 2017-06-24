@@ -7,12 +7,17 @@ require("react-responsive-carousel/lib/styles/carousel.css");
 
 const slideHeight = {
   "maxHeight": "400px",
+  "height": 400,
   "margin": "5% 5% 8%",
-  "width": "90%"
+  "width": "90%",
+  "position": "relative"
 };
 
 const maxHeightImage = {
   "maxHeight": "380px",
+  "height": "50px",
+  "width": "50px",
+  "position": "relative"
 };
 
 
@@ -21,8 +26,8 @@ export default class InternalSlide extends React.Component {
     getImageOrVideo(media,option){
         if (option==='image') {
             return (
-                <div key={media.slide}>
-                     <img src={media.slide} />
+                <div style={slideHeight} key={media.slide}>
+                     <img src={media.slide} width={"100%"}/>
                 </div>
             )
         } else  if (option==='video'){
@@ -30,14 +35,14 @@ export default class InternalSlide extends React.Component {
                 <div key={media.video}>
                     <video controls style={slideHeight} src={media.video} />
                 </div>
-            )  
+            )
         }
     }
 
     makeElementForSlide(medias_game, option){
         var medias = [];
         if(typeof medias_game !== undefined){
-            medias = medias_game.map( (single_media) => 
+            medias = medias_game.map( (single_media) =>
                 this.getImageOrVideo(single_media, option))
         }
         return medias
@@ -61,9 +66,15 @@ export default class InternalSlide extends React.Component {
     const mediaList = this.getMedias(this.props.media_video,this.props.media_image);
         if(mediaList){
             return (
-                <Carousel
+                <Carousel style={slideHeight}
+                  stopOnHover={true}
+                  infiniteLoop={true}
+                  autoPlay={true}
                   emulateTouch={true}
                   showStatus={false}
+                  showArrows={true}
+                  useKeyboardArrows={true}
+                  showThumbs={true}
                   dynamicHeight={false}
                 >
                 {mediaList}
