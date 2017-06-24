@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuComponent from '../../assets/js/layout/MenuComponent';
+import MenuLayout from '../../assets/js/layout/MenuLayout';
 import SearchBox from '../../assets/js/components/SearchBox'
 import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 import renderer from 'react-test-renderer';
 
-test('Test render MenuComponent', () => { 
+test('Test render MenuLayout', () => { 
     const activeItem = null;
   const component = renderer.create(
 
@@ -47,7 +47,7 @@ test('Test render MenuComponent', () => {
                     </Grid.Row>
                 </Grid>
             </div>
-    
+
       );
 
 
