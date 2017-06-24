@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
-import {ruleSortByItems} from "../../resources/styleConstants";
+import {ruleSortByItems} from "../../resources/styleSheetConstants";
 
 export default class SortByItems extends React.Component {
 

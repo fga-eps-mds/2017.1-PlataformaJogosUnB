@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Image, Item, Label, Button, Header} from "semantic-ui-react";
-import {cardImageStyleItemList, imageStyleItemList} from "../../resources/styleConstants";
+import {cardImageStyleItemList, imageStyleItemList} from "../../resources/styleSheetConstants";
 
 
 

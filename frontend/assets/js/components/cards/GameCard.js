@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Card, Image} from "semantic-ui-react";
-import {cardImageStyleGameCard, imageStyleGameCard} from "../../resources/styleConstants";
+import {cardImageStyleGameCard, imageStyleGameCard} from "../../resources/styleSheetConstants";
 
 export default class GameCard extends React.Component {
     render () {

@@ -4,7 +4,7 @@ import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import { Grid, Dimmer, Loader } from 'semantic-ui-react'
-import {slideHeightCardsSlide, settingsCardsSlide} from "../resources/styleConstants";
+import {slideHeightCardsSlide, settingsCardsSlide} from "../resources/styleSheetConstants";
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 

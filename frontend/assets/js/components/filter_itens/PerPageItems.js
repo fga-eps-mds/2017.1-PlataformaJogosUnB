@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Dropdown} from "semantic-ui-react";
-import {itemsPerPageItems} from "../../resources/styleConstants";
+import {itemsPerPageItems} from "../../resources/styleSheetConstants";
 export default class PerPageItems extends React.Component{
 
     constructor (props){

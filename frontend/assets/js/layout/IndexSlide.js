@@ -6,7 +6,7 @@ require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 import {dataListApi} from '../resources/DataListApi';
-import {imageStyleIndexSlide, carouselImageStyleIndexSlide, cardStyleIndexSlide, sliderStyleIndexSlide, textStyleIndexSlide} from "../resources/styleConstants";
+import {settingsIndexSlide, imageStyleIndexSlide, carouselImageStyleIndexSlide, cardStyleIndexSlide, sliderStyleIndexSlide, textStyleIndexSlide} from "../resources/styleSheetConstants";
 
 export default class IndexSlider extends React.Component {
 
@@ -34,18 +34,6 @@ export default class IndexSlider extends React.Component {
 
     render () {
         const images = this.mountImages();
-
-        var settings = {
-            dots: true,
-            infinite: true,
-            autoplay: true,
-            autoPlaySpeed: 4200,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide:1
-        };
-
-
         if(images.length){
             return (
                 <div style={carouselImageStyleIndexSlide}>
@@ -53,7 +41,7 @@ export default class IndexSlider extends React.Component {
                         <Loader size='massive'>Loading</Loader>
                     </Dimmer>
 
-                    <Slider {...settings}>
+                    <Slider {...settingsIndexSlide}>
                         {images}
                     </Slider>
                 </div>
