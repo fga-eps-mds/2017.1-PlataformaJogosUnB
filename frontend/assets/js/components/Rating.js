@@ -59,7 +59,6 @@ export default class Rating extends React.Component {
 
         var json_parser = JSON.stringify({
             vote:  vote,
-            email_voter: 'youir@mail.com',
         });
 
         var csrftoken = getCookie('csrftoken');

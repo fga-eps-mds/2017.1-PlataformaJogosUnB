@@ -121,8 +121,9 @@ class Rating(models.Model):
         help_text=_('Votes of the game.')
     )
 
-    email_voter = models.EmailField(
+    email_voter = models.CharField(
         _('Email voter'),
+        max_length=100,
         help_text=_('Email that authentic users.'),
     )
 

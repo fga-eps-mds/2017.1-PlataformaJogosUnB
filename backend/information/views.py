@@ -14,19 +14,18 @@ class VoteView(APIView):
 
     permission_classes = (permissions.AllowAny, )
 
-    @method_decorator(login_required)
     def post(self, request, pk=None):
-        print(request.user)
+        email_voter = str(request.user)
         information = get_object_or_404(Information, pk=pk)
         try:
             rating = Rating.objects.get(
-                email_voter=request.data['email_voter'])
+                email_voter=email_voter)
             rating.delete()
         except BaseException:
             rating = None
 
         rating = Rating(vote=request.data['vote'],
-                        email_voter=request.data['email_voter'],
+                        email_voter=email_voter,
                         information=information)
         try:
             rating.save()
