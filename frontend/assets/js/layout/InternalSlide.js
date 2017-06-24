@@ -2,7 +2,7 @@ import React, {PropTypes} from "react";
 import {Container} from 'semantic-ui-react';
 import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
 var Carousel = require('react-responsive-carousel').Carousel;
-require("react-responsive-carousel/lib/styles/carousel.css");
+require("../../../assets/styles/carousel_internal_slide.css");
 // https://github.com/leandrowd/react-responsive-carousel
 
 const slideHeight = {
@@ -27,7 +27,7 @@ export default class InternalSlide extends React.Component {
         if (option==='image') {
             return (
                 <div style={slideHeight} key={media.slide}>
-                     <img src={media.slide} width={"100%"}/>
+                     <img src={media.slide} width={"100%"} height={"100%"}/>
                 </div>
             )
         } else  if (option==='video'){
