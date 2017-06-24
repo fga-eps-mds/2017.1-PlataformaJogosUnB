@@ -32,43 +32,27 @@ export default class ReportBugForm extends React.Component {
     });
   }
 
-  changeStates(header,info,color){
-    this.setState({
-        heard_text: [header],
-        info_text: [info],
-        message_color: color
-      })
-  }
-
-  validateTitle(title){
-    if(title.length > 0 && title.length < 120){
+  validateText(text,maxNumber,helper_text){
+    if(text.length > 0 && text.length < maxNumber){
       return true
     }else{
       this.changeStates(
         ['Erro de submissão'],
-        ['O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.'],
+        helper_text,
         false
       )
-      return false
-    }
-  }
-
-  validateDescription(description){
-    if(description.length > 0 && description.length < 250){
-      return true
-    }else{
-      this.changeStates(
-        ['Erro de submissão'],
-        ['A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.'],
-        false
-      )
-
       return false
     }
   }
 
   validate(data){
-    return this.validateTitle(data.title) && this.validateDescription(data.description)
+    const bug_title_helper = ['O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.']
+    const bug_description_helper = ['A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.']
+
+    return (
+        this.validateText(data.title, 120, bug_title_helper) && 
+        this.validateText(data.description, 250, bug_description_helper)
+    )
   }
 
   handleSubmit(submitEvent){
