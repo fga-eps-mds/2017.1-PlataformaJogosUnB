@@ -8,17 +8,10 @@ from core.validators import (
     HELP_TEXT_IMAGES
 )
 from media.utils import image_attribute_resize
+from game.utils.objects_manager import GameManager
 import game.validators as validators
 import os
 import functools
-
-
-class GameManager(models.Manager):
-
-    def search(self, query):
-        return self.get_queryset().filter(
-            models.Q(name__icontains=query)
-        )
 
 
 class Game(models.Model):
@@ -28,7 +21,7 @@ class Game(models.Model):
                         "game_game.id"
 
     name = models.CharField(
-        _('Game Name'),
+        _('Name'),
         max_length=100,
         help_text=_('What\'s the name of the game?'),
     )
@@ -50,7 +43,7 @@ class Game(models.Model):
     visualization = models.BigIntegerField(default=0)
 
     version = models.CharField(
-        _('Game Version'),
+        _('Version'),
         max_length=20,
         validators=[validators.validate_version],
         null=True,
@@ -65,7 +58,7 @@ class Game(models.Model):
     )
 
     game_activated = models.BooleanField(
-        _('Game activated'),
+        _('Active'),
         max_length=100,
         help_text=_('What\'s the status of the game?'),
         default=True

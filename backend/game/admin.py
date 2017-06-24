@@ -53,7 +53,7 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
     exclude = ['slide_image', 'card_image', 'visualization']
-    list_display = ['name', 'version']
+    list_display = ['name', 'version', 'game_activated']
     search_fields = ['name']
 
     def save_formset(self, request, form, formset, change):
