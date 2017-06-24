@@ -111,13 +111,6 @@ class Platform(models.Model):
                     ' Ex.: linux, unix, dos')
     )
 
-    icon = fields.ImageField(
-        _('Platform Icon'),
-        validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
-    )
-
     @staticmethod
     def get_platform_extensions():
         return list(

@@ -17,7 +17,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
-        fields = ['name', 'extensions', 'icon', 'kernel']
+        fields = ['name', 'extensions', 'kernel']
 
 
 class PackageSerializer(serializers.ModelSerializer):

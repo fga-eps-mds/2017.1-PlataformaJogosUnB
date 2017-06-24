@@ -7,8 +7,6 @@ const cursorMouse = {
   "cursor": "pointer",
 };
 
-//TODO remove camel case from variables
-
 export default class ModalPackageCard extends React.Component {
       constructor (props) {
           super(props);
@@ -21,7 +19,6 @@ export default class ModalPackageCard extends React.Component {
       }
 
       increasePackageDownloadsCount(packagePk){
-          console.log(packagePk)
           downloadsPackageApi(packagePk);
       }
 
@@ -29,13 +26,12 @@ export default class ModalPackageCard extends React.Component {
     
         this.increasePackageDownloadsCount(packagePk)
 
-        /*setTimeout(() => {
+        setTimeout(() => {
           const response = {
             file: packagePath,
           };
           window.location.href = response.file;
         }, 100);
-        */
       }
 
       loadGameFromServer () {
@@ -62,11 +58,6 @@ export default class ModalPackageCard extends React.Component {
       }
 
       getPlatformsList(){
-        console.log("ASFASFSADAS")
-        console.log(this.state.packages)
-        console.log(this.props.downloads)
-        console.log("ASFASFSADAS")
-
 
         const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage)=>
             <Table.Row>

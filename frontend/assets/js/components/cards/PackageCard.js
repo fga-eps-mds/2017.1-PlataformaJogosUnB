@@ -3,8 +3,8 @@ import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
-//TODO adicionar arquitetura no pacote
 //TODO mudar atributo de Plataforma, de "extensions" para "extension"
+//TODO verificar pq alguns pacotes estão vindo repetidos do backend
 const extensionsByKernel = {
   "Linux": ["deb","rpm"],
   "Windows": ["exe"],
