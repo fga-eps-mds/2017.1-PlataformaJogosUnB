@@ -25,13 +25,13 @@ class TestVoteView:
     @pytest.fixture
     def information(self):
         information = InformationFactory()
-        rating = Rating(vote=True,email_voter="test@test.com",information=information)
+        rating = Rating(vote=True,user_voter="test",information=information)
         rating.save()
         return information
 
     @pytest.fixture
     def rating(self, information):
-        rating = Rating(vote=True,email_voter="test@test2.com",information=information)
+        rating = Rating(vote=True,user_voter="test2",information=information)
         rating.save()
         return rating
 

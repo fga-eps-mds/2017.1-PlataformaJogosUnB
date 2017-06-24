@@ -121,10 +121,10 @@ class Rating(models.Model):
         help_text=_('Votes of the game.')
     )
 
-    email_voter = models.CharField(
-        _('Email voter'),
+    user_voter = models.CharField(
+        _('User voter'),
         max_length=100,
-        help_text=_('Email that authentic users.'),
+        help_text=_('Authentic users.'),
     )
 
     information = models.ForeignKey(
@@ -137,10 +137,10 @@ class Rating(models.Model):
         super(Rating, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0}: {1}".format(self.email_voter, self.vote)
+        return "{0}: {1}".format(self.user_voter, self.vote)
 
     class Meta:
-        unique_together = ("email_voter", "information")
+        unique_together = ("user_voter", "information")
 
 
 class Information(models.Model):
