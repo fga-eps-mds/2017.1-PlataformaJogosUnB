@@ -33,10 +33,9 @@ class SoundtrackInline(admin.StackedInline):
 
 class PackageInline(admin.StackedInline):
     model = Package
-    exclude = ['platforms']
+    exclude = ['platforms', 'downloads']
     extra = 0
     min_num = 1
-    max_num = len(EXTENSION_CHOICES)
 
 
 class PlatformsInline(admin.StackedInline):
@@ -53,6 +52,9 @@ class PackageAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
+    exclude = ['slide_image', 'card_image', 'visualization']
+    list_display = ['name', 'version', 'game_activated']
+    search_fields = ['name']
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
@@ -62,6 +64,8 @@ class GameAdmin(admin.ModelAdmin):
         for instance in instances:
             if not self.__save_media__(request, instance, formset, change):
                 instance.save()
+            if formset.total_form_count() > 1:
+                break
         formset.save_m2m()
 
     def __save_media__(self, request, instance, formset, change):
@@ -73,6 +77,8 @@ class GameAdmin(admin.ModelAdmin):
                 obj = forms.cleaned_data['id']
                 if len(list_files) > 0:
                     forms.save_instances(list_files, obj, change, model)
+                if count + 1 == formset.total_form_count():
+                    break
             return True
         return False
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
-    name = 'core'
+class GameConfig(AppConfig):
+    name = 'game'
     # label = 'my.core'

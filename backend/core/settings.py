@@ -10,11 +10,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["sk"]
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ["authfacebookkey"]
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -32,18 +34,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Application definition
 
 DEFAULT_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
     'webpack_loader',
+    'social_django',
+    'corsheaders',
 ]
 
 LOCAL_APPS = [
@@ -52,18 +58,22 @@ LOCAL_APPS = [
     'information',
     'media',
 ]
+SITE_ID = 1
+SUIT_CONFIG = {
+    'ADMIN_NAME': "UnB Games",
+}
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.TemplateHTMLRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.TemplateHTMLRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework.renderers.JSONRenderer',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
 }
 
 MIDDLEWARE = [
@@ -74,9 +84,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'core.urls'
+
+TEST_RUNNER = 'core.tests.pytest_runner.PytestRunner'
 
 TEMPLATES = [
     {
@@ -90,6 +106,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -97,6 +116,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -158,6 +184,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, '../frontend/public'),
+    os.path.join(BASE_DIR, 'public/logo/'),
 )
 STATIC_ROOT = os.path.join(
     os.path.dirname(__file__),
@@ -183,5 +210,19 @@ WEBPACK_LOADER = {
 # Dev settings, shell plus
 SHELL_PLUS_PRE_IMPORTS = [
     ("game.factory", ("GameFactory", "PackageFactory",
-                      "PlatformFactory"))
+                      "PlatformFactory")),
+    ("information.factory", ("AwardFactory", "InformationFactory",
+                             "CreditFactory", "GenreFactory",)),
+    ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
+    ("core.factory", ("UserFactory")),
+    ("game.serializers", ("GameSerializer", "PackageSerializer",
+                          "PlatformSerializer")),
+    ("information.serializers", ("AwardSerializer", "InformationSerializer",
+                                 "CreditSerializer", "GenreSerializer")),
+    ("media.serializers", ("ImageSerializer", "SoundtrackSerializer",
+                           "VideoSerializer")),
 ]
+
+LOGIN_URL = '/oauth/login/facebook/'
+LOGOUT_URL = '/oauth/disconnect/facebook/'
+LOGIN_REDIRECT_URL = 'any'

@@ -124,9 +124,15 @@ yarn-error.log*
 *.pyc
 
 # Django DB migrations
-migrations/
+000*.py
 
 #Public files
-/backend/public/
+/backend/public/images/
+/backend/public/packages/
+/backend/public/sounds/
+/backend/public/videos/
+/backend/public/public/
 /frontend/public/bundles/
 /frontend/webpack-stats.json
+# Jest temp folder.
+/frontend/__tests__/component/__snapshots__/

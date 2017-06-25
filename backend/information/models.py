@@ -1,28 +1,19 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from game.models import Game, HELP_TEXT_IMAGES
+from game.models import Game
 from django.core.validators import (
-    MinValueValidator,
-    MaxValueValidator,
     MinLengthValidator,
     EmailValidator,
     URLValidator,
 )
-import datetime
-import core.validators as general_validators
 
-UNB_CREATION = 1962
+from information.validators import min_max_validators, years_validator
+
+
 MIN_DESCRIPTION = 50
 MIN_GENRE_DESCRIPTION = 20
-
-
-def year_validators(model_name):
-    return [MinValueValidator(UNB_CREATION,
-                              _('Our University had ' +
-                                'not been built at this time!')),
-            MaxValueValidator(int(datetime.datetime.now().year),
-                              _('We believe the {} '.format(model_name) +
-                                'was not won in the future!'))]
+MIN_SEMESTER_VALUE = 1
+MAX_SEMESTER_VALUE = 2
 
 
 class Award(models.Model):
@@ -35,7 +26,7 @@ class Award(models.Model):
 
     year = models.PositiveIntegerField(
         _('Year'),
-        validators=year_validators('award'),
+        validators=min_max_validators(**years_validator('award')),
         help_text=_('Year the award was won.')
     )
 
@@ -53,26 +44,26 @@ class Award(models.Model):
         return "{0} ({1}): {2}".format(self.place, self.year, self.name)
 
 
-class Developer(models.Model):
+class Credit(models.Model):
+
+    ROLE_CHOICES = [
+        ('desenvolvedor', _('Desenvolvedor')),
+        ('design', _('Design')),
+        ('musico', _('Musico')),
+    ]
+
+    specialty = models.CharField(
+        _('Especialidade'),
+        max_length=14,
+        choices=ROLE_CHOICES,
+        default=ROLE_CHOICES[0][0],
+        help_text=_('Select the contributer'),
+    )
 
     name = models.CharField(
         _('Name'),
         max_length=100,
         help_text=_('Name of the developer.')
-    )
-
-    avatar = models.ImageField(
-        _('Avatar'),
-        upload_to='public/avatar',
-        blank=True,
-        validators=[general_validators.image_extension_validator],
-        help_text=_('Developer image. ' + HELP_TEXT_IMAGES)
-    )
-
-    login = models.CharField(
-        _('Login'),
-        max_length=50,
-        help_text=_('Developer login for github.')
     )
 
     email = models.EmailField(
@@ -86,13 +77,15 @@ class Developer(models.Model):
 
     github_page = models.URLField(
         _('Github Page'),
+        null=True,
+        blank=True,
         validators=[URLValidator()],
         help_text=_('Developer Github page.')
     )
 
     def save(self, *args, **kwargs):
         self.clean_fields()
-        super(Developer, self).save(*args, **kwargs)
+        super(Credit, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{0} <{1}>".format(self.name, self.github_page)
@@ -123,6 +116,35 @@ class Genre(models.Model):
         return self.name
 
 
+class Rating(models.Model):
+
+    vote = models.BooleanField(
+        _('Like or dislike some game.'),
+        help_text=_('Votes of the game.')
+    )
+
+    user_voter = models.CharField(
+        _('User voter'),
+        max_length=100,
+        help_text=_('Authentic users.'),
+    )
+
+    information = models.ForeignKey(
+        'Information',
+        on_delete=models.CASCADE,
+    )
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        super(Rating, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}: {1}".format(self.user_voter, self.vote)
+
+    class Meta:
+        unique_together = ("user_voter", "information")
+
+
 class Information(models.Model):
 
     description = models.TextField(
@@ -136,8 +158,20 @@ class Information(models.Model):
 
     launch_year = models.PositiveIntegerField(
         _('Launch Year'),
-        validators=year_validators('game'),
+        validators=min_max_validators(**years_validator('game')),
         help_text=_('Which was the year the game was launched?'),
+    )
+
+    semester = models.PositiveIntegerField(
+        _('Semester'),
+        validators=min_max_validators(
+            (MIN_SEMESTER_VALUE, MAX_SEMESTER_VALUE),
+            (_("The semester can't be lower than 1"),
+             _("The semester can't be higher than 2"))
+        ),
+        help_text=_('Which was the semester the game was launched?'),
+        choices=[(1, _('1')), (2, _('2'))],
+        default=1
     )
 
     game = models.OneToOneField(
@@ -146,9 +180,9 @@ class Information(models.Model):
         primary_key=True,
     )
 
-    developers = models.ManyToManyField(
-        Developer,
-        related_name='developers'
+    credits = models.ManyToManyField(
+        Credit,
+        related_name='credits'
     )
 
     genres = models.ManyToManyField(
@@ -172,6 +206,14 @@ class Information(models.Model):
             self.game.name,
             self.description[0:min_value]
         )
+
+    @property
+    def likes(self):
+        return Rating.objects.filter(vote=True, information=self).count()
+
+    @property
+    def dislikes(self):
+        return Rating.objects.filter(vote=False, information=self).count()
 
 
 class Statistic(models.Model):

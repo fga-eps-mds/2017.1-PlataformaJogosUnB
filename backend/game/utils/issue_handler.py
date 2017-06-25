@@ -5,43 +5,41 @@ import re
 
 class IssueHandler:
 
-    def submit_issue(self, title, description, label, official_repository):
-        session = self.get_session()
-        issue = self.create_issue(title, description, label)
-        url = self.create_url(official_repository)
+    def submit_issue(self, title, description, official_repository):
+        session = self.__get_session__()
+        issue = self.__create_issue__(title, description)
+        url = self.__create_url__(official_repository)
 
         response = session.post(url, json.dumps(issue))
         SUCCESS_STATUS = 201
 
         if response.status_code == SUCCESS_STATUS:
-            print('Successfully created Issue "{}"'.format(title))
+            print('Successfully created Issue {0}'.format(title))
         else:
-            print('Could not create Issue "{}"' .fomart(title))
+            print('Could not create Issue {0}' .format(title))
             print('Response: ', response.content)
 
-    def create_url(self, official_repository):
-        match_object = self.get_repo_owner_and_repo_name(official_repository)
+    def __create_url__(self, official_repository):
+        match_object = self.__get_repo_information__(official_repository)
         repo_owner = match_object.group(1)
         repo_name = match_object.group(2)
 
-        url = 'https://api.github.com/repos/%s/%s/issues' % (repo_owner,
-                                                             repo_name)
+        url = 'https://api.github.com/repos/{0}/{1}/issues' .format(repo_owner,
+                                                                    repo_name)
         return url
 
-    def create_issue(self, title, description, label):
+    def __create_issue__(self, title, description):
         issue = {'title': title,
-                 'body': description,
-                 'milestone': None,
-                 'labels': [label]}
+                 'body': description}
 
         return issue
 
-    def get_repo_owner_and_repo_name(self, official_repository):
-        match_object = re.search('https://github.com/(.+)/(.+)',
+    def __get_repo_information__(self, official_repository):
+        match_object = re.search('https://github.com/(.+)/([^/]+)',
                                  official_repository)
         return match_object
 
-    def get_session(self):
+    def __get_session__(self):
         session = requests.Session()
-        session.auth = ('Username', 'Password')
+        session.auth = ('username', 'password')
         return session

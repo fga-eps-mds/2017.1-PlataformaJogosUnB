@@ -2,32 +2,53 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from game.choices import EXTENSION_CHOICES
+from game.choices import (
+    EXTENSION_CHOICES,
+    ARCHITECTURE_CHOICES,
+    KERNEL_CHOICES
+)
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
 )
+from media.utils import image_attribute_resize
+from game.utils.objects_manager import GameManager
 import game.validators as validators
 import os
+import functools
+from django.template.defaultfilters import filesizeformat
 
 
 class Game(models.Model):
 
+    PACKAGE_SUM_QUERY = "SELECT SUM(game_package.downloads) FROM "\
+                        "game_package WHERE game_package.game_id = "\
+                        "game_game.id"
+
     name = models.CharField(
-        _('Game Name'),
+        _('Name'),
         max_length=100,
         help_text=_('What\'s the name of the game?'),
     )
 
     cover_image = fields.ImageField(
-        _('Cover Image'),
+        _('Cover Image (1920x1080 recommended)'),
         validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Image that will be put at the card. ' + HELP_TEXT_IMAGES)
+        upload_to="images/",
+        help_text=_('ASPECT RATIO EXPECTED IS 16:9 OR IMAGE WILL NOT FIT '
+                    'CORRECTLY IN CARD. ' + HELP_TEXT_IMAGES),
+        dependencies=[
+            image_attribute_resize("slide_image", 1920, 1080),
+            image_attribute_resize("card_image", 320, 180)
+        ],
     )
+    slide_image = fields.ImageField(null=True, blank=True)
+    card_image = fields.ImageField(null=True, blank=True)
+
+    visualization = models.BigIntegerField(default=0)
 
     version = models.CharField(
-        _('Game Version'),
+        _('Version'),
         max_length=20,
         validators=[validators.validate_version],
         null=True,
@@ -42,11 +63,21 @@ class Game(models.Model):
     )
 
     game_activated = models.BooleanField(
-        _('Game activated'),
+        _('Active'),
         max_length=100,
         help_text=_('What\'s the status of the game?'),
         default=True
     )
+
+    objects = GameManager()
+
+    @property
+    def downloads(self):
+        packages = self.packages.all()
+        return functools.reduce(self.__count_packages__, packages, 0)
+
+    def __count_packages__(self, count, package):
+        return count + package.downloads
 
     def save(self, *args, **kwargs):
         self.clean_fields()
@@ -56,29 +87,7 @@ class Game(models.Model):
         if self.version is None:
             return self.name
         else:
-            return "{0} v{1}".format(self.name,
-                                     self.version)
-
-    def fetch_media(self, media, role):
-        return getattr(self, 'media_' + media).filter(role=role)
-
-    def get_image_url(self, role, atribute, many):
-        images_game = self.fetch_media('image', role)
-        if many:
-            images_urls = []
-            for image in images_game.all():
-                url = image.image.url
-                images_urls.append(url)
-            setattr(self, atribute, images_urls)
-        elif len(images_game) > 0:
-            image = images_game.first().image
-            setattr(self, atribute, image.url)
-        else:
-            setattr(self, atribute, "")
-
-    def fetch_package(self):
-        packages_game = self.packages.all()
-        setattr(self, 'package', packages_game)
+            return "{0} v{1}".format(self.name, self.version)
 
 
 class Platform(models.Model):
@@ -99,11 +108,13 @@ class Platform(models.Model):
             ' for the packages'),
     )
 
-    icon = fields.ImageField(
-        _('Platform Icon'),
-        validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
+    kernel = models.CharField(
+        _('Kernel name'),
+        max_length=20,
+        choices=KERNEL_CHOICES,
+        default=KERNEL_CHOICES[0][0],
+        help_text=_('Type of the kernel for this platform.' +
+                    ' Ex.: Linux, Windows, macOS')
     )
 
     @staticmethod
@@ -115,9 +126,15 @@ class Platform(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Platform, self).save(*args, **kwargs)
+        self.update_relationships()
 
     def __str__(self):
         return '{0} (.{1})'.format(self.name, self.extensions.title().lower())
+
+    def update_relationships(self):
+        for package in Package.objects.filter(
+                platforms__extensions=self.extensions):
+            package.platforms.add(self)
 
 
 class Package(models.Model):
@@ -127,7 +144,7 @@ class Package(models.Model):
         upload_to='packages/',
         validators=[validators.validate_package_size,
                     validators.package_extension_validator],
-        help_text=('Choose the game\'s package')
+        help_text=_('Choose the game\'s package')
     )
 
     game = models.ForeignKey(
@@ -141,11 +158,27 @@ class Package(models.Model):
         related_name='platforms'
     )
 
+    downloads = models.BigIntegerField(default=0)
+
+    architecture = models.CharField(
+        _('Architecture'),
+        max_length=40,
+        choices=ARCHITECTURE_CHOICES,
+        default=ARCHITECTURE_CHOICES[0][0],
+        help_text=_('Indicate the name of architecture of package.' +
+                    ' Ex.: arm, x86, x32'
+                    ),
+    )
+
     def fill_platforms(self):
         extension = os.path.splitext(self.package.name)[1][1:].lower()
         platforms = Platform.objects.filter(extensions=extension)
         for platform in platforms:
             self.platforms.add(platform)
+
+    @property
+    def size(self):
+        return filesizeformat(self.package.size)
 
     def clean(self):
         validators.package_extension_validator(self.package)
@@ -157,14 +190,7 @@ class Package(models.Model):
         self.fill_platforms()
 
     def __str__(self):
-        text = ("Invalid package." +
-                " There aren't registered platforms" +
-                " able to play it")
-
-        if self.platforms.count():
-            text = '{0} (.{1})'.format(
-                self.game.name,
-                self.platforms.first().extensions.title().lower()
-            )
-
-        return text
+        return '{0} ({1})'.format(
+            self.game.name,
+            os.path.splitext(self.package.name)[1]
+        )

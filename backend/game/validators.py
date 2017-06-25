@@ -33,7 +33,7 @@ def _get_size(package):
 
 def validate_package_size(package):
     KILOBYTE = 1024
-    MAX_UPLOAD_SIZE = 1 * KILOBYTE ** 3
+    MAX_UPLOAD_SIZE = 5 * KILOBYTE ** 3
     if(_get_size(package) > MAX_UPLOAD_SIZE):
         raise ValidationError(
             _('Please keep filesize under %s. Current filesize %s')
