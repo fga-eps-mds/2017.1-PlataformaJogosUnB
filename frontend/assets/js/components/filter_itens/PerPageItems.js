@@ -6,29 +6,29 @@ export default class PerPageItems extends React.Component{
     constructor (props){
         super(props);
         this.state = {
-            "name": "Games per page: 16",
+            "name": "Jogos exibidos: 16",
             "perPageNumber": 16
         }
     }
 
     listDropdownItems(){
         const items = [{
-            name: "Games per page: 4",
+            name: "Jogos exibidos: 4",
             number: 4
         },{
-            name: "Games per page: 8",
+            name: "Jogos exibidos: 8",
             number: 8
         },{
-            name: "Games per page: 12",
+            name: "Jogos exibidos: 12",
             number: 12
         },{
-            name: "Games per page: 16",
+            name: "Jogos exibidos: 16",
             number: 16
         },{
-            name: "Games per page: 20",
+            name: "Jogos exibidos: 20",
             number : 20
         }]
-        const listDropItems = items.map((item,index) =>
+        const listDropItems = items.map((item, index) =>
             <Dropdown.Item key={index} onClick={(e) => this.handleClick(item, e)}>
                 {item.name}
             </Dropdown.Item>

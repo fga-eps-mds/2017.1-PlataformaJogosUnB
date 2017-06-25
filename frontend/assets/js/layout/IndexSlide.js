@@ -6,7 +6,8 @@ require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 import {dataListApi} from '../resources/DataListApi';
-
+import {getKernel} from "../resources/getKernel"
+import {kernelValidation} from "../resources/kernelValidation"
 const imageStyle = {
     "height": "100%",
     "width":"70%",
@@ -99,12 +100,17 @@ export default class IndexSlider extends React.Component {
                         )}
                     )
     }
-
+    
+    mountIcons(kernels){
+        return kernels.map((kernel) => {
+             return (<Icon inverted size={kernelValidation(kernel)} className={kernel} />)
+                     
+        })
+    }   
     mountImages(){
        const images = [], imagesSlide = 9;
 
         for(var idx=0; idx < imagesSlide && idx < this.state.games.length; idx+=1){
-
             var image =
                 (<div style={sliderStyle} key={this.state.games[idx].pk}>
                     <Link to={`/games/${this.state.games[idx].pk}/${this.state.games[idx].name}`}>
@@ -121,7 +127,8 @@ export default class IndexSlider extends React.Component {
                                     {this.getGenreByGame(idx)}
                                 </Card.Content>
                                 <Card.Content extra>
-                                    <Icon bordered className="linux" />Linux / Windows</Card.Content>
+                                    {this.mountIcons(getKernel(this.state.games[idx].packages))}
+                                </Card.Content>
                             </Card>
                         </div>
                     </Link>
@@ -132,4 +139,5 @@ export default class IndexSlider extends React.Component {
         return images;
     }
 
-}
+} 
+    

@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Image, Item, Label, Button, Header} from "semantic-ui-react";
+import {Image, Item, Button, Header,Icon} from "semantic-ui-react";
+import {getKernel} from "../../resources/getKernel"
+import {kernelValidation} from "../../resources/kernelValidation"
 
 const cardImageStyle = {
     "background": "#000000",
@@ -29,6 +31,13 @@ export default class GameItemList extends React.Component {
             </Link>
         )
     }
+    
+    mountIcons(kernels){
+        return kernels.map((kernel) => {
+             return (<Icon inverted size={kernelValidation(kernel)} className={kernel} />)
+
+        })
+    }
 
     render () {
         return (
@@ -42,25 +51,17 @@ export default class GameItemList extends React.Component {
                         {this.getGameLink(<Header inverted>{this.props.game.name}</Header>)}
                     </Item.Header>
                     
-                    <Item.Meta>
-                        <Image.Group>
-                           {this.props.reducePlatforms(this.props.game.packages).map((icon) =>
-                               <Image key={icon} src={icon} width='30' height='30' /> )
-                           }
-                        </Image.Group>
-                    </Item.Meta>
                     
                     <Item.Extra>
                         {this.getGameLink(<Button basic color='green' floated='right'>Conheça mais...</Button>)}
                         
-                        {(this.props.game.information.genres).map((genre) => 
-                            { return (
-                                        <Label key={genre} color='green'> {genre.name} </Label>
-                                    );
-                            })
-                        }
                     </Item.Extra>
                   
+                    <Item.Extra>
+                           <div style={{right:0, position:"absolute"}}>
+                           {this.mountIcons(getKernel(this.props.game.packages))}
+</div>
+                    </Item.Extra>
                   </Item.Content>
                 </Item>
             </Item.Group>

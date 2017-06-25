@@ -2,23 +2,21 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from game.choices import EXTENSION_CHOICES, ARCHITECTURE_CHOICES
+from game.choices import (
+    EXTENSION_CHOICES,
+    ARCHITECTURE_CHOICES,
+    KERNEL_CHOICES
+)
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
 )
 from media.utils import image_attribute_resize
+from game.utils.objects_manager import GameManager
 import game.validators as validators
 import os
 import functools
-
-
-class GameManager(models.Manager):
-
-    def search(self, query):
-        return self.get_queryset().filter(
-            models.Q(name__icontains=query)
-        )
+from django.template.defaultfilters import filesizeformat
 
 
 class Game(models.Model):
@@ -28,7 +26,7 @@ class Game(models.Model):
                         "game_game.id"
 
     name = models.CharField(
-        _('Game Name'),
+        _('Name'),
         max_length=100,
         help_text=_('What\'s the name of the game?'),
     )
@@ -50,7 +48,7 @@ class Game(models.Model):
     visualization = models.BigIntegerField(default=0)
 
     version = models.CharField(
-        _('Game Version'),
+        _('Version'),
         max_length=20,
         validators=[validators.validate_version],
         null=True,
@@ -65,7 +63,7 @@ class Game(models.Model):
     )
 
     game_activated = models.BooleanField(
-        _('Game activated'),
+        _('Active'),
         max_length=100,
         help_text=_('What\'s the status of the game?'),
         default=True
@@ -113,15 +111,10 @@ class Platform(models.Model):
     kernel = models.CharField(
         _('Kernel name'),
         max_length=20,
-        help_text=_('Type the kernel of SO for this platform.' +
-                    ' Ex.: linux, unix, dos')
-    )
-
-    icon = fields.ImageField(
-        _('Platform Icon'),
-        validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
+        choices=KERNEL_CHOICES,
+        default=KERNEL_CHOICES[0][0],
+        help_text=_('Type of the kernel for this platform.' +
+                    ' Ex.: Linux, Windows, macOS')
     )
 
     @staticmethod
@@ -182,6 +175,10 @@ class Package(models.Model):
         platforms = Platform.objects.filter(extensions=extension)
         for platform in platforms:
             self.platforms.add(platform)
+
+    @property
+    def size(self):
+        return filesizeformat(self.package.size)
 
     def clean(self):
         validators.package_extension_validator(self.package)

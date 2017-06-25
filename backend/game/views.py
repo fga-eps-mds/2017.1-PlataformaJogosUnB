@@ -165,6 +165,21 @@ class PackageCreateView(generics.CreateAPIView, generics.UpdateAPIView):
     serializer_class = PackageSerializer
 
 
+class PackageViewList(viewsets.ModelViewSet):
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
+    permission_class = (AllowAny)
+
+    @detail_route(methods=["GET"])
+    def game(self, request, pk=None):
+        id_game = request.query_params['id_game']
+        game = Game.objects.get(id=id_game)
+        packages = game.packages.all()
+        serializer_package = PackageSerializer(packages, many=True).data
+
+        return Response(serializer_package)
+
+
 class PlatformViewList(generics.ListAPIView):
     queryset = Platform.objects.all()
     serializer_class = PlatformSerializer
