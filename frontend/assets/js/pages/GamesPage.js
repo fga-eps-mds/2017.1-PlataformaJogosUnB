@@ -103,6 +103,7 @@ export default class GamesPage extends React.Component {
         const urlGenre = this.genreOptionWillUpdate(); 
 
         return (
+            <div>
             <Container>
                 <Grid>
                     <Grid.Row>
@@ -146,6 +147,7 @@ export default class GamesPage extends React.Component {
                     </Grid.Row>
                 </Grid>
             </Container>
+            </div>
         );
 
     }

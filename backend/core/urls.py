@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/', include('game.urls')),
     url(r'^api/', include('information.urls')),
     url(r'^api/', include('media.urls'))

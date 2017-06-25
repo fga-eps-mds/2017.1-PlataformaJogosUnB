@@ -29,7 +29,7 @@ script:
   - mv .coverage ../
   - popd && pushd frontend
 # - ./node_modules/eslint/bin/eslint.js
-  - npm test
+  - npm test -- -u
   - popd
 after_success: coveralls
 services:
