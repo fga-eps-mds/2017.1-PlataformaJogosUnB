@@ -1,15 +1,11 @@
 from information.models import Rating, Information, Genre
 from information.serializers import GenreSerializer
-from rest_framework.decorators import APIView
 from rest_framework import permissions
-from rest_framework import generics
 from rest_framework import status
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from functools import reduce
 from game.serializers import GameSerializer
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -50,12 +46,10 @@ class VoteView(APIView):
         return Response(vote_count)
 
 
-
 class GenreViewList(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     permission_class = (permissions.AllowAny)
-
 
 
 class GenresApi(APIView):

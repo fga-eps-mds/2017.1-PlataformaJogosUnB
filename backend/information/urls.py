@@ -1,4 +1,4 @@
-from information.views import GenreViewList, GenresApi
+from information.views import GenresApi
 from django.conf.urls import url
 from information.views import VoteView, GenreViewList
 

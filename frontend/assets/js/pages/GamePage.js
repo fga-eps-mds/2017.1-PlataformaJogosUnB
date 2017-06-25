@@ -85,15 +85,8 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
                 </Grid.Row>
-
-                {/*<Grid.Row>
-                    <Grid.Column width={16}>
-                        <Share />
-                    </Grid.Column>
-                </Grid.Row>*/}
-
                 <Grid.Row>
-                    <Grid.Column width={16}>
+                    <Grid.Column width={10}>
                         <Rating pk={id} />
                     </Grid.Column>
                 </Grid.Row>
@@ -110,6 +103,9 @@ export default class GamePage extends React.Component{
                     <Grid.Column width={6}>
                         <PackageCard
                             packages={this.state.game.packages}
+                            game_pk={this.state.game.pk}
+                            gameName={this.state.game.name}
+                            downloads={this.state.game.downloads}
                         />
                         <ReportBugCard
                             game_pk={this.state.game.pk}

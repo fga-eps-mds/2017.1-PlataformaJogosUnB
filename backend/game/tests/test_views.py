@@ -142,8 +142,6 @@ class TestGameViewSet:
             x[0]['card_image'] = 'http://testserver' + x[0]['card_image']
             x[0]['packages'][0]['package'] = 'http://testserver' + \
                 x[0]['packages'][0]['package']
-            x[0]['packages'][0]['platforms'][0]['icon'] = 'http://testserve' \
-                'r' + x[0]['packages'][0]['platforms'][0]['icon']
 
             assert x[0] == x[1]
 
@@ -260,9 +258,6 @@ class TestPlatformViewList:
     def test_data_platforms(self, response_list):
         platforms = PlatformSerializer(Platform.objects.all(), many=True).data
         assert response_list.data is not None
-        base = "http://testserver"
-        for platform in platforms:
-            platform['icon'] = base + platform['icon']
         assert platforms == response_list.data
 
     @pytest.mark.django_db

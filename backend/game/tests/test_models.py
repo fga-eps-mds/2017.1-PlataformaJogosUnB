@@ -63,17 +63,6 @@ class TestGame:
 class TestPlatform:
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize('icon, errors_dict', [
-        ('test_image.ppm',
-         mount_error_dict(['icon'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('test_image.py',
-         mount_error_dict(['icon'], [[ErrorMessage.NOT_IMAGE.value[1]]])),
-    ])
-    def test_icon_extension(self, icon, errors_dict):
-        platform = PlatformFactory.build(icon=icon)
-        validation_test(platform, errors_dict)
-
-    @pytest.mark.django_db
     @pytest.mark.parametrize('field, value, errors_dict', [
         ('kernel', '',
          mount_error_dict(['kernel'], [[ErrorMessage.BLANK]])),

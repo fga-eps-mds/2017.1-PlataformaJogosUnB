@@ -105,6 +105,3 @@ class TestGameSerializer:
 
         assert platform_serialized.get(
             'extensions') == game.packages.first().platforms.first().extensions
-
-        assert platform_serialized.get(
-            'icon') == game.packages.first().platforms.first().icon.url

@@ -2,7 +2,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import URLValidator
 from smartfields import fields
-from game.choices import EXTENSION_CHOICES, ARCHITECTURE_CHOICES
+from game.choices import (
+    EXTENSION_CHOICES,
+    ARCHITECTURE_CHOICES,
+    KERNEL_CHOICES
+)
 from core.validators import (
     image_extension_validator,
     HELP_TEXT_IMAGES
@@ -12,6 +16,7 @@ from game.utils.objects_manager import GameManager
 import game.validators as validators
 import os
 import functools
+from django.template.defaultfilters import filesizeformat
 
 
 class Game(models.Model):
@@ -106,15 +111,10 @@ class Platform(models.Model):
     kernel = models.CharField(
         _('Kernel name'),
         max_length=20,
-        help_text=_('Type the kernel of SO for this platform.' +
-                    ' Ex.: linux, unix, dos')
-    )
-
-    icon = fields.ImageField(
-        _('Platform Icon'),
-        validators=[image_extension_validator],
-        upload_to='images/',
-        help_text=_('Icon of the platform. ' + HELP_TEXT_IMAGES),
+        choices=KERNEL_CHOICES,
+        default=KERNEL_CHOICES[0][0],
+        help_text=_('Type of the kernel for this platform.' +
+                    ' Ex.: Linux, Windows, macOS')
     )
 
     @staticmethod
@@ -175,6 +175,10 @@ class Package(models.Model):
         platforms = Platform.objects.filter(extensions=extension)
         for platform in platforms:
             self.platforms.add(platform)
+
+    @property
+    def size(self):
+        return filesizeformat(self.package.size)
 
     def clean(self):
         validators.package_extension_validator(self.package)

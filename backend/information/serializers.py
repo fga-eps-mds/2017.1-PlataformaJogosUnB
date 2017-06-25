@@ -49,7 +49,6 @@ class InformationSerializer(serializers.ModelSerializer):
 
     credits = CreditSerializer(many=True, required=False)
 
-
     def create(self, validated_data):
         '''
         Overrode to be able to support nested classes.

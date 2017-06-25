@@ -49,7 +49,7 @@ export default class GamesPage extends React.Component {
             this.setState({games: list.games});
             this.setState({infoPagination: list.info })
             this.setState({pageOption: list.info.page })
-            
+
             if ((list.games).length > 0) {
                 this.setState({hasLoading: false})
             }
@@ -84,15 +84,14 @@ export default class GamesPage extends React.Component {
     selectViewMode () {
         this.setState({"visible": !this.state.visible})
     }
-   
     genreOptionWillUpdate(){
         const genre = this.props.match.params.genre;
         const limit = this.state.getGenreInUrlLimit;
         
         if(genre !== undefined){
             if(limit < 1){
-                this.Setstate({genreOption: genre});
-                this.Setstate({getGenreInUrlLimit: this.getGenreInUrlLimit += 1});
+                this.state.genreOption = genre;
+                this.state.getGenreInUrlLimit += 1;
                 return genre;
             }
         }
