@@ -9,6 +9,7 @@ import PackageCard from '../components/cards/PackageCard';
 import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
+import Rating from '../components/Rating';
 
 export default class GamePage extends React.Component{
     constructor (props) {
@@ -83,6 +84,11 @@ export default class GamePage extends React.Component{
                             genres={this.state.game.information.genres}
                             getFields={this.getFields}
                         />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={10}>
+                        <Rating pk={id} />
                     </Grid.Column>
                 </Grid.Row>
 
