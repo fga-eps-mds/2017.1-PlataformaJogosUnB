@@ -21,7 +21,7 @@ module.exports = {
 
     devtool: '#eval',
 
-    entry: './assets/js/App', 
+    entry: './assets/js/App',
 
     output: {
         path: path.resolve('./public/bundles/'),

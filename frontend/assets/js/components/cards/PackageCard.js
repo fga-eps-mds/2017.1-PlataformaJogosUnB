@@ -1,7 +1,7 @@
-import React, {PropTypes} from "react";
+import React from "react";
 import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
-
+import PropTypes from 'prop-types';
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
 //TODO mudar atributo de Plataforma, de "extensions" para "extension"
 //TODO verificar pq alguns pacotes estão vindo repetidos do backend
@@ -97,7 +97,7 @@ export default class PackageCard extends React.Component {
     }
     
     render () {
-        
+
         return (
             <Card fluid>
                 <Card.Content header="Download"/>

@@ -1,7 +1,8 @@
-import React, {PropTypes} from "react";
+import React  from "react";
 import {Modal, Header, Table, Icon, Segment, Message, Button} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 import {downloadsPackageApi} from "../../resources/packageApi"; 
+import PropTypes from 'prop-types';
 
 const cursorMouse = {
   "cursor": "pointer",
@@ -116,4 +117,3 @@ ModalPackageCard.propTypes = {
     kernel: PropTypes.string.isRequired,
     gameName: PropTypes.string.isRequired,
 }
-

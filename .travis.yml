@@ -28,7 +28,6 @@ script:
   - pytest --cov-report term-missing --verbose --cov-config .coveragerc --cov
   - mv .coverage ../
   - popd && pushd frontend
-# - ./node_modules/eslint/bin/eslint.js
   - npm test -- -u
   - popd
 after_success: coveralls
@@ -38,3 +37,5 @@ branch:
   only:
     - master
     - devel
+ignore:
+- "frontend/__tests__/*"

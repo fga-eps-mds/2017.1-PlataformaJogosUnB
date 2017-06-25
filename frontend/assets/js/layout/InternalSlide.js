@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import {Container} from 'semantic-ui-react';
 import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
 var Carousel = require('react-responsive-carousel').Carousel;

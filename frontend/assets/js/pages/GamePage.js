@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Card, Grid, Container} from 'semantic-ui-react'
 import InternalSlide from "../layout/InternalSlide";
 import GameInformationCard from '../components/cards/GameInformationCard';
@@ -19,7 +20,7 @@ export default class GamePage extends React.Component{
                 "media_image":[],
                 "media_video": [],
                 "information": {
-                    "credits": [],                 
+                    "credits": [],
                     "awards": [],
                     "genres": [],
                     "packages": []

@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Label, Image, Header, Segment} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 
@@ -45,7 +46,7 @@ export default class GameInformationCard extends React.Component {
                 </Card.Content>
 
                 <Card.Content extra>
-                    {this.props.getFields('Repositório Oficial: ', 
+                    {this.props.getFields('Repositório Oficial: ',
                         <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>)}
                 </Card.Content>
             </Card>

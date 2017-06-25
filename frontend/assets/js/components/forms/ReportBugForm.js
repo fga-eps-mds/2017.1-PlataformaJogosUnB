@@ -1,6 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {Modal, Button, Form, Message, Segment } from 'semantic-ui-react';
 import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
+import PropTypes from 'prop-types';
 
 export default class ReportBugForm extends React.Component {
 

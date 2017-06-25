@@ -61,7 +61,7 @@ export default class GamesPage extends React.Component {
         if(this.state.platformOption != nextState.platformOption){
             this.loadGameFromServer(nextState);
         } else if(this.state.genreOption != nextState.genreOption){
-            this.loadGameFromServer(nextState); 
+            this.loadGameFromServer(nextState);
         } else if(this.state.sortByOption != nextState.sortByOption){
             this.loadGameFromServer(nextState);
         } else if(this.state.pageOption != nextState.pageOption){
@@ -109,7 +109,7 @@ export default class GamesPage extends React.Component {
                     <Grid.Row>
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
-                    
+
                     <Grid.Row>
                         <Menu fluid inverted color='blue'>
                             <Menu.Item>
