@@ -27,9 +27,15 @@ export default class MenuLayout extends React.Component {
         this.state = {"activeItem": window.location.pathname};
 
     }
-
+    
+    checkUrlForGenre(){ 
+        let url =  window.location.pathname
+        if(url.split("/").length === 3 && url.split("/")[1] === "games"){
+            return true
+        }
+    }
     render () {
-
+        
         const {activeItem} = this.state;
         const {visible} = this.state;
 
@@ -59,7 +65,7 @@ export default class MenuLayout extends React.Component {
                                 <Menu inverted pointing secondary>
                                     <Container>
                                         <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
+                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}><Header inverted>Jogos</Header></Menu.Item>
                                         <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
                                         <Menu.Menu position='right'>
                                             <Menu.Item>
