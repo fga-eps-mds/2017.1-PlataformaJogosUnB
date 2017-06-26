@@ -21,7 +21,6 @@ export default class PackageCard extends React.Component {
                 return platform.concat(platform_kernel);
             }, []);
         }
-        console.log(platforms)
         return (platforms);
     }
     
@@ -29,8 +28,7 @@ export default class PackageCard extends React.Component {
         if (platform_icon==='OSX') {
             platform_icon = 'apple'
         }
-        platform_icon.toLowerCase()
-        return platform_icon;
+        return platform_icon.toLowerCase()
     }
 
     getButtonsPlatforms(){

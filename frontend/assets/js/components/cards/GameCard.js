@@ -22,8 +22,8 @@ const imageStyle = {
 export default class GameCard extends React.Component {
 
     mountIcons(kernels){
-        return kernels.map((kernel) => {
-             return (<Icon size={kernelValidation(kernel)} className={kernel} />)
+        return kernels.map((kernel, index) => {
+             return (<Icon key={index} size={kernelValidation(kernel)} className={kernel} />)
 
         })
     }
