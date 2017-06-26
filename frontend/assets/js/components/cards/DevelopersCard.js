@@ -12,7 +12,8 @@ export default class DevelopersCard extends React.Component {
     }
   
     getRoleCells(role, credits){
-          return (<h7>{credits.filter((credit)=> credit.specialty === role)
+          return (<h7>
+                    {credits.filter((credit)=> credit.specialty === role)
                         .map((developer,index) => {
                             if(developer.github_page !== null){
                               return (
@@ -63,19 +64,17 @@ export default class DevelopersCard extends React.Component {
       }
     }
 
-       render () {
-
-        return (
-            <Card fluid>
-                <Card.Content><Header as='h2'>Créditos</Header></Card.Content>
-                <Card.Content>
-                  {this.getTable(this.DEVELOPER, "Desenvolvedores")}
-                  {this.getTable(this.DESIGN, "Designers")}  
-                  {this.getTable(this.MUSICIAN, "Músicos")}
-                </Card.Content>
-            </Card>
-        );
-
+   render () {
+      return (
+          <Card fluid>
+              <Card.Content><Header as='h2'>Créditos</Header></Card.Content>
+              <Card.Content>
+                {this.getTable(this.DEVELOPER, "Desenvolvedores")}
+                {this.getTable(this.DESIGN, "Designers")}  
+                {this.getTable(this.MUSICIAN, "Músicos")}
+              </Card.Content>
+          </Card>
+      )
     }
 }
 

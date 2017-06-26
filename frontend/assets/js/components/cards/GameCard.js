@@ -48,5 +48,4 @@ export default class GameCard extends React.Component {
 
 GameCard.propTypes = {
     game: PropTypes.object.isRequired,
-    reducePlatforms: PropTypes.func.isRequired,
 }

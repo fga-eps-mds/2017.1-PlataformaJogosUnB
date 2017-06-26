@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Image, Item, Button, Header,Icon} from "semantic-ui-react";
+import {Image, Item, Button, Header} from "semantic-ui-react";
 import {getKernel} from "../../resources/getKernel"
-import {kernelValidation} from "../../resources/kernelValidation"
 
 const cardImageStyle = {
     "background": "#000000",
@@ -31,13 +30,6 @@ export default class GameItemList extends React.Component {
             </Link>
         )
     }
-    
-    mountIcons(kernels){
-        return kernels.map((kernel) => {
-             return (<Icon inverted size={kernelValidation(kernel)} className={kernel} />)
-
-        })
-    }
 
     render () {
         return (
@@ -60,7 +52,7 @@ export default class GameItemList extends React.Component {
                     <Item.Extra>
                            <div style={{right:0, position:"absolute"}}>
                            {this.mountIcons(getKernel(this.props.game.packages))}
-</div>
+                    </div>
                     </Item.Extra>
                   </Item.Content>
                 </Item>
@@ -72,5 +64,4 @@ export default class GameItemList extends React.Component {
 
 GameItemList.propTypes = {
     game: PropTypes.object.isRequired,
-    reducePlatforms: PropTypes.func.isRequired,
 }

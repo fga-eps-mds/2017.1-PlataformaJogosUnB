@@ -20,7 +20,7 @@ export default class GameList extends React.Component {
         const gamesCards = (this.props.games).map((gameItemsCard, index) =>
             <Grid.Column key={index} mobile={16} tablet={8} computer={4} largeScreen={4}>
                   <Link to={`/games/${gameItemsCard.pk}/${gameItemsCard.name}`}>
-                    <GameCard game={gameItemsCard} reducePlatforms={this.reducePlatforms} />
+                    <GameCard game={gameItemsCard} />
                 </Link>
             </Grid.Column>
         );
@@ -31,22 +31,11 @@ export default class GameList extends React.Component {
     getGameList(){
         const gamesList = (this.props.games).map((game, index) =>
                 <Segment key={index} inverted color='blue'>
-                    <GameItemList game={game} reducePlatforms={this.reducePlatforms} />
+                    <GameItemList game={game} />
                 </Segment>
         );
 
         return this.gamesIsEmpyt(gamesList);
-    }
-
-    reducePlatforms(packages){
-        let platforms = [];
-        if (packages !== undefined) {
-            platforms = _.reduce(packages, (platform, bpackage) => { 
-                const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
-                return platform.concat(platform_icons);
-            }, []);
-        }
-        return _.uniq(platforms);
     }
 
     gamesIsEmpyt(games){

@@ -1,10 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
-import PropTypes from 'prop-types';
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
 //TODO mudar atributo de Plataforma, de "extensions" para "extension"
-//TODO verificar pq alguns pacotes estão vindo repetidos do backend
+
 const extensionsByKernel = {
   "Linux": ["deb","rpm"],
   "Windows": ["exe"],
@@ -52,7 +52,7 @@ export default class PackageCard extends React.Component {
             return buttons_platforms;
         }
 
-        return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
+        return <Button basic color='red'>Não há pacotes cadastrados</Button>;
     }
 
 
@@ -113,8 +113,8 @@ export default class PackageCard extends React.Component {
 }
 
 PackageCard.propTypes = {
+    downloads: PropTypes.number.isRelated,
     packages: PropTypes.array.isRequired,
     game_pk: PropTypes.number.isRequired,
-    gameName: PropTypes.string.isRequired,
-    downloads: PropTypes.number.isRelated
+    gameName: PropTypes.string.isRequired
 }

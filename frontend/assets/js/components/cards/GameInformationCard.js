@@ -30,8 +30,7 @@ export default class GameInformationCard extends React.Component {
 
                         <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
                         <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
-                        <p><h7><strong>Gêneros: </strong></h7></p> {mountGenresTags(this.props.genres)
-                        }
+                        <p><h7><strong>Gêneros: </strong></h7></p> {mountGenresTags(this.props.genres)}
                     </Card.Description>
                 </Card.Content>
 

@@ -1,14 +1,13 @@
 import Slider from 'react-slick';
 import React from "react";
-import {Card, Icon, Dimmer, Loader} from 'semantic-ui-react';
+import {Card, Dimmer, Loader} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 require("react-image-gallery/styles/scss/image-gallery.scss");
 import {dataListApi} from '../resources/DataListApi';
 import {getKernel} from "../resources/getKernel"
-import {kernelValidation} from "../resources/kernelValidation"
-import {mountGenresTags} from "../resources/mountGenresTags"
+import {mountGenresTags, mountIcons} from "../resources/mountGenresTags"
 
 const imageStyle = {
     "height": "100%",
@@ -90,13 +89,6 @@ export default class IndexSlider extends React.Component {
         }
     }
 
-    
-    mountIcons(kernels){
-        return kernels.map((kernel) => {
-             return (<Icon inverted size={kernelValidation(kernel)} className={kernel} />)
-                     
-        })
-    }   
     mountImages(){
        const images = [], imagesSlide = 9;
 
@@ -117,7 +109,7 @@ export default class IndexSlider extends React.Component {
                                     {mountGenresTags(this.state.games[idx].information.genres)}
                                 </Card.Content>
                                 <Card.Content extra>
-                                    {this.mountIcons(getKernel(this.state.games[idx].packages))}
+                                    {mountIcons(getKernel(this.state.games[idx].packages))}
                                 </Card.Content>
                             </Card>
                         </div>
