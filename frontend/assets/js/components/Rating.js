@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "semantic-ui-react";
+import { Button,Label } from "semantic-ui-react";
 
 /** Django method to get csrf token */
 function getCookie(name) {
@@ -85,14 +85,14 @@ export default class Rating extends React.Component {
                     <Button
                         color='green'
                         icon='thumbs up'
-                        label={{ as: 'a', basic: true, color: 'green', content: `${this.state.likes}` }}
+                        label={<Label style={{ backgroundColor: "#22242b"}}><font color="white">{this.state.likes}</font></Label>}
                         labelPosition='right'
                         onClick={this.handleVote.bind(this, true)}
                     />
                     <Button
                         color='red'
                         icon='thumbs down'
-                        label={{ as: 'a', basic: true, color: 'red', pointing: 'right', content: `${this.state.dislikes}` }}
+                        label={<Label style={{ backgroundColor: "#22242b"}}><font color="white">{this.state.dislikes}</font></Label>}
                         labelPosition='left'
                         onClick={this.handleVote.bind(this, false)}
                     />
