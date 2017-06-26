@@ -15,7 +15,19 @@ export default class GameInformationCard extends React.Component {
             </Segment>
         );
     }
+    
+    mountGenreTags(){
+        return this.props.genres.map((genre,index) => { 
+            return (<Link key={index} to={`/games/${genre.name}`} >
+                        <Label color='green'>
+                            {genre.name} 
+                        </Label>
+                    </Link>
+                    )
+         })
+    }
 
+    
     render () {
 
         return (
@@ -28,20 +40,8 @@ export default class GameInformationCard extends React.Component {
 
                         <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
                         <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
-                        <p>{ this.props.getFields('Gêneros: ', 
-                            <div>
-                            {this.props.genres
-                                .map((genre) => { 
-                                    return (<Link key={genre} to={`/games/${genre.name}`} >
-                                        <Label color='green'>
-                                            {genre.name} 
-                                        </Label>
-                                      </Link>
-                                    )
-                                })
-                            }
-                            </div>,'')
-                        }</p>
+                        <p><h7><strong>Gêneros: </strong></h7></p> {this.mountGenreTags()
+                        }
                     </Card.Description>
                 </Card.Content>
 
