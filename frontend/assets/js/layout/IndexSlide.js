@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
 import React from "react";
-import {Card, Label, Icon, Dimmer, Loader} from 'semantic-ui-react';
+import {Card, Icon, Dimmer, Loader} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
@@ -8,6 +8,8 @@ require("react-image-gallery/styles/scss/image-gallery.scss");
 import {dataListApi} from '../resources/DataListApi';
 import {getKernel} from "../resources/getKernel"
 import {kernelValidation} from "../resources/kernelValidation"
+import {mountGenresTags} from "../resources/mountGenresTags"
+
 const imageStyle = {
     "height": "100%",
     "width":"70%",
@@ -88,18 +90,6 @@ export default class IndexSlider extends React.Component {
         }
     }
 
-    getGenreByGame(id){
-
-        return this.state.games[id].information.genres.map((genre, index) =>{
-                    return (
-                        <Link key={index} to={`/games/${genre.name}`} >
-                            <Label color='teal'>
-                               {genre.name}
-                            </Label>
-                        </Link>
-                        )}
-                    )
-    }
     
     mountIcons(kernels){
         return kernels.map((kernel) => {
@@ -124,7 +114,7 @@ export default class IndexSlider extends React.Component {
                                     <Card.Header style={textStyle}>{this.state.games[idx].name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content extra>
-                                    {this.getGenreByGame(idx)}
+                                    {mountGenresTags(this.state.games[idx].information.genres)}
                                 </Card.Content>
                                 <Card.Content extra>
                                     {this.mountIcons(getKernel(this.state.games[idx].packages))}
