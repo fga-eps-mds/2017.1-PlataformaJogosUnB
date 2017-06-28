@@ -69,7 +69,7 @@
     margin-top: -13px;
     font-size: 18px; }
   .carousel .thumbs-wrapper {
-    margin: 20px;
+    margin: 10px;
     overflow: hidden; }
   .carousel .thumbs {
     -webkit-transition: all 0.15s ease-in;
@@ -163,7 +163,7 @@
     margin: 0;
     position: relative;
     text-align: center;
-    background: #000; }
+    background: #2C2F36; }
     .carousel .slide img {
       width: 100%;
       vertical-align: top;
@@ -185,7 +185,7 @@
       margin-left: -45%;
       width: 90%;
       border-radius: 10px;
-      background: #000;
+      background: #2C2F36;
       color: #fff;
       padding: 10px;
       font-size: 12px;

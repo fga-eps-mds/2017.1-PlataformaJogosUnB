@@ -9,7 +9,7 @@ const cardImageStyle = {
     "background": "#000000",
     "position": "relative",
     "minHeight": "200px",
-    "minWidth": "200px",
+    "minWidth": "250px",
 };
 const imageStyle = {
     "position": "absolute",
@@ -43,9 +43,9 @@ export default class GameItemList extends React.Component {
                     <Item.Header>
                         {this.getGameLink(<Header inverted>{this.props.game.name} </Header>)}
                     </Item.Header>
-                    <Item.Header>
+                    <Item.Description>
                         {mountIcons(getKernel(this.props.game.packages))}
-                    </Item.Header>
+                    </Item.Description>
                     <Item.Extra>
                         {this.getGameLink(<Button basic color='green' floated='right'>Conheça mais...</Button>)}
                     </Item.Extra>
