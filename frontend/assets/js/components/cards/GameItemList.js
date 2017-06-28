@@ -41,19 +41,13 @@ export default class GameItemList extends React.Component {
                   </Item.Image>
                   <Item.Content verticalAlign='middle'>
                     <Item.Header>
-                        {this.getGameLink(<Header inverted>{this.props.game.name}</Header>)}
+                        {this.getGameLink(<Header inverted>{this.props.game.name} </Header>)}
                     </Item.Header>
-                    
-                    
+                    <Item.Header>
+                        {mountIcons(getKernel(this.props.game.packages))}
+                    </Item.Header>
                     <Item.Extra>
                         {this.getGameLink(<Button basic color='green' floated='right'>Conheça mais...</Button>)}
-                        
-                    </Item.Extra>
-                  
-                    <Item.Extra>
-                           <div style={{right:0, position:"absolute"}}>
-                           {mountIcons(getKernel(this.props.game.packages))}
-                    </div>
                     </Item.Extra>
                   </Item.Content>
                 </Item>

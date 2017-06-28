@@ -87,7 +87,7 @@ export default class ModalPackageCard extends React.Component {
                 <Segment>
                    <Message info>
                         <Message.Header>Termo de uso</Message.Header>
-                        <p>Ao realizar o download, o senhor(a) concorda que a plataforma de jogos da UnB (UnB games) nao ser responsabiliza por possiveis danos</p>
+                        <p>Ao realizar o download do instalador do jogo: {this.props.gameName}. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasilia (UnB games) nao responsabiliza se por possiveis danos a sua maquina</p>
                     </Message> 
                 </Segment>
                 <Modal.Content image>

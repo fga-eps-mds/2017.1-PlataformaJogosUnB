@@ -17,6 +17,7 @@ export default class IndexPage extends React.Component {
                     <CardsSlide url="/api/games/" />
                     <SegmentTitle title={'Mais baixados'} />
                     <CardsSlide url="/api/games/?ordering=-downloads_count" />
+                    <SegmentTitle title={''} />
                 </Container>
             </div>
         );

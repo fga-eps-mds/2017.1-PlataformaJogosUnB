@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from "react";
 import {Label, Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
@@ -16,7 +17,10 @@ export const mountGenresTags = function(list){
 }
 
 export const mountIcons = function(kernels){
-    return kernels.map((kernel,index) => {
-         return (<Icon key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
+    
+    let listKernel = (_.uniq(kernels)).map((kernel,index) => {
+         return (<Icon color='grey' key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
     })
+    
+    return listKernel
 }   

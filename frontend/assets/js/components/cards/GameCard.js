@@ -6,7 +6,7 @@ import {kernelValidation} from "../../resources/kernelValidation"
 import {mountIcons} from "../../resources/mountGenresTags"
 
 const cardImageStyle = {
-    "background": "#000000",
+    "background": "#292A2F",
     "position": "relative",
     "minHeight": "180px",
 };
