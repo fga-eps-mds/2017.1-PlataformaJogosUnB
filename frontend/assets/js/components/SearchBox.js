@@ -78,6 +78,7 @@ export default class SearchBox extends Component {
                         size='small'
                         placeholder='Pesquisar...'
                         loading={isLoading}
+                        noResultsMessage='Nenhum jogo encontrado.'
                         onResultSelect={this.handleResultSelect}
                         onSearchChange={this.handleSearchChange}
                         results={firstFiveGames}

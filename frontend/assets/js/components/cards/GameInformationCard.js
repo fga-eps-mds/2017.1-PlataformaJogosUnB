@@ -25,9 +25,7 @@ export default class GameInformationCard extends React.Component {
                 {this.getImages(this.props.cover_image)}
 
                 <Card.Content>
-
-                  <Card.Description>
-
+                    <Card.Description>
                         <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
                         <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
                         <p><h7><strong>Gêneros: </strong></h7></p> {mountGenresTags(this.props.genres)}
@@ -36,7 +34,7 @@ export default class GameInformationCard extends React.Component {
 
                 <Card.Content extra>
                     {this.props.getFields('Repositório Oficial: ',
-                        <Link to={`this.props.official_repository`}>{this.props.official_repository}</Link>)}
+                        <Link target='blank' to={`${this.props.official_repository}`}>{ this.props.official_repository }</Link>)}
                 </Card.Content>
             </Card>
         );

@@ -18,7 +18,7 @@ export default class DevelopersCard extends React.Component {
                             if(developer.github_page !== null){
                               return (
                                 <Header.Content key={index}>
-                                  <Popup trigger={<Link to={developer.github_page}>{ developer.name }</Link>} 
+                                  <Popup trigger={<Link target='blank' to={developer.github_page}>{ developer.name }</Link>} 
                                       content='Link para GitHub'/>
                                 </Header.Content>
                               )
