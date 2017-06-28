@@ -18,9 +18,10 @@ const extractLess = new ExtractTextPlugin({
 
 module.exports = {
     context: __dirname,
-    devtool: "#eval",
 
-    entry: './assets/js/App', 
+    devtool: '#eval',
+
+    entry: './assets/js/App',
 
     output: {
         path: path.resolve('./public/bundles/'),

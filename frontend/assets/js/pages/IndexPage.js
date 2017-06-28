@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "semantic-ui-react";
 import IndexSlide from "../layout/IndexSlide";
 import SegmentTitle from "../layout/SegmentTitle";
-import GenreSlide from "../layout/GenreSlide"
+import CardsSlide from "../layout/CardsSlide"
 
 
 export default class IndexPage extends React.Component {
@@ -14,7 +14,10 @@ export default class IndexPage extends React.Component {
                 <Container>
                     <IndexSlide />
                     <SegmentTitle title={'Mais curtidos'} />
-                    <GenreSlide />
+                    <CardsSlide url="/api/games/" />
+                    <SegmentTitle title={'Mais baixados'} />
+                    <CardsSlide url="/api/games/?ordering=-downloads_count" />
+                    <SegmentTitle title={''} />
                 </Container>
             </div>
         );

@@ -10,11 +10,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["sk"]
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ["authfacebookkey"]
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.10.10.10", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -46,6 +48,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
     'webpack_loader',
+    'social_django',
+    'corsheaders',
 ]
 
 LOCAL_APPS = [
@@ -69,7 +73,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
 }
 
 MIDDLEWARE = [
@@ -80,7 +84,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'core.urls'
 
@@ -98,6 +106,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
                 'django.template.context_processors.request',
             ],
         },
@@ -106,6 +116,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -195,13 +212,17 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("game.factory", ("GameFactory", "PackageFactory",
                       "PlatformFactory")),
     ("information.factory", ("AwardFactory", "InformationFactory",
-                             "DeveloperFactory", "GenreFactory")),
+                             "CreditFactory", "GenreFactory",)),
     ("media.factory", ("ImageFactory", "VideoFactory", "SoundtrackFactory")),
     ("core.factory", ("UserFactory")),
     ("game.serializers", ("GameSerializer", "PackageSerializer",
                           "PlatformSerializer")),
     ("information.serializers", ("AwardSerializer", "InformationSerializer",
-                                 "DeveloperSerializer", "GenreSerializer")),
+                                 "CreditSerializer", "GenreSerializer")),
     ("media.serializers", ("ImageSerializer", "SoundtrackSerializer",
                            "VideoSerializer")),
 ]
+
+LOGIN_URL = '/oauth/login/facebook/'
+LOGOUT_URL = '/oauth/disconnect/facebook/'
+LOGIN_REDIRECT_URL = 'any'

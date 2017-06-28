@@ -1,30 +1,38 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import Slider from 'react-slick'
-require("slick-carousel/slick/slick.css");
-require("slick-carousel/slick/slick-theme.css");
 import GameCard from "../components/cards/GameCard";
-import { gameListApi } from '../resource/GameApi';
+import LoadingAnimation from "../layout/LoadingAnimation";
+import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
 
 const slideHeight = {
   "height": "280px",
   "position":"relative",
   "minHeight":"180px",
+  "margin":20
 };
 
-
-export default class GenreSlide extends React.Component {
+export default class CardsSlide extends React.Component {
   constructor (props) {
 
       super(props);
-      this.state = {"games": []};
+      this.state = {
+        "games": [],
+        "hasLoading": true
+      };
   }
 
   componentWillMount () {
-
-      gameListApi((games) => { this.setState({games}) });
-
+      dataListApi(this.props.url, (games) => {
+        this.setState({games})
+        if ((games).length > 0) {
+            this.setState({hasLoading: false})
+        }
+      });
   }
 
   render() {
@@ -34,7 +42,7 @@ export default class GenreSlide extends React.Component {
       dots: true,
       centerMode: true,
       infinite: true,
-      speed: 500,
+      speed: 300,
       slidesToShow: 3,
       slidesToScroll: 1,
       responsive: [
@@ -59,15 +67,16 @@ export default class GenreSlide extends React.Component {
     ]
     };
     if(gameCards.length){
-    return (
-      <div style={slideHeight}>
-        <Grid.Column>
-        <Slider {...settings}>
-          {gameCards}
-        </Slider>
-        </Grid.Column>
-      </div>
-    );
+      return (
+        <div style={slideHeight}>
+          <LoadingAnimation hasLoading={this.state.hasLoading} />
+          <Grid.Column>
+            <Slider {...settings}>
+              {gameCards}
+            </Slider>
+          </Grid.Column>
+        </div>
+      );
     }else{
       return <img/>
     }
@@ -76,16 +85,18 @@ export default class GenreSlide extends React.Component {
    const gameCards = [], cardsAmount = 6;
     for(var i=0; i < cardsAmount && i < this.state.games.length - 1; i++){
         const image =
-               (<div>
-                  <Link to={"games/" + this.state.games[i].pk}>
-                    <GameCard data={this.state.games[i]} />
+               (<div key={this.state.games[i].pk}>
+                  <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
+                    <GameCard game={this.state.games[i]} />
                   </Link>
                 </div>)
        gameCards.push(image);
 
     }
-
     return gameCards;
-
   }
+}
+
+CardsSlide.propTypes = {
+  url: PropTypes.string.isRequired
 }

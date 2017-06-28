@@ -17,16 +17,18 @@ class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
-        fields = ['name', 'extensions', 'icon']
+        fields = ['name', 'extensions', 'kernel']
 
 
 class PackageSerializer(serializers.ModelSerializer):
     platforms = PlatformSerializer(many=True, read_only=True)
     game_id = serializers.IntegerField(write_only=True)
+    size = serializers.ReadOnlyField()
 
     class Meta:
         model = Package
-        fields = ['package', 'platforms', 'game_id']
+        fields = ['pk', 'package', 'platforms', 'game_id',
+                  'architecture', 'size']
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -42,10 +44,14 @@ class GameSerializer(serializers.ModelSerializer):
     image_data = serializers.CharField(write_only=True)
     extension = serializers.CharField(write_only=True)
 
+# Property field
+    downloads = serializers.ReadOnlyField()
+
     class Meta:
         model = Game
         fields = ['pk',
                   'name',
+                  'visualization',
                   'version',
                   'official_repository',
                   'game_activated',
@@ -60,6 +66,7 @@ class GameSerializer(serializers.ModelSerializer):
                   'image_name',
                   'extension',
                   'image_data',
+                  'downloads',
                   ]
 
     def create(self, validated_data):

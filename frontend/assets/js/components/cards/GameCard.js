@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Card, Image} from "semantic-ui-react";
-import _ from "lodash";
+import {getKernel} from "../../resources/getKernel"
+import {mountIcons} from "../../resources/mountGenresTags"
 
 const cardImageStyle = {
-    "background": "#000000",
+    "background": "#292A2F",
     "position": "relative",
     "minHeight": "180px",
 };
@@ -19,31 +20,20 @@ const imageStyle = {
 };
 
 export default class GameCard extends React.Component {
-    reducePlatforms(packages){
-        let platforms = [];
-        if (packages !== undefined) {
-            platforms = _.reduce(packages, (platform, bpackage) => { 
-                const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
-                return platform.concat(platform_icons);
-            }, []);
-        }
-        return _.uniq(platforms);
-    }
+
     render () {
         return (
             <Card>
                 <div style={cardImageStyle}>
-                  <Image src={this.props.data.card_image} style={imageStyle} />
+                    <Image src={this.props.game.card_image} style={imageStyle} />
                 </div>
                 <Card.Content>
                     <Card.Header>
-                        {this.props.data.name}
+                        {this.props.game.name}
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                    {this.reducePlatforms(this.props.data.packages).map((icon) => 
-                        <img key={icon} src={icon} width='20' height='20' /> )
-                    }
+                    {mountIcons(getKernel(this.props.game.packages))} 
                 </Card.Content>
             </Card>
         );
@@ -51,5 +41,5 @@ export default class GameCard extends React.Component {
 }
 
 GameCard.propTypes = {
-    data: PropTypes.object.isRequired,
+    game: PropTypes.object.isRequired,
 }

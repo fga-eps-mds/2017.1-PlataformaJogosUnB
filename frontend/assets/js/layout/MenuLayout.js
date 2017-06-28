@@ -1,10 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SearchBox from '../components/SearchBox'
-import {Container, Grid, Header, Menu, Dropdown, Segment, Sidebar} from "semantic-ui-react";
-import bars from '../../../public/bundles/images/icons/bars.png'
+import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react";
 
-export default class MenuComponent extends React.Component {
+export default class MenuLayout extends React.Component {
 
     constructor (props) {
 
@@ -14,7 +13,6 @@ export default class MenuComponent extends React.Component {
             "visible": false
         };
         this.showMenuMobile = this.showMenuMobile.bind(this);
-
 
     }
 
@@ -29,41 +27,52 @@ export default class MenuComponent extends React.Component {
         this.state = {"activeItem": window.location.pathname};
 
     }
+    
+    checkUrlForGenre(){ 
+        let url =  window.location.pathname
+        if(url.split("/").length === 3 && url.split("/")[1] === "games"){
+            return true
+        }
+    }
+
+    getLinks(){
+        const {activeItem} = this.state;
+        const MenuLinks = [
+                <Menu.Item key={"/"} as={Link} to="/" active={activeItem === "/"}><Header inverted>UnB Games</Header></Menu.Item>,
+                <Menu.Item key={"/games/"} as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
+                    <Header inverted><Icon color='green' name='gamepad' /> Jogos</Header>
+                </Menu.Item>,
+                <Menu.Item key={"/about/"} as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+        ]
+        return (MenuLinks)
+    }
 
     render () {
-
-        const {activeItem} = this.state;
         const {visible} = this.state;
 
-
         return (
-            <div>
                 <Grid>
                     <Grid.Row only="tablet mobile">
                         <Grid.Column>
                             <Sidebar.Pusher>
                                 <Sidebar as={Menu} animation="overlay" width="wide" visible={visible} vertical inverted onClick={this.showMenuMobile}>
-                                    <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                    <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
-                                    <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                    {this.getLinks()}
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
-                                        <img src={bars} width="30" height="30" onClick={this.showMenuMobile} />
+                                        <Icon name='bars' size='big' onClick={this.showMenuMobile} />
                                     </Menu>
                                 </Segment>
                             </Sidebar.Pusher>
                         </Grid.Column>
                     </Grid.Row>
 
-                    <Grid.Row only="computer large">
+                    <Grid.Row only="computer">
                         <Grid.Column>
-                            <Segment inverted stackable container>
+                            <Segment inverted>
                                 <Menu inverted pointing secondary>
                                     <Container>
-                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                        {this.getLinks()}
                                         <Menu.Menu position='right'>
                                             <Menu.Item>
                                                 <SearchBox />
@@ -75,7 +84,6 @@ export default class MenuComponent extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </div>
         );
 
     }

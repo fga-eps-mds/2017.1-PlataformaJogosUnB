@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Dropdown} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 
@@ -8,10 +9,9 @@ export default class GenreItems extends React.Component{
         super(props);
         this.state = {
             "genres":[],
-            "selectedGenre":'Categoria'
+            "selectedGenre":this.props.genre
         };
     }
-
 
     componentWillMount () {
 
@@ -29,25 +29,25 @@ export default class GenreItems extends React.Component{
             genreName = "Todas as categorias"
         }
         this.setState({ selectedGenre: genreName });
-        this.props.callbackParent(option);
+        this.props.callbackParent('genreOption', option);
     }
-
+    
     mountGenreItems(){
         if(typeof this.state.genres === "undefined"){
             return false
         }
-        const gameGenresItems = this.state.genres.map((genre) =>
-                <Dropdown.Item onClick={(e) => this.handleClick(genre.name, e)}>
+        const gameGenresItems = this.state.genres.map((genre, i) =>
+                <Dropdown.Item key={i} onClick={(e) => this.handleClick(genre.name, e)}>
                     {genre.name}
                 </Dropdown.Item>
         );
         return gameGenresItems
 
     }
-
+        
     render (){
         return(
-            <Dropdown text={this.state.selectedGenre} selection>
+            <Dropdown text={this.state.selectedGenre}>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         Todas as categorias
@@ -57,4 +57,9 @@ export default class GenreItems extends React.Component{
             </Dropdown>
         );
     }
+}
+
+GenreItems.propTypes = {
+  callbackParent: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired
 }

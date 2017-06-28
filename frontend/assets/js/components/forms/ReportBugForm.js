@@ -1,29 +1,23 @@
 import React from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import {Modal, Button, Form, Message, Segment } from 'semantic-ui-react';
 import {getDjangoCookie} from "../../resources/getDjangoCookie.js"
-
-const formFieldsStyle = {
-    "width": "870px",
-    "marginLeft": "15px",
-    "marginTop": "15px",
-};
-const titleFieldStyle = {
-    "height": "45px",
-};
-const descriptionFieldStyle = {
-    "height": "150px",
-};
+import PropTypes from 'prop-types';
 
 export default class ReportBugForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      'heard_text': ['Reporte Bug'],
+      'info_text': ['Insira as informações nos campos abaixo.'],
+      'message_color': true,
+    }
   }
 
   submitBug(data){
     const game_pk = this.props.game_pk
-
+    console.log(game_pk)
     var data_json = JSON.stringify(data)
     var csrftoken = getDjangoCookie('csrftoken');
 
@@ -39,27 +33,35 @@ export default class ReportBugForm extends React.Component {
     });
   }
 
-
-  validateTitle(title){
-    if(title.length > 0 && title.length < 120){
-      return true
-    }else{
-      alert('O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.')
-      return false
-    }
+  changeStates(header,info,color){
+    this.setState({
+        heard_text: header,
+        info_text: info,
+        message_color: color
+      })
   }
 
-  validateDescription(description){
-    if(description.length > 0 && description.length < 250){
+  validateText(text,maxNumber,helper_text){
+    if(text.length > 0 && text.length < maxNumber){
       return true
     }else{
-      alert('A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.')
+      this.changeStates(
+        ['Erro de submissão'],
+        helper_text,
+        false
+      )
       return false
     }
   }
 
   validate(data){
-    return this.validateTitle(data.title) && this.validateDescription(data.description)
+    const bug_title_helper = ['O título do bug não pode estar em branco e deve possuir no máximo 120 caracteres.']
+    const bug_description_helper = ['A descrição do bug não pode estar em branco e deve possuir no máximo 250 caracteres.']
+
+    return (
+        this.validateText(data.title, 120, bug_title_helper) && 
+        this.validateText(data.description, 250, bug_description_helper)
+    )
   }
 
   handleSubmit(submitEvent){
@@ -71,7 +73,11 @@ export default class ReportBugForm extends React.Component {
     };
 
     if(this.validate(data)){
-      alert('O bug foi reportado com sucesso');
+      this.changeStates(
+        ['Sucesso ao reportar bug'],
+        ['O bug foi reportado com sucesso.'],
+        true
+      )
       this.submitBug(data);
     }
   }
@@ -79,14 +85,25 @@ export default class ReportBugForm extends React.Component {
   render() {
       return (
         <Modal trigger={this.props.button}>
-          <div style={formFieldsStyle}>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Input label="Título" name="title" type="text" style={titleFieldStyle} /> 
-              <Form.TextArea label="Descrição" name="description" type="text" style={descriptionFieldStyle}/> 
-              <Button size="medium" type="submit" primary>Reportar Bug</Button>
-            </Form>
-          </div>
+            <Segment>
+              <Message
+                error = {!this.state.message_color}
+                info = {this.state.message_color}
+                header={this.state.heard_text}
+                list={this.state.info_text}
+              />
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Input label="Título do Bug" name="title" type="text" placeholder='Ex: Jogo sem som'/>
+                <Form.TextArea label="Descrição" name="description" type="text" placeholder='Ex: Na fase 3 o jogo não apresenta sons.'/>
+                <Button size="medium" type="submit" primary>Reportar Bug</Button>
+              </Form>
+            </Segment>
         </Modal>
       );
   }
+}
+
+ReportBugForm.propTypes = {
+  game_pk: PropTypes.number.isRequired,
+  button: PropTypes.element.isRequired
 }

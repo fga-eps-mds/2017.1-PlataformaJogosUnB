@@ -39,3 +39,4 @@ exclude_paths:
   - "backend/public"
   - "frontend/public"
   - "frontend/node_modules"
+  - "frontend/__tests__"
