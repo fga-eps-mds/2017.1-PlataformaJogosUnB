@@ -13,6 +13,7 @@ const slideHeight = {
   "height": "280px",
   "position":"relative",
   "minHeight":"180px",
+  "margin":20
 };
 
 export default class CardsSlide extends React.Component {
