@@ -79,7 +79,5 @@ export default class DevelopersCard extends React.Component {
 }
 
 DevelopersCard.propTypes = {
-    developer: PropTypes.string.isRequired,
-    developers: PropTypes.array.isRequired,
     credits: PropTypes.array.isRequired,
 }

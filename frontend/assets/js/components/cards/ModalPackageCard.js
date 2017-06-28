@@ -83,11 +83,11 @@ export default class ModalPackageCard extends React.Component {
         
         return (
             <Modal trigger={this.props.button}>
-                <Modal.Header>{this.props.gameName} - instaladores disponíveis para {this.props.kernel}</Modal.Header>
+                <Modal.Header>{this.props.gameName} - Instaladores disponíveis para {this.props.kernel}</Modal.Header>
                 <Segment>
                    <Message info>
-                        <Message.Header>Termo de uso</Message.Header>
-                        <p>Ao realizar o download do instalador do jogo: {this.props.gameName}. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasilia (UnB games) nao responsabiliza se por possiveis danos a sua maquina</p>
+                        <Message.Header>Termo de uso <Icon color='yellow' name='warning sign'/> </Message.Header>
+                        <p>Ao realizar o download do instalador do jogo: {this.props.gameName}. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games) não responsabiliza-se por possíveis danos.</p>
                     </Message> 
                 </Segment>
                 <Modal.Content image>

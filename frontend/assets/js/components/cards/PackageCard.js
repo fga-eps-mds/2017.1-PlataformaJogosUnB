@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
@@ -110,11 +109,4 @@ export default class PackageCard extends React.Component {
             </Card>
         );
     }
-}
-
-PackageCard.propTypes = {
-    downloads: PropTypes.number.isRelated,
-    packages: PropTypes.array.isRequired,
-    game_pk: PropTypes.number.isRequired,
-    gameName: PropTypes.string.isRequired
 }

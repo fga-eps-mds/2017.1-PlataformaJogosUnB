@@ -101,9 +101,38 @@ export default class GamesPage extends React.Component {
 
     }
 
-    render () {
+    getMenuFilters(option,widthScreen){
         const urlGenre = this.genreOptionWillUpdate(); 
 
+        return (
+            <Grid.Row only={widthScreen}>
+                <Container>
+                    <Menu fluid vertical={option} inverted color='blue'>
+                        <Menu.Item>
+                            <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <GenreItems genre={urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item position='right'>
+                            <Button.Group>
+                                <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
+                                <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
+                            </Button.Group>
+                        </Menu.Item>
+                    </Menu>
+                </Container>
+            </Grid.Row>
+            )
+    }
+
+    render () {
         return (
             <div>
             <Container>
@@ -112,28 +141,10 @@ export default class GamesPage extends React.Component {
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
 
-                    <Grid.Row>
-                        <Menu fluid inverted color='blue'>
-                            <Menu.Item>
-                                <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <GenreItems genre={urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item position='right'>
-                                <Button.Group>
-                                    <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
-                                    <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
-                                </Button.Group>
-                            </Menu.Item>
-                        </Menu>
-                    </Grid.Row>
+                    <Grid>
+                        {this.getMenuFilters(true, "mobile")}    
+                        {this.getMenuFilters(false,"tablet computer")}
+                    </Grid>
                     
                     <LoadingAnimation hasLoading={this.state.hasLoading} />
 

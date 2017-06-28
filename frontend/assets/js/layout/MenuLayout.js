@@ -34,21 +34,29 @@ export default class MenuLayout extends React.Component {
             return true
         }
     }
-    render () {
-        
+
+    getLinks(){
         const {activeItem} = this.state;
+        const MenuLinks = [
+                <Menu.Item key={"/"} as={Link} to="/" active={activeItem === "/"}><Header inverted>UnB Games</Header></Menu.Item>,
+                <Menu.Item key={"/games/"} as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
+                    <Header inverted><Icon color='green' name='gamepad' /> Jogos</Header>
+                </Menu.Item>,
+                <Menu.Item key={"/about/"} as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+        ]
+        return (MenuLinks)
+    }
+
+    render () {
         const {visible} = this.state;
 
         return (
-            <div>
                 <Grid>
                     <Grid.Row only="tablet mobile">
                         <Grid.Column>
                             <Sidebar.Pusher>
                                 <Sidebar as={Menu} animation="overlay" width="wide" visible={visible} vertical inverted onClick={this.showMenuMobile}>
-                                    <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                    <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"}><Header inverted>Jogos</Header></Menu.Item>
-                                    <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                    {this.getLinks()}
                                 </Sidebar>
                                 <Segment inverted>
                                     <Menu inverted pointing secondary>
@@ -64,9 +72,7 @@ export default class MenuLayout extends React.Component {
                             <Segment inverted>
                                 <Menu inverted pointing secondary>
                                     <Container>
-                                        <Menu.Item as={Link} to="/" active={activeItem === "/"}><Header inverted>Home</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}><Header inverted>Jogos</Header></Menu.Item>
-                                        <Menu.Item as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                                        {this.getLinks()}
                                         <Menu.Menu position='right'>
                                             <Menu.Item>
                                                 <SearchBox />
@@ -78,7 +84,6 @@ export default class MenuLayout extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </div>
         );
 
     }

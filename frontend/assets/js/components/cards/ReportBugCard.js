@@ -1,4 +1,4 @@
-import React, {PropTypes} from "react";
+import React from "react";
 import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ReportBugForm from '../forms/ReportBugForm';
 
@@ -27,8 +27,4 @@ export default class PackageCard extends React.Component {
             </Card>
         );
     }
-}
-
-PackageCard.propTypes = {
-    game_pk: PropTypes.number.isRequired,
 }
