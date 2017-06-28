@@ -16,7 +16,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost","unbgames"]
 
 
 # E-mail protocol, host and backend configuration for reseting
@@ -129,14 +129,14 @@ AUTHENTICATION_BACKENDS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'development.sqlite3'),
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'funbox',
-        # 'USER': 'pjunb',
-        # 'PASSWORD': os.environ["pjunbdb"],
-        # 'HOST': 'localhost',
-        # 'PORT': '',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'development.sqlite3'),
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'funbox',
+         'USER': 'pjunb',
+         'PASSWORD': os.environ["pjunbdb"],
+         'HOST': 'localhost',
+         'PORT': '',
     }
 }
 
@@ -181,24 +181,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/public/assets/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../frontend/public'),
-    os.path.join(BASE_DIR, 'public/logo/'),
+    os.path.join('/usr/local/games/2017.1-PlataformaJogosUnB/frontend/public'),
 )
-STATIC_ROOT = os.path.join(
-    os.path.dirname(__file__),
-    '../public/assets',
-)
+STATIC_ROOT = os.path.join('/usr/local/games/2017.1-PlataformaJogosUnB/backend/public/assets/')
+#STATIC_ROOT = os.path.join(
+#    os.path.dirname(__file__),
+#    '../public/assets',
+#)
 
 # Media Files
 
 MEDIA_URL = '/public/'
-
-MEDIA_ROOT = os.path.join(
-    os.path.dirname(__file__),
-    '../public',
-)
+MEDIA_ROOT = os.path.join('/usr/local/games/2017.1-PlataformaJogosUnB/backend/public')
+#MEDIA_ROOT = os.path.join(
+#    os.path.dirname(__file__),
+#    '../public',
+#)
 
 WEBPACK_LOADER = {
     'DEFAULT': {

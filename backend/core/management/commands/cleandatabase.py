@@ -13,8 +13,8 @@ class Command(BaseCommand):
   " and create dummy data in database."""
 
     def handle(self, *args, **kwargs):
-        self.__clean_old__(*args, **kwargs)
-        self.__new_database__(*args, **kwargs)
+        #self.__clean_old__(*args, **kwargs)
+        #self.__new_database__(*args, **kwargs)
         genres, awards = self.__single_data__(*args, **kwargs)
         self.__multiple_data__(genres, awards, *args, **kwargs)
         self.stdout.write("create superuser\nadmin:qwer1234")
@@ -51,8 +51,6 @@ class Command(BaseCommand):
         )
 
     def __clean_old__(self, *args, **kwargs):
-        self.stdout.write("reset database")
-        call_command('reset_db')
         self.stdout.write("clean old migrations")
         os.system("rm -vrf */migrations/0*.py")
         self.stdout.write("clean old images, packages, videos")

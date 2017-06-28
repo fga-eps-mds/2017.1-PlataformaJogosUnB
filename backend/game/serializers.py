@@ -104,4 +104,5 @@ class GameSerializer(serializers.ModelSerializer):
         data = validated_data.pop('image_data', b'0x00')
         self.__image_decode__(name, extension, data)
         img = open('{}/images/{}.{}'.format(MEDIA_ROOT, name, extension), 'rb')
+	
         return ImageFile(img)

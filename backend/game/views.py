@@ -58,7 +58,7 @@ class GameViewSet(viewsets.ModelViewSet):
         for key in platforms:
             key = key[0]
             pac = Package.objects.filter(game_id=pk, platforms__kernel=key)
-            groups[key] = PackageSerializer(pac, many=True).data
+            groups[key] = PackageSerializer(list(set(pac)), many=True).data
             for package in groups[key]:
                 package['platforms'] = ' / '.join(
                     [plat.get('name') for plat in package['platforms']]
