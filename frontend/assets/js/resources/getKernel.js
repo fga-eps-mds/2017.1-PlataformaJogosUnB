@@ -14,5 +14,7 @@ export const getKernel = function( packages) {
                 }       
             })      
        })})   
-return kernels 
+    return  kernels.filter( function( item, index, kernels){
+        return kernels.indexOf(item) === index;
+    })
 } 
