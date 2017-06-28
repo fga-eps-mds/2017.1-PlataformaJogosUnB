@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Card, Image,Icon} from "semantic-ui-react";
+import {Card, Image} from "semantic-ui-react";
 import {getKernel} from "../../resources/getKernel"
-import {kernelValidation} from "../../resources/kernelValidation"
+import {mountIcons} from "../../resources/mountGenresTags"
 
 const cardImageStyle = {
-    "background": "#000000",
+    "background": "#292A2F",
     "position": "relative",
     "minHeight": "180px",
 };
@@ -21,12 +21,6 @@ const imageStyle = {
 
 export default class GameCard extends React.Component {
 
-    mountIcons(kernels){
-        return kernels.map((kernel, index) => {
-             return (<Icon key={index} size={kernelValidation(kernel)} className={kernel} />)
-
-        })
-    }
     render () {
         return (
             <Card>
@@ -39,7 +33,7 @@ export default class GameCard extends React.Component {
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                    {this.mountIcons(getKernel(this.props.game.packages))} 
+                    {mountIcons(getKernel(this.props.game.packages))} 
                 </Card.Content>
             </Card>
         );
@@ -48,5 +42,4 @@ export default class GameCard extends React.Component {
 
 GameCard.propTypes = {
     game: PropTypes.object.isRequired,
-    reducePlatforms: PropTypes.func.isRequired,
 }

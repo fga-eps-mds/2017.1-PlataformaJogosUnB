@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import Slider from 'react-slick'
 import GameCard from "../components/cards/GameCard";
+import LoadingAnimation from "../layout/LoadingAnimation";
 import { dataListApi } from '../resources/DataListApi';
 import { Link } from 'react-router-dom'
-import Slider from 'react-slick'
-import { Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
-
 
 const slideHeight = {
   "height": "280px",
   "position":"relative",
   "minHeight":"180px",
-  "margin":"20",
+  "margin":20
 };
-
 
 export default class CardsSlide extends React.Component {
   constructor (props) {
@@ -35,18 +34,6 @@ export default class CardsSlide extends React.Component {
         }
       });
   }
-
-  reducePlatforms(packages){
-      let platforms = [];
-      if (packages !== undefined) {
-          platforms = _.reduce(packages, (platform, bpackage) => {
-              const platform_icons = _.map(bpackage.platforms, (platform_param) => platform_param.icon);
-              return platform.concat(platform_icons);
-          }, []);
-      }
-      return _.uniq(platforms);
-  }
-
 
   render() {
     const gameCards = this.mountCards();
@@ -80,19 +67,16 @@ export default class CardsSlide extends React.Component {
     ]
     };
     if(gameCards.length){
-    return (
-      <div style={slideHeight}>
-        <Dimmer active={this.state.hasLoading}>
-            <Loader size='massive'>Loading</Loader>
-        </Dimmer>
-
-        <Grid.Column>
-        <Slider {...settings}>
-          {gameCards}
-        </Slider>
-        </Grid.Column>
-      </div>
-    );
+      return (
+        <div style={slideHeight}>
+          <LoadingAnimation hasLoading={this.state.hasLoading} />
+          <Grid.Column>
+            <Slider {...settings}>
+              {gameCards}
+            </Slider>
+          </Grid.Column>
+        </div>
+      );
     }else{
       return <img/>
     }
@@ -103,15 +87,13 @@ export default class CardsSlide extends React.Component {
         const image =
                (<div key={this.state.games[i].pk}>
                   <Link to={"games/" + this.state.games[i].pk + "/" + this.state.games[i].name}>
-                    <GameCard game={this.state.games[i]} reducePlatforms={this.reducePlatforms} />
+                    <GameCard game={this.state.games[i]} />
                   </Link>
                 </div>)
        gameCards.push(image);
 
     }
-
     return gameCards;
-
   }
 }
 

@@ -1,21 +1,7 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { Button,Label } from "semantic-ui-react";
-
-/** Django method to get csrf token */
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+import {getDjangoCookie} from '../resources/getDjangoCookie';
 
 export default class Rating extends React.Component {
 
@@ -53,14 +39,14 @@ export default class Rating extends React.Component {
     }
 
 
-    handleVote(vote, event_click){
+    handleVote(vote){
         const game_id = this.props.pk;
 
         var json_parser = JSON.stringify({
             vote:  vote,
         });
 
-        var csrftoken = getCookie('csrftoken');
+        var csrftoken = getDjangoCookie('csrftoken');
 
         fetch(`/api/vote/${game_id}/`, {
             method: 'POST',
@@ -97,4 +83,8 @@ export default class Rating extends React.Component {
             </div> 
         );
     }
+}
+
+Rating.propTypes = {
+    pk: PropTypes.number.isRequired,
 }

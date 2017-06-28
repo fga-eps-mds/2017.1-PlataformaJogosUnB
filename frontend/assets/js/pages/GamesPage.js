@@ -1,12 +1,13 @@
 import React, {PropTypes} from "react";
 import SegmentTitle from "../layout/SegmentTitle";
-import {Container, Grid, Menu, Button, Icon, Dimmer, Loader} from "semantic-ui-react";
+import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import SortByItems from "../components/filter_itens/SortByItems";
 import GenreItems from "../components/filter_itens/GenreItems";
 import PlatformItems from "../components/filter_itens/PlatformItems";
 import PerPageItems from "../components/filter_itens/PerPageItems";
 import Paginator from "../components/Paginator";
+import LoadingAnimation from "../layout/LoadingAnimation";
 import {dataListApi} from "../resources/DataListApi";
 
 export default class GamesPage extends React.Component {
@@ -84,6 +85,7 @@ export default class GamesPage extends React.Component {
     selectViewMode () {
         this.setState({"visible": !this.state.visible})
     }
+
     genreOptionWillUpdate(){
         const genre = this.props.match.params.genre;
         const limit = this.state.getGenreInUrlLimit;
@@ -99,9 +101,38 @@ export default class GamesPage extends React.Component {
 
     }
 
-    render () {
+    getMenuFilters(option,widthScreen){
         const urlGenre = this.genreOptionWillUpdate(); 
 
+        return (
+            <Grid.Row only={widthScreen}>
+                <Container>
+                    <Menu fluid vertical={option} inverted color='blue'>
+                        <Menu.Item>
+                            <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <GenreItems genre={urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
+                        </Menu.Item>
+                        <Menu.Item position='right'>
+                            <Button.Group>
+                                <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
+                                <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
+                            </Button.Group>
+                        </Menu.Item>
+                    </Menu>
+                </Container>
+            </Grid.Row>
+            )
+    }
+
+    render () {
         return (
             <div>
             <Container>
@@ -110,35 +141,15 @@ export default class GamesPage extends React.Component {
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
 
-                    <Grid.Row>
-                        <Menu fluid inverted color='blue'>
-                            <Menu.Item>
-                                <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <GenreItems genre = {urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
-                            </Menu.Item>
-                            <Menu.Item position='right'>
-                                <Button.Group>
-                                    <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
-                                    <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
-                                </Button.Group>
-                            </Menu.Item>
-                        </Menu>
-                    </Grid.Row>
+                    <Grid>
+                        {this.getMenuFilters(true, "mobile")}    
+                        {this.getMenuFilters(false,"tablet computer")}
+                    </Grid>
                     
-                    <Dimmer active={this.state.hasLoading}>
-                        <Loader size='massive'>Loading</Loader>
-                    </Dimmer>
+                    <LoadingAnimation hasLoading={this.state.hasLoading} />
 
                     <Grid.Row>
-                    <GameList modeView={this.state.visible}  games={this.state.games}/>
+                        <GameList modeView={this.state.visible}  games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
                         <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}

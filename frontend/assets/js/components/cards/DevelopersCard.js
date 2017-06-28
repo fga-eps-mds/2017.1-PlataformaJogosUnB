@@ -12,12 +12,13 @@ export default class DevelopersCard extends React.Component {
     }
   
     getRoleCells(role, credits){
-          return (<h7>{credits.filter((credit)=> credit.specialty === role)
+          return (<h7>
+                    {credits.filter((credit)=> credit.specialty === role)
                         .map((developer,index) => {
                             if(developer.github_page !== null){
                               return (
                                 <Header.Content key={index}>
-                                  <Popup trigger={<Link to={developer.github_page}>{ developer.name }</Link>} 
+                                  <Popup trigger={<Link target='blank' to={developer.github_page}>{ developer.name }</Link>} 
                                       content='Link para GitHub'/>
                                 </Header.Content>
                               )
@@ -63,24 +64,20 @@ export default class DevelopersCard extends React.Component {
       }
     }
 
-       render () {
-
-        return (
-            <Card fluid>
-                <Card.Content><Header as='h2'>Créditos</Header></Card.Content>
-                <Card.Content>
-                  {this.getTable(this.DEVELOPER, "Desenvolvedores")}
-                  {this.getTable(this.DESIGN, "Designers")}  
-                  {this.getTable(this.MUSICIAN, "Músicos")}
-                </Card.Content>
-            </Card>
-        );
-
+   render () {
+      return (
+          <Card fluid>
+              <Card.Content><Header as='h2'>Créditos</Header></Card.Content>
+              <Card.Content>
+                {this.getTable(this.DEVELOPER, "Desenvolvedores")}
+                {this.getTable(this.DESIGN, "Designers")}  
+                {this.getTable(this.MUSICIAN, "Músicos")}
+              </Card.Content>
+          </Card>
+      )
     }
 }
 
 DevelopersCard.propTypes = {
-    developer: PropTypes.string.isRequired,
-    developers: PropTypes.array.isRequired,
     credits: PropTypes.array.isRequired,
 }

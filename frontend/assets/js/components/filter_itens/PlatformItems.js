@@ -17,9 +17,9 @@ export default class PlatformItems extends React.Component{
 
         dataListApi("/api/platforms/", (platforms) => {
 
-              this.setState({platforms});
+            this.setState({platforms});
 
-          });
+        });
 
     }
 

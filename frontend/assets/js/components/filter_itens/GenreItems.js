@@ -13,7 +13,6 @@ export default class GenreItems extends React.Component{
         };
     }
 
-
     componentWillMount () {
 
         dataListApi("/api/genres/", (genres) => {

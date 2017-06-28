@@ -84,14 +84,9 @@ export default class GamePage extends React.Component{
                             genres={this.state.game.information.genres}
                             getFields={this.getFields}
                         />
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={10}>
                         <Rating pk={id} />
                     </Grid.Column>
                 </Grid.Row>
-
                 <Grid.Row>
                     <Grid.Column width={10}>
                         <DescriptionCard
