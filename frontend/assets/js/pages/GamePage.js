@@ -67,7 +67,7 @@ export default class GamePage extends React.Component{
         <Container>
             <SegmentTitle title={this.state.game.name} />
             <Grid>
-                <Grid.Row>
+                <Grid.Row only="computer">
                     <Grid.Column width={10}>
                         <InternalSlide
                             media_image={this.state.game.media_image}
@@ -87,7 +87,15 @@ export default class GamePage extends React.Component{
                         <Rating pk={id} />
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row only="tablet mobile">
+                        <InternalSlide
+                            media_image={this.state.game.media_image}
+                            media_video={this.state.game.media_video}
+                        />
+                </Grid.Row>
+
+
+                <Grid.Row only="computer">
                     <Grid.Column width={10}>
                         <DescriptionCard
                             description={this.state.game.information.description}
@@ -96,7 +104,7 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
 
-                    <Grid.Column width={6}>
+                    <Grid.Column width={6} only="computer">
                         <PackageCard
                             packages={this.state.game.packages}
                             game_pk={this.state.game.pk}
@@ -108,8 +116,15 @@ export default class GamePage extends React.Component{
                         />
                     </Grid.Column>
                 </Grid.Row>
+                <Grid.Row only="tablet mobile">
+                        <DescriptionCard
+                            description={this.state.game.information.description}
+                            awards={this.state.game.information.awards}
+                            getFields={this.getFields}
+                        />
+                </Grid.Row>
 
-                <Grid.Row>
+                <Grid.Row only="computer">
                     <Grid.Column width={10}>
                         <Card fluid>
                             <Card.Content>
@@ -123,6 +138,13 @@ export default class GamePage extends React.Component{
                                 awards={this.state.game.information.awards}
                             />
                     </Grid.Column>
+                </Grid.Row>
+                <Grid.Row only="tablet mobile">
+                    <Card fluid>
+                        <Card.Content>
+                            <Comment url={"unbgames.lappis.rocks/games/" + id} />
+                        </Card.Content>
+                    </Card>
                 </Grid.Row>
             </Grid>
         </Container>
