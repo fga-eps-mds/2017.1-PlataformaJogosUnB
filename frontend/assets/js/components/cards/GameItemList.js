@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Image, Item, Button, Header} from "semantic-ui-react";
 import {getKernel} from "../../resources/getKernel"
+import {mountIcons} from "../../resources/mountGenresTags"
 
 const cardImageStyle = {
     "background": "#000000",
@@ -51,7 +52,7 @@ export default class GameItemList extends React.Component {
                   
                     <Item.Extra>
                            <div style={{right:0, position:"absolute"}}>
-                           {this.mountIcons(getKernel(this.props.game.packages))}
+                           {mountIcons(getKernel(this.props.game.packages))}
                     </div>
                     </Item.Extra>
                   </Item.Content>

@@ -3,7 +3,7 @@ import {Label, Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {kernelValidation} from "./kernelValidation"
 
-export const  mountGenresTags = function(list){
+export const mountGenresTags = function(list){
 
     return list.map((genre, index) =>{
         return (
@@ -15,7 +15,7 @@ export const  mountGenresTags = function(list){
      )})
 }
 
-export const  mountIcons = function(kernels){
+export const mountIcons = function(kernels){
     return kernels.map((kernel,index) => {
          return (<Icon key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
     })
