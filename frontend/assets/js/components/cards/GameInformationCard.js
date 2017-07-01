@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {Card, Image, Header, Segment} from "semantic-ui-react";
+import {Card, Image, Header, Segment, Label} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 import {mountGenresTags} from "../../resources/mountGenresTags";
 
@@ -17,9 +17,7 @@ export default class GameInformationCard extends React.Component {
         );
     }
     
-    
     render () {
-
         return (
             <Card fluid>
                 {this.getImages(this.props.cover_image)}
@@ -28,7 +26,7 @@ export default class GameInformationCard extends React.Component {
                     <Card.Description>
                         <p>{ this.props.getFields('Versão: ',this.props.version,'') }</p>
                         <p>{ this.props.getFields('Ano de lançamento: ',this.props.launch_year,'') }</p>
-                        <p><h7><strong>Gêneros: </strong></h7></p> {mountGenresTags(this.props.genres)}
+                        <p><h7><strong>Gêneros: </strong></h7></p><Label.Group>{mountGenresTags(this.props.genres)}</Label.Group>
                     </Card.Description>
                 </Card.Content>
 
@@ -43,5 +41,10 @@ export default class GameInformationCard extends React.Component {
 }
 
 GameInformationCard.propTypes = {
+    cover_image: PropTypes.string.isRequired,
+    version: PropTypes.string.isRequired,
+    launch_year: PropTypes.number.isRequired,
+    genres: PropTypes.array.isRequired,
+    official_repository: PropTypes.string.isRequired,
     getFields: PropTypes.func.isRequired,
 }

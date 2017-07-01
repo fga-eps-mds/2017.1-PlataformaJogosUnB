@@ -1,8 +1,8 @@
 import React  from "react";
+import PropTypes from 'prop-types';
 import {Modal, Header, Table, Icon, Segment, Message, Button} from "semantic-ui-react";
 import {dataListApi} from "../../resources/DataListApi";
 import {downloadsPackageApi} from "../../resources/packageApi"; 
-import PropTypes from 'prop-types';
 
 const cursorMouse = {
   "cursor": "pointer",
@@ -80,32 +80,33 @@ export default class ModalPackageCard extends React.Component {
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
       render () {
-        
+        const messageLicense = "Ao realizar o download do instalador do jogo: {this.props.gameName}. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games) não responsabiliza-se por possíveis danos."
+
         return (
             <Modal trigger={this.props.button}>
                 <Modal.Header>{this.props.gameName} - Instaladores disponíveis para {this.props.kernel}</Modal.Header>
                 <Segment>
                    <Message info>
                         <Message.Header>Termo de uso <Icon color='yellow' name='warning sign'/> </Message.Header>
-                        <p>Ao realizar o download do instalador do jogo: {this.props.gameName}. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games) não responsabiliza-se por possíveis danos.</p>
+                        <p>{messageLicense}</p>
                     </Message> 
                 </Segment>
                 <Modal.Content image>
                   <Table celled padded>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell singleLine>Plataformas</Table.HeaderCell>
-                      <Table.HeaderCell singleLine>Arquitetura</Table.HeaderCell>
-                      <Table.HeaderCell>Download</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell singleLine>Plataformas</Table.HeaderCell>
+                        <Table.HeaderCell singleLine>Arquitetura</Table.HeaderCell>
+                        <Table.HeaderCell>Download</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
 
-                  <Table.Body>
-                        {this.getPlatformsList()}
-                  </Table.Body>
-                </Table>
+                    <Table.Body>
+                      {this.getPlatformsList()}
+                    </Table.Body>
+                  </Table>
                 </Modal.Content>
-              </Modal>
+            </Modal>
         );
     }
 }
@@ -115,5 +116,5 @@ ModalPackageCard.propTypes = {
     platform: PropTypes.array.isRequired,
     game_pk: PropTypes.number.isRequired,
     kernel: PropTypes.string.isRequired,
-    gameName: PropTypes.string.isRequired,
+    gameName: PropTypes.string.isRequired
 }

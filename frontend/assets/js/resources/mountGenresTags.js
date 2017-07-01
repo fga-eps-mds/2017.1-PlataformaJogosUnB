@@ -8,19 +8,19 @@ export const mountGenresTags = function(list){
 
     return list.map((genre, index) =>{
         return (
-            <Link key={index} to={`/games/${genre.name}`} >
-                <Label color='teal'>
+            <Label key={index} color='grey'>
+                <Link key={index} to={`/games/${genre.name}`} >
                     {genre.name}
-                </Label>
-            </Link>
+                </Link>
+            </Label>
      )})
 }
 
 export const mountIcons = function(kernels){
     
-    let listKernel = (_.uniq(kernels)).map((kernel,index) => {
-         return (<Icon color='grey' key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
+    let listKernel = (_.uniq(kernels).sort()).map((kernel,index) => {
+         return (<Icon color='white' key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
     })
     
-    return listKernel
+    return (listKernel)
 }   

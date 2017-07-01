@@ -24,6 +24,7 @@ export default class GamesPage extends React.Component {
             "infoPagination": '',
             "perPageOption": 16,
             "visible": true,
+            "currentViewMode": true,
             "hasLoading": true
         }
         this.selectViewMode = this.selectViewMode.bind(this);
@@ -82,8 +83,9 @@ export default class GamesPage extends React.Component {
         this.setState({ [stateName]: option });
     }
 
-    selectViewMode () {
+    selectViewMode() {
         this.setState({"visible": !this.state.visible})
+        this.setState({"currentViewMode": !this.state.currentViewMode})
     }
 
     genreOptionWillUpdate(){
@@ -103,7 +105,6 @@ export default class GamesPage extends React.Component {
 
     getMenuFilters(option,widthScreen){
         const urlGenre = this.genreOptionWillUpdate(); 
-
         return (
             <Grid.Row only={widthScreen}>
                 <Container>
@@ -121,15 +122,15 @@ export default class GamesPage extends React.Component {
                             <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
                         </Menu.Item>
                         <Menu.Item position='right'>
-                            <Button.Group>
-                                <Button onClick={this.selectViewMode}><Icon name='list layout' /></Button>
-                                <Button onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
+                            <Button.Group color={'grey'}>
+                                <Button active={!this.state.currentViewMode} onClick={this.selectViewMode}><Icon name='list layout' /></Button>
+                                <Button active={this.state.currentViewMode} onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
                             </Button.Group>
                         </Menu.Item>
                     </Menu>
                 </Container>
             </Grid.Row>
-            )
+        )
     }
 
     render () {

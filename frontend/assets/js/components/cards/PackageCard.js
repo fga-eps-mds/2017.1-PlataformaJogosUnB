@@ -1,4 +1,6 @@
+import _ from 'lodash'
 import React from "react";
+import PropTypes from 'prop-types';
 import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
@@ -20,7 +22,7 @@ export default class PackageCard extends React.Component {
                 return platform.concat(platform_kernel);
             }, []);
         }
-        return (platforms);
+        return (_.uniq(platforms));
     }
     
     getIcon(platform_icon){
@@ -32,9 +34,9 @@ export default class PackageCard extends React.Component {
 
     getButtonsPlatforms(){
         const game_pk = this.props.game_pk
-        const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value)=>
+        const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value,index)=>
 
-                <ModalPackageCard key={value}
+                <ModalPackageCard key={index}
                     button={
                         <Button basic color='green'>
                             <Icon name={this.getIcon(value)} />
@@ -109,4 +111,11 @@ export default class PackageCard extends React.Component {
             </Card>
         );
     }
+}
+
+PackageCard.propTypes = {
+    downloads: PropTypes.number.isRelated,
+    packages: PropTypes.array.isRequired,
+    game_pk: PropTypes.number.isRequired,
+    gameName: PropTypes.string.isRequired
 }
