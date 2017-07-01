@@ -41,3 +41,4 @@ exclude_paths:
   - "frontend/node_modules"
   - "frontend/__tests__"
   - "frontend/webpack.config.js"
+  - "frontend/assets/styles/carousel_internal_slide.css"

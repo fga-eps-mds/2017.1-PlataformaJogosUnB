@@ -58,18 +58,22 @@ export default class ModalPackageCard extends React.Component {
         }
       }
 
+      getCell(type){
+        return (
+            <Table.Cell>
+                <Header textAlign='center'>{type}</Header>
+            </Table.Cell>
+        )
+      }
       getPlatformsList(){
-
         const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage, index)=>
             <Table.Row key={index}>
+              {this.getCell(eachPackage.platforms)}
+              {this.getCell(eachPackage.architecture)}
               <Table.Cell>
-                <Header textAlign='center'>{eachPackage.platforms}</Header>
-              </Table.Cell>
-              <Table.Cell>
-                <Header textAlign='center'>{eachPackage.architecture}</Header>
-              </Table.Cell>
-
-              <Table.Cell><Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package,eachPackage.pk)}/> {eachPackage.size}</Table.Cell>
+                <Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package,eachPackage.pk)}/>
+                  {eachPackage.size}
+                </Table.Cell>
             </Table.Row>
         );
       
