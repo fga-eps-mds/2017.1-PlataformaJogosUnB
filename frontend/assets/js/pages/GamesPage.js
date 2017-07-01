@@ -2,10 +2,9 @@ import React, {PropTypes} from "react";
 import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
-import SortByItems from "../components/filter_itens/SortByItems";
-import GenreItems from "../components/filter_itens/GenreItems";
-import PlatformItems from "../components/filter_itens/PlatformItems";
-import PerPageItems from "../components/filter_itens/PerPageItems";
+import SortByItems from "../components/filter_items/SortByItems";
+import Items from "../components/filter_items/Items";
+import PerPageItems from "../components/filter_items/PerPageItems";
 import Paginator from "../components/Paginator";
 import LoadingAnimation from "../layout/LoadingAnimation";
 import {dataListApi} from "../resources/DataListApi";
@@ -113,10 +112,10 @@ export default class GamesPage extends React.Component {
                             <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
                         </Menu.Item>
                         <Menu.Item>
-                            <GenreItems genre={urlGenre} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                            <Items type={urlGenre}  pathListApi={'/api/genres/'} text={'Todos Generos'} selectOption={'genreOption'} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
                         </Menu.Item>
                         <Menu.Item>
-                            <PlatformItems callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                            <Items type={'Plataformas'} pathListApi={'/api/platforms/'} text={'Todas Plataformas'} selectOption={'platformOption'} callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
                         </Menu.Item>
                         <Menu.Item>
                             <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
