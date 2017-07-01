@@ -32,7 +32,7 @@ export default class PerPageItems extends React.Component{
             <Dropdown.Item key={index} onClick={(e) => this.handleClick(item, e)}>
                 {item.name}
             </Dropdown.Item>
-        );
+        )
         return listDropItems;
     }
 

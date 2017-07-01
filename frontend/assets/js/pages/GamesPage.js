@@ -109,16 +109,32 @@ export default class GamesPage extends React.Component {
                 <Container>
                     <Menu fluid vertical={option} inverted color='blue'>
                         <Menu.Item>
-                            <SortByItems callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}/>
+                            <SortByItems 
+                                callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}
+                            />
                         </Menu.Item>
                         <Menu.Item>
-                            <Items type={urlGenre}  pathListApi={'/api/genres/'} text={'Todos Generos'} selectOption={'genreOption'} callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} />
+                            <Items 
+                                type={urlGenre}
+                                pathListApi={'/api/genres/'}
+                                text={'Todos Generos'}
+                                selectOption={'genreOption'}
+                                callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} 
+                            />
                         </Menu.Item>
                         <Menu.Item>
-                            <Items type={'Plataformas'} pathListApi={'/api/platforms/'} text={'Todas Plataformas'} selectOption={'platformOption'} callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} />
+                            <Items 
+                                type={'Plataformas'} 
+                                pathListApi={'/api/platforms/'} 
+                                text={'Todas Plataformas'} 
+                                selectOption={'platformOption'} 
+                                callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} 
+                            />
                         </Menu.Item>
                         <Menu.Item>
-                            <PerPageItems callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} />
+                            <PerPageItems
+                                callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} 
+                            />
                         </Menu.Item>
                         <Menu.Item position='right'>
                             <Button.Group color={'grey'}>
@@ -159,8 +175,7 @@ export default class GamesPage extends React.Component {
                 </Grid>
             </Container>
             </div>
-        );
-
+        )
     }
 }
 

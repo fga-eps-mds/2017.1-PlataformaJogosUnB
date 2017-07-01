@@ -29,7 +29,7 @@ export default class SortByItems extends React.Component {
                 <Dropdown.Item key={i} onClick={(e) => this.handleClick(item, e)}>
                     {item.name}
                 </Dropdown.Item>
-        );
+        )
         return listDropItens;
     }
 

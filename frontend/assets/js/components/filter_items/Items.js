@@ -57,5 +57,9 @@ export default class Items extends React.Component{
 
 Items.propTypes = {
   callbackParent: PropTypes.func.isRequired,
-  option: PropTypes.string.isRequired
+  option: PropTypes.string.isRequired,
+  pathListApi: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  selectOption: PropTypes.string.isRequired,
 }
