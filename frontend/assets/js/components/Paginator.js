@@ -69,7 +69,7 @@ export default class Paginator extends React.Component {
             <Menu pagination borderless inverted >
             {this.getArrows(left_arrow,'angle left')}
                 {this.getListItems(this.props.infoPagination)}
-    		{this.getArrows(right_arrow,'angle right')}
+                {this.getArrows(right_arrow,'angle right')}
             </Menu>
       );
     }
