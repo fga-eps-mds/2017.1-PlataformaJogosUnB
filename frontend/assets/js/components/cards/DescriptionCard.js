@@ -35,5 +35,6 @@ export default class DescriptionCard extends React.Component {
 
 DescriptionCard.propTypes = {
     awards: PropTypes.array.isRequired,
+    description: PropTypes.array.isRequired,
     getFields: PropTypes.func.isRequired,
 }

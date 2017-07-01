@@ -129,7 +129,7 @@ export default class GamesPage extends React.Component {
                     </Menu>
                 </Container>
             </Grid.Row>
-            )
+        )
     }
 
     render () {

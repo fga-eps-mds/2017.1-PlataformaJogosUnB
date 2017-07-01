@@ -18,9 +18,9 @@ export const mountGenresTags = function(list){
 
 export const mountIcons = function(kernels){
     
-    let listKernel = (_.uniq(kernels)).map((kernel,index) => {
+    let listKernel = (_.uniq(kernels).sort()).map((kernel,index) => {
          return (<Icon color='grey' key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
     })
     
-    return listKernel
+    return (listKernel)
 }   

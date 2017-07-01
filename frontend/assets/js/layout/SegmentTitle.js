@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 
 export default class SegmentTitle extends React.Component {
@@ -11,3 +12,6 @@ export default class SegmentTitle extends React.Component {
 	}
 }
 
+SegmentTitle.propTypes = {
+    title: PropTypes.array.isRequired,
+}
