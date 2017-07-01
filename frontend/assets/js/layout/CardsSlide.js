@@ -18,7 +18,6 @@ const slideHeight = {
 
 export default class CardsSlide extends React.Component {
   constructor (props) {
-
       super(props);
       this.state = {
         "games": [],
@@ -90,8 +89,7 @@ export default class CardsSlide extends React.Component {
                     <GameCard game={this.state.games[i]} />
                   </Link>
                 </div>)
-       gameCards.push(image);
-
+        gameCards.push(image);
     }
     return gameCards;
   }

@@ -165,7 +165,7 @@ export default class GamesPage extends React.Component {
                     <LoadingAnimation hasLoading={this.state.hasLoading} />
 
                     <Grid.Row>
-                        <GameList modeView={this.state.visible}  games={this.state.games}/>
+                        <GameList modeView={this.state.visible} games={this.state.games}/>
                     </Grid.Row>
                     <Grid.Row centered>
                         <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}

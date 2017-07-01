@@ -42,6 +42,14 @@ export default class Paginator extends React.Component {
         return listItems
     }
 
+    getArrows(nameArrow,angle){
+       return(
+            <Menu.Item name={nameArrow} onClick={this.handleItemClick}>
+                <Icon name={angle} />
+            </Menu.Item>
+	)
+    }
+
     render(){
         var left_arrow = '';
         var right_arrow = '';
@@ -59,13 +67,9 @@ export default class Paginator extends React.Component {
         }
         return (
             <Menu pagination borderless inverted >
-                <Menu.Item name={left_arrow}  onClick={this.handleItemClick}>
-                    <Icon name='angle left' />
-                </Menu.Item>
+            {this.getArrows(left_arrow,'angle left')}
                 {this.getListItems(this.props.infoPagination)}
-                <Menu.Item name={right_arrow} onClick={this.handleItemClick}>
-                    <Icon name='angle right' />
-                </Menu.Item>
+                {this.getArrows(right_arrow,'angle right')}
             </Menu>
       );
     }

@@ -40,3 +40,4 @@ exclude_paths:
   - "frontend/public"
   - "frontend/node_modules"
   - "frontend/__tests__"
+  - "frontend/webpack.config.js"

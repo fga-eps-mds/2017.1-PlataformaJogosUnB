@@ -4,22 +4,7 @@ import {Link} from "react-router-dom";
 import {Image, Item, Button, Header} from "semantic-ui-react";
 import {getKernel} from "../../resources/getKernel"
 import {mountIcons} from "../../resources/mountGenresTags"
-
-const cardImageStyle = {
-    "background": "#000000",
-    "position": "relative",
-    "minHeight": "200px",
-    "minWidth": "250px",
-};
-const imageStyle = {
-    "position": "absolute",
-    "top": 0,
-    "bottom": 0,
-    "right": 0,
-    "left": 0,
-    "margin": "auto",
-    "height": "100%",
-};
+import {cardImageStyle, imageStyleGameCard} from "../../resources/stylesheet/StylesheetsConsts";
 
 export default class GameItemList extends React.Component {
 
@@ -37,7 +22,7 @@ export default class GameItemList extends React.Component {
             <Item.Group divided unstackable>
                 <Item>
                   <Item.Image size='tiny' style={cardImageStyle}>
-                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyle,cardImageStyle} />)}
+                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyleGameCard,cardImageStyle} />)}
                   </Item.Image>
                   <Item.Content verticalAlign='middle'>
                     <Item.Header>
