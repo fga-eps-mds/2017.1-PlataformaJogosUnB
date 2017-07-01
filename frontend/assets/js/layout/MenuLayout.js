@@ -34,15 +34,18 @@ export default class MenuLayout extends React.Component {
             return true
         }
     }
+    getMenuItemLink(path,text,activeItem){
+        return(<Menu.Item key={path} as={Link} to={path} active={activeItem}><Header inverted>{text}</Header></Menu.Item>)
+    }
 
     getLinks(){
         const {activeItem} = this.state;
         const MenuLinks = [
-                <Menu.Item key={"/"} as={Link} to="/" active={activeItem === "/"}><Header inverted>UnB Games</Header></Menu.Item>,
+                this.getMenuItemLink('/','UnB Games',(activeItem === '/')),
                 <Menu.Item key={"/games/"} as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
-                    <Header inverted><Icon color='green' name='gamepad' /> Jogos</Header>
+                    <Header inverted><Icon color='green' name='gamepad' />Jogos</Header>
                 </Menu.Item>,
-                <Menu.Item key={"/about/"} as={Link} to="/about/" active={activeItem === "/about/"}><Header inverted>Sobre</Header></Menu.Item>
+                this.getMenuItemLink('/about/','Sobre',(activeItem === '/about/'))
         ]
         return (MenuLinks)
     }
