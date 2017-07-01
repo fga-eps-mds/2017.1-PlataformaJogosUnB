@@ -29,7 +29,6 @@ export default class GamesPage extends React.Component {
         this.selectViewMode = this.selectViewMode.bind(this);
     }
 
-
     loadGameFromServer (param) {
         const data = {
             platforms: param.platformOption,
@@ -99,7 +98,6 @@ export default class GamesPage extends React.Component {
             }
         }
         return "Categorias";
-
     }
 
     getMenuFilters(option,widthScreen){
