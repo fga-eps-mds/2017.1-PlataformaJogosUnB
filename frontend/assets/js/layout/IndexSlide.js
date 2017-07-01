@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
 import React from "react";
-import {Card, Dimmer, Loader} from 'semantic-ui-react';
+import {Card, Dimmer, Loader, Label} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
@@ -106,7 +106,9 @@ export default class IndexSlider extends React.Component {
                                     <Card.Header style={textStyle}>{this.state.games[idx].name}</Card.Header>
                                 </Card.Content>
                                 <Card.Content extra>
-                                    {mountGenresTags(this.state.games[idx].information.genres)}
+                                    <Label.Group>
+                                        {mountGenresTags(this.state.games[idx].information.genres)}
+                                    </Label.Group>
                                 </Card.Content>
                                 <Card.Content extra>
                                     {mountIcons(getKernel(this.state.games[idx].packages))}
