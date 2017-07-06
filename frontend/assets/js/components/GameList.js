@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Link} from "react-router-dom";
-import {Grid, Container, Segment, Header, Icon} from "semantic-ui-react";
+import {Grid, Container, Segment, Header, Icon, Item} from "semantic-ui-react";
 import GameCard from "./cards/GameCard";
 import GameItemList from "./cards/GameItemList";
 
@@ -31,7 +31,9 @@ export default class GameList extends React.Component {
     getGameList(){
         const gamesList = (this.props.games).map((game, index) =>
                 <Segment key={index} inverted color='blue'>
-                    <GameItemList game={game} />
+                    <Item.Group divided unstackable>
+                        <GameItemList game={game} />
+                    </Item.Group>
                 </Segment>
         );
 

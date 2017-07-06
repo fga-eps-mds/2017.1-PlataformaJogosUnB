@@ -8,7 +8,7 @@ export const listImageStyle = {
     "background": "#292a2f",
     "position": "relative",
     "minHeight": "200px",
-    "minWidth": "250px",
+    "maxHeight": "250px",
 };
 
 export const imageStyleGameCard = {

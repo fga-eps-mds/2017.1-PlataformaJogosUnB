@@ -19,12 +19,11 @@ export default class GameItemList extends React.Component {
 
     render () {
         return (
-            <Item.Group divided unstackable>
                 <Item>
-                  <Item.Image size='tiny' style={listImageStyle}>
-                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyleGameCard,listImageStyle} />)}
-                  </Item.Image>
-                  <Item.Content verticalAlign='middle'>
+                    <Item.Image style={listImageStyle} size='medium'>
+                        {this.getGameLink(<Image style={imageStyleGameCard} src={this.props.game.card_image} />)}
+                    </Item.Image>
+                   <Item.Content verticalAlign='middle'>
                     <Item.Header>
                         {this.getGameLink(<Header inverted>{this.props.game.name} </Header>)}
                     </Item.Header>
@@ -36,7 +35,6 @@ export default class GameItemList extends React.Component {
                     </Item.Extra>
                   </Item.Content>
                 </Item>
-            </Item.Group>
         );
 
     }
