@@ -84,7 +84,7 @@ export default class ModalPackageCard extends React.Component {
         return <Button basic color='red'>Nao ha pacotes cadastrados</Button>;
     }
       render () {
-        const messageLicense = "Ao realizar o download do instalador do jogo. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games) não responsabiliza-se por possíveis danos."
+        const messageLicense = "Ao realizar o download do instalador do jogo. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games), e a Universidade de Brasília não responsabiliza-se por possíveis danos em seu computador nem mal funcionamento dos jogos baixados."
 
         return (
             <Modal trigger={this.props.button}>
