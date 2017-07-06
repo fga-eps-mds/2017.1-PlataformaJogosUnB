@@ -40,7 +40,7 @@ export default class AboutPage extends React.Component {
                         <Card.Group itemsPerRow={2}>
                             <AboutCard
                                 title={"Venha conhecer"}
-                                description={"desfrute de inumeros jogos"}
+                                description={"Desfrute de inúmeros jogos"}
                                 sizeGrid={1}
                             />
                             <AboutCard />

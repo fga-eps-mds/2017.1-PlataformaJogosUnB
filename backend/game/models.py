@@ -27,7 +27,7 @@ class Game(models.Model):
 
     name = models.CharField(
         _('Name'),
-        max_length=100,
+        max_length=50,
         help_text=_('What\'s the name of the game?'),
     )
 

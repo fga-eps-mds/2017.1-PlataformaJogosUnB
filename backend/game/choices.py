@@ -5,6 +5,7 @@ EXTENSION_CHOICES = (
     ('exe', _('exe')),
     ('rpm', _('rpm')),
     ('app', _('app')),
+    ('sh', _('sh')),
 )
 
 ARCHITECTURE_CHOICES = (

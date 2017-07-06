@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import {Card, Image, Header, Segment, Label} from "semantic-ui-react";
 import { Link } from 'react-router-dom';
 import {mountGenresTags} from "../../resources/mountGenresTags";
+import {listImageStyle, imageStyleGameCard} from "../../resources/stylesheet/StylesheetsConsts";
 
 export default class GameInformationCard extends React.Component {
 
     getImages (img) {
         if (img != null) {
-            return <Image src={img} />;
+            return (
+                <div style={listImageStyle}>
+                    <Image style={imageStyleGameCard} src={img} />
+                </div>
+            )
         }
         return (
             <Segment inverted color='blue'>

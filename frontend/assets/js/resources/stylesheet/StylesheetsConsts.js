@@ -1,8 +1,14 @@
 export const cardImageStyle = {
-    "background": "#000000",
+    "background": "#292a2f",
     "position": "relative",
     "minHeight": "200px",
-    "minWidth": "250px",
+};
+
+export const listImageStyle = {
+    "background": "#292a2f",
+    "position": "relative",
+    "minHeight": "200px",
+    "maxHeight": "250px",
 };
 
 export const imageStyleGameCard = {

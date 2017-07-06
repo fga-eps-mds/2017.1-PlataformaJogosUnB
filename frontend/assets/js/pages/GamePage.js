@@ -60,72 +60,147 @@ export default class GamePage extends React.Component{
     this.loadGameFromServer();
   }
 
-  render(){
-  const id = this.props.match.params.id;
-
+  getInternalSlide(){
     return (
-        <Container>
-            <SegmentTitle title={this.state.game.name} />
+         <InternalSlide
+            media_image={this.state.game.media_image}
+            media_video={this.state.game.media_video}
+         />
+    )
+  }
+
+  getGameInformationCard(){
+    return (
+         <GameInformationCard
+            cover_image={this.state.game.cover_image}
+            version={this.state.game.version}
+            official_repository={this.state.game.official_repository}
+            launch_year={this.state.game.information.launch_year}
+            genres={this.state.game.information.genres}
+            getFields={this.getFields}
+         />
+    ) 
+  }
+  getDescriptionCard(){
+    return (
+        <DescriptionCard
+            description={this.state.game.information.description}
+            awards={this.state.game.information.awards}
+            getFields={this.getFields}
+        />
+    )
+  }
+
+  getPackageCard(){
+    return (
+        <PackageCard
+            packages={this.state.game.packages}
+            game_pk={this.state.game.pk}
+            gameName={this.state.game.name}
+            downloads={this.state.game.downloads}
+        />
+    )
+  }
+
+  getDevelopersCard(){
+    return (
+        <DevelopersCard
+            credits={this.state.game.information.credits}
+            awards={this.state.game.information.awards}
+        />
+    )
+  }
+
+  getComment(id){
+    return (
+        <Card fluid>
+            <Card.Content>
+                <Comment url={"unbgames.lappis.rocks/games/" + id} />
+            </Card.Content>
+        </Card>
+    )
+  }
+
+  getWeb(id){
+    return (
             <Grid>
-                <Grid.Row>
+                <Grid.Row only='computer'>
                     <Grid.Column width={10}>
-                        <InternalSlide
-                            media_image={this.state.game.media_image}
-                            media_video={this.state.game.media_video}
-                        />
+                        {this.getInternalSlide()}
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        <GameInformationCard
-                            cover_image={this.state.game.cover_image}
-                            version={this.state.game.version}
-                            official_repository={this.state.game.official_repository}
-                            launch_year={this.state.game.information.launch_year}
-                            genres={this.state.game.information.genres}
-                            getFields={this.getFields}
-                        />
+                        {this.getGameInformationCard()}
                         <Rating pk={id} />
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row>
+                <Grid.Row only='computer'>
                     <Grid.Column width={10}>
-                        <DescriptionCard
-                            description={this.state.game.information.description}
-                            awards={this.state.game.information.awards}
-                            getFields={this.getFields}
-                        />
+                        {this.getDescriptionCard()}
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        <PackageCard
-                            packages={this.state.game.packages}
-                            game_pk={this.state.game.pk}
-                            gameName={this.state.game.name}
-                            downloads={this.state.game.downloads}
-                        />
+                        {this.getPackageCard()}
                         <ReportBugCard
                             game_pk={this.state.game.pk}
                         />
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row>
+                <Grid.Row only='computer'>
                     <Grid.Column width={10}>
-                        <Card fluid>
-                            <Card.Content>
-                                <Comment url={"unbgames.lappis.rocks/games/" + id} />
-                            </Card.Content>
-                        </Card>
+                        {this.getComment(id)}
                     </Grid.Column>
                     <Grid.Column width={6}>
-                            <DevelopersCard
-                                credits={this.state.game.information.credits}
-                                awards={this.state.game.information.awards}
-                            />
+                        {this.getDevelopersCard()}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+    )
+  }
+
+  getMobile(id){
+      return(
+            <Grid>
+                <Grid.Row only='tablet mobile'>
+                    {this.getInternalSlide()}
+                </Grid.Row>
+                
+                <Grid.Row only='tablet mobile'>
+                    {this.getGameInformationCard()}
+                    <Rating pk={id} />
+                </Grid.Row>
+
+                <Grid.Row only='tablet mobile'>
+                    {this.getDescriptionCard()}
+                </Grid.Row>
+
+                <Grid.Row only='tablet mobile'>
+                    {this.getPackageCard()}
+                    <ReportBugCard
+                        game_pk={this.state.game.pk}
+                    />
+                </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                        {this.getDevelopersCard()}
+                </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                        {this.getComment(id)}
+                </Grid.Row>
+            </Grid>
+      )
+  }
+
+
+  render(){
+    const id = this.props.match.params.id;
+
+    return (
+        <Container>
+            <SegmentTitle title={this.state.game.name} />
+            {this.getWeb(id)}
+            {this.getMobile(id)}
         </Container>
     );
   }

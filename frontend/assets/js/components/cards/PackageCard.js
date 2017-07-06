@@ -7,7 +7,7 @@ import ModalPackageCard from "./ModalPackageCard"
 //TODO mudar atributo de Plataforma, de "extensions" para "extension"
 
 const extensionsByKernel = {
-  "Linux": ["deb","rpm"],
+  "Linux": ["deb","rpm","sh"],
   "Windows": ["exe"],
   "OSX": ["app"],
 };
