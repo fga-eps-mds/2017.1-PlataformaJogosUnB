@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Image, Item, Button, Header} from "semantic-ui-react";
 import {getKernel} from "../../resources/getKernel"
 import {mountIcons} from "../../resources/mountGenresTags"
-import {cardImageStyle, imageStyleGameCard} from "../../resources/stylesheet/StylesheetsConsts";
+import {listImageStyle, imageStyleGameCard} from "../../resources/stylesheet/StylesheetsConsts";
 
 export default class GameItemList extends React.Component {
 
@@ -21,8 +21,8 @@ export default class GameItemList extends React.Component {
         return (
             <Item.Group divided unstackable>
                 <Item>
-                  <Item.Image size='tiny' style={cardImageStyle}>
-                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyleGameCard,cardImageStyle} />)}
+                  <Item.Image size='tiny' style={listImageStyle}>
+                    {this.getGameLink(<Image src={this.props.game.card_image} style={imageStyleGameCard,listImageStyle} />)}
                   </Item.Image>
                   <Item.Content verticalAlign='middle'>
                     <Item.Header>

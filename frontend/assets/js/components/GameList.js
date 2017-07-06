@@ -55,7 +55,7 @@ export default class GameList extends React.Component {
         if(this.props.modeView) {
             return (
                 <Container>
-                    <Grid doubling columns={4}>
+                    <Grid doubling mobile={16} tablet={8} computer={5} largeScreen={4}>
                         {this.getGameCards()}
                     </Grid>
                 </Container>
