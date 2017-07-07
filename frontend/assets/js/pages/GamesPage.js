@@ -89,7 +89,6 @@ export default class GamesPage extends React.Component {
     genreOptionWillUpdate(){
         const genre = this.props.match.params.genre;
         const limit = this.state.getGenreInUrlLimit;
-        
         if(genre !== undefined){
             if(limit < 1){
                 this.state.genreOption = genre;
@@ -100,8 +99,7 @@ export default class GamesPage extends React.Component {
         return "Categorias";
     }
 
-    getMenuFilters(option,widthScreen){
-        const urlGenre = this.genreOptionWillUpdate(); 
+    getMenuFilters(urlGenre,option,widthScreen){
         return (
             <Grid.Row only={widthScreen}>
                 <Container>
@@ -115,7 +113,7 @@ export default class GamesPage extends React.Component {
                             <Items 
                                 type={urlGenre}
                                 pathListApi={'/api/genres/'}
-                                text={'Todos Generos'}
+                                text={'Todas Categorias'}
                                 selectOption={'genreOption'}
                                 callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} 
                             />
@@ -147,6 +145,7 @@ export default class GamesPage extends React.Component {
     }
 
     render () {
+        const urlGenre = this.genreOptionWillUpdate(); 
         return (
             <div>
             <Container>
@@ -156,8 +155,8 @@ export default class GamesPage extends React.Component {
                     </Grid.Row>
 
                     <Grid>
-                        {this.getMenuFilters(true, "mobile")}    
-                        {this.getMenuFilters(false,"tablet computer")}
+                        {this.getMenuFilters(urlGenre,true, "mobile")}    
+                        {this.getMenuFilters(urlGenre,false,"tablet computer")}
                     </Grid>
                     
                     <LoadingAnimation hasLoading={this.state.hasLoading} />
