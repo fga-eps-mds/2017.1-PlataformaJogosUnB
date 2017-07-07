@@ -82,7 +82,12 @@ class GameViewSet(viewsets.ModelViewSet):
     @detail_route(methods=["GET"])
     def games_list(self, request, pk=None):
         platforms = request.query_params['platforms'].split()
-        genres = request.query_params['genres'].split()
+        genres = request.query_params['genres']
+        if genres == "":
+            genres = genres.split()
+        else:
+            genres = genres.split(genres, 0)
+        print(genres)
         sort_by = request.query_params['sort']
         try:
             page = int(request.query_params['page'])
