@@ -120,7 +120,7 @@ export default class GamesPage extends React.Component {
                                 <Items
                                     type={this.getGenreName()}
                                     pathListApi={'/api/genres/'}
-                                    text={'Todos Generos'}
+                                    text={'Todos Gêneros'}
                                     selectOption={'genreOption'}
                                     callbackParent={(stateName, option) => this.optionChanged('genreOption', option)}
                                 />

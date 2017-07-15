@@ -9,7 +9,7 @@ export default class Items extends React.Component{
         super(props);
         this.state = {
             "option":[],
-            "selectedOptionFilter": this.props.type,
+            "selectedOptionFilter": this.props.type.replace(/ /g,''),
         };
     }
 
@@ -26,6 +26,12 @@ export default class Items extends React.Component{
         }
         this.setState({ selectedOptionFilter: optionName });
         this.props.callbackParent(this.props.selectOption, option);
+
+        if(this.props.selectOption=='genreOption'){
+            //Update url in GamesPage
+            let url = ('/games/' + option).replace(/ /g,'_')
+            window.history.pushState('','Current URL',url)
+        }
     }
 
     mountItems(){
@@ -56,10 +62,10 @@ export default class Items extends React.Component{
 }
 
 Items.propTypes = {
-  callbackParent: PropTypes.func.isRequired,
-  option: PropTypes.string.isRequired,
-  pathListApi: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  selectOption: PropTypes.string.isRequired,
+    callbackParent: PropTypes.func.isRequired,
+    option: PropTypes.string.isRequired,
+    pathListApi: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,  selectOption: PropTypes.string.isRequired,
+    selectOption: PropTypes.string.isRequired,
 }
