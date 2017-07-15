@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Button,Label } from "semantic-ui-react";
+import {Button,Label} from "semantic-ui-react";
 import {getDjangoCookie} from '../resources/getDjangoCookie';
 
 export default class Rating extends React.Component {
@@ -68,7 +68,11 @@ export default class Rating extends React.Component {
         return (<Button
                     color={color}
                     icon={thumbs}
-                    label={<Label style={{ backgroundColor: "#22242b"}}><font color="white">{likeState}</font></Label>}
+                    label={
+                        <Label style={{ backgroundColor: "#22242b"}}>
+                            <font color="white">{likeState}</font>
+                        </Label>
+                    }
                     labelPosition={labelPosition}
                     onClick={this.handleVote.bind(this, value)}
                 />)

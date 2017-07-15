@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
@@ -86,60 +87,71 @@ export default class GamesPage extends React.Component {
         this.setState({"currentViewMode": !this.state.currentViewMode})
     }
 
-    genreOptionWillUpdate(){
+    componentWillMount(){
         const genre = this.props.match.params.genre;
-        const limit = this.state.getGenreInUrlLimit;
+
         if(genre !== undefined){
-            if(limit < 1){
-                this.state.genreOption = genre;
-                this.state.getGenreInUrlLimit += 1;
-                return genre;
-            }
+            this.setState({genreOption: genre}, () => {
+                genreOption: genre
+            })
         }
-        return "Categorias";
     }
 
-    getMenuFilters(urlGenre,option,widthScreen){
+    getGenreName(){
+        if(this.state.genreOption === ''){
+            return "Categorias"
+        } else {
+            return this.state.genreOption
+        }
+    }
+
+    getMenuFilters(option,widthScreen){
         return (
             <Grid.Row only={widthScreen}>
-                <Container>
-                    <Menu fluid vertical={option} inverted color='blue'>
-                        <Menu.Item>
-                            <SortByItems 
-                                callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}
-                            />
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Items 
-                                type={urlGenre}
-                                pathListApi={'/api/genres/'}
-                                text={'Todas Categorias'}
-                                selectOption={'genreOption'}
-                                callbackParent={(stateName, option) => this.optionChanged('genreOption', option)} 
-                            />
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Items 
-                                type={'Plataformas'} 
-                                pathListApi={'/api/platforms/'} 
-                                text={'Todas Plataformas'} 
-                                selectOption={'platformOption'} 
-                                callbackParent={(stateName, option) => this.optionChanged('platformOption', option)} 
-                            />
-                        </Menu.Item>
-                        <Menu.Item>
-                            <PerPageItems
-                                callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)} 
-                            />
-                        </Menu.Item>
-                        <Menu.Item position='right'>
-                            <Button.Group color={'grey'}>
-                                <Button active={!this.state.currentViewMode} onClick={this.selectViewMode}><Icon name='list layout' /></Button>
-                                <Button active={this.state.currentViewMode} onClick={this.selectViewMode}><Icon name='grid layout' /></Button>
-                            </Button.Group>
-                        </Menu.Item>
-                    </Menu>
-                </Container>
+                <Grid.Column>
+                    <Container>
+                        <Menu fluid vertical={option} inverted color='blue'>
+                            <Menu.Item>
+                                <SortByItems
+                                    callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}
+                                />
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Items
+                                    type={this.getGenreName()}
+                                    pathListApi={'/api/genres/'}
+                                    text={'Todos Generos'}
+                                    selectOption={'genreOption'}
+                                    callbackParent={(stateName, option) => this.optionChanged('genreOption', option)}
+                                />
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Items
+                                    type={'Plataformas'}
+                                    pathListApi={'/api/platforms/'}
+                                    text={'Todas Plataformas'}
+                                    selectOption={'platformOption'}
+                                    callbackParent={(stateName, option) => this.optionChanged('platformOption', option)}
+                                />
+                            </Menu.Item>
+                            <Menu.Item>
+                                <PerPageItems
+                                    callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)}
+                                />
+                            </Menu.Item>
+                            <Menu.Item position='right'>
+                                <Button.Group color={'grey'}>
+                                    <Button active={!this.state.currentViewMode} onClick={this.selectViewMode}>
+                                        <Icon name='list layout' />
+                                    </Button>
+                                    <Button active={this.state.currentViewMode} onClick={this.selectViewMode}>
+                                        <Icon name='grid layout' />
+                                    </Button>
+                                </Button.Group>
+                            </Menu.Item>
+                        </Menu>
+                    </Container>
+                </Grid.Column>
             </Grid.Row>
         )
     }
@@ -154,20 +166,22 @@ export default class GamesPage extends React.Component {
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
 
-                    <Grid>
-                        {this.getMenuFilters(urlGenre,true, "mobile")}    
-                        {this.getMenuFilters(urlGenre,false,"tablet computer")}
-                    </Grid>
-                    
+                    {this.getMenuFilters(true, "mobile")}
+                    {this.getMenuFilters(false,"tablet computer")}
+
                     <LoadingAnimation hasLoading={this.state.hasLoading} />
 
                     <Grid.Row>
-                        <GameList modeView={this.state.visible} games={this.state.games}/>
+                        <Container>
+                            <GameList modeView={this.state.visible} games={this.state.games} />
+                        </Container>
                     </Grid.Row>
+
                     <Grid.Row centered>
                         <Paginator callbackParent={(stateName, option) => this.optionChanged('pageOption', option)}
                             infoPagination = {this.state.infoPagination}
-                            pageOption={this.state.pageOption}/>
+                            pageOption={this.state.pageOption}
+                        />
                     </Grid.Row>
                 </Grid>
             </Container>

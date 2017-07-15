@@ -131,7 +131,7 @@ export default class GamePage extends React.Component{
 
                     <Grid.Column width={6}>
                         {this.getGameInformationCard()}
-                        <Rating pk={id} />
+                        {this.getPackageCard()}
                     </Grid.Column>
                 </Grid.Row>
 
@@ -141,7 +141,7 @@ export default class GamePage extends React.Component{
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        {this.getPackageCard()}
+                        <Rating pk={id} />
                         <ReportBugCard
                             game_pk={this.state.game.pk}
                         />

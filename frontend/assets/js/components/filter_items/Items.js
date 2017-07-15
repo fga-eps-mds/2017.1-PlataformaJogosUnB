@@ -5,17 +5,17 @@ import {dataListApi} from "../../resources/DataListApi";
 
 export default class Items extends React.Component{
 
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             "option":[],
-            "selectedOptionFilter":this.props.type,
+            "selectedOptionFilter": this.props.type,
         };
     }
 
-    componentWillMount () {
+    componentWillMount() {
         dataListApi(this.props.pathListApi, (option) => {
-            this.setState({option});
+            this.setState({option})
         })
     }
 
@@ -27,7 +27,7 @@ export default class Items extends React.Component{
         this.setState({ selectedOptionFilter: optionName });
         this.props.callbackParent(this.props.selectOption, option);
     }
-    
+
     mountItems(){
         if(typeof this.state.option === "undefined"){
             return false
@@ -40,8 +40,8 @@ export default class Items extends React.Component{
         return gameItems
 
     }
-        
-    render (){
+
+    render(){
         return(
             <Dropdown text={this.state.selectedOptionFilter}>
                 <Dropdown.Menu>
