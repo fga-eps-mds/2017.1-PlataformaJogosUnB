@@ -65,27 +65,27 @@ export default class Rating extends React.Component {
     }
 
     mountLikeButton(color, value, thumbs, labelPosition, likeState){
-        return (<Button
-                    color={color}
-                    icon={thumbs}
-                    label={
-                        <Label style={{ backgroundColor: "#22242b"}}>
-                            <font color="white">{likeState}</font>
-                        </Label>
-                    }
-                    labelPosition={labelPosition}
-                    onClick={this.handleVote.bind(this, value)}
-                />)
+        return (
+            <Button
+                color={color}
+                icon={thumbs}
+                label={
+                    <Label style={{ backgroundColor: "#22242b"}}>
+                         <font color="white">{likeState}</font>
+                    </Label>
+                }
+                labelPosition={labelPosition}
+                onClick={this.handleVote.bind(this, value)}
+            />
+        )
     }
     render(){
         return (
-            <div>
-                <Button.Group size='tiny' floated='right'>
+                <Button.Group size='tiny'>
                     {this.mountLikeButton("green", true, "thumbs up", "right", this.state.likes)}
                     {this.mountLikeButton("red", false, "thumbs down", "left", this.state.dislikes)}
                 </Button.Group>
-            </div> 
-        );
+        )
     }
 }
 

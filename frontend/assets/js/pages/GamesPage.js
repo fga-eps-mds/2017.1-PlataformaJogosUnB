@@ -92,7 +92,7 @@ export default class GamesPage extends React.Component {
 
         if(genre !== undefined){
             this.setState({genreOption: genre}, () => {
-                genreOption: genre
+                genre
             })
         }
     }

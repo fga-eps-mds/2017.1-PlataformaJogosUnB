@@ -66,6 +66,6 @@ Items.propTypes = {
     option: PropTypes.string.isRequired,
     pathListApi: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,  selectOption: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     selectOption: PropTypes.string.isRequired,
 }

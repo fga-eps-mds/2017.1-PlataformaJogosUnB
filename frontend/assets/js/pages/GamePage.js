@@ -9,7 +9,6 @@ import PackageCard from '../components/cards/PackageCard';
 import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
-import Rating from '../components/Rating';
 
 export default class GamePage extends React.Component{
     constructor (props) {
@@ -69,7 +68,7 @@ export default class GamePage extends React.Component{
     )
   }
 
-  getGameInformationCard(){
+  getGameInformationCard(id){
     return (
          <GameInformationCard
             cover_image={this.state.game.cover_image}
@@ -78,8 +77,9 @@ export default class GamePage extends React.Component{
             launch_year={this.state.game.information.launch_year}
             genres={this.state.game.information.genres}
             getFields={this.getFields}
+            pk={id}
          />
-    ) 
+    )
   }
   getDescriptionCard(){
     return (
@@ -130,7 +130,7 @@ export default class GamePage extends React.Component{
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        {this.getGameInformationCard()}
+                        {this.getGameInformationCard(id)}
                         {this.getPackageCard()}
                     </Grid.Column>
                 </Grid.Row>
@@ -141,7 +141,6 @@ export default class GamePage extends React.Component{
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        <Rating pk={id} />
                         <ReportBugCard
                             game_pk={this.state.game.pk}
                         />
@@ -166,10 +165,9 @@ export default class GamePage extends React.Component{
                 <Grid.Row only='tablet mobile'>
                     {this.getInternalSlide()}
                 </Grid.Row>
-                
+
                 <Grid.Row only='tablet mobile'>
-                    {this.getGameInformationCard()}
-                    <Rating pk={id} />
+                    {this.getGameInformationCard(id)}
                 </Grid.Row>
 
                 <Grid.Row only='tablet mobile'>
