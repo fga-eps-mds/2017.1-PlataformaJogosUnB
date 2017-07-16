@@ -13,16 +13,16 @@ export default class SortByItems extends React.Component {
 
     listDropdownItens(){
         const rule = [{
-            name: 'Nome (A-Z)',
+            name: 'Alfabética (A-Z)',
             param: 'name',
         },{
-            name: 'Nome (Z-A)',
+            name: 'Alfabética (Z-A)',
             param: '-name',
         },{
-            name: 'Mais recente',
+            name: 'Mais recentes',
             param: '-information__launch_year',
         },{
-            name: 'Mais antigo',
+            name: 'Mais antigos',
             param: 'information__launch_year',
         }]
         const listDropItens = rule.map((item, i) =>
@@ -41,8 +41,9 @@ export default class SortByItems extends React.Component {
 
     render () {
         return (
-            <Dropdown text={this.state.name} defaultValue='Ordernar por'>
+            <Dropdown text={this.state.name} defaultValue='Ordernar por' pointing className='link item'>
                 <Dropdown.Menu>
+                    <Dropdown.Header>Ordernar por</Dropdown.Header>
                     {this.listDropdownItens()}
                 </Dropdown.Menu>
             </Dropdown>

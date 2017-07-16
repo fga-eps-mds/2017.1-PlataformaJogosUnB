@@ -29,7 +29,7 @@ export default class Items extends React.Component{
 
         if(this.props.selectOption=='genreOption'){
             //Update url in GamesPage
-            let url = ('/games/' + option).replace(/ /g,'_')
+            let url = ('/games/' + option)
             window.history.pushState('','Current URL',url)
         }
     }
@@ -49,7 +49,7 @@ export default class Items extends React.Component{
 
     render(){
         return(
-            <Dropdown text={this.state.selectedOptionFilter}>
+            <Dropdown text={this.state.selectedOptionFilter} pointing className='link item'>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         {this.props.text}

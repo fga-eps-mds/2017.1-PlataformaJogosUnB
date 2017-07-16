@@ -157,7 +157,6 @@ export default class GamesPage extends React.Component {
     }
 
     render () {
-        const urlGenre = this.genreOptionWillUpdate(); 
         return (
             <div>
             <Container>

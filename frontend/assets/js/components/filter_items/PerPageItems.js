@@ -45,7 +45,7 @@ export default class PerPageItems extends React.Component{
 
     render(){
         return(
-            <Dropdown text={this.state.name}>
+            <Dropdown text={this.state.name} pointing className='link item'>
                 <Dropdown.Menu>
                     {this.listDropdownItems()}
                 </Dropdown.Menu>
