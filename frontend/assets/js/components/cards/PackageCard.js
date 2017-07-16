@@ -1,10 +1,10 @@
 import _ from 'lodash'
-import React from "react";
-import PropTypes from 'prop-types';
-import {Card, Button, Grid, Icon} from "semantic-ui-react";
+import React from "react"
+import PropTypes from 'prop-types'
+import {Card, Button, Grid, Icon} from "semantic-ui-react"
 import ModalPackageCard from "./ModalPackageCard"
+import ModalLicenseSoftware from "../../layout/ModalLicenseSoftware"
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
-//TODO mudar atributo de Plataforma, de "extensions" para "extension"
 
 const extensionsByKernel = {
   "Linux": ["deb","rpm","sh"],
@@ -17,14 +17,14 @@ export default class PackageCard extends React.Component {
     reduceKernelPlatforms(packages) {
         let platforms = [];
         if (packages !== undefined) {
-            platforms = _.reduce(packages, (platform, bpackage) => { 
+            platforms = _.reduce(packages, (platform, bpackage) => {
                 const platform_kernel = _.map(bpackage.platforms, (platform_param) => platform_param.kernel);
                 return platform.concat(platform_kernel);
             }, []);
         }
         return (_.uniq(platforms));
     }
-    
+
     getIcon(platform_icon){
         if (platform_icon==='OSX') {
             platform_icon = 'apple'
@@ -35,7 +35,6 @@ export default class PackageCard extends React.Component {
     getButtonsPlatforms(){
         const game_pk = this.props.game_pk
         const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value,index)=>
-
                 <ModalPackageCard key={index}
                     button={
                         <Button basic color='green'>
@@ -47,33 +46,35 @@ export default class PackageCard extends React.Component {
                     kernel={value}
                     gameName={this.props.gameName}
                     downloads={this.props.downloads}
-                />);
+                />
+        )
 
-        if (buttons_platforms!=[]) {
+        if (buttons_platforms.length > 0) {
             return buttons_platforms;
+        } else {
+            return <Button basic color='red'>Não há pacotes cadastrados</Button>
         }
-
-        return <Button basic color='red'>Não há pacotes cadastrados</Button>;
     }
 
-
     getPlatforms(packageExtension,platforms){
-       var filteredPlatforms = _.filter(platforms,(platform) => {
-          return platform.extensions == packageExtension 
-       });
-    
+        var filteredPlatforms = _.filter(platforms,(platform) => {
+            return platform.extensions == packageExtension
+        })
+
        return filteredPlatforms
     }
 
     getPackageExtension(packagePath){
-      var index = packagePath.lastIndexOf('.');
-      var packageExtension = packagePath.slice(index + 1)
-      return packageExtension
+        var index = packagePath.lastIndexOf('.')
+        var packageExtension = packagePath.slice(index + 1)
+
+        return packageExtension
     }
 
     packageIsRelatedToKernel(kernel,packageExtension){
-      var isRelated = _.includes(extensionsByKernel[kernel], packageExtension)
-      return isRelated
+        var isRelated = _.includes(extensionsByKernel[kernel], packageExtension)
+
+        return isRelated
     }
 
     handlePackages(kernel){
@@ -87,14 +88,15 @@ export default class PackageCard extends React.Component {
                 if(this.packageIsRelatedToKernel(kernel,packageExtension)){
                     packagesByKernel[eachPackage] = []
                     packagesByKernel[eachPackage].push(kernel)
-                    
+
                     plat = this.getPlatforms(packageExtension,eachPackage.platforms)
                 }
-            }); 
+            })
         }
-        return plat;
+
+        return plat
     }
-    
+
     render () {
 
         return (

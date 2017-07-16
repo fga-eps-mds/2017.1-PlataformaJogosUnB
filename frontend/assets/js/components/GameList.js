@@ -24,7 +24,7 @@ export default class GameList extends React.Component {
                 </Link>
             </Grid.Column>
         );
-        
+
         return this.gamesIsEmpyt(gamesCards);
     }
 
@@ -45,11 +45,11 @@ export default class GameList extends React.Component {
             return games;
         } else {
             return (
-            <Grid centered columns={2}>
-                <Header as='h1' inverted>Nenhum jogo encontrado</Header>
-                <Icon name='frown' size='massive' color='red'/>
-            </Grid>
-            );
+                <Grid centered columns={2}>
+                    <Header as='h1' inverted>Nenhum jogo encontrado</Header>
+                    <Icon name='frown' size='massive' color='red'/>
+                </Grid>
+            )
         }
     }
 
@@ -62,7 +62,7 @@ export default class GameList extends React.Component {
                     </Grid>
                 </Container>
             );
-        } else { 
+        } else {
             return (
                 <Container>
                     {this.getGameList()}
@@ -73,6 +73,6 @@ export default class GameList extends React.Component {
 }
 
 GameList.propTypes = {
-  games: PropTypes.array.isRequired,
-  modeView: PropTypes.bool.isRequired,
+    games: PropTypes.array.isRequired,
+    modeView: PropTypes.bool.isRequired,
 }
