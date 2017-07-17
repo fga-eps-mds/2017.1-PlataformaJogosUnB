@@ -14,12 +14,13 @@ export default class GameInformationCard extends React.Component {
                     <Image style={imageStyleGameCard} src={img} />
                 </div>
             )
+        } else {
+            return (
+                <Segment inverted color='blue'>
+                    <Header textAlign='center'>Não há imagem cadastrada!</Header>
+                </Segment>
+            )
         }
-        return (
-            <Segment inverted color='blue'>
-                <Header textAlign='center'>Não há imagem cadastrada!</Header>
-            </Segment>
-        );
     }
 
     render () {

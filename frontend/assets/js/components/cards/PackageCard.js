@@ -1,9 +1,8 @@
 import _ from 'lodash'
 import React from "react"
 import PropTypes from 'prop-types'
-import {Card, Button, Grid, Icon} from "semantic-ui-react"
+import {Card, Button, Grid, Icon, Modal, Message} from "semantic-ui-react"
 import ModalPackageCard from "./ModalPackageCard"
-import ModalLicenseSoftware from "../../layout/ModalLicenseSoftware"
 //TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
 
 const extensionsByKernel = {
@@ -13,6 +12,15 @@ const extensionsByKernel = {
 };
 
 export default class PackageCard extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            modalOpen: false
+        }
+        this.getHandleOpen = this.getHandleOpen.bind(this)
+        this.getHandleClose = this.getHandleClose.bind(this)
+    }
 
     reduceKernelPlatforms(packages) {
         let platforms = [];
@@ -32,15 +40,49 @@ export default class PackageCard extends React.Component {
         return platform_icon.toLowerCase()
     }
 
-    getButtonsPlatforms(){
-        const game_pk = this.props.game_pk
-        const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value,index)=>
-                <ModalPackageCard key={index}
-                    button={
-                        <Button basic color='green'>
+    getHandleOpen(){
+        this.setState({modalOpen: true})
+    }
+
+    getHandleClose(){
+        this.setState({modalOpen: false})
+    }
+
+    getLicensePlatformModal(value,index){
+        const messageLicense = "Ao realizar o download do instalador do jogo. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games), e a Universidade de Brasília não responsabiliza-se por possíveis danos em seu computador nem mal funcionamento dos jogos baixados."
+        return (
+            <Modal open={this.state.modalOpen} onClose={this.getHandleClose}
+                    trigger={
+                        <Button basic color='green' onClick={this.getHandleOpen}>
                             <Icon name={this.getIcon(value)} />
                         </Button>
                     }
+            >
+                <Modal.Header>Termo de uso <Icon color='yellow' name='warning sign'/></Modal.Header>
+                <Modal.Content>
+                   <Message info>
+                        <p>{messageLicense}</p>
+                    </Message>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='red' onClick={this.getHandleClose}>
+                        <Icon name='remove' />Não aceitar
+                    </Button>
+                        {this.getPackagesModal(value,index)}
+                </Modal.Actions>
+            </Modal>
+        )
+    }
+
+    getPackagesModal(value,index){
+        const game_pk = this.props.game_pk
+
+        return (
+                <ModalPackageCard key={index}
+                    button={
+                        <Button color='green'>
+                            <Icon name='checkmark' />Aceitar
+                        </Button>}
                     platform={this.handlePackages(value)}
                     game_pk={game_pk}
                     kernel={value}
@@ -48,7 +90,12 @@ export default class PackageCard extends React.Component {
                     downloads={this.props.downloads}
                 />
         )
+    }
 
+    getButtonsPlatforms(){
+        const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value,index)=>
+            this.getLicensePlatformModal(value,index)
+        )
         if (buttons_platforms.length > 0) {
             return buttons_platforms;
         } else {
@@ -117,7 +164,7 @@ export default class PackageCard extends React.Component {
 
 PackageCard.propTypes = {
     downloads: PropTypes.number.isRelated,
-    packages: PropTypes.array.isRequired,
     game_pk: PropTypes.number.isRequired,
+    packages: PropTypes.array.isRequired,
     gameName: PropTypes.string.isRequired
 }

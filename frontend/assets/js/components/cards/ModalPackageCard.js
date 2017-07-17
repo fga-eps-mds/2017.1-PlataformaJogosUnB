@@ -87,9 +87,8 @@ export default class ModalPackageCard extends React.Component {
         const bodyCells = this.getPlatformsList()
 
         if (bodyCells.lenght != []) {
-            console.log('Entrou')
             return (
-                    <Table celled padded>
+                <Table celled padded>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell singleLine>Plataformas</Table.HeaderCell>
@@ -111,7 +110,7 @@ export default class ModalPackageCard extends React.Component {
 
     render () {
         return (
-            <Modal trigger={this.props.button}>
+            <Modal trigger={this.props.button} closeIcon='close'>
                 <Modal.Header>
                     {this.props.gameName} - Instaladores disponíveis para {this.props.kernel}
                 </Modal.Header>
