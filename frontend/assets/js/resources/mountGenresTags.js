@@ -17,10 +17,15 @@ export const mountGenresTags = function(list){
 }
 
 export const mountIcons = function(kernels){
-    
-    let listKernel = (_.uniq(kernels).sort()).map((kernel,index) => {
-         return (<Icon color='white' key={index} inverted size={kernelValidation(kernel)} className={kernel} />)                 
-    })
-    
-    return (listKernel)
-}   
+    if(kernels.length != []){
+        let listKernel = (_.uniq(kernels).sort()).map((kernel,index) => {
+            return (
+                <Icon key={index} inverted size={kernelValidation(kernel)} className={kernel} />
+            )
+        })
+
+        return (listKernel)
+    } else {
+        return ('...')
+    }
+}

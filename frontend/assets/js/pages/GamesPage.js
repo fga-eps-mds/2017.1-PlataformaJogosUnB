@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
-import SortByItems from "../components/filter_items/SortByItems";
 import Items from "../components/filter_items/Items";
-import PerPageItems from "../components/filter_items/PerPageItems";
+import SortAndPerPageItems from "../components/filter_items/SortAndPerPageItems";
 import Paginator from "../components/Paginator";
 import LoadingAnimation from "../layout/LoadingAnimation";
 import {dataListApi} from "../resources/DataListApi";
+import {numbersOfExibtionItems, rule} from "../resources/Constants";
 
 export default class GamesPage extends React.Component {
 
@@ -99,7 +99,7 @@ export default class GamesPage extends React.Component {
 
     getGenreName(){
         if(this.state.genreOption === ''){
-            return "Categorias"
+            return "Todos Gêneros"
         } else {
             return this.state.genreOption
         }
@@ -112,7 +112,11 @@ export default class GamesPage extends React.Component {
                     <Container>
                         <Menu fluid vertical={option} inverted color='blue'>
                             <Menu.Item>
-                                <SortByItems
+                                <SortAndPerPageItems
+                                    optionDefault={'A-Z'}
+                                    items={rule}
+                                    selectionOption={'sortByOption'}
+                                    textDropbox={'Ordenar por: '}
                                     callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}
                                 />
                             </Menu.Item>
@@ -127,7 +131,7 @@ export default class GamesPage extends React.Component {
                             </Menu.Item>
                             <Menu.Item>
                                 <Items
-                                    type={'Plataformas'}
+                                    type={'Todas Plataformas'}
                                     pathListApi={'/api/platforms/'}
                                     text={'Todas Plataformas'}
                                     selectOption={'platformOption'}
@@ -135,7 +139,11 @@ export default class GamesPage extends React.Component {
                                 />
                             </Menu.Item>
                             <Menu.Item>
-                                <PerPageItems
+                                <SortAndPerPageItems
+                                    optionDefault={'16'}
+                                    items={numbersOfExibtionItems}
+                                    selectOption={'perPageOption'}
+                                    textDropbox={'Jogos exibidos: '}
                                     callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)}
                                 />
                             </Menu.Item>
@@ -165,8 +173,8 @@ export default class GamesPage extends React.Component {
                         <SegmentTitle title={'Lista de Jogos'} />
                     </Grid.Row>
 
-                    {this.getMenuFilters(true, "mobile")}
-                    {this.getMenuFilters(false,"tablet computer")}
+                    {this.getMenuFilters(true, "tablet mobile")}
+                    {this.getMenuFilters(false,"computer")}
 
                     <LoadingAnimation hasLoading={this.state.hasLoading} />
 

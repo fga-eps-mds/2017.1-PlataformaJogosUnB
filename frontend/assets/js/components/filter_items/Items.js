@@ -9,7 +9,7 @@ export default class Items extends React.Component{
         super(props);
         this.state = {
             "option":[],
-            "selectedOptionFilter": this.props.type.replace(/ /g,''),
+            "selectedOptionFilter": this.props.type,
         };
     }
 
@@ -49,7 +49,7 @@ export default class Items extends React.Component{
 
     render(){
         return(
-            <Dropdown text={this.state.selectedOptionFilter} pointing className='link item'>
+            <Dropdown text={'Filtrar por: ' + this.state.selectedOptionFilter} pointing>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
                         {this.props.text}
