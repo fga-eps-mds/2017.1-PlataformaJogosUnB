@@ -105,6 +105,18 @@ export default class GamesPage extends React.Component {
         }
     }
 
+    getSortAndPerPageItems(optionSort, itemsArray, selectOption, text){
+        return (
+            <SortAndPerPageItems
+                 optionDefault={optionSort}
+                 items={itemsArray}
+                 selectionOption={selectOption}
+                 textDropbox={text}
+                 callbackParent={(stateName, option) => this.optionChanged(selectOption, option)}
+            />
+        )
+    }
+
     getMenuFilters(option,widthScreen){
         return (
             <Grid.Row only={widthScreen}>
@@ -112,13 +124,7 @@ export default class GamesPage extends React.Component {
                     <Container>
                         <Menu fluid vertical={option} inverted color='blue'>
                             <Menu.Item>
-                                <SortAndPerPageItems
-                                    optionDefault={'A-Z'}
-                                    items={rule}
-                                    selectionOption={'sortByOption'}
-                                    textDropbox={'Ordenar por: '}
-                                    callbackParent={(stateName, option) => this.optionChanged('sortByOption', option)}
-                                />
+                                {this.getSortAndPerPageItems('A-Z',rule,'sortByOption','Ordenar por: ')}
                             </Menu.Item>
                             <Menu.Item>
                                 <Items
@@ -139,13 +145,7 @@ export default class GamesPage extends React.Component {
                                 />
                             </Menu.Item>
                             <Menu.Item>
-                                <SortAndPerPageItems
-                                    optionDefault={'16'}
-                                    items={numbersOfExibtionItems}
-                                    selectOption={'perPageOption'}
-                                    textDropbox={'Jogos exibidos: '}
-                                    callbackParent={(stateName, option) => this.optionChanged('perPageOption', option)}
-                                />
+                                {this.getSortAndPerPageItems('16',numbersOfExibtionItems,'perPageOption','Jogos exibidos: ')}
                             </Menu.Item>
                             <Menu.Item position='right'>
                                 <Button.Group color={'grey'}>

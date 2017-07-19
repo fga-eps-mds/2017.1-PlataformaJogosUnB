@@ -6,7 +6,6 @@ import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import PackageCard from '../components/cards/PackageCard';
-import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
 
@@ -29,11 +28,12 @@ export default class GamePage extends React.Component{
         this.getFields = this.getFields.bind()
     }
 
-    getFields (title,value,divider) {
-        if (value != null) {
+    getFields (title,value,divider,whatReturn) {
+        if (value != null && value!=undefined) {
             return <h7><strong>{title}</strong>{value}{divider}</h7>;
+        } else {
+            return whatReturn;
         }
-        return null;
     }
 
   loadGameFromServer(){
@@ -138,19 +138,9 @@ export default class GamePage extends React.Component{
                 <Grid.Row only='computer'>
                     <Grid.Column width={10}>
                         {this.getDescriptionCard()}
-                    </Grid.Column>
-
-                    <Grid.Column width={6}>
-                        <ReportBugCard
-                            game_pk={this.state.game.pk}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row only='computer'>
-                    <Grid.Column width={10}>
                         {this.getComment(id)}
                     </Grid.Column>
+
                     <Grid.Column width={6}>
                         {this.getDevelopersCard()}
                     </Grid.Column>
@@ -176,9 +166,6 @@ export default class GamePage extends React.Component{
 
                 <Grid.Row only='tablet mobile'>
                     {this.getPackageCard()}
-                    <ReportBugCard
-                        game_pk={this.state.game.pk}
-                    />
                 </Grid.Row>
                 <Grid.Row only='tablet mobile'>
                         {this.getDevelopersCard()}

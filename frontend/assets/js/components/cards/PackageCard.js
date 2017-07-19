@@ -51,7 +51,7 @@ export default class PackageCard extends React.Component {
     getLicensePlatformModal(value,index){
         const messageLicense = "Ao realizar o download do instalador do jogo. O(A) senhor(a) concorda que a plataforma de jogos da Universidade de Brasília (UnB games), e a Universidade de Brasília não responsabiliza-se por possíveis danos em seu computador nem mal funcionamento dos jogos baixados."
         return (
-            <Modal open={this.state.modalOpen} onClose={this.getHandleClose}
+            <Modal key={'licenseSoftware'} open={this.state.modalOpen} onClose={this.getHandleClose}
                     trigger={
                         <Button basic color='green' onClick={this.getHandleOpen}>
                             <Icon name={this.getIcon(value)} />
@@ -99,7 +99,7 @@ export default class PackageCard extends React.Component {
         if (buttons_platforms.length > 0) {
             return buttons_platforms;
         } else {
-            return <Button basic color='red'>Não há pacotes cadastrados</Button>
+            return <Button basic color='red'>Não há instaladores cadastrados</Button>
         }
     }
 
