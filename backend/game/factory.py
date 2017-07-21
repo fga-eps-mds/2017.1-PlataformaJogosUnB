@@ -13,7 +13,6 @@ class GameFactory(factory.DjangoModelFactory):
     name = factory.faker.Faker("word")
     cover_image = factory.django.ImageField(
         width=204, height=234, color=faker.safe_color_name())
-    version = factory.LazyAttribute(lambda x: "1.0")
     official_repository = factory.faker.Faker("url")
     visualization = factory.faker.Faker('pyint')
     game_activated = True

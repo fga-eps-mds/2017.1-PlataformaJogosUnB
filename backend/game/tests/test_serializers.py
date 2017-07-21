@@ -34,7 +34,6 @@ class TestGameSerializer:
         game = {'name': game.name,
                 'cover_image': game.cover_image.url,
                 'official_repository': game.official_repository,
-                'version': game.version,
                 'slide_image': game.slide_image.url,
                 'card_image': game.card_image.url,
                 'visualization': game.visualization,
@@ -80,6 +79,10 @@ class TestGameSerializer:
 
         assert credit_serialized == {
             'github_page': game.information.credits.first().github_page,
+            'behance_page': game.information.credits.first().behance_page,
+            'soundCloud_page': game.information.credits.first()
+                                .soundCloud_page,
+            'personal_page': game.information.credits.first().personal_page,
             'email': game.information.credits.first().email,
             'name': game.information.credits.first().name,
             'specialty': game.information.credits.first().specialty,

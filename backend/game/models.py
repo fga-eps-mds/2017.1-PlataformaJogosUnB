@@ -47,15 +47,6 @@ class Game(models.Model):
 
     visualization = models.BigIntegerField(default=0)
 
-    version = models.CharField(
-        _('Version'),
-        max_length=20,
-        validators=[validators.validate_version],
-        null=True,
-        blank=True,
-        help_text=_('What\'s the game version?'),
-    )
-
     official_repository = models.URLField(
         _('Official Repository'),
         validators=[URLValidator()],
@@ -82,12 +73,6 @@ class Game(models.Model):
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)
-
-    def __str__(self):
-        if self.version is None:
-            return self.name
-        else:
-            return "{0} v{1}".format(self.name, self.version)
 
 
 class Platform(models.Model):

@@ -33,17 +33,17 @@ class TestGame:
         return PackageFactory()
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize(('name, cover_image, version, ' +
+    @pytest.mark.parametrize(('name, cover_image, ' +
                               'official_repository, errors_dict'), [
-        ('game_name', 'test_image.ppm', '1.0', 'http://a.com',
+        ('game_name', 'test_image.ppm', 'http://a.com',
          mount_error_dict(['cover_image'], [[ErrorMessage.IMAGE_EXTENSION]])),
-        ('game_name', 'test_image.py', '1.0', 'http://a.com',
+        ('game_name', 'test_image.py', 'http://a.com',
          mount_error_dict(['cover_image'],
                           [[ErrorMessage.NOT_IMAGE.value[1]]])),
     ])
-    def test_cover_image_extension(self, name, cover_image, version,
+    def test_cover_image_extension(self, name, cover_image,
                                    official_repository, errors_dict):
-        game = Game(name=name, cover_image=cover_image, version=version,
+        game = Game(name=name, cover_image=cover_image,
                     official_repository=official_repository)
         validation_test(game, errors_dict)
 
@@ -51,13 +51,6 @@ class TestGame:
     def test_create_game_with_valid_atributtes(self, game):
         game = Game.objects.get(pk=game.pk)
         assert game == game
-
-    @pytest.mark.django_db
-    def test_str_game(self):
-        game = GameFactory.build(version=None, name="Game")
-        assert str(game) == "Game"
-        game.version = "1.1"
-        assert str(game) == "Game v1.1"
 
 
 class TestPlatform:
