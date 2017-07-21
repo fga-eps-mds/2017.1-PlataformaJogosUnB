@@ -22,22 +22,26 @@ export default class DevelopersCard extends React.Component {
         }
     }
     getRoleCells(role, credits){
-          return (<h7>
+        if(credits.lenght != []){
+            return (<h7>
                     {credits.filter((credit)=> credit.specialty === role)
                         .map((developer,index) => {
                               return (
                                 <Header.Content key={index}>
                                     {developer.name}
                                     {this.getIcon(developer.github_page,'github', 'Link para GitHub')}
-                                    {this.getIcon(developer.github_page,'behance', 'Link para Behance')}
-                                    {this.getIcon(developer.github_page,'soundcloud', 'Link para Soundcloud')}
-                                    {this.getIcon(developer.github_page,'drivers license outline', 'Link para página pessoal')}
+                                    {this.getIcon(developer.behance_page,'behance', 'Link para Behance')}
+                                    {this.getIcon(developer.soundCloud_page,'soundcloud', 'Link para SoundCloud')}
+                                    {this.getIcon(developer.personal_page,'drivers license outline', 'Link para página pessoal')}
                                     {this.getIcon(developer.email,'mail outline', developer.email)}
                                 </Header.Content>
                             )
                         })
                     }
-                  </h7>)
+                </h7>)
+        } else {
+            return <h7>Não há descrição cadastrada para esse jogo.</h7>
+        }
     }
 
     getTable(role, title){

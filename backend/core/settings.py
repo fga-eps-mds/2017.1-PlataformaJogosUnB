@@ -16,7 +16,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = os.environ["authfacebooksecret"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["unbgames.lappis.rocks", "10.10.10.10", "127.0.0.1",
+                 "localhost"]
 
 
 # E-mail protocol, host and backend configuration for reseting

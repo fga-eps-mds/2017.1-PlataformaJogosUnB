@@ -49,7 +49,7 @@ class Credit(models.Model):
     ROLE_CHOICES = [
         ('desenvolvedor', _('Desenvolvedor')),
         ('design', _('Design')),
-        ('musico', _('Musico')),
+        ('musico', _('Músico')),
     ]
 
     specialty = models.CharField(
@@ -57,13 +57,13 @@ class Credit(models.Model):
         max_length=14,
         choices=ROLE_CHOICES,
         default=ROLE_CHOICES[0][0],
-        help_text=_('Select the contributer'),
+        help_text=_('Seleciona o tipo do contribuidor do projeto.'),
     )
 
     name = models.CharField(
-        _('Name'),
+        _('Nome'),
         max_length=100,
-        help_text=_('Name of the developer.')
+        help_text=_('Nome do contribuidor.')
     )
 
     email = models.EmailField(
@@ -72,15 +72,39 @@ class Credit(models.Model):
         max_length=100,
         null=True,
         blank=True,
-        help_text=_('Developer contact e-mail.')
+        help_text=_('E-mail do contribuidor.')
     )
 
     github_page = models.URLField(
-        _('Github Page'),
+        _('Página do Github'),
         null=True,
         blank=True,
         validators=[URLValidator()],
-        help_text=_('Developer Github page.')
+        help_text=_('Github do contribuidor.')
+    )
+
+    behance_page = models.URLField(
+        _('Página do Behance'),
+        null=True,
+        blank=True,
+        validators=[URLValidator()],
+        help_text=_('Behance do contribuidor.')
+    )
+
+    soundCloud_page = models.URLField(
+        _('Página do SoundCloud'),
+        null=True,
+        blank=True,
+        validators=[URLValidator()],
+        help_text=_('SoundCloud do contribuidor.')
+    )
+
+    personal_page = models.URLField(
+        _('Página Pessoal'),
+        null=True,
+        blank=True,
+        validators=[URLValidator()],
+        help_text=_('Alguma página que contenha o currículo do contribuidor.')
     )
 
     def save(self, *args, **kwargs):

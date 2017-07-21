@@ -42,12 +42,20 @@ class TestCreditSerializer:
             specialty='desenvolvedor',
             name='Credit',
             email='credit@gmail.com',
-            github_page='http://github.com/credit')
+            github_page='http://github.com/credit',
+            behance_page='https://www.behance.net/credit',
+            soundCloud_page='https://soundcloud.com/credit',
+            personal_page='https://br.linkedin.com/credit'
+        )
 
         credit_serialized = CreditSerializer(credit).data
         expected_json_credit = {
             'specialty': 'desenvolvedor',
             'name': 'Credit',
             'email': 'credit@gmail.com',
-            'github_page': 'http://github.com/credit'}
+            'github_page': 'http://github.com/credit',
+            'behance_page': 'https://www.behance.net/credit',
+            'soundCloud_page': 'https://soundcloud.com/credit',
+            'personal_page': 'https://br.linkedin.com/credit'
+        }
         assert credit_serialized == expected_json_credit

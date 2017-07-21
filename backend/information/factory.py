@@ -30,6 +30,9 @@ class CreditFactory(factory.DjangoModelFactory):
     name = factory.faker.Faker("word")
     email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
     github_page = factory.faker.Faker("url")
+    behance_page = factory.faker.Faker("url")
+    soundCloud_page = factory.faker.Faker("url")
+    personal_page = factory.faker.Faker("url")
 
 
 class GenreFactory(factory.DjangoModelFactory):
