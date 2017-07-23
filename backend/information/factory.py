@@ -15,9 +15,8 @@ class AwardFactory(factory.DjangoModelFactory):
     class Meta:
         model = Award
 
-    name = factory.faker.Faker("word")
-    year = factory.LazyAttribute(lambda x: 2000 + (faker.pyint() % 17))
-    place = factory.LazyAttribute(lambda x: "First")
+    name = factory.LazyAttribute(lambda x: "Melhor Arte")
+    place = factory.LazyAttribute(lambda x: "Primeiro Lugar")
 
 
 class CreditFactory(factory.DjangoModelFactory):

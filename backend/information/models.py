@@ -1,6 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from game.models import Game
+from information.choices import (
+    AWARDS_CHOICES,
+    PLACE_AWARDS_CHOICES
+)
 from django.core.validators import (
     MinLengthValidator,
     EmailValidator,
@@ -19,21 +23,19 @@ MAX_SEMESTER_VALUE = 2
 class Award(models.Model):
 
     name = models.CharField(
-        _('Name'),
-        max_length=100,
-        help_text=_('Name of the award.')
-    )
-
-    year = models.PositiveIntegerField(
-        _('Year'),
-        validators=min_max_validators(**years_validator('award')),
-        help_text=_('Year the award was won.')
+        _('Nome do prêmio'),
+        max_length=30,
+        choices=AWARDS_CHOICES,
+        default=AWARDS_CHOICES[0][0],
+        help_text=_('Ex: Melhor Jogo.')
     )
 
     place = models.CharField(
-        _('Place'),
-        max_length=100,
-        help_text=_('Place where the game won the award.')
+        _('Colocação'),
+        max_length=30,
+        choices=PLACE_AWARDS_CHOICES,
+        default=PLACE_AWARDS_CHOICES[0][0],
+        help_text=_('Colocação que o jogo ganhou.')
     )
 
     def save(self, *args, **kwargs):
@@ -41,7 +43,7 @@ class Award(models.Model):
         super(Award, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0} ({1}): {2}".format(self.place, self.year, self.name)
+        return "{0}: {1}".format(self.name, self.place)
 
 
 class Credit(models.Model):
