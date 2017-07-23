@@ -57,10 +57,6 @@ class TestPlatform:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize('field, value, errors_dict', [
-        ('kernel', '',
-         mount_error_dict(['kernel'], [[ErrorMessage.BLANK]])),
-        ('kernel', None,
-         mount_error_dict(['kernel'], [[ErrorMessage.NULL]])),
         ('name', '',
          mount_error_dict(['name'], [[ErrorMessage.BLANK]])),
         ('name', None,
@@ -142,10 +138,6 @@ class TestPackage:
 
     @pytest.mark.django_db
     @pytest.mark.parametrize('architecture, errors_dict', [
-        ('', mount_error_dict(['architecture'], [[ErrorMessage.BLANK]])),
-        (None,
-         mount_error_dict(['architecture'],
-                          [[ErrorMessage.NULL]])),
         ('a' * 41,
          mount_error_dict(['architecture'],
                           [[ERROR_MESSAGE]])),

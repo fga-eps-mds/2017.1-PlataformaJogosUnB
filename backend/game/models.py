@@ -85,6 +85,7 @@ class Platform(models.Model):
 
     extensions = models.CharField(
         _('Valid extension'),
+        blank=True,
         max_length=3,
         choices=EXTENSION_CHOICES,
         default=EXTENSION_CHOICES[0][0],
@@ -95,6 +96,7 @@ class Platform(models.Model):
 
     kernel = models.CharField(
         _('Kernel name'),
+        blank=True,
         max_length=20,
         choices=KERNEL_CHOICES,
         default=KERNEL_CHOICES[0][0],
@@ -126,6 +128,7 @@ class Package(models.Model):
 
     package = models.FileField(
         _('Package'),
+        blank=True,
         upload_to='packages/',
         validators=[validators.validate_package_size,
                     validators.package_extension_validator],
@@ -147,6 +150,7 @@ class Package(models.Model):
 
     architecture = models.CharField(
         _('Architecture'),
+        blank=True,
         max_length=40,
         choices=ARCHITECTURE_CHOICES,
         default=ARCHITECTURE_CHOICES[0][0],
