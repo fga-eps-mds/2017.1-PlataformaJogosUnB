@@ -80,57 +80,42 @@ characters!"
 
 @pytest.fixture
 def award_creation():
-    award = Award.objects.create(name="award", place="UnB", year=now())
+    award = Award.objects.create(name="Melhor Arte", place="Primeiro Lugar")
     award.save()
     return award
 
 
 class TestAward:
-    error_message_year_future = 'We believe the award was not won in the\
- future!'
 
     @staticmethod
-    def parametrized_str(attribute):
+    def parametrized_str(attribute, text):
 
-        error_message_max_length = 'Certifique-se de que o valor tenha no '\
-            'máximo 100 caracteres (ele possui 101).'
+        error_message_max_length = "Valor "\
+                "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'" \
+                " não é uma opção válida."
 
         return [
-            ('', 2016, 'Unb-Gama',
+            ('', text,
              mount_error_dict([attribute], [[ErrorMessage.BLANK]])),
-            (None, 2016, 'Unb-Gama',
+            (None, text,
              mount_error_dict([attribute], [[ErrorMessage.NULL]])),
-            ('a' * 101, 2016, 'Unb-Gama',
+            ('a' * 31, text,
              mount_error_dict([attribute], [[error_message_max_length]])),
         ]
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, year, place, errors_dict",
-                             parametrized_str.__func__('name'))
-    def test_name_validation(self, name, year, place, errors_dict):
-        award = Award(name=name, place=place, year=year)
+    @pytest.mark.parametrize("name, place, errors_dict",
+                             parametrized_str.__func__('name',
+                                                       'Primeiro Lugar'))
+    def test_name_validation(self, name, place, errors_dict):
+        award = Award(name=name, place=place)
         validation_test(award, errors_dict)
 
     @pytest.mark.django_db
-    @pytest.mark.parametrize("name, year, place, errors_dict", [
-        ('award_name', 1900, 'Unb-Gama',
-         mount_error_dict(["year"], [[ErrorMessage.YEAR_PAST]])),
-        ('award_name', 2018, 'Unb-Gama',
-         mount_error_dict(["year"], [[error_message_year_future]])),
-        ('award_name', None, 'Unb-Gama',
-         mount_error_dict(["year"], [[ErrorMessage.NULL]])),
-        ('award_name', '', 'Unb-Gama',
-         mount_error_dict(["year"], [[ErrorMessage.NOT_INTEGER]])),
-    ])
-    def test_year_validation(self, name, year, place, errors_dict):
-        award = Award(name=name, place=place, year=year)
-        validation_test(award, errors_dict)
-
-    @pytest.mark.django_db
-    @pytest.mark.parametrize("place, year, name, errors_dict",
-                             parametrized_str.__func__('place'))
-    def test_place_validation(self, place, year, name, errors_dict):
-        award = Award(name=name, place=place, year=year)
+    @pytest.mark.parametrize("place, name, errors_dict",
+                             parametrized_str.__func__('place', 'Melhor Arte'))
+    def test_place_validation(self, place, name, errors_dict):
+        award = Award(name=name, place=place)
         validation_test(award, errors_dict)
 
     @pytest.mark.django_db
@@ -140,7 +125,7 @@ class TestAward:
 
     @pytest.mark.django_db
     def test_str_award(self, award_creation):
-        assert str(award_creation) == "UnB (%d): %s" % (now(), "award")
+        assert str(award_creation) == ("Melhor Arte: Primeiro Lugar")
 
 
 @pytest.fixture

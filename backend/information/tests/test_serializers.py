@@ -24,13 +24,12 @@ class TestAwardSerializer:
 
     @pytest.mark.django_db
     def test_serialization_award(self):
-        award = Award(name='VGA', year='2017', place='UnB')
+        award = Award(name='Melhor Trilha Sonora', place='Segundo Lugar')
 
         award_serialized = AwardSerializer(award).data
         expected_json_award = {
-            "name": 'VGA',
-            "year": 2017,
-            "place": 'UnB'}
+            "name": 'Melhor Trilha Sonora',
+            "place": 'Segundo Lugar'}
         assert award_serialized == expected_json_award
 
 

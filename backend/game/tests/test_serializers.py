@@ -90,7 +90,6 @@ class TestGameSerializer:
 
         assert award_serialized == {
             'name': game.information.awards.first().name,
-            'year': game.information.awards.first().year,
             'place': game.information.awards.first().place,
         }
 
