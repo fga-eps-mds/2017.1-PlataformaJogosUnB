@@ -28,7 +28,7 @@ class TestMediaForm:
     ])
     @pytest.mark.django_db
     def test_update_medias(self, form, media, attr):
-        form.cleaned_data = {'game': GameFactory(), 'role': 'slider'}
+        form.cleaned_data = {'game': GameFactory(), 'role': 'slide'}
         list_files = [getattr(media, attr).file]
         assert [] == form.update_medias(media, list_files, True, attr)
         assert media.__class__.objects.count() == 1
@@ -40,7 +40,7 @@ class TestMediaForm:
         (VideoForm(), "video", VideoFactory.build())
     ])
     def test_save_instances(self, form, attr, factory, mock):
-        form.cleaned_data = {'game': GameFactory(), 'role': 'slider'}
+        form.cleaned_data = {'game': GameFactory(), 'role': 'slide'}
         list_files = [getattr(factory, attr).file]
         with mock.patch("media.forms.MediaForm.update_medias",
                         return_value=list_files):

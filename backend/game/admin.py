@@ -8,6 +8,7 @@ from media.forms import ImageForm, VideoForm, SoundtrackForm
 
 class InformationInline(admin.StackedInline):
     model = Information
+    filter_horizontal = ('credits', 'genres', 'awards',)
 
 
 class ImageInline(admin.StackedInline):

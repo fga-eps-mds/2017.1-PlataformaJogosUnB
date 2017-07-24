@@ -3,13 +3,7 @@ import React from "react"
 import PropTypes from 'prop-types'
 import {Card, Button, Grid, Icon, Modal, Message} from "semantic-ui-react"
 import ModalPackageCard from "./ModalPackageCard"
-//TODO achar um jeito mais inteligente de pegar as extensões permitidas por kernel
 
-const extensionsByKernel = {
-  "Linux": ["deb","rpm","sh"],
-  "Windows": ["exe"],
-  "OSX": ["app"],
-};
 
 export default class PackageCard extends React.Component {
 
@@ -83,7 +77,6 @@ export default class PackageCard extends React.Component {
                         <Button color='green'>
                             <Icon name='checkmark' />Aceitar
                         </Button>}
-                    platform={this.handlePackages(value)}
                     game_pk={game_pk}
                     kernel={value}
                     gameName={this.props.gameName}
@@ -101,47 +94,6 @@ export default class PackageCard extends React.Component {
         } else {
             return <Button basic color='red'>Não há instaladores cadastrados</Button>
         }
-    }
-
-    getPlatforms(packageExtension,platforms){
-        var filteredPlatforms = _.filter(platforms,(platform) => {
-            return platform.extensions == packageExtension
-        })
-
-       return filteredPlatforms
-    }
-
-    getPackageExtension(packagePath){
-        var index = packagePath.lastIndexOf('.')
-        var packageExtension = packagePath.slice(index + 1)
-
-        return packageExtension
-    }
-
-    packageIsRelatedToKernel(kernel,packageExtension){
-        var isRelated = _.includes(extensionsByKernel[kernel], packageExtension)
-
-        return isRelated
-    }
-
-    handlePackages(kernel){
-        const packages = this.props.packages
-        var packagesByKernel = {}
-        var plat = []
-
-        if(packages !== undefined){
-            packages.forEach((eachPackage) => {
-                var packageExtension = this.getPackageExtension(eachPackage['package'])
-                if(this.packageIsRelatedToKernel(kernel,packageExtension)){
-                    packagesByKernel[eachPackage] = []
-                    packagesByKernel[eachPackage].push(kernel)
-
-                    plat = this.getPlatforms(packageExtension,eachPackage.platforms)
-                }
-            })
-        }
-
-        return plat
     }
 
     render () {

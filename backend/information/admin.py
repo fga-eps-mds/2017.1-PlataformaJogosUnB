@@ -20,6 +20,7 @@ class CreditsInline(admin.TabularInline):
 class CreditAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', ]
     search_fields = ['name', 'email', ]
+    list_filter = ['name']
 
 
 class GenresInline(admin.TabularInline):

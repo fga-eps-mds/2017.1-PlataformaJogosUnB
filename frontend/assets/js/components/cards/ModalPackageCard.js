@@ -71,11 +71,11 @@ export default class ModalPackageCard extends React.Component {
     getPlatformsList(){
         const packages_rows = (this.getPackagesByKernel(this.props.kernel)).map((eachPackage, index)=>
             <Table.Row key={index}>
-              {this.getCell(eachPackage.platforms)}
-              {this.getCell(eachPackage.architecture)}
-              <Table.Cell>
-                <Icon name='download' style={cursorMouse} onClick={() => this.downloadPackage(eachPackage.package,eachPackage.pk)}/>
-                    {eachPackage.size}
+                {this.getCell(eachPackage.platforms)}
+                {this.getCell(eachPackage.architecture)}
+                {this.getCell(eachPackage.size)}
+                <Table.Cell onClick={() => this.downloadPackage(eachPackage.package,eachPackage.pk)} style={cursorMouse}>
+                    <Icon name='download' size='large' style={cursorMouse} /> Baixar <strong>{this.props.gameName}</strong>
                 </Table.Cell>
             </Table.Row>
         )
@@ -93,6 +93,7 @@ export default class ModalPackageCard extends React.Component {
                         <Table.Row>
                             <Table.HeaderCell singleLine>Plataformas</Table.HeaderCell>
                             <Table.HeaderCell singleLine>Arquitetura</Table.HeaderCell>
+                            <Table.HeaderCell singleLine>Tamanho do Instalador</Table.HeaderCell>
                             <Table.HeaderCell>Download</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -124,7 +125,6 @@ export default class ModalPackageCard extends React.Component {
 
 ModalPackageCard.propTypes = {
     button: PropTypes.object.isRequired,
-    platform: PropTypes.array.isRequired,
     game_pk: PropTypes.number.isRequired,
     kernel: PropTypes.string.isRequired,
     gameName: PropTypes.string.isRequired
