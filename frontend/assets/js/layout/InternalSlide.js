@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Container} from 'semantic-ui-react';
+import {Container, Segment} from 'semantic-ui-react';
 import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
 var Carousel = require('react-responsive-carousel').Carousel;
 require("../../../assets/styles/carousel_internal_slide.css");
@@ -67,20 +67,22 @@ export default class InternalSlide extends React.Component {
     const mediaList = this.getMedias(this.props.media_video,this.props.media_image);
         if(mediaList){
             return (
-                <Carousel style={slideHeight}
-                  stopOnHover={true}
-                  infiniteLoop={true}
-                  autoPlay={true}
-                  emulateTouch={true}
-                  showStatus={false}
-                  showArrows={true}
-                  useKeyboardArrows={true}
-                  showThumbs={true}
-                  dynamicHeight={false}
-                >
-                {mediaList}
-                </Carousel>
-            );
+                <Segment inverted color='blue'>
+                    <Carousel style={slideHeight}
+                        stopOnHover={true}
+                        infiniteLoop={true}
+                        autoPlay={true}
+                        emulateTouch={true}
+                        showStatus={false}
+                        showArrows={true}
+                        useKeyboardArrows={true}
+                        showThumbs={true}
+                        dynamicHeight={false}
+                    >
+                    {mediaList}
+                    </Carousel>
+                </Segment>
+            )
         }
         else {
             return (

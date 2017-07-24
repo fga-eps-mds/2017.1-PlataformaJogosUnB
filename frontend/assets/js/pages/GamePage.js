@@ -28,7 +28,7 @@ export default class GamePage extends React.Component{
         this.getFields = this.getFields.bind()
     }
 
-    getFields (title,value,divider,whatReturn) {
+    getFields(title,value,divider,whatReturn) {
         if (value != null && value!=undefined) {
             return <h7><strong>{title}</strong>{value}{divider}</h7>;
         } else {
