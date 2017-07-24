@@ -7,8 +7,6 @@ engines:
     config:
       languages:
       - javascript
-          mass_threshold: 90
-
   csslint:
     enabled: true
   fixme:

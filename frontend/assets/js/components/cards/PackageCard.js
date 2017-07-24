@@ -62,7 +62,7 @@ export default class PackageCard extends React.Component {
                     <Button color='red' onClick={this.getHandleClose}>
                         <Icon name='remove' />Não aceitar
                     </Button>
-                        {this.getPackagesModal(value,index)}
+                    {this.getPackagesModal(value,index)}
                 </Modal.Actions>
             </Modal>
         )
@@ -76,7 +76,8 @@ export default class PackageCard extends React.Component {
                     button={
                         <Button color='green'>
                             <Icon name='checkmark' />Aceitar
-                        </Button>}
+                        </Button>
+                    }
                     game_pk={game_pk}
                     kernel={value}
                     gameName={this.props.gameName}

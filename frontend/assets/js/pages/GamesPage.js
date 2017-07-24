@@ -13,7 +13,7 @@ import {numbersOfExibtionItems, rule} from "../resources/Constants";
 export default class GamesPage extends React.Component {
 
     constructor (){
-        super();
+        super()
         this.state = {
             "games": [],
             "sortByOption": '',
@@ -121,44 +121,42 @@ export default class GamesPage extends React.Component {
         return (
             <Grid.Row only={widthScreen}>
                 <Grid.Column>
-                    <Container>
-                        <Menu fluid vertical={option} inverted color='blue'>
-                            <Menu.Item>
-                                {this.getSortAndPerPageItems('A-Z',rule,'sortByOption','Ordenar por: ')}
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Items
-                                    type={this.getGenreName()}
-                                    pathListApi={'/api/genres/'}
-                                    text={'Todos Gêneros'}
-                                    selectOption={'genreOption'}
-                                    callbackParent={(stateName, option) => this.optionChanged('genreOption', option)}
-                                />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Items
-                                    type={'Todas Plataformas'}
-                                    pathListApi={'/api/platforms/'}
-                                    text={'Todas Plataformas'}
-                                    selectOption={'platformOption'}
-                                    callbackParent={(stateName, option) => this.optionChanged('platformOption', option)}
-                                />
-                            </Menu.Item>
-                            <Menu.Item>
-                                {this.getSortAndPerPageItems('16',numbersOfExibtionItems,'perPageOption','Jogos exibidos: ')}
-                            </Menu.Item>
-                            <Menu.Item position='right'>
-                                <Button.Group color={'grey'}>
-                                    <Button active={!this.state.currentViewMode} onClick={this.selectViewMode}>
-                                        <Icon name='list layout' />
-                                    </Button>
-                                    <Button active={this.state.currentViewMode} onClick={this.selectViewMode}>
-                                        <Icon name='grid layout' />
-                                    </Button>
-                                </Button.Group>
-                            </Menu.Item>
-                        </Menu>
-                    </Container>
+                    <Menu fluid vertical={option} inverted color='blue'>
+                        <Menu.Item>
+                            {this.getSortAndPerPageItems('A-Z',rule,'sortByOption','Ordenar por: ')}
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Items
+                                type={this.getGenreName()}
+                                pathListApi={'/api/genres/'}
+                                text={'Todos Gêneros'}
+                                selectOption={'genreOption'}
+                                callbackParent={(stateName, option) => this.optionChanged('genreOption', option)}
+                            />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Items
+                                type={'Todas Plataformas'}
+                                pathListApi={'/api/platforms/'}
+                                text={'Todas Plataformas'}
+                                selectOption={'platformOption'}
+                                callbackParent={(stateName, option) => this.optionChanged('platformOption', option)}
+                            />
+                        </Menu.Item>
+                        <Menu.Item>
+                            {this.getSortAndPerPageItems('16',numbersOfExibtionItems,'perPageOption','Jogos exibidos: ')}
+                        </Menu.Item>
+                        <Menu.Item position='right'>
+                            <Button.Group color={'grey'}>
+                                <Button active={!this.state.currentViewMode} onClick={this.selectViewMode}>
+                                    <Icon name='list layout' />
+                                </Button>
+                                <Button active={this.state.currentViewMode} onClick={this.selectViewMode}>
+                                    <Icon name='grid layout' />
+                                </Button>
+                            </Button.Group>
+                        </Menu.Item>
+                    </Menu>
                 </Grid.Column>
             </Grid.Row>
         )

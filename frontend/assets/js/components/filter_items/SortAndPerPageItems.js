@@ -6,15 +6,18 @@ export default class SortAndPerPageItems extends React.Component{
     constructor (props){
         super(props);
         this.state = {
-            "option": this.props.optionDefault,
+            "option": props.optionDefault,
         }
     }
 
     listDropdownItems(items){
         const listDropItems = items.map((item, index) =>
-            <Dropdown.Item key={index} onClick={(e) => this.handleClick(item, e)}>
-                {item.option}
-            </Dropdown.Item>
+            <Dropdown.Item
+                key={index}
+                text={item.option}
+                icon={item.icon}
+                onClick={(e) => this.handleClick(item, e)}
+            />
         )
         return listDropItems;
     }

@@ -37,23 +37,28 @@ export default class Items extends React.Component{
     mountItems(){
         if(typeof this.state.option === "undefined"){
             return false
+        } else {
+            const gameItems = this.state.option.map((option, i) =>
+                <Dropdown.Item
+                    key={i}
+                    text={option.name}
+                    icon='tag'
+                    onClick={(e) => this.handleClick(option.name, e)}
+                />
+            )
+            return gameItems
         }
-        const gameItems = this.state.option.map((option, i) =>
-                <Dropdown.Item key={i} onClick={(e) => this.handleClick(option.name, e)}>
-                    {option.name}
-                </Dropdown.Item>
-        )
-        return gameItems
-
     }
 
     render(){
         return(
             <Dropdown text={'Filtrar por: ' + this.state.selectedOptionFilter} pointing>
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={(e) => this.handleClick('', e)}>
-                        {this.props.text}
-                    </Dropdown.Item>
+                    <Dropdown.Item
+                        icon='tag'
+                        text={this.props.text}
+                        onClick={(e) => this.handleClick('', e)}
+                    />
                     {this.mountItems()}
                 </Dropdown.Menu>
             </Dropdown>
