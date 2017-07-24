@@ -6,8 +6,8 @@
 @headerFont        	: 'Orbitron', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @pageFont          	: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @googleFontName    	: 'Orbitron';
-@linkColor          : #159588;
-@linkHoverColor		: #254BA1;
+@linkColor          : #C0C0C0;
+@linkHoverColor     : #ffffff;
 
 /*-------------------
       Site Colors

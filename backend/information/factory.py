@@ -15,9 +15,8 @@ class AwardFactory(factory.DjangoModelFactory):
     class Meta:
         model = Award
 
-    name = factory.faker.Faker("word")
-    year = factory.LazyAttribute(lambda x: 2000 + (faker.pyint() % 17))
-    place = factory.LazyAttribute(lambda x: "First")
+    name = factory.LazyAttribute(lambda x: "Melhor Arte")
+    place = factory.LazyAttribute(lambda x: "Primeiro Lugar")
 
 
 class CreditFactory(factory.DjangoModelFactory):
@@ -30,6 +29,9 @@ class CreditFactory(factory.DjangoModelFactory):
     name = factory.faker.Faker("word")
     email = factory.LazyAttribute(lambda x: faker.first_name() + '@email.com')
     github_page = factory.faker.Faker("url")
+    behance_page = factory.faker.Faker("url")
+    soundCloud_page = factory.faker.Faker("url")
+    personal_page = factory.faker.Faker("url")
 
 
 class GenreFactory(factory.DjangoModelFactory):

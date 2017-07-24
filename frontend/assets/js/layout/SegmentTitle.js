@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 
 export default class SegmentTitle extends React.Component {
-	render() {
+    render() {
 		return (
 			<Segment padded inverted color="grey">
 				<h1>{this.props.title}</h1>
@@ -13,5 +13,5 @@ export default class SegmentTitle extends React.Component {
 }
 
 SegmentTitle.propTypes = {
-    title: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
 }

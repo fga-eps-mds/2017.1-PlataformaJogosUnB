@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
 ROLE_CHOICES = [
-    ('slider', _('slider')),
+    ('slide', _('slide')),
     ('extra', _('extra')),
 ]

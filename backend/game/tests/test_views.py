@@ -160,14 +160,13 @@ class TestViewGamePost:
 
     @pytest.fixture
     def image_str(self):
-        image = GameFactory.build(name=None, official_repository=None,
-                                  version=None).cover_image.file
+        image = GameFactory.build(name=None, official_repository=None
+                                  ).cover_image.file
         return base64.b64encode(image.read()).decode('utf-8')
 
     @pytest.fixture
     def game_serial(self, image_str):
         return {'name': 'quae',
-                'version': '1.0',
                 'official_repository': 'https://www.martinez.com/',
                 'game_activated': True,
                 'image_name': 'serial',

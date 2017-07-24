@@ -1,7 +1,7 @@
 
 export const getKernel = function( packages) {
     const extensionsByKernel = {
-        linux: ["deb","rpm"],
+        linux: ["deb","rpm","sh",],
         windows: ["exe"],
         apple: ["app"]
     };

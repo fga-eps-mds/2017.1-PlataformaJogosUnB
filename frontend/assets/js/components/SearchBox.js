@@ -45,7 +45,7 @@ export default class SearchBox extends Component {
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
             const isMatch = (result) => {
-                return (re.test(result.title) || re.test(result.gameDescription))
+                return (re.test(result.title))
             }
 
             this.setState({
@@ -54,12 +54,11 @@ export default class SearchBox extends Component {
             })
 
             const MAXLIMIT = 5;
-            var firstFiveGames = []; 
+            var firstFiveGames = [];
             for (var i = 0; i < this.state.results.length; i++) {
                 if (i < MAXLIMIT) {
                     firstFiveGames.push(this.state.results[i]);
                 } else {
-                    
                     break;
                 }
             }

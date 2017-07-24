@@ -2,3 +2,4 @@ node_modules/
 webpack.config.js
 semantic-fix.js
 public/
+__tests__

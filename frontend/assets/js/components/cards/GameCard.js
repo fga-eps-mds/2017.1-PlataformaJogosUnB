@@ -7,6 +7,18 @@ import {cardImageStyle, imageStyleGameCard} from "../../resources/stylesheet/Sty
 
 export default class GameCard extends React.Component {
 
+    getName(){
+        let name = this.props.game.name
+
+        if(name.length > 20){
+            return name.substring(0,20) + '...'
+
+        } else {
+            return name
+        }
+
+    }
+
     render () {
         return (
             <Card>
@@ -15,11 +27,11 @@ export default class GameCard extends React.Component {
                 </div>
                 <Card.Content>
                     <Card.Header>
-                        {this.props.game.name}
+                        {this.getName()}
                     </Card.Header>
                 </Card.Content>
                 <Card.Content extra>
-                    {mountIcons(getKernel(this.props.game.packages))} 
+                    {mountIcons(getKernel(this.props.game.packages))}
                 </Card.Content>
             </Card>
         );

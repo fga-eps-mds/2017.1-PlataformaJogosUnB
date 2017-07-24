@@ -10,7 +10,7 @@ require("slick-carousel/slick/slick.css");
 require("slick-carousel/slick/slick-theme.css");
 
 const slideHeight = {
-  "height": "280px",
+  "height": "320px",
   "position":"relative",
   "minHeight":"180px",
   "margin":20
@@ -96,5 +96,5 @@ export default class CardsSlide extends React.Component {
 }
 
 CardsSlide.propTypes = {
-  url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired
 }

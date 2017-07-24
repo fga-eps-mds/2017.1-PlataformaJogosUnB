@@ -9,8 +9,8 @@ class AwardsInline(admin.TabularInline):
 
 
 class AwardAdmin(admin.ModelAdmin):
-    list_display = ['name', 'year', 'place', ]
-    search_fields = ['name', 'year', 'place', ]
+    list_display = ['name', 'place', ]
+    search_fields = ['name', 'place', ]
 
 
 class CreditsInline(admin.TabularInline):
@@ -20,6 +20,7 @@ class CreditsInline(admin.TabularInline):
 class CreditAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', ]
     search_fields = ['name', 'email', ]
+    list_filter = ['name']
 
 
 class GenresInline(admin.TabularInline):

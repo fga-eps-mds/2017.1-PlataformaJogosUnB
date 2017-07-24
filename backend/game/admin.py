@@ -8,6 +8,7 @@ from media.forms import ImageForm, VideoForm, SoundtrackForm
 
 class InformationInline(admin.StackedInline):
     model = Information
+    filter_horizontal = ('credits', 'genres', 'awards',)
 
 
 class ImageInline(admin.StackedInline):
@@ -53,7 +54,7 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [InformationInline, PackageInline,
                ImageInline, VideoInline, SoundtrackInline]
     exclude = ['slide_image', 'card_image', 'visualization']
-    list_display = ['name', 'version', 'game_activated']
+    list_display = ['name', 'game_activated']
     search_fields = ['name']
 
     def save_formset(self, request, form, formset, change):

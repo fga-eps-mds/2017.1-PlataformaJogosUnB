@@ -9,5 +9,5 @@
 @descriptionColor: #ffffff;
 @extraColor: #ffffff;
 
-@extraLinkColor: #159588;
-@extraLinkHoverColor: #254BA1;
+@extraLinkColor: #C0C0C0;
+@extraLinkHoverColor: #ffffff;

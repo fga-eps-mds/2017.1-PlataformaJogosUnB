@@ -8,14 +8,15 @@ class AwardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Award
-        fields = ['name', 'year', 'place']
+        fields = ['name', 'place']
 
 
 class CreditSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Credit
-        fields = ['specialty', 'name', 'email', 'github_page']
+        fields = ['specialty', 'name', 'email', 'github_page', 'personal_page',
+                  'behance_page', 'soundCloud_page']
 
 
 class GenreSerializer(serializers.ModelSerializer):

@@ -6,10 +6,8 @@ import GameInformationCard from '../components/cards/GameInformationCard';
 import DescriptionCard from '../components/cards/DescriptionCard';
 import DevelopersCard from '../components/cards/DevelopersCard';
 import PackageCard from '../components/cards/PackageCard';
-import ReportBugCard from '../components/cards/ReportBugCard';
 import Comment from '../components/Comments';
 import SegmentTitle from "../layout/SegmentTitle";
-import Rating from '../components/Rating';
 
 export default class GamePage extends React.Component{
     constructor (props) {
@@ -30,11 +28,12 @@ export default class GamePage extends React.Component{
         this.getFields = this.getFields.bind()
     }
 
-    getFields (title,value,divider) {
-        if (value != null) {
+    getFields (title,value,divider,whatReturn) {
+        if (value != null && value!=undefined) {
             return <h7><strong>{title}</strong>{value}{divider}</h7>;
+        } else {
+            return whatReturn;
         }
-        return null;
     }
 
   loadGameFromServer(){
@@ -69,7 +68,7 @@ export default class GamePage extends React.Component{
     )
   }
 
-  getGameInformationCard(){
+  getGameInformationCard(id){
     return (
          <GameInformationCard
             cover_image={this.state.game.cover_image}
@@ -78,8 +77,9 @@ export default class GamePage extends React.Component{
             launch_year={this.state.game.information.launch_year}
             genres={this.state.game.information.genres}
             getFields={this.getFields}
+            pk={id}
          />
-    ) 
+    )
   }
   getDescriptionCard(){
     return (
@@ -130,28 +130,17 @@ export default class GamePage extends React.Component{
                     </Grid.Column>
 
                     <Grid.Column width={6}>
-                        {this.getGameInformationCard()}
-                        <Rating pk={id} />
+                        {this.getGameInformationCard(id)}
+                        {this.getPackageCard()}
                     </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row only='computer'>
                     <Grid.Column width={10}>
                         {this.getDescriptionCard()}
-                    </Grid.Column>
-
-                    <Grid.Column width={6}>
-                        {this.getPackageCard()}
-                        <ReportBugCard
-                            game_pk={this.state.game.pk}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row only='computer'>
-                    <Grid.Column width={10}>
                         {this.getComment(id)}
                     </Grid.Column>
+
                     <Grid.Column width={6}>
                         {this.getDevelopersCard()}
                     </Grid.Column>
@@ -166,10 +155,9 @@ export default class GamePage extends React.Component{
                 <Grid.Row only='tablet mobile'>
                     {this.getInternalSlide()}
                 </Grid.Row>
-                
+
                 <Grid.Row only='tablet mobile'>
-                    {this.getGameInformationCard()}
-                    <Rating pk={id} />
+                    {this.getGameInformationCard(id)}
                 </Grid.Row>
 
                 <Grid.Row only='tablet mobile'>
@@ -178,9 +166,6 @@ export default class GamePage extends React.Component{
 
                 <Grid.Row only='tablet mobile'>
                     {this.getPackageCard()}
-                    <ReportBugCard
-                        game_pk={this.state.game.pk}
-                    />
                 </Grid.Row>
                 <Grid.Row only='tablet mobile'>
                         {this.getDevelopersCard()}
