@@ -7,18 +7,18 @@ require("../../../assets/styles/carousel_internal_slide.css");
 // https://github.com/leandrowd/react-responsive-carousel
 
 const slideHeight = {
-  "maxHeight": "400px",
-  "height": 400,
-  "margin": "5% 5% 8%",
-  "width": "90%",
-  "position": "relative"
+    "maxHeight": "400px",
+    "height": 400,
+    "margin": "5% 5% 8%",
+    "width": "90%",
+    "position": "relative"
 };
 
 const maxHeightImage = {
-  "maxHeight": "380px",
-  "height": "50px",
-  "width": "50px",
-  "position": "relative"
+    "maxHeight": "380px",
+    "height": "50px",
+    "width": "50px",
+    "position": "relative"
 };
 
 
