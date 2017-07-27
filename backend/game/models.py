@@ -70,6 +70,9 @@ class Game(models.Model):
     def __count_packages__(self, count, package):
         return count + package.downloads
 
+    def __str__(self):
+        return '{0}'.format(self.name)
+
     def save(self, *args, **kwargs):
         self.clean_fields()
         super(Game, self).save(*args, **kwargs)

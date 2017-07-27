@@ -165,6 +165,7 @@ export default class ModalPackageCard extends React.Component {
 ModalPackageCard.propTypes = {
     button: PropTypes.object.isRequired,
     game_pk: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
     kernel: PropTypes.string.isRequired,
     gameName: PropTypes.string.isRequired
 }

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from "react";
 import PropTypes from 'prop-types';
-import {Card, Button, Grid, Icon, Message, Modal} from "semantic-ui-react";
+import {Card, Button, Grid, Icon} from "semantic-ui-react";
 import ModalPackageCard from "./ModalPackageCard"
 
 export default class PackageCard extends React.Component {
@@ -43,7 +43,6 @@ export default class PackageCard extends React.Component {
     }
 
     getButtonsPlatforms(){
-        const game_pk = this.props.game_pk
         const buttons_platforms = (this.reduceKernelPlatforms(this.props.packages)).map((value, index)=>
             this.getPackagesModal(value, index)
         )
