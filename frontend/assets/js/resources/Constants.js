@@ -21,11 +21,11 @@ export const numbersOfExibtionItems = [{
         }]
 
 export const rule = [{
-            option: 'A-Z',
+            option: 'Nome de A a Z',
             param: 'name',
             icon: 'sort alphabet ascending',
         },{
-            option: 'Z-A',
+            option: 'Nome de Z a A',
             param: '-name',
             icon: 'sort alphabet descending',
         },{

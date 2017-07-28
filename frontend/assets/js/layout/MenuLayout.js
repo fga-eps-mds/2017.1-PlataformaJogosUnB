@@ -1,7 +1,8 @@
 import React from "react"
 import {Link} from "react-router-dom"
 import SearchBox from '../components/SearchBox'
-import {Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react"
+import {Image ,Container, Grid, Header, Menu, Segment, Sidebar, Icon} from "semantic-ui-react"
+import logo_menu from "../../../public/bundles/images/logo.png"
 
 export default class MenuLayout extends React.Component {
 
@@ -41,9 +42,7 @@ export default class MenuLayout extends React.Component {
 
         return(
             <Menu.Item key={path} as={Link} to={path} active={activeItem}>
-                <Header inverted>
                     {text}
-                </Header>
             </Menu.Item>
         )
     }
@@ -53,11 +52,14 @@ export default class MenuLayout extends React.Component {
         const {activeItem} = this.state;
 
         const MenuLinks = [
-                this.getMenuItemLink('/','UnB Games',(activeItem === '/')),
-                <Menu.Item key={"/games/"} as={Link} to="/games/" active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
-                    <Header inverted><Icon color='green' name='gamepad' />Jogos</Header>
+            this.getMenuItemLink('/',<Image src={logo_menu} width='120' height='40'/>,
+                (activeItem === '/')),
+            <Menu.Item key={"/games/"} as={Link} to="/games/"
+                active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
+                        <Header inverted><Icon name='gamepad' />Jogos</Header>
                 </Menu.Item>,
-                this.getMenuItemLink('/about/','Sobre',(activeItem === '/about/'))
+            this.getMenuItemLink('/about/',<Header inverted>Sobre</Header>
+                    ,(activeItem === '/about/'))
         ]
 
         return (MenuLinks)

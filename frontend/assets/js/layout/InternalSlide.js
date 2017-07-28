@@ -1,98 +1,138 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Container} from 'semantic-ui-react';
+import ImageGallery from 'react-image-gallery';
 import imageUnavailable from '../../../public/bundles/images/imgIndisponivel.png'
-var Carousel = require('react-responsive-carousel').Carousel;
-require("../../../assets/styles/carousel_internal_slide.css");
-// https://github.com/leandrowd/react-responsive-carousel
-
-const slideHeight = {
-  "maxHeight": "400px",
-  "height": 400,
-  "margin": "5% 5% 8%",
-  "width": "90%",
-  "position": "relative"
-};
-
-const maxHeightImage = {
-  "maxHeight": "380px",
-  "height": "50px",
-  "width": "50px",
-  "position": "relative"
-};
-
+import image_video from '../../../public/bundles/images/video_default.png'
+//https://github.com/xiaolin/react-image-gallery
 
 export default class InternalSlide extends React.Component {
 
-    getImageOrVideo(media,option){
-        if (option==='image') {
-            return (
-                <div style={slideHeight} key={media.slide}>
-                     <img src={media.slide} width={"100%"} height={"100%"}/>
-                </div>
-            )
-        } else  if (option==='video'){
-            return (
-                <div key={media.video}>
-                    <video controls style={slideHeight} src={media.video} />
-                </div>
-            )
+    constructor() {
+        super()
+        this.state = {
+            showFullscreenButton: true,
+            showGalleryFullscreenButton: true,
+            showPlayButton: true,
+            showGalleryPlayButton: true,
+            showVideo: {},
         }
     }
 
-    makeElementForSlide(medias_game, option){
-        var medias = [];
-        if(typeof medias_game !== undefined){
-            medias = medias_game.map( (single_media) =>
-                this.getImageOrVideo(single_media, option))
+    _resetVideo() {
+        this.setState({showVideo: {}})
+
+        if (this.state.showPlayButton) {
+            this.setState({showGalleryPlayButton: true})
         }
-        return medias
-    }
 
-    getMedias(videos_game, images_game){
-        var videos = this.makeElementForSlide(videos_game,'video');
-        var images = this.makeElementForSlide(images_game,'image');
-
-        return images.concat(videos)
-    }
-
-    componentWillMount(){
-        this.getMedias(this.props.media_video,this.props.media_image);
-    }
-    componentDidMount(){
-        this.getMedias(this.props.media_video,this.props.media_image);
-    }
-
-    render () {
-    const mediaList = this.getMedias(this.props.media_video,this.props.media_image);
-        if(mediaList){
-            return (
-                <Carousel style={slideHeight}
-                  stopOnHover={true}
-                  infiniteLoop={true}
-                  autoPlay={true}
-                  emulateTouch={true}
-                  showStatus={false}
-                  showArrows={true}
-                  useKeyboardArrows={true}
-                  showThumbs={true}
-                  dynamicHeight={false}
-                >
-                {mediaList}
-                </Carousel>
-            );
+        if (this.state.showFullscreenButton) {
+            this.setState({showGalleryFullscreenButton: true})
         }
-        else {
-            return (
-                <Container style={maxHeightImage}>
-                    <img src={imageUnavailable} width='100%' height='100%'/>
-                </Container>
-            )
+    }
+
+    _toggleShowVideo(url) {
+        this.state.showVideo[url] = !this.state.showVideo[url]
+        this.setState({
+            showVideo: this.state.showVideo
+        });
+
+        if (this.state.showVideo[url]) {
+            if (this.state.showPlayButton) {
+                this.setState({showGalleryPlayButton: false})
+            }
+
+            if (this.state.showFullscreenButton) {
+                this.setState({showGalleryFullscreenButton: false})
+            }
         }
-   }
+    }
+
+    _renderVideo(item) {
+        return (
+            <div className='image-gallery-image'>
+                {
+                    this.state.showVideo[item.embedUrl] ?
+                        <div className='video-wrapper'>
+                            <a
+                                className='close-video'
+                                onClick={this._toggleShowVideo.bind(this, item.embedUrl)}
+                            />
+                        <iframe
+                            width='100%'
+                            height='390px'
+                            maxHeight='400px'
+                            src={item.embedUrl}
+                            frameBorder='0'
+                            allowFullScreen
+                        />
+                        </div>
+                        :
+                        <a onClick={this._toggleShowVideo.bind(this, item.embedUrl)}>
+                            <div className='play-button'></div>
+                        <img src={item.original}/>
+                        {
+                            item.description &&
+                                <span
+                                    className='image-gallery-description'
+                                    style={{right: '0', left: 'initial'}}
+                                >
+                                    {item.description}
+                                </span>
+                        }
+                    </a>
+                }
+            </div>
+        );
+    }
+
+
+    mountMediaSlide(medias,isImage){
+        const mountMedia = (medias).map((media) => {
+            let original_media = media.slide
+            let thumbnail_media = media.slide
+            if(!isImage){
+                return {
+                    "original": image_video,
+                    "thumbnail": image_video,
+                    "embedUrl": media.video,
+                    "renderItem": this._renderVideo.bind(this),
+                }
+            } else {
+                return {
+                    "original": original_media,
+                    "thumbnail": thumbnail_media,
+                }
+            }
+        })
+        return mountMedia
+    }
+
+    getMedias(){
+        let images = this.mountMediaSlide(this.props.medias_images, true)
+        let videos = this.mountMediaSlide(this.props.medias_videos, false)
+        let medias = images.concat(videos)
+
+        if(medias.length > 0){
+            return medias
+        } else {
+            return [{"original": imageUnavailable, "thumbnail": imageUnavailable}]
+        }
+    }
+
+    render() {
+        return (
+            <ImageGallery
+                slideOnThumbnailHover={true}
+                items={this.getMedias()}
+                slideInterval={5000}
+                showPlayButton={true}
+                autoPlay={true}
+            />
+        )
+    }
 }
 
 InternalSlide.propTypes = {
-    media_video: PropTypes.array.isRequired,
-    media_image: PropTypes.array.isRequired,
+    medias_images: PropTypes.array.isRequired,
+    medias_videos: PropTypes.array.isRequired,
 }

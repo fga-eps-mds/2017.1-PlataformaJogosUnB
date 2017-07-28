@@ -48,7 +48,7 @@ export default class IndexSlider extends React.Component {
 
     componentWillMount () {
 
-        dataListApi("/api/games/", (games) => { 
+        dataListApi("/api/games/", (games) => {
             this.setState({games})
         });
 
@@ -115,5 +115,4 @@ export default class IndexSlider extends React.Component {
         return images;
     }
 
-} 
-    
+}

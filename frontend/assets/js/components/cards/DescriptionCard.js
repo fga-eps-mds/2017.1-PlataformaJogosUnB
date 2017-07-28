@@ -30,7 +30,7 @@ export default class DescriptionCard extends React.Component {
 
         return (
             <Card fluid>
-                {this.getDescription('Descrição', this.props.description)}
+                {this.getDescription('Sobre o Jogo', this.props.description)}
                 <Card fluid>
                     {this.getAwards(awards)}
                 </Card>
