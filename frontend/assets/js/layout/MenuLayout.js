@@ -56,7 +56,7 @@ export default class MenuLayout extends React.Component {
                 (activeItem === '/')),
             <Menu.Item key={"/games/"} as={Link} to="/games/"
                 active={activeItem === "/games/"|| this.checkUrlForGenre() === true}>
-                    <Header inverted><Icon color='green' name='gamepad' />Jogos</Header>
+                        <Header inverted><Icon name='gamepad' />Jogos</Header>
                 </Menu.Item>,
             this.getMenuItemLink('/about/',<Header inverted>Sobre</Header>
                     ,(activeItem === '/about/'))

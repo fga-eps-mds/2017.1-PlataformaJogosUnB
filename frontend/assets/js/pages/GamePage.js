@@ -156,23 +156,23 @@ export default class GamePage extends React.Component{
                     {this.getInternalSlide()}
                 </Grid.Row>
 
-            <Grid.Row only='tablet mobile'>
-                {this.getGameInformationCard(id)}
-            </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                    {this.getGameInformationCard(id)}
+                </Grid.Row>
 
-            <Grid.Row only='tablet mobile'>
-                {this.getDescriptionCard()}
-            </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                    {this.getDescriptionCard()}
+                </Grid.Row>
 
-            <Grid.Row only='tablet mobile'>
-                {this.getPackageCard()}
-            </Grid.Row>
-            <Grid.Row only='tablet mobile'>
-                {this.getDevelopersCard()}
-            </Grid.Row>
-            <Grid.Row only='tablet mobile'>
-                {this.getComment(id)}
-            </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                    {this.getPackageCard()}
+                </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                    {this.getDevelopersCard()}
+                </Grid.Row>
+                <Grid.Row only='tablet mobile'>
+                    {this.getComment(id)}
+                </Grid.Row>
             </Grid>
         )
     }

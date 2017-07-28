@@ -125,7 +125,8 @@ export default class InternalSlide extends React.Component {
                 slideOnThumbnailHover={true}
                 items={this.getMedias()}
                 slideInterval={5000}
-                showPlayButton={false}
+                showPlayButton={true}
+                autoPlay={true}
             />
         )
     }

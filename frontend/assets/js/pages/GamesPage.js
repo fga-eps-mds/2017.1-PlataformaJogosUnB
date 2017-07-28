@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import SegmentTitle from "../layout/SegmentTitle";
 import {Container, Grid, Menu, Button, Icon} from "semantic-ui-react";
 import GameList from "../components/GameList";
 import Items from "../components/filter_items/Items";
@@ -167,10 +166,6 @@ export default class GamesPage extends React.Component {
             <div>
             <Container>
                 <Grid>
-                    <Grid.Row>
-                        <SegmentTitle title={'Lista de Jogos'} />
-                    </Grid.Row>
-
                     {this.getMenuFilters(true, "tablet mobile")}
                     {this.getMenuFilters(false,"computer")}
 
