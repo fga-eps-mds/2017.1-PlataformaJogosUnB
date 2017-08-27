@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from information.models import Rating, Information, Genre
 from information.serializers import GenreSerializer
 from rest_framework import permissions
@@ -30,11 +31,11 @@ class VoteView(APIView):
         try:
             rating.save()
 #            logout(request)
-            return Response({'status': 'Vote successfully done.'},
+            return Response({'status': _('Vote successfully done.')},
                             status.HTTP_201_CREATED,
                             template_name="game/index.html")
         except BaseException:
-            return Response({'status': 'The vote could not be done.'},
+            return Response({'status': _('The vote could not be done.')},
                             status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, pk=None):

@@ -1,15 +1,15 @@
 from django.utils.translation import ugettext_lazy as _
 
 AWARDS_CHOICES = (
-    ('Melhor Jogo', _('Melhor Jogo')),
-    ('Melhor Arte', _('Melhor Arte')),
-    ('Melhor Trilha Sonora', _('Melhor Trilha Sonora')),
-    ('Melhor Implementação', _('Melhor Implementação')),
+    ('Melhor Jogo', _('Best game')),
+    ('Melhor Arte', _('Best art')),
+    ('Melhor Trilha Sonora', _('Best soundtrack')),
+    ('Melhor Implementação', _('Best implementation')),
 )
 
 PLACE_AWARDS_CHOICES = (
-    ('Primeiro Lugar', _('Primeiro Lugar')),
-    ('Segundo Lugar', _('Segundo Lugar')),
-    ('Terceiro Lugar', _('Terceiro Lugar')),
-    ('Menção Honrosa', _('Menção Honrosa')),
+    ('Primeiro Lugar', _('First place')),
+    ('Segundo Lugar', _('Second place')),
+    ('Terceiro Lugar', _('Third place')),
+    ('Menção Honrosa', _('Honorable mention')),
 )
