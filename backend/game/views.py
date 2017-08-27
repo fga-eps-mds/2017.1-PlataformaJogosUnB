@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from game.models import Game, Package, Platform
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 from game.serializers import (
     GameSerializer, PackageSerializer, PlatformSerializer
 )
@@ -198,4 +199,4 @@ def downloads(request, pk=None):
     package = get_object_or_404(Package, pk=pk)
     package.downloads += 1
     package.save()
-    return Response({'update': 'downloads count increase'})
+    return Response({'update': _('downloads count increase')})

@@ -5,6 +5,7 @@ from media.serializers import ImageSerializer
 from media.serializers import VideoSerializer
 from media.serializers import SoundtrackSerializer
 from core.validators import IMAGE_ALLOWED_EXTENSIONS
+from django.utils.translation import ugettext_lazy as _
 
 from core.settings import MEDIA_ROOT
 from PIL import Image
@@ -88,7 +89,7 @@ class GameSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data.get('extension') not in IMAGE_ALLOWED_EXTENSIONS:
-            raise serializers.ValidationError("invalid image extension")
+            raise serializers.ValidationError(_("invalid image extension"))
         return data
 
     def __image_decode__(self, name, extension, data):

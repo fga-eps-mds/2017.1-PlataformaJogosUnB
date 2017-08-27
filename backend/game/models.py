@@ -21,6 +21,10 @@ from django.template.defaultfilters import filesizeformat
 
 class Game(models.Model):
 
+    class Meta:
+        verbose_name = _('game')
+        verbose_name_plural = _('games')
+
     PACKAGE_SUM_QUERY = "SELECT SUM(game_package.downloads) FROM "\
                         "game_package WHERE game_package.game_id = "\
                         "game_game.id"
@@ -80,10 +84,14 @@ class Game(models.Model):
 
 class Platform(models.Model):
 
+    class Meta:
+        verbose_name = _('platform')
+        verbose_name_plural = _('platforms')
+
     name = models.CharField(
         _('Platform name'),
         max_length=50,
-        help_text=('Name of the platform'),
+        help_text=_('Name of the platform'),
     )
 
     extensions = models.CharField(
@@ -128,6 +136,10 @@ class Platform(models.Model):
 
 
 class Package(models.Model):
+
+    class Meta:
+        verbose_name = _('package')
+        verbose_name_plural = _('packages')
 
     package = models.FileField(
         _('Package'),
