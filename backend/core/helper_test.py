@@ -80,9 +80,9 @@ class ErrorMessage(Enum):
 
     NULL = 'Este campo não pode ser nulo.'
 
-    BLANK = "Este campo não pode estar vazio."
+    BLANK = "Este campo não pode ser vazio."
 
-    NOT_INTEGER = "'' valor deve ser um inteiro."
+    NOT_INTEGER = "O valor '' deve ser um número inteiro."
 
     IMAGE_EXTENSION = get_media_error_extensions()['image']
 
