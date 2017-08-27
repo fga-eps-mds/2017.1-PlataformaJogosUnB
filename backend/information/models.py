@@ -52,6 +52,10 @@ class Award(models.Model):
 
 class Credit(models.Model):
 
+    class Meta:
+        verbose_name = _('credit')
+        verbose_name_plural = _('credits')
+
     ROLE_CHOICES = [
         ('desenvolvedor', _('Developer')),
         ('design', _('Design')),
@@ -123,6 +127,10 @@ class Credit(models.Model):
 
 class Genre(models.Model):
 
+    class Meta:
+        verbose_name = _('genre')
+        verbose_name_plural = _('genres')
+
     name = models.CharField(
         _('Name'),
         max_length=100,
@@ -148,6 +156,11 @@ class Genre(models.Model):
 
 class Rating(models.Model):
 
+    class Meta:
+        unique_together = ("user_voter", "information")
+        verbose_name = _('rating')
+        verbose_name_plural = _('ratings')
+
     vote = models.BooleanField(
         _('Like or dislike some game.'),
         help_text=_('Votes of the game.')
@@ -162,6 +175,7 @@ class Rating(models.Model):
     information = models.ForeignKey(
         'Information',
         on_delete=models.CASCADE,
+        verbose_name=_('information')
     )
 
     def save(self, *args, **kwargs):
@@ -171,11 +185,12 @@ class Rating(models.Model):
     def __str__(self):
         return "{0}: {1}".format(self.user_voter, self.vote)
 
-    class Meta:
-        unique_together = ("user_voter", "information")
-
 
 class Information(models.Model):
+
+    class Meta:
+        verbose_name = _('information')
+        verbose_name_plural = _('informations')
 
     description = models.TextField(
         _('Description'),
@@ -208,22 +223,27 @@ class Information(models.Model):
         Game,
         on_delete=models.CASCADE,
         primary_key=True,
+        verbose_name=_('game')
     )
 
     credits = models.ManyToManyField(
         Credit,
-        related_name='credits'
+        related_name='credits',
+        verbose_name=_('credits')
     )
 
     genres = models.ManyToManyField(
         Genre,
-        related_name='genres'
+        related_name='genres',
+        verbose_name=_('genres')
+
     )
 
     awards = models.ManyToManyField(
         Award,
         related_name='awards',
-        blank=True
+        blank=True,
+        verbose_name=_('awards')
     )
 
     def save(self, *args, **kwargs):

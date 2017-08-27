@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: marcelohpf@gmail.com\n"
-"POT-Creation-Date: 2017-08-26 23:37-0300\n"
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-27 00:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marcelo Ferreira <marcelohpf@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,16 +38,18 @@ msgstr "Acessar"
 msgid ""
 "Your package format doesn't match the platforms available. Please send a "
 "file that matchs the platforms or register the platform you need"
-msgstr "O formato do pacote não está disponibilizado em nenhuma plataforma."
-" Por favor, envie um arquivo que tenha a extenção de uma plataforma já "
-"cadastrada ou cadastre uma nova"
+msgstr ""
+"O formato do pacote não está disponibilizado em nenhuma plataforma. Por "
+"favor, envie um arquivo que tenha a extenção de uma plataforma já cadastrada "
+"ou cadastre uma nova"
 
 #: core/validators.py:25
 msgid ""
 "The version characters can only be either a '.' or a digit and can't have 2 "
 "followed '.'. Error at: % (version)s"
-msgstr "O caractere da versão deve ser um '.' ou um número. Não pode ter dois '.'"
-" seguidos."
+msgstr ""
+"O caractere da versão deve ser um '.' ou um número. Não pode ter dois '.' "
+"seguidos."
 
 #: core/validators.py:33
 msgid "There are no valid extensions"
@@ -57,6 +59,10 @@ msgstr "Não há extensões válidas"
 #, python-format
 msgid "Accepted formats: %(extensions)s and %(allowed)s"
 msgstr "Fortatos aceitos: %(extensions)s e %(allowed)s"
+
+#: game/apps.py:7 game/models.py:25 information/models.py:226
+msgid "game"
+msgstr "jogo"
 
 #: game/choices.py:4
 msgid "deb"
@@ -98,15 +104,11 @@ msgstr "Windows"
 msgid "OSX"
 msgstr "OSX"
 
-#: game/models.py:25
-msgid "game"
-msgstr "jogo"
-
 #: game/models.py:26
 msgid "games"
 msgstr "jogos"
 
-#: game/models.py:33 information/models.py:70 information/models.py:127
+#: game/models.py:33 information/models.py:74 information/models.py:135
 msgid "Name"
 msgstr "Nome"
 
@@ -120,7 +122,8 @@ msgstr "Imagem de capa (1920x180 recomendado)"
 
 #: game/models.py:42
 msgid "ASPECT RATIO EXPECTED IS 16:9 OR IMAGE WILL NOT FIT CORRECTLY IN CARD. "
-msgstr "O ASPECT RATIO ESPERADO É 16:9, CASO CONTRÁRIO, A IMAGEM NÃO FICARÁ BOA NO CARTÃO."
+msgstr ""
+"O ASPECT RATIO ESPERADO É 16:9 OU A IMAGEM NÃO FICARÁ AJUSTADA NO CARTÃO"
 
 #: game/models.py:55
 msgid "Official Repository"
@@ -201,11 +204,17 @@ msgstr "extensão inválida da imagem"
 #: game/validators.py:28
 #, python-format
 msgid "Please keep filesize under %(size)s. Current filesize %(cur_size)s"
-msgstr "Por favor, mantenha o tamanho do arquivo abaixo de %(size)s. O atual é %(cur_size)s"
+msgstr ""
+"Por favor, mantenha o tamanho do arquivo abaixo de %(size)s. O atual é "
+"%(cur_size)s"
 
 #: game/views.py:202
 msgid "downloads count increase"
 msgstr "contagem de downloads aumentou"
+
+#: information/apps.py:7 information/models.py:178 information/models.py:192
+msgid "information"
+msgstr "informação"
 
 #: information/choices.py:4
 msgid "Best game"
@@ -243,7 +252,7 @@ msgstr "Menção honrosa"
 msgid "award"
 msgstr "prêmio"
 
-#: information/models.py:27
+#: information/models.py:27 information/models.py:246
 msgid "awards"
 msgstr "prêmios"
 
@@ -264,150 +273,178 @@ msgid "Placing of the game."
 msgstr "Colocação do jogo"
 
 #: information/models.py:56
+msgid "credit"
+msgstr "crédito"
+
+#: information/models.py:57 information/models.py:232
+msgid "credits"
+msgstr "créditos"
+
+#: information/models.py:60
 msgid "Developer"
 msgstr "Desenvolvedor"
 
-#: information/models.py:57
+#: information/models.py:61
 msgid "Design"
 msgstr "Design"
 
-#: information/models.py:58
+#: information/models.py:62
 msgid "Musician"
 msgstr "Músico"
 
-#: information/models.py:62
+#: information/models.py:66
 msgid "Specialization"
 msgstr "Especialização"
 
-#: information/models.py:66
+#: information/models.py:70
 msgid "Select the type of project contributor."
 msgstr "Selecione o tipo do contribuidor"
 
-#: information/models.py:72
+#: information/models.py:76
 msgid "Collaborator's name."
 msgstr "Nome do colaborador"
 
-#: information/models.py:76
+#: information/models.py:80
 msgid "E-mail"
 msgstr "E-mail"
 
-#: information/models.py:81
+#: information/models.py:85
 msgid "Collaborator's e-mail."
 msgstr "E-mail do colaborador"
 
-#: information/models.py:85
+#: information/models.py:89
 msgid "Github page"
 msgstr "Página do Github"
 
-#: information/models.py:89
+#: information/models.py:93
 msgid "Collaborator's Github page."
 msgstr "Página do colaborador no Github"
 
-#: information/models.py:93
+#: information/models.py:97
 msgid "Behance page"
 msgstr "Página do Behance"
 
-#: information/models.py:97
+#: information/models.py:101
 msgid "Collaborator's Behance page."
 msgstr "Página do colaborador no Behance"
 
-#: information/models.py:101
+#: information/models.py:105
 msgid "SoundCloud page"
 msgstr "Página do SoundCloud"
 
-#: information/models.py:105
+#: information/models.py:109
 msgid "Collaborator's SoundCloud page."
 msgstr "Página do colaborador no SoundCloud"
 
-#: information/models.py:109
+#: information/models.py:113
 msgid "Profile"
 msgstr "Perfil"
 
-#: information/models.py:113
+#: information/models.py:117
 msgid "Some page with the collaborator's curriculum."
 msgstr "Alguma página do colaborador com o currículo"
 
-#: information/models.py:133 information/models.py:181
+#: information/models.py:131
+msgid "genre"
+msgstr "gênero"
+
+#: information/models.py:132 information/models.py:238
+msgid "genres"
+msgstr "gêneros"
+
+#: information/models.py:141 information/models.py:196
 msgid "Description"
 msgstr "Descrição"
 
-#: information/models.py:136
+#: information/models.py:144
 msgid "A genre description must have at least 20 characters!"
 msgstr "Uma descrição de gênero deve ter no mínimo 20 caracteres!"
 
-#: information/models.py:138
+#: information/models.py:146
 msgid "Describe the genre."
 msgstr "Descreva o gênero."
 
-#: information/models.py:152
+#: information/models.py:161
+msgid "rating"
+msgstr "voto"
+
+#: information/models.py:162
+msgid "ratings"
+msgstr "votos"
+
+#: information/models.py:165
 msgid "Like or dislike some game."
 msgstr "Gostei ou não gostei do jogo."
 
-#: information/models.py:153
+#: information/models.py:166
 msgid "Votes of the game."
 msgstr "Votos do jogo"
 
-#: information/models.py:157
+#: information/models.py:170
 msgid "User voter"
 msgstr "Votos do usuário"
 
-#: information/models.py:159
+#: information/models.py:172
 msgid "Authentic users."
 msgstr "Usuário autenticado."
 
-#: information/models.py:184
+#: information/models.py:193
+msgid "informations"
+msgstr "informações"
+
+#: information/models.py:199
 msgid "A game description must have at least 50 characters!"
 msgstr "Uma descrição de jogo deve ter no mínimo 50 caracteres!"
 
-#: information/models.py:186
+#: information/models.py:201
 msgid "Describe the game."
 msgstr "Descreva o jogo"
 
-#: information/models.py:190
+#: information/models.py:205
 msgid "Launch Year"
 msgstr "Ano de lançamento"
 
-#: information/models.py:192
+#: information/models.py:207
 msgid "Which was the year the game was launched?"
 msgstr "Qual foi o ano de estréia do jogo?"
 
-#: information/models.py:196
+#: information/models.py:211
 msgid "Semester"
 msgstr "Semestre"
 
-#: information/models.py:199
+#: information/models.py:214
 msgid "The semester can't be lower than 1"
 msgstr "O semestre não pode ser menor do que 1"
 
-#: information/models.py:200
+#: information/models.py:215
 msgid "The semester can't be higher than 2"
 msgstr "O semesetre não pode ser maior do que 2"
 
-#: information/models.py:202
+#: information/models.py:217
 msgid "Which was the semester the game was launched?"
 msgstr "Qual foi o semestre que o jogo foi lançado?"
 
-#: information/models.py:203
+#: information/models.py:218
 msgid "1"
 msgstr "1"
 
-#: information/models.py:203
+#: information/models.py:218
 msgid "2"
 msgstr "2"
 
-#: information/models.py:252
+#: information/models.py:272
 msgid "Dowloads Amount"
 msgstr "Quantidade de downloads"
 
-#: information/models.py:253
+#: information/models.py:273
 msgid "Amount of downloads of the game."
 msgstr "Quantidade de downloads do jogo"
 
-#: information/models.py:257
+#: information/models.py:277
 msgid "Accesses Amount"
 msgstr "Quantidade de acessos"
 
-#: information/models.py:258
+#: information/models.py:278
 msgid "Amount of accesses to the game."
 msgstr "Quantidades de vezes que o jogo foi acessado"
 
@@ -427,6 +464,10 @@ msgstr "Voto feito com sucesso."
 msgid "The vote could not be done."
 msgstr "O voto não pode ser efetuado."
 
+#: media/apps.py:7 media/models.py:16
+msgid "media"
+msgstr "mídia"
+
 #: media/choices.py:4
 msgid "slide"
 msgstr "slide"
@@ -435,17 +476,13 @@ msgstr "slide"
 msgid "extra"
 msgstr "extra"
 
-#: media/models.py:16
-msgid "media"
-msgstr "mídia"
-
 #: media/models.py:17
 msgid "medias"
 msgstr "mídias"
 
 #: media/models.py:25
 msgid "Role"
-msgstr "Papel"
+msgstr "Tipo"
 
 #: media/models.py:29
 msgid "Select the role of this media"
