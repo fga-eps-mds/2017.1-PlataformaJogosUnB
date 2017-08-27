@@ -1,0 +1,512 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: marcelohpf@gmail.com\n"
+"POT-Creation-Date: 2017-08-26 23:37-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Marcelo Ferreira <marcelohpf@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: Português brasileiro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/templates/registration/password_reset_complete.html:6
+msgid "Home"
+msgstr "Início"
+
+#: core/templates/registration/password_reset_complete.html:7
+msgid "Password reset"
+msgstr "Gerar nova senha"
+
+#: core/templates/registration/password_reset_complete.html:16
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Sua senha foi resetada. Você deve tentar logar novamente agora."
+
+#: core/templates/registration/password_reset_complete.html:18
+msgid "Log in"
+msgstr "Acessar"
+
+#: core/validators.py:19
+msgid ""
+"Your package format doesn't match the platforms available. Please send a "
+"file that matchs the platforms or register the platform you need"
+msgstr "O formato do pacote não está disponibilizado em nenhuma plataforma."
+" Por favor, envie um arquivo que tenha a extenção de uma plataforma já "
+"cadastrada ou cadastre uma nova"
+
+#: core/validators.py:25
+msgid ""
+"The version characters can only be either a '.' or a digit and can't have 2 "
+"followed '.'. Error at: % (version)s"
+msgstr "O caractere da versão deve ser um '.' ou um número. Não pode ter dois '.'"
+" seguidos."
+
+#: core/validators.py:33
+msgid "There are no valid extensions"
+msgstr "Não há extensões válidas"
+
+#: core/validators.py:36
+#, python-format
+msgid "Accepted formats: %(extensions)s and %(allowed)s"
+msgstr "Fortatos aceitos: %(extensions)s e %(allowed)s"
+
+#: game/choices.py:4
+msgid "deb"
+msgstr "deb"
+
+#: game/choices.py:5
+msgid "exe"
+msgstr "exe"
+
+#: game/choices.py:6
+msgid "rpm"
+msgstr "rpm"
+
+#: game/choices.py:7
+msgid "app"
+msgstr "app"
+
+#: game/choices.py:8
+msgid "sh"
+msgstr "sh"
+
+#: game/choices.py:12
+msgid "X86/32-bit"
+msgstr "X86/32-bit"
+
+#: game/choices.py:13
+msgid "AMD64/64-bit"
+msgstr "AMD64/64-bit"
+
+#: game/choices.py:17
+msgid "Linux"
+msgstr "Linux"
+
+#: game/choices.py:18
+msgid "Windows"
+msgstr "Windows"
+
+#: game/choices.py:19
+msgid "OSX"
+msgstr "OSX"
+
+#: game/models.py:25
+msgid "game"
+msgstr "jogo"
+
+#: game/models.py:26
+msgid "games"
+msgstr "jogos"
+
+#: game/models.py:33 information/models.py:70 information/models.py:127
+msgid "Name"
+msgstr "Nome"
+
+#: game/models.py:35
+msgid "What's the name of the game?"
+msgstr "Qual é o nome do jogo?"
+
+#: game/models.py:39
+msgid "Cover Image (1920x1080 recommended)"
+msgstr "Imagem de capa (1920x180 recomendado)"
+
+#: game/models.py:42
+msgid "ASPECT RATIO EXPECTED IS 16:9 OR IMAGE WILL NOT FIT CORRECTLY IN CARD. "
+msgstr "O ASPECT RATIO ESPERADO É 16:9, CASO CONTRÁRIO, A IMAGEM NÃO FICARÁ BOA NO CARTÃO."
+
+#: game/models.py:55
+msgid "Official Repository"
+msgstr "Repositório oficial"
+
+#: game/models.py:57
+msgid "What is the official repository for this game?"
+msgstr "Qual é o repositório oficial deste jogo?"
+
+#: game/models.py:61
+msgid "Active"
+msgstr "Ativo"
+
+#: game/models.py:63
+msgid "What's the status of the game?"
+msgstr "Qual é o estado do jogo?"
+
+#: game/models.py:88
+msgid "platform"
+msgstr "plataforma"
+
+#: game/models.py:89
+msgid "platforms"
+msgstr "plataformas"
+
+#: game/models.py:92
+msgid "Platform name"
+msgstr "Nome da plataforma"
+
+#: game/models.py:94
+msgid "Name of the platform"
+msgstr "Nome da plataforma"
+
+#: game/models.py:98
+msgid "Valid extension"
+msgstr "Extensão válida"
+
+#: game/models.py:104
+msgid "Select the extension that will be accepted for the packages"
+msgstr "Selecione a extensão que será aceita para os pacotes"
+
+#: game/models.py:109
+msgid "Kernel name"
+msgstr "Nome do Kernel"
+
+#: game/models.py:114
+msgid "Type of the kernel for this platform. Ex.: Linux, Windows, macOS"
+msgstr "Tipo de Kernel para esta plataforma. Ex.: Linux, Windows, MacOS"
+
+#: game/models.py:141
+msgid "package"
+msgstr "pacote"
+
+#: game/models.py:142
+msgid "packages"
+msgstr "pacotes"
+
+#: game/models.py:145
+msgid "Package"
+msgstr "Pacote"
+
+#: game/models.py:150
+msgid "Choose the game's package"
+msgstr "Selecione o pacote do jogo"
+
+#: game/models.py:167
+msgid "Architecture"
+msgstr "Arquitetura"
+
+#: game/models.py:172
+msgid "Indicate the name of architecture of package. Ex.: arm, x86, x32"
+msgstr "Qual é a arquitetura do pacote. Ex.: arm, x86, x32"
+
+#: game/serializers.py:92
+msgid "invalid image extension"
+msgstr "extensão inválida da imagem"
+
+#: game/validators.py:28
+#, python-format
+msgid "Please keep filesize under %(size)s. Current filesize %(cur_size)s"
+msgstr "Por favor, mantenha o tamanho do arquivo abaixo de %(size)s. O atual é %(cur_size)s"
+
+#: game/views.py:202
+msgid "downloads count increase"
+msgstr "contagem de downloads aumentou"
+
+#: information/choices.py:4
+msgid "Best game"
+msgstr "Melhor jogo"
+
+#: information/choices.py:5
+msgid "Best art"
+msgstr "Melhor arte"
+
+#: information/choices.py:6
+msgid "Best soundtrack"
+msgstr "Melhor trilha sonora"
+
+#: information/choices.py:7
+msgid "Best implementation"
+msgstr "Melhor implementação"
+
+#: information/choices.py:11
+msgid "First place"
+msgstr "Primeiro lugar"
+
+#: information/choices.py:12
+msgid "Second place"
+msgstr "Segundo lugar"
+
+#: information/choices.py:13
+msgid "Third place"
+msgstr "Terceiro lugar"
+
+#: information/choices.py:14
+msgid "Honorable mention"
+msgstr "Menção honrosa"
+
+#: information/models.py:26
+msgid "award"
+msgstr "prêmio"
+
+#: information/models.py:27
+msgid "awards"
+msgstr "prêmios"
+
+#: information/models.py:30
+msgid "Award name"
+msgstr "Nome do prêmio"
+
+#: information/models.py:34
+msgid "e.g: Best game"
+msgstr "Ex.: Melhor jogo"
+
+#: information/models.py:38
+msgid "Placing"
+msgstr "Colocação"
+
+#: information/models.py:42
+msgid "Placing of the game."
+msgstr "Colocação do jogo"
+
+#: information/models.py:56
+msgid "Developer"
+msgstr "Desenvolvedor"
+
+#: information/models.py:57
+msgid "Design"
+msgstr "Design"
+
+#: information/models.py:58
+msgid "Musician"
+msgstr "Músico"
+
+#: information/models.py:62
+msgid "Specialization"
+msgstr "Especialização"
+
+#: information/models.py:66
+msgid "Select the type of project contributor."
+msgstr "Selecione o tipo do contribuidor"
+
+#: information/models.py:72
+msgid "Collaborator's name."
+msgstr "Nome do colaborador"
+
+#: information/models.py:76
+msgid "E-mail"
+msgstr "E-mail"
+
+#: information/models.py:81
+msgid "Collaborator's e-mail."
+msgstr "E-mail do colaborador"
+
+#: information/models.py:85
+msgid "Github page"
+msgstr "Página do Github"
+
+#: information/models.py:89
+msgid "Collaborator's Github page."
+msgstr "Página do colaborador no Github"
+
+#: information/models.py:93
+msgid "Behance page"
+msgstr "Página do Behance"
+
+#: information/models.py:97
+msgid "Collaborator's Behance page."
+msgstr "Página do colaborador no Behance"
+
+#: information/models.py:101
+msgid "SoundCloud page"
+msgstr "Página do SoundCloud"
+
+#: information/models.py:105
+msgid "Collaborator's SoundCloud page."
+msgstr "Página do colaborador no SoundCloud"
+
+#: information/models.py:109
+msgid "Profile"
+msgstr "Perfil"
+
+#: information/models.py:113
+msgid "Some page with the collaborator's curriculum."
+msgstr "Alguma página do colaborador com o currículo"
+
+#: information/models.py:133 information/models.py:181
+msgid "Description"
+msgstr "Descrição"
+
+#: information/models.py:136
+msgid "A genre description must have at least 20 characters!"
+msgstr "Uma descrição de gênero deve ter no mínimo 20 caracteres!"
+
+#: information/models.py:138
+msgid "Describe the genre."
+msgstr "Descreva o gênero."
+
+#: information/models.py:152
+msgid "Like or dislike some game."
+msgstr "Gostei ou não gostei do jogo."
+
+#: information/models.py:153
+msgid "Votes of the game."
+msgstr "Votos do jogo"
+
+#: information/models.py:157
+msgid "User voter"
+msgstr "Votos do usuário"
+
+#: information/models.py:159
+msgid "Authentic users."
+msgstr "Usuário autenticado."
+
+#: information/models.py:184
+msgid "A game description must have at least 50 characters!"
+msgstr "Uma descrição de jogo deve ter no mínimo 50 caracteres!"
+
+#: information/models.py:186
+msgid "Describe the game."
+msgstr "Descreva o jogo"
+
+#: information/models.py:190
+msgid "Launch Year"
+msgstr "Ano de lançamento"
+
+#: information/models.py:192
+msgid "Which was the year the game was launched?"
+msgstr "Qual foi o ano de estréia do jogo?"
+
+#: information/models.py:196
+msgid "Semester"
+msgstr "Semestre"
+
+#: information/models.py:199
+msgid "The semester can't be lower than 1"
+msgstr "O semestre não pode ser menor do que 1"
+
+#: information/models.py:200
+msgid "The semester can't be higher than 2"
+msgstr "O semesetre não pode ser maior do que 2"
+
+#: information/models.py:202
+msgid "Which was the semester the game was launched?"
+msgstr "Qual foi o semestre que o jogo foi lançado?"
+
+#: information/models.py:203
+msgid "1"
+msgstr "1"
+
+#: information/models.py:203
+msgid "2"
+msgstr "2"
+
+#: information/models.py:252
+msgid "Dowloads Amount"
+msgstr "Quantidade de downloads"
+
+#: information/models.py:253
+msgid "Amount of downloads of the game."
+msgstr "Quantidade de downloads do jogo"
+
+#: information/models.py:257
+msgid "Accesses Amount"
+msgstr "Quantidade de acessos"
+
+#: information/models.py:258
+msgid "Amount of accesses to the game."
+msgstr "Quantidades de vezes que o jogo foi acessado"
+
+#: information/validators.py:25
+msgid "Our University had not been built at this time!"
+msgstr "Nossa universidade não foi construida nesta data!"
+
+#: information/validators.py:26
+msgid "We believe the {} "
+msgstr "Nós acreditamos o {}"
+
+#: information/views.py:34
+msgid "Vote successfully done."
+msgstr "Voto feito com sucesso."
+
+#: information/views.py:38
+msgid "The vote could not be done."
+msgstr "O voto não pode ser efetuado."
+
+#: media/choices.py:4
+msgid "slide"
+msgstr "slide"
+
+#: media/choices.py:5
+msgid "extra"
+msgstr "extra"
+
+#: media/models.py:16
+msgid "media"
+msgstr "mídia"
+
+#: media/models.py:17
+msgid "medias"
+msgstr "mídias"
+
+#: media/models.py:25
+msgid "Role"
+msgstr "Papel"
+
+#: media/models.py:29
+msgid "Select the role of this media"
+msgstr "Selecione o tipo desta mídia"
+
+#: media/models.py:48
+msgid "image"
+msgstr "imagem"
+
+#: media/models.py:49
+msgid "images"
+msgstr "imagens"
+
+#: media/models.py:52
+msgid "Image"
+msgstr "Imagem"
+
+#: media/models.py:56
+msgid "Images for the game. "
+msgstr "Imagens para o jogo"
+
+#: media/models.py:67
+msgid "Image has been deleted!"
+msgstr "A imagem foi removida!"
+
+#: media/models.py:73
+msgid "video"
+msgstr "vídeo"
+
+#: media/models.py:74
+msgid "videos"
+msgstr "vídeos"
+
+#: media/models.py:77
+msgid "Video"
+msgstr "Vídeo"
+
+#: media/models.py:81
+msgid "Videos for the game. "
+msgstr "Vídeos para o jogo."
+
+#: media/models.py:91
+msgid "Video has been deleted!"
+msgstr "O vídeo foi removido!"
+
+#: media/models.py:97
+msgid "soundtrack"
+msgstr "trilha sonora"
+
+#: media/models.py:98
+msgid "soundtracks"
+msgstr "trilhas sonora"
+
+#: media/models.py:101
+msgid "Soundtrack"
+msgstr "Trilha sonora"
+
+#: media/models.py:105
+msgid "Soundtracks for the game. "
+msgstr "Trilhas sonoras para o jogo."
+
+#: media/models.py:115
+msgid "Soundtrack has been deleted!"
+msgstr "Trilha sonora foi removida!"
