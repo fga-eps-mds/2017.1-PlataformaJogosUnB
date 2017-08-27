@@ -33,8 +33,8 @@ def get_valid_extensions_text(allowed_extensions):
         text = _('There are no valid extensions')
     else:
         text = _(
-            'Accepted formats: %(extensions)s and %(allowed)s' ) % \
-             {'extensions': ', '.join(allowed_extensions[:-1]),
+            'Accepted formats: %(extensions)s and %(allowed)s') % \
+            {'extensions': ', '.join(allowed_extensions[:-1]),
              'allowed': allowed_extensions[-1]}
 
     return text

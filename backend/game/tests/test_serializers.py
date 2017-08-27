@@ -81,7 +81,7 @@ class TestGameSerializer:
             'github_page': game.information.credits.first().github_page,
             'behance_page': game.information.credits.first().behance_page,
             'soundCloud_page': game.information.credits.first()
-                                .soundCloud_page,
+            .soundCloud_page,
             'personal_page': game.information.credits.first().personal_page,
             'email': game.information.credits.first().email,
             'name': game.information.credits.first().name,

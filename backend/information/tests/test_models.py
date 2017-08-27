@@ -91,8 +91,8 @@ class TestAward:
     def parametrized_str(attribute, text):
 
         error_message_max_length = "O valor "\
-                "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'" \
-                " não é uma escolha válida."
+            "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'" \
+            " não é uma escolha válida."
 
         return [
             ('', text,

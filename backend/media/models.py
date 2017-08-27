@@ -68,7 +68,7 @@ class Image(Media):
 
 
 class Video(Media):
-    
+
     class Meta:
         verbose_name = _("video")
         verbose_name_plural = _("videos")
