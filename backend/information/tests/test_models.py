@@ -90,9 +90,9 @@ class TestAward:
     @staticmethod
     def parametrized_str(attribute, text):
 
-        error_message_max_length = "Valor "\
+        error_message_max_length = "O valor "\
                 "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'" \
-                " não é uma opção válida."
+                " não é uma escolha válida."
 
         return [
             ('', text,
@@ -154,8 +154,8 @@ class TestGenreValidation:
 at least 20 characters!'
     short_description = "short description"
 
-    error_message_max_length = 'Certifique-se de que o valor tenha no '\
-        'máximo 100 caracteres (ele possui 101).'
+    error_message_max_length = 'Garanta que este valor tenha no '\
+        'máximo 100 caracteres (tem 101).'
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("description, errors_dict", [
@@ -190,8 +190,8 @@ def credit_creation():
 
 class TestCreditValidation:
 
-    error_message_max_length = 'Certifique-se de que o valor tenha no '\
-        'máximo 100 caracteres (ele possui 101).'
+    error_message_max_length = 'Garanta que este valor tenha no '\
+        'máximo 100 caracteres (tem 101).'
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("name, errors_dict", [

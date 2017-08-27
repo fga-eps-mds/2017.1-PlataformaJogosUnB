@@ -24,7 +24,7 @@ class Award(models.Model):
 
     class Meta:
         verbose_name = _('award')
-        versobe_name_plural = _('awards')
+        verbose_name_plural = _('awards')
 
     name = models.CharField(
         _('Award name'),

@@ -133,8 +133,8 @@ class TestPackage:
                 mount_error_dict(["package"], [[ErrorMessage.FILE_TOO_BIG]])
             )
 
-    ERROR_MESSAGE = "Valor 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' " \
-        "não é uma opção válida."
+    ERROR_MESSAGE = "O valor 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' " \
+        "não é uma escolha válida."
 
     @pytest.mark.django_db
     @pytest.mark.parametrize('architecture, errors_dict', [
