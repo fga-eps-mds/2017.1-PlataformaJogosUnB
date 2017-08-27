@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-27 00:26-0300\n"
+"POT-Creation-Date: 2017-08-27 00:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marcelo Ferreira <marcelohpf@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/helper_test.py:80 information/validators.py:25
+msgid "Our University had not been built at this time!"
+msgstr "Nossa universidade não foi construida nesta data!"
+
+#: core/helper_test.py:104 core/validators.py:19
+msgid ""
+"Your package format doesn't match the platforms available. Please send a "
+"file that matchs the platforms or register the platform you need"
+msgstr ""
+"O formato do pacote não está disponibilizado em nenhuma plataforma. Por "
+"favor, envie um arquivo que tenha a extenção de uma plataforma já cadastrada "
+"ou cadastre uma nova"
 
 #: core/templates/registration/password_reset_complete.html:6
 msgid "Home"
@@ -34,14 +47,9 @@ msgstr "Sua senha foi resetada. Você deve tentar logar novamente agora."
 msgid "Log in"
 msgstr "Acessar"
 
-#: core/validators.py:19
-msgid ""
-"Your package format doesn't match the platforms available. Please send a "
-"file that matchs the platforms or register the platform you need"
-msgstr ""
-"O formato do pacote não está disponibilizado em nenhuma plataforma. Por "
-"favor, envie um arquivo que tenha a extenção de uma plataforma já cadastrada "
-"ou cadastre uma nova"
+#: core/tests/test_validators.py:6 core/validators.py:33
+msgid "There are no valid extensions"
+msgstr "Não há extensões válidas"
 
 #: core/validators.py:25
 msgid ""
@@ -50,10 +58,6 @@ msgid ""
 msgstr ""
 "O caractere da versão deve ser um '.' ou um número. Não pode ter dois '.' "
 "seguidos."
-
-#: core/validators.py:33
-msgid "There are no valid extensions"
-msgstr "Não há extensões válidas"
 
 #: core/validators.py:36
 #, python-format
@@ -448,10 +452,6 @@ msgstr "Quantidade de acessos"
 msgid "Amount of accesses to the game."
 msgstr "Quantidades de vezes que o jogo foi acessado"
 
-#: information/validators.py:25
-msgid "Our University had not been built at this time!"
-msgstr "Nossa universidade não foi construida nesta data!"
-
 #: information/validators.py:26
 msgid "We believe the {} "
 msgstr "Nós acreditamos o {}"
@@ -547,3 +547,10 @@ msgstr "Trilhas sonoras para o jogo."
 #: media/models.py:115
 msgid "Soundtrack has been deleted!"
 msgstr "Trilha sonora foi removida!"
+
+#, fuzzy
+#~| msgid "Please keep filesize under %(size)s. Current filesize %(cur_size)s"
+#~ msgid "Please keep filesize under 5,0GB. Current filesize 10bytes"
+#~ msgstr ""
+#~ "Por favor, mantenha o tamanho do arquivo abaixo de %(size)s. O atual é "
+#~ "%(cur_size)s"

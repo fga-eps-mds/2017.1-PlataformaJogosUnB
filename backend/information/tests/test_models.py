@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 import pytest
 from game.factory import GameFactory
 from core.helper_test import (
@@ -43,8 +44,8 @@ class TestInformationCreation:
 
 
 class TestInformationValidation:
-    error_message_min_value = "A game description must have at least 50 \
-characters!"
+    error_message_min_value = _("A game description must have at least 50 \
+characters!")
     error_message_year_future = 'We believe the game was not won ' \
         'in the future!'
 
@@ -150,8 +151,8 @@ class TestGenre:
 
 class TestGenreValidation:
 
-    error_message_min_value = 'A genre description must have \
-at least 20 characters!'
+    error_message_min_value = _('A genre description must have'
+                                ' at least 20 characters!')
     short_description = "short description"
 
     error_message_max_length = 'Garanta que este valor tenha no '\

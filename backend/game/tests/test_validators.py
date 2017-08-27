@@ -9,8 +9,8 @@ class TestSize:
 
     @pytest.mark.django_db
     def test_size_validation(self):
-        error_message = "Please keep filesize under 5,0 GB. " \
-                        "Current filesize 10 bytes"
+        error_message = "Por favor, mantenha o tamanho do arquivo abaixo de " \
+                        "5,0 GB. O atual é 10 bytes"
         PlatformFactory()
         package_package = PackageFactory().package
         pack = patch("game.validators._get_size", return_value=1 + 5 * 1024**3)

@@ -64,7 +64,7 @@ class Image(Media):
         if self.image:
             return self.__config_str__('image')
         else:
-            return _('Image has been deleted!')
+            return str(_('Image has been deleted!'))
 
 
 class Video(Media):
@@ -88,7 +88,7 @@ class Video(Media):
             return self.__config_str__('video')
 
         else:
-            return _('Video has been deleted!')
+            return str(_('Video has been deleted!'))
 
 
 class Soundtrack(Media):
@@ -112,4 +112,4 @@ class Soundtrack(Media):
             return self.__config_str__('soundtrack')
 
         else:
-            return _('Soundtrack has been deleted!')
+            return str(_('Soundtrack has been deleted!'))

@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from core.helper_test import (
     validation_test,
     mount_error_dict,
@@ -32,7 +33,7 @@ class TestMediasStr:
         assert str(midia) == 'file = "{}", game = game'.format(
             getattr(midia, attr).name)
         setattr(midia, attr, None)
-        assert str(midia) == '{} has been deleted!'.format(attr.capitalize())
+        assert str(midia) == _('{} has been deleted!'.format(attr.capitalize()))
 
 
 class TestMediaImage:

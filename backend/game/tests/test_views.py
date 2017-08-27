@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 import pytest
 from game.serializers import (
     GameSerializer, PlatformSerializer, PackageSerializer
@@ -190,8 +191,8 @@ class TestViewGamePost:
                                      content_type="application/json",
                                      format="multipart")
         assert response.status_code == 400
-        assert response.data == {'non_field_errors': ['invalid image '
-                                                      'extension']}
+        assert response.data == {'non_field_errors': [_('invalid image '
+                                                      'extension')]}
 
     def test_remove_temp_file(self, admin_client, game_serial):
         admin_client.post("/api/games/",
@@ -264,6 +265,6 @@ class TestPlatformViewList:
         package = PackageFactory(game=game)
         respons = client.post("/api/packages/{}/downloads/".format(package.pk))
         assert 200 <= respons.status_code < 300
-        assert respons.data == {'update': 'downloads count increase'}
+        assert respons.data == {'update': _('downloads count increase')}
         downloads = Package.objects.get(pk=package.pk).downloads
         assert downloads == package.downloads + 1

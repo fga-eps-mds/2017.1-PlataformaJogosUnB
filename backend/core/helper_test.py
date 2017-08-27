@@ -1,6 +1,7 @@
 # coding: utf-8
 # Helper methods to execute tests
 import pytest
+from django.utils.translation import ugettext_lazy as _
 from enum import Enum
 from django.core.exceptions import ValidationError
 from core.validators import (
@@ -76,7 +77,7 @@ class ErrorMessage(Enum):
     def __eq__(self, other_object):
         return self.value == other_object
 
-    YEAR_PAST = 'Our University had not been built at this time!'
+    YEAR_PAST = _('Our University had not been built at this time!')
 
     NULL = 'Este campo não pode ser nulo.'
 
@@ -99,14 +100,13 @@ class ErrorMessage(Enum):
         get_file_extension_message('py', MEDIA_ALLOWED_EXTENSIONS['image'])
     ]
 
-    INVALID_PACKAGE = (
+    INVALID_PACKAGE = _(
         'Your package format doesn\'t match the platforms' +
         ' available. Please send a file that matchs the platforms' +
         ' or register the platform you need'
     )
 
     FILE_TOO_BIG = (
-        "Please keep filesize under 5,0" +
-        "\xa0GB. Current filesize 10\xa0"
-        "bytes"
+        'Por favor, mantenha o tamanho do arquivo abaixo de 5,0\xa0GB. '
+        'O atual é 10\xa0bytes'
     )

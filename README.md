@@ -43,3 +43,6 @@ Para rodar o projeto, o usuário deve entrar em contato com algum membro da equi
 
 Vizualize a plataforma:  [http://10.10.10.10:8000/](http://10.10.10.10:8000/)
 
+## Internacionalização
+
+Para gerar os arquivos de tradução do django admin para português, deve-se executar o comando: ```./manage.py compilemessages```
