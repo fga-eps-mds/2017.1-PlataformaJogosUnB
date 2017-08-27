@@ -80,6 +80,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -191,6 +192,10 @@ STATIC_ROOT = os.path.join(
     os.path.dirname(__file__),
     '../public/assets',
 )
+
+LOCALE_PATHS =  (os.path.join(BASE_DIR, 'locale/'), )
+
+LANGUAGES = [('en', 'English'), ('pt', 'Português')]
 
 # Media Files
 
