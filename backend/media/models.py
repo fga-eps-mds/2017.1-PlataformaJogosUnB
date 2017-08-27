@@ -13,6 +13,8 @@ class Media(models.Model):
 
     class Meta:
         abstract = True
+        verbose_name = _("media")
+        verbose_name_plural = _("medias")
 
     game = models.ForeignKey(
         Game,
@@ -42,6 +44,10 @@ class Media(models.Model):
 
 class Image(Media):
 
+    class Meta:
+        verbose_name = _("image")
+        verbose_name_plural = _("images")
+
     image = fields.ImageField(
         _('Image'),
         validators=[general_validators.image_extension_validator],
@@ -58,10 +64,14 @@ class Image(Media):
         if self.image:
             return self.__config_str__('image')
         else:
-            return 'Image has been deleted!'
+            return _('Image has been deleted!')
 
 
 class Video(Media):
+    
+    class Meta:
+        verbose_name = _("video")
+        verbose_name_plural = _("videos")
 
     video = fields.FileField(
         _('Video'),
@@ -78,10 +88,14 @@ class Video(Media):
             return self.__config_str__('video')
 
         else:
-            return 'Video has been deleted!'
+            return _('Video has been deleted!')
 
 
 class Soundtrack(Media):
+
+    class Meta:
+        verbose_name = _("soundtrack")
+        verbose_name_plural = _("soundtracks")
 
     soundtrack = fields.FileField(
         _('Soundtrack'),
@@ -98,4 +112,4 @@ class Soundtrack(Media):
             return self.__config_str__('soundtrack')
 
         else:
-            return 'Soundtrack has been deleted!'
+            return _('Soundtrack has been deleted!')
