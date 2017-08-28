@@ -23,8 +23,8 @@ def test_years_validator(mock):
     dt.now = TimeMock.now
     data = years_validator('MyModel')
     assert data['values'] == (1962, 2017)
-    assert data['messages'][0] == _('Our University' \
-        ' had not been built at this time!')
+    assert data['messages'][0] == _('Our University'
+                                    ' had not been built at this time!')
     assert data['messages'][1] == 'We believe the MyModel was not ' \
         'won in the future!'
 
