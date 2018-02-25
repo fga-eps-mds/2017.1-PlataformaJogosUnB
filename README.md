@@ -33,16 +33,21 @@ Dentro do repositório clonado, abra a pasta frontend e execute o comando:
 
 `npm install`
 
-Na pasta backend, execute os comandos:
+Na pasta backend, execute o comando:
 
 `pip install -r requirements.txt`
 </br> 
-`python3 manage.py runserver 0.0.0.0:8000`
 
 Visite o website ao lado para gerar uma chave secreta: [https://www.miniwebtool.com/django-secret-key-generator/](Djnago secret key generator)
 
+
 Abra o arquivo ~/.profile e cole a linha abaixo:
+</br>
 `export sk="chave_gerada"`
+
+
+Execute o comando: 
+`python3 manage.py runserver 0.0.0.0:8000`
 
 Vizualize a plataforma:  [http://10.10.10.10:8000/](http://10.10.10.10:8000/)
 
