@@ -39,7 +39,10 @@ Na pasta backend, execute os comandos:
 </br> 
 `python3 manage.py runserver 0.0.0.0:8000`
 
-Para rodar o projeto, o usuário deve entrar em contato com algum membro da equipe
+Visite o website ao lado para gerar uma chave secreta: [https://www.miniwebtool.com/django-secret-key-generator/](Djnago secret key generator)
 
-Vizualize a plataforma:  [http://10.10.10.10:8000/](http://10.10.10.10:8000/)
+Abra o arquivo ~/.profile e cole a linha abaixo:
+`export sk="chave_gerada"`
+
+Vizualize a plataforma:  [http://10.10.10.10:8000/](http://10.10.10.10:8000/)
 
