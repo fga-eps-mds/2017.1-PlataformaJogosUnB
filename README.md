@@ -38,7 +38,7 @@ Na pasta backend, execute o comando:
 `pip install -r requirements.txt`
 </br> 
 
-Visite o website ao lado para gerar uma chave secreta: [https://www.miniwebtool.com/django-secret-key-generator/](Django secret key generator)
+Visite o website ao lado para gerar uma chave secreta: [Django secret key generator](https://www.miniwebtool.com/django-secret-key-generator/)
 
 
 Abra o arquivo ~/.profile e cole a linha abaixo:
