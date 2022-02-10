@@ -30,7 +30,7 @@
     "jquery": "^3.2.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
-    "node-sass": "^4.5.3",
+    "node-sass": "^7.0.0",
     "pseudomap": "^1.0.2",
     "react-cellblock": "^3.0.0",
     "react-css-modules": "^4.3.0",
