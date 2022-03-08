@@ -19,7 +19,7 @@ Faker==0.7.12
 flake8==3.3.0
 flake8-polyfill==1.0.1
 html5lib==0.999
-httpie==0.9.9
+httpie==3.1.0
 mando==0.3.3
 Markdown==2.6.8
 mccabe==0.6.1
